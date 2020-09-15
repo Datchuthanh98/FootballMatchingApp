@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools">
+        <TextView
+            android:textSize="30dp"
+            android:textColor="#ffff33"
+            android:text="Cài đặt lịch đồng bộ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></TextView>
+
+        <LinearLayout
+            android:paddingTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/real_time_edit_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="Thời gian bắt đầu"
+                android:layout_weight="1"
+                android:focusable="false"/>
+            <Button
+                android:background="@drawable/radius_button"
+                android:id="@+id/real_time_button"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Bắt đầu"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/repeat_real_time_edit_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Khoảng thời gian lặp"/>
+            <Button
+                android:background="@drawable/radius_button"
+                android:id="@+id/repeat_real_time_button"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Bắt đầu lặp"/>
+        </LinearLayout>
+        <Button
+            android:background="@drawable/radius_button"
+            android:id="@+id/stop_real_time_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Dừng đồng bộ"
+            android:layout_gravity="center"/>
+   <LinearLayout
+       android:paddingTop="200dp"
+       android:layout_gravity="center"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content">
+
+       <Button
+           android:id="@+id/btnSignOut"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center"
+           android:layout_marginBottom="10dp"
+           android:background="@drawable/radius_button"
+           android:text="Đăng xuất" />
+
+   </LinearLayout>
+</FrameLayout>

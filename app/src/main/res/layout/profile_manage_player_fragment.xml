@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quản lý thông tin cầu thủ"
+            android:textColor="#ffff33"
+            android:textSize="30dp"/>
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:shrinkColumns="0"
+                android:stretchColumns="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Manage profile" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <Spinner
+                        android:id="@+id/listPlayerExisted"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Xem chi tiết" />
+
+                    <Button
+                        android:id="@+id/btnGetByID"
+                        android:layout_width="78dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/radius_button"
+                        android:text="Xem" />
+
+                </LinearLayout>
+
+                <TableRow>
+
+                    <ImageView
+                        android:id="@+id/imgAvatar"
+                        android:layout_width="189dp"
+                        android:layout_height="167dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/player_default" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView android:text="ID" />
+
+                    <TextView
+                        android:id="@+id/txtIDPlayer"
+                        android:hint="" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView android:text="Name"></TextView>
+
+                    <EditText
+                        android:id="@+id/txtName"
+                        android:hint=""></EditText>
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+
+                        android:text="Tuổi"></TextView>
+
+                    <EditText
+                        android:id="@+id/txtAge"
+                        android:hint=""></EditText>
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView android:text="Vị trí"></TextView>
+
+                    <Spinner android:id="@+id/listPosition"></Spinner>
+                    <!--          android:entries="@array/uchihaclan"-->
+
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView android:text="Chiều cao"></TextView>
+
+                    <EditText android:id="@+id/txtHeight"></EditText>
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView android:text="Cân Nặng"></TextView>
+
+                    <EditText android:id="@+id/txtWeight"></EditText>
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView android:text="SĐT"></TextView>
+
+                    <EditText android:id="@+id/txtPhone"></EditText>
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView android:text="Email"></TextView>
+
+                    <EditText android:id="@+id/txtEmail"></EditText>
+                </TableRow>
+                <TableRow>
+
+                    <TextView android:text="Password"></TextView>
+
+                    <EditText android:id="@+id/txtPassword"
+                        android:inputType="textPassword"
+                        ></EditText>
+                </TableRow>
+
+                <LinearLayout>
+
+                    <Button
+                        android:id="@+id/btnAdd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/radius_button"
+                        android:text="Add" />
+
+                    <Button
+                        android:id="@+id/btnReset"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/radius_button"
+                        android:text="Reset"></Button>
+                </LinearLayout>
+
+                <LinearLayout>
+
+                    <Button
+                        android:id="@+id/btnUpdate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/radius_button"
+                        android:text="update"></Button>
+
+                    <Button
+                        android:id="@+id/btnRemove"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/radius_button"
+                        android:text="Remove"></Button>
+                </LinearLayout>
+            </TableLayout>
+        </ScrollView>
+    </LinearLayout>
+</FrameLayout>

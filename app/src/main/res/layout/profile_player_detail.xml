@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+    <TextView
+        android:textSize="30dp"
+        android:textColor="#ffff33"
+        android:text="Thông tin của tôi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></TextView>
+    <TableLayout
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1"
+        >
+
+    <TableRow >
+        <ImageView
+            android:id="@+id/imgAvatar"
+            android:layout_width="189dp"
+            android:layout_height="167dp"
+            android:layout_weight="1"
+            android:src="@drawable/player_default" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="id"
+            ></TextView>
+        <EditText
+            android:id="@+id/txtIDPlayer">
+        </EditText>
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:text="Name"
+            ></TextView>
+        <EditText android:hint=""
+            android:id="@+id/txtName"
+            >
+        </EditText>
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:text="Tuổi"
+            ></TextView>
+        <EditText android:hint=""
+            android:id="@+id/txtAge"
+            >
+        </EditText>
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:text="Position"
+            ></TextView>
+        <EditText android:hint=""
+            android:id="@+id/txtPosition"/>
+
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:text="Chiều cao"
+            ></TextView>
+        <EditText
+            android:id="@+id/txtHeight"
+            >
+        </EditText>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="Cân Nặng"
+            ></TextView>
+        <EditText
+            android:id="@+id/txtWeight"
+            >
+        </EditText>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="SĐT"
+            ></TextView>
+        <EditText
+            android:hint="sdt"
+            android:id="@+id/txtPhone">
+        </EditText>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:text="Email"
+            ></TextView>
+        <EditText
+            android:id="@+id/txtEmail">
+        </EditText>
+    </TableRow>
+        <LinearLayout>
+            <Button
+                android:background="@drawable/radius_button"
+                android:id="@+id/btnSMS"
+                android:text="SMS"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></Button>
+            <Button
+                android:background="@drawable/radius_button"
+                android:id="@+id/btnCall"
+                android:text="CALL"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"></Button>
+        </LinearLayout>
+    </TableLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
