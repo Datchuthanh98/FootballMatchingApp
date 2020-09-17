@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.myclub.R;
@@ -62,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
         AdapterFragment adapter = new AdapterFragment(manager, AdapterFragment.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_clear_black_24dp);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_backspace_black_24dp);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_clear_black_24dp);
     }
 
 

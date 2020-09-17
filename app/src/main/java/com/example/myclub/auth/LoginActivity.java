@@ -37,10 +37,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        if (FirebaseAuth.getInstance().getCurrentUser() != null){
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-        }
+//        if (FirebaseAuth.getInstance().getCurrentUser() != null){
+//            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//            startActivity(intent);
+//        }
         setContentView(R.layout.login);
 
         sharedPref = getApplicationContext().getSharedPreferences("sessionUser", Context.MODE_PRIVATE);

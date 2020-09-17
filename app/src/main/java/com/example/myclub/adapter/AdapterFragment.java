@@ -47,27 +47,27 @@ public class AdapterFragment extends FragmentPagerAdapter {
         return numTab;
     }
 
-    @Nullable
-    @Override
-    public CharSequence getPageTitle(int position) {
-        switch (position){
-            case 0:
-                return "Profile";
+//    @Nullable
+//    @Override
+//    public CharSequence getPageTitle(int position) {
+//        switch (position){
+//            case 0:
+//                return "Profile";
+////            case 1:
+////                if(isOnline){
+////                    if(isManager){
+////                    return "Quản lý ";
+////                    }else{
+////                    return "Cá nhân";
+////                    }}else{
+////                    return  "Offline";
+////                }
 //            case 1:
-//                if(isOnline){
-//                    if(isManager){
-//                    return "Quản lý ";
-//                    }else{
-//                    return "Cá nhân";
-//                    }}else{
-//                    return  "Offline";
-//                }
-            case 1:
-                return "Club";
-            case 2:
-                return "Field";
-
-        }
-        return null;
-    }
+//                return "Club";
+//            case 2:
+//                return "Field";
+//
+//        }
+//        return null;
+//    }
 }
