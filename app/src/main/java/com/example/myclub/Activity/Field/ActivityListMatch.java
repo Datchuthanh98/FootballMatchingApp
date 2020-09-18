@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myclub.R;
-import com.example.myclub.adapter.RecycleViewAdapterListMatchVertical;
+import com.example.myclub.Adapter.Field.RecycleViewAdapterListMatchVertical;
 
 public class ActivityListMatch extends AppCompatActivity {
     private RecyclerView recyclerView;

@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+
+
+        <import type="android.view.View" />
+
+<!--        <variable-->
+<!--            name="viewModel"-->
+<!--            type="ryan.ptit.smartcollege.ui.accountManage.profile.EditProfileViewModel" />-->
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@android:color/white">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -38,7 +51,10 @@
                 android:src="@drawable/ic_baseline_check_white_24"/>
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
+
+
     <LinearLayout
+        android:layout_margin="10dp"
         android:orientation="vertical"
        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -47,7 +63,10 @@
         android:layout_width="0dp"
         android:layout_height="0dp">
  <TextView
-     android:text="Tên"
+     android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
+     android:text=" Name Player"
+     android:textStyle="bold"
+     android:textSize="15dp"
      android:layout_width="match_parent"
      android:layout_height="wrap_content"></TextView>
         <EditText
@@ -55,7 +74,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></EditText>
         <TextView
-            android:text="Phone"
+            android:drawableStart="@drawable/ic_baseline_phone_24_green"
+            android:text=" Phone"
+            android:textStyle="bold"
+            android:textSize="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></TextView>
         <EditText
@@ -63,7 +85,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></EditText>
         <TextView
-            android:text="Email"
+            android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
+            android:text=" Email"
+            android:textStyle="bold"
+            android:textSize="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></TextView>
         <EditText
@@ -74,3 +99,4 @@
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

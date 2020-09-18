@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myclub.R;
-import com.example.myclub.adapter.RecycleViewAdapterListPlayerVertical;
+import com.example.myclub.Adapter.Player.RecycleViewAdapterListPlayerVertical;
 
 public class ActivityListField extends AppCompatActivity {
     private RecyclerView recyclerView;

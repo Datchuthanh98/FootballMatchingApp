@@ -42,7 +42,7 @@
       android:layout_height="wrap_content"
       android:layout_margin="10dp"
       android:background="#F0F8FF"
-      android:drawableLeft="@drawable/ic_https_black_24dp"
+      android:drawableLeft="@drawable/ic_account_circle_black_24dp"
       android:drawablePadding="10dp"
       android:hint="Password"
       android:inputType="textPassword"

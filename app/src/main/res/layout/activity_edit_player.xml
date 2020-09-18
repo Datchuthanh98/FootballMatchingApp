@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+
+        <import type="android.view.View" />
+
+        <!--        <variable-->
+        <!--            name="viewModel"-->
+        <!--            type="ryan.ptit.smartcollege.ui.accountManage.profile.EditProfileViewModel" />-->
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -17,13 +28,14 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:textColor="@color/white"
                 android:id="@+id/title"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:text="Edit profile"
-                android:textSize="30sp" />
+                android:textSize="20dp" />
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
@@ -34,6 +46,7 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <LinearLayout
+            android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -49,6 +62,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:textColor="@color/colorTittle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -56,20 +70,20 @@
                         android:textSize="20dp"
                         android:textStyle="bold"></TextView>
 
-                    <Button
+                    <ImageButton
+
+                        android:background="@drawable/ic_baseline_edit_30_black"
                         android:id="@+id/btnEditAvatar"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Edit"
-                        android:textSize="20dp"
-                        android:textStyle="bold"></Button>
+                        android:textStyle="bold"></ImageButton>
                 </LinearLayout>
 
-                <ImageView
+                <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="400dp"
                     android:background="@drawable/avatar"
-                    android:scaleType="fitXY"></ImageView>
+                    android:scaleType="fitXY"></ImageButton>
             </LinearLayout>
 
             <LinearLayout
@@ -83,6 +97,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:textColor="@color/colorTittle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -90,20 +105,25 @@
                         android:textSize="20dp"
                         android:textStyle="bold"></TextView>
 
-                    <Button
+                    <ImageButton
                         android:id="@+id/btnEditCover"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Edit"
-                        android:textSize="20dp"
-                        android:textStyle="bold"></Button>
+                        android:background="@drawable/ic_baseline_edit_30_black"
+                        android:textStyle="bold"></ImageButton>
                 </LinearLayout>
 
-                <ImageView
+                <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="400dp"
                     android:background="@drawable/anhbia"
-                    android:scaleType="fitXY"></ImageView>
+                    android:scaleType="fitXY"></ImageButton>
+
+                <FrameLayout
+                    android:id="@+id/container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
             </LinearLayout>
 
 
@@ -113,6 +133,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:textColor="@color/colorTittle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -120,13 +141,13 @@
                     android:textSize="20dp"
                     android:textStyle="bold"></TextView>
 
-                <Button
+                <ImageButton
                     android:id="@+id/btnEditBasic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Edit"
-                    android:textSize="20dp"
-                    android:textStyle="bold"></Button>
+                    android:background="@drawable/ic_baseline_edit_30_black"
+                    android:textStyle="bold"></ImageButton>
             </LinearLayout>
 
             <LinearLayout
@@ -135,19 +156,26 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tên : Chu Thành Đạt"></TextView>
-
+                    android:text=" Chu Thanh Dat"/>
                 <TextView
+                    android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Phone : 0984060798"></TextView>
-
+                    android:text=" datchuthanh98@gmail.com"/>
                 <TextView
+                    android:drawableStart="@drawable/ic_baseline_phone_24_green"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Email : datchuthanh98@gmail.com"></TextView>
+                    android:text=" 0984060798"/>
             </LinearLayout>
 
             <LinearLayout
@@ -156,20 +184,20 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:textColor="@color/colorTittle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Information Player"
+                    android:text="Information player"
                     android:textSize="20dp"
                     android:textStyle="bold"></TextView>
 
-                <Button
+                <ImageButton
                     android:id="@+id/btnEditPlayer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Edit"
-                    android:textSize="20dp"
-                    android:textStyle="bold"></Button>
+                    android:background="@drawable/ic_baseline_edit_30_black"
+                    android:textStyle="bold"></ImageButton>
             </LinearLayout>
 
             <LinearLayout
@@ -178,36 +206,47 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Age :20"></TextView>
-
+                    android:text=" 06/07/1998"/>
                 <TextView
+                    android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Height : 170"></TextView>
-
+                    android:text=" 170 cm"/>
+               <TextView
+                android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" 59 kg"/>
                 <TextView
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Weight : 60"></TextView>
-
+                    android:text=" 10"/>
                 <TextView
+                    android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Number Shirt : 10"></TextView>
-
-
+                    android:text=" ST"/>
                 <TextView
+                    android:drawableStart="@drawable/ic_baseline_phone_24_green"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Postion Shirt : ST"></TextView>
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="nice foot : Right"></TextView>
+                    android:text=" Right"/>
 
             </LinearLayout>
 
@@ -217,6 +256,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:textColor="@color/colorTittle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -224,27 +264,24 @@
                     android:textSize="20dp"
                     android:textStyle="bold"></TextView>
 
-                <Button
+                <ImageButton
+                    android:background="@drawable/ic_baseline_edit_30_black"
                     android:id="@+id/btnEditIntroduce"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Edit"
                     android:textSize="20dp"
-                    android:textStyle="bold"></Button>
+                    android:textStyle="bold"></ImageButton>
             </LinearLayout>
 
             <TextView
+                android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="
 Eden Michael Hazard là một cầu thủ bóng đá người Bỉ hiện đang chơi ở vị trí tiền đạo cho câu lạc bộ Real Madrid tại La Liga cũng như thi đấu cho đội tuyển Bỉ ở các giải đấu cấp độ đội tuyển. Anh là đội trưởng đội tuyển Bỉ." />
-
-
         </LinearLayout>
     </ScrollView>
 
-    <FrameLayout
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

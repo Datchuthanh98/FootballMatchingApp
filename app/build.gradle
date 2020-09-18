@@ -25,6 +25,10 @@ android {
     configurations {
         compile.exclude group: "junit", module: "junit"
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {

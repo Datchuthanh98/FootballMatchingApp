@@ -7,8 +7,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.myclub.R;
-import com.example.myclub.adapter.AdapterFragmentProfile;
-import com.example.myclub.animation.HorizontalFlipTransformation;
+import com.example.myclub.Adapter.Player.AdapterFragmentProfile;
+import com.example.myclub.Animation.HorizontalFlipTransformation;
 import com.google.android.material.tabs.TabLayout;
 
 public class ActivityMainPlayer extends AppCompatActivity {
