@@ -1,4 +1,4 @@
-package com.example.myclub.Activity;
+package com.example.myclub.Activity.Player;
 
 import android.os.Bundle;
 
@@ -11,7 +11,7 @@ import com.example.myclub.adapter.AdapterFragmentProfile;
 import com.example.myclub.animation.HorizontalFlipTransformation;
 import com.google.android.material.tabs.TabLayout;
 
-public class MainProfileActivity extends AppCompatActivity {
+public class ActivityMainPlayer extends AppCompatActivity {
 //    private String emailLogin, phoneLogin;
 //    private SQLiteHelper sqLiteHelper;
 //    private boolean isManager, isOnline;
@@ -20,7 +20,7 @@ public class MainProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.main_profile_activity);
+        setContentView(R.layout.activity_main_profile);
         super.onCreate(savedInstanceState);
 
 //        sharedPref = getApplicationContext().getSharedPreferences("sessionUser", Context.MODE_PRIVATE);

@@ -8,9 +8,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.example.myclub.Activity.Field.ActivityMainField;
+import com.example.myclub.Activity.Player.ActivityMainPlayer;
+import com.example.myclub.Activity.Team.ActivityMainTeam;
 import com.example.myclub.R;
 
-public class HomeActivity extends AppCompatActivity {
+public class ActivityHome extends AppCompatActivity {
 
     private  CardView cardProfile;
     private  CardView cardTeam;
@@ -20,7 +23,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_activity);
+        setContentView(R.layout.activity_home);
         cardProfile  = findViewById( R.id.cardProfile);
         cardTeam  = findViewById( R.id.cardTeams);
         cardListTeam  = findViewById( R.id.cardListTeam);
@@ -29,7 +32,7 @@ public class HomeActivity extends AppCompatActivity {
         cardProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainProfileActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ActivityMainPlayer.class);
                 startActivity(intent);
             }
         });
@@ -37,7 +40,7 @@ public class HomeActivity extends AppCompatActivity {
         cardTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainTeamActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ActivityMainTeam.class);
                 startActivity(intent);
             }
         });
@@ -45,7 +48,7 @@ public class HomeActivity extends AppCompatActivity {
         cardListTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainTeamActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ActivityMainTeam.class);
                 startActivity(intent);
             }
         });
@@ -53,7 +56,7 @@ public class HomeActivity extends AppCompatActivity {
         cardListField.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainFieldActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ActivityMainField.class);
                 startActivity(intent);
             }
         });

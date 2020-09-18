@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myclub.Activity.InformationPlayerActivity;
+import com.example.myclub.Activity.Player.ActivityInformationPlayer;
 import com.example.myclub.R;
 import com.example.myclub.model.Player;
 import com.google.firebase.storage.FirebaseStorage;
@@ -75,7 +75,7 @@ public class RecycleViewAdapterListPlayerHorizontal extends RecyclerView.Adapter
        holder.cardView.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               Intent intent = new Intent(holder.cardView.getContext(), InformationPlayerActivity.class);
+               Intent intent = new Intent(holder.cardView.getContext(), ActivityInformationPlayer.class);
                holder.cardView.getContext().startActivity(intent);
            }
        });

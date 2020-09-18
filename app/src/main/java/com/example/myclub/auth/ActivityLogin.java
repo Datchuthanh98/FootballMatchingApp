@@ -15,16 +15,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myclub.Activity.HomeActivity;
+import com.example.myclub.Activity.ActivityHome;
 import com.example.myclub.R;
-import com.example.myclub.Activity.MainProfileActivity;
+import com.example.myclub.Activity.Player.ActivityMainPlayer;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class LoginActivity extends AppCompatActivity {
+public class ActivityLogin extends AppCompatActivity {
 
     private Button btnEmail;
     private  Button btnOff;
@@ -55,20 +55,20 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(TextUtils.isEmpty(txtEmail.getText().toString())){
-                    Toast.makeText(LoginActivity.this, "Pleas Enter Email Address", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityLogin.this, "Pleas Enter Email Address", Toast.LENGTH_SHORT).show();
                 }
                 else if(!Patterns.EMAIL_ADDRESS.matcher(txtEmail.getText().toString()).matches()){
-                    Toast.makeText(LoginActivity.this, "Pleas Enter valid Email Address", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityLogin.this, "Pleas Enter valid Email Address", Toast.LENGTH_SHORT).show();
                 }
                 else  if(TextUtils.isEmpty(txtPassword.getText().toString())){
-                    Toast.makeText(LoginActivity.this, "Pleas Enter Password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityLogin.this, "Pleas Enter Password", Toast.LENGTH_SHORT).show();
                 }
                 else if(txtPassword.getText().toString().length()<6){
-                    Toast.makeText(LoginActivity.this, "Pleas Enter 6 or more than digit password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityLogin.this, "Pleas Enter 6 or more than digit password", Toast.LENGTH_SHORT).show();
                 }
                 else {
 
-                    loginLoading = new Dialog(LoginActivity.this);
+                    loginLoading = new Dialog(ActivityLogin.this);
                     loginLoading.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     loginLoading.setContentView(R.layout.custom_loading_layout);
                     loginLoading.setCancelable(false);
@@ -80,8 +80,8 @@ public class LoginActivity extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(AuthResult authResult) {
                                     FirebaseUser user = authResult.getUser();
-                                    Toast.makeText(LoginActivity.this, "Login Successful....", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                    Toast.makeText(ActivityLogin.this, "Login Successful....", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(ActivityLogin.this, ActivityHome.class);
 //                                    editor.putString("session",user.getEmail());
 //                                    editor.apply();
                                     loginLoading.cancel();
@@ -92,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(LoginActivity.this, "Failed :"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ActivityLogin.this, "Failed :"+e.getMessage(), Toast.LENGTH_SHORT).show();
                                     loginLoading.cancel();
                                 }
                             });
@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
         btnOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, MainProfileActivity.class);
+                Intent intent = new Intent(ActivityLogin.this, ActivityMainPlayer.class);
 //                editor.putString("session","");
 //                editor.apply();
                 startActivity(intent);

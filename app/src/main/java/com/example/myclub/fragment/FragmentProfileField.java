@@ -11,8 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.myclub.Activity.InformationPlayerActivity;
-import com.example.myclub.Activity.ListMatchActivity;
+import com.example.myclub.Activity.Field.ActivityListMatch;
 import com.example.myclub.R;
 
 public class FragmentProfileField extends Fragment {
@@ -23,7 +22,7 @@ public class FragmentProfileField extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.a_profile_field,container,false);
+        return inflater.inflate(R.layout.fragment_profile_field,container,false);
     }
 
     @Override
@@ -33,7 +32,7 @@ public class FragmentProfileField extends Fragment {
         btnListMatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), ListMatchActivity.class);
+                Intent intent = new Intent(getContext(), ActivityListMatch.class);
                 startActivity(intent);
             }
         });

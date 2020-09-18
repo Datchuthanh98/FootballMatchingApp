@@ -1,4 +1,4 @@
-package com.example.myclub.Activity;
+package com.example.myclub.Activity.Player;
 
 import android.os.Bundle;
 
@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myclub.R;
 import com.example.myclub.adapter.RecycleViewAdapterListPlayerVertical;
 
-public class ListPlayerActivity extends AppCompatActivity {
+public class ActivityListPlayer extends AppCompatActivity {
     private RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.list_player_activity);
+        setContentView(R.layout.activity_list_player);
         super.onCreate(savedInstanceState);
 
         recyclerView = findViewById(R.id.recycleViewListPlayerVertical);

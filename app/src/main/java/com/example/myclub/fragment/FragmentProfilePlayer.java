@@ -6,14 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.myclub.Activity.EditProfilePlayerActivity;
-import com.example.myclub.Activity.ListMatchActivity;
+import com.example.myclub.Activity.Player.ActivityEditProfilePlayer;
 import com.example.myclub.R;
 
 public class FragmentProfilePlayer extends Fragment {
@@ -23,7 +21,7 @@ public class FragmentProfilePlayer extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.a_profile_player,container,false);
+        return inflater.inflate(R.layout.fragment_profile_player,container,false);
     }
 
     @Override
@@ -33,7 +31,7 @@ public class FragmentProfilePlayer extends Fragment {
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), EditProfilePlayerActivity.class);
+                Intent intent = new Intent(getContext(), ActivityEditProfilePlayer.class);
                 startActivity(intent);
             }
         });

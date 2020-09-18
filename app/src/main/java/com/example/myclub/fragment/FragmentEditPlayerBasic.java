@@ -19,14 +19,14 @@ public class FragmentEditPlayerBasic extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.edit_player_basic_fragment,container,false);
+        return inflater.inflate(R.layout.fragment_edit_player_basic_,container,false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Toolbar toolbar = view.findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_clear_black_24dp);
+        toolbar.setNavigationIcon(R.drawable.ic_baseline_back_white_24);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

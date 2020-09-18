@@ -1,4 +1,4 @@
-package com.example.myclub.Activity;
+package com.example.myclub.Activity.Field;
 
 import android.os.Bundle;
 
@@ -7,19 +7,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myclub.R;
-import com.example.myclub.adapter.RecycleViewAdapterListPlayerVertical;
+import com.example.myclub.adapter.RecycleViewAdapterListMatchVertical;
 
-public class ListFieldActivity extends AppCompatActivity {
+public class ActivityListMatch extends AppCompatActivity {
     private RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        setContentView(R.layout.activity_list_match);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.list_player_activity);
-        recyclerView = findViewById(R.id.recycleViewListPlayerVertical);
+
+        recyclerView = findViewById(R.id.recycleViewListMatchVertical);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         //Khởi tạo màn hình ban đầu của fragment
-        RecycleViewAdapterListPlayerVertical adapter = new RecycleViewAdapterListPlayerVertical();
+        RecycleViewAdapterListMatchVertical adapter = new RecycleViewAdapterListMatchVertical();
         recyclerView.setAdapter(adapter);
 
     }

@@ -14,7 +14,7 @@
         >
 
         <activity
-            android:name=".Activity.MainProfileActivity"
+            android:name=".Activity.ActivityHome"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -35,50 +35,44 @@
 <!--            </intent-filter>-->
 <!--        </activity>-->
 
-<!--        <activity-->
-<!--            android:name=".Activity.MainProfileActivity"-->
-<!--            android:label="@string/app_name"-->
-<!--            android:theme="@style/AppTheme">-->
-<!--        </activity>-->
-
         <activity
-            android:name=".Activity.MainTeamActivity"
+            android:name=".Activity.Player.ActivityMainPlayer"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
         </activity>
 
         <activity
-            android:name=".Activity.MainFieldActivity"
+            android:name=".Activity.Team.ActivityMainTeam"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
         </activity>
 
         <activity
-            android:name=".Activity.HomeActivity"
+            android:name=".Activity.Field.ActivityMainField"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
         </activity>
 
         <activity
-            android:name=".Activity.ListPlayerActivity"
+            android:name=".Activity.Player.ActivityListPlayer"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
     </activity>
 
         <activity
-            android:name=".Activity.InformationPlayerActivity"
+            android:name=".Activity.Player.ActivityInformationPlayer"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
         </activity>
 
         <activity
-            android:name=".Activity.ListMatchActivity"
+            android:name=".Activity.Field.ActivityListMatch"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
         </activity>
 
         <activity
-            android:name=".Activity.EditProfilePlayerActivity"
+            android:name=".Activity.Player.ActivityEditProfilePlayer"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
         </activity>

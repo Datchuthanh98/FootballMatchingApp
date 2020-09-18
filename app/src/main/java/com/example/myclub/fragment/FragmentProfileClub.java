@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myclub.Activity.ListPlayerActivity;
+import com.example.myclub.Activity.Player.ActivityListPlayer;
 import com.example.myclub.R;
 import com.example.myclub.adapter.RecycleViewAdapterListPlayerHorizontal;
 
@@ -23,7 +23,7 @@ public class FragmentProfileClub extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.a_profile_club,container,false);
+        return inflater.inflate(R.layout.fragment_profile_club,container,false);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class FragmentProfileClub extends Fragment {
         btnListPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), ListPlayerActivity.class);
+                Intent intent = new Intent(getContext(), ActivityListPlayer.class);
                 startActivity(intent);
             }
         });
