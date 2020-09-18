@@ -1,7 +1,6 @@
 package com.example.myclub.auth;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,8 +15,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myclub.Activity.HomeActivity;
 import com.example.myclub.R;
-import com.example.myclub.main.MainActivity;
+import com.example.myclub.Activity.MainProfileActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -35,16 +35,15 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
 //        if (FirebaseAuth.getInstance().getCurrentUser() != null){
 //            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 //            startActivity(intent);
 //        }
         setContentView(R.layout.login);
-
-        sharedPref = getApplicationContext().getSharedPreferences("sessionUser", Context.MODE_PRIVATE);
-        final SharedPreferences.Editor editor = sharedPref.edit();
+//
+//        sharedPref = getApplicationContext().getSharedPreferences("sessionUser", Context.MODE_PRIVATE);
+//        final SharedPreferences.Editor editor = sharedPref.edit();
         mAuth = FirebaseAuth.getInstance();
         //Email
         txtEmail=findViewById(R.id.txtEmail);
@@ -82,9 +81,9 @@ public class LoginActivity extends AppCompatActivity {
                                 public void onSuccess(AuthResult authResult) {
                                     FirebaseUser user = authResult.getUser();
                                     Toast.makeText(LoginActivity.this, "Login Successful....", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                    editor.putString("session",user.getEmail());
-                                    editor.apply();
+                                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+//                                    editor.putString("session",user.getEmail());
+//                                    editor.apply();
                                     loginLoading.cancel();
                                     startActivity(intent);
                                     finish();
@@ -105,9 +104,9 @@ public class LoginActivity extends AppCompatActivity {
         btnOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                editor.putString("session","");
-                editor.apply();
+                Intent intent = new Intent(LoginActivity.this, MainProfileActivity.class);
+//                editor.putString("session","");
+//                editor.apply();
                 startActivity(intent);
                 finish();
             }

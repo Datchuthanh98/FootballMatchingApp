@@ -1,20 +1,17 @@
 package com.example.myclub.model;
 
 import java.io.Serializable;
+import java.util.List;
 
-public class Player  implements Serializable {
-    private  String id;
-    private  String name;
-    private  String birth;
-    private  int age ;
-    private  double height;
-    private  double weight;
-    private  String phone;
-    private  String email;
-    private  String urlAvatar;
-    private  String position;
+public class Player extends User implements Serializable {
+    private  int height ;
+    private  int weight ;
+    private  String introduce;
+    private List<String> position;
+    private  String idClub;
 
-    public Player() {
+     Player() {
+        super();
     }
 
 
