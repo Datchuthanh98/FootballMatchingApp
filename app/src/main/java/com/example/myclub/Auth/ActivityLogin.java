@@ -15,9 +15,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myclub.Activity.ActivityHome;
+import com.example.myclub.main.ActivityHome;
 import com.example.myclub.R;
-import com.example.myclub.Activity.Player.ActivityMainPlayer;
+import com.example.myclub.View.Player.Activity.ActivityMainPlayer;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;

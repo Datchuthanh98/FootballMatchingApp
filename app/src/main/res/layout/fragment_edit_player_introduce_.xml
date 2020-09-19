@@ -59,37 +59,19 @@
         android:layout_height="0dp">
  <TextView
      android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
-     android:text=" Name Player"
+     android:text=" Introduce"
      android:textStyle="bold"
      android:textSize="15dp"
      android:layout_width="match_parent"
      android:layout_height="wrap_content"></TextView>
         <EditText
-            android:text="Chu Thanh Dat"
+
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"></EditText>
-        <TextView
-            android:drawableStart="@drawable/ic_baseline_phone_24_green"
-            android:text=" Phone"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></TextView>
-        <EditText
-            android:text="0984060798"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></EditText>
-        <TextView
-            android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
-            android:text=" Email"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></TextView>
-        <EditText
-            android:text="datchuthanh98@gmail.com"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></EditText>
+            android:layout_height="wrap_content"
+            android:text="Eden Michael Hazard là một cầu thủ bóng đá người Bỉ hiện đang chơi ở vị trí tiền đạo cho câu lạc bộ Real Madrid tại La Liga cũng như thi đấu cho đội tuyển Bỉ ở các giải đấu cấp độ đội tuyển. Anh là đội trưởng đội tuyển Bỉ."
+            ></EditText>
+
+
 
     </LinearLayout>
 

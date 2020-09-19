@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.cardview.widget.CardView
     android:id="@+id/cardView"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -32,7 +33,7 @@
                 android:id="@+id/club1"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/chelsealogo"
+                android:src="@drawable/avatar_team"
                 app:border_color="@color/white"
                 app:border_width="5dp" />
 

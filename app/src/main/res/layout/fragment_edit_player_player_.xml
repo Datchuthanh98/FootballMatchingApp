@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <import type="android.view.View" />
-
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,7 +25,7 @@
                 android:id="@+id/title"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="Edit information basic"
+                android:text="Edit information player"
                 android:gravity="center_vertical"
                 android:textSize="20dp"
                 android:layout_weight="1"/>
@@ -59,24 +58,24 @@
         android:layout_height="0dp">
  <TextView
      android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
-     android:text=" Name Player"
+     android:text=" Age"
      android:textStyle="bold"
      android:textSize="15dp"
      android:layout_width="match_parent"
      android:layout_height="wrap_content"></TextView>
         <EditText
-            android:text="Chu Thanh Dat"
+            android:text="20"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></EditText>
         <TextView
             android:drawableStart="@drawable/ic_baseline_phone_24_green"
-            android:text=" Phone"
+            android:text=" Height (cm)"
             android:textStyle="bold"
             android:textSize="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></TextView>
         <EditText
-            android:text="0984060798"
+            android:text="170"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></EditText>
         <TextView
@@ -90,6 +89,41 @@
             android:text="datchuthanh98@gmail.com"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></EditText>
+
+        <TextView
+            android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
+            android:text=" Weight (kg)"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></TextView>
+        <EditText
+            android:text="60"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></EditText>
+        <TextView
+            android:drawableStart="@drawable/ic_baseline_phone_24_green"
+            android:text=" Number Shirt"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></TextView>
+        <EditText
+            android:text="10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></EditText>
+        <TextView
+            android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
+            android:text=" Nice foot"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></TextView>
+        <EditText
+            android:text="left and right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></EditText>
+
 
     </LinearLayout>
 

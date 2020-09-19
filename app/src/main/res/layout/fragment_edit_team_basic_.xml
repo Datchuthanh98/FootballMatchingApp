@@ -65,7 +65,7 @@
      android:layout_width="match_parent"
      android:layout_height="wrap_content"></TextView>
         <EditText
-            android:text="Chu Thanh Dat"
+            android:text="Chelsae FootBall Club"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></EditText>
         <TextView
@@ -87,7 +87,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></TextView>
         <EditText
-            android:text="datchuthanh98@gmail.com"
+            android:text="chelsea@gmail.com"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></EditText>
 
