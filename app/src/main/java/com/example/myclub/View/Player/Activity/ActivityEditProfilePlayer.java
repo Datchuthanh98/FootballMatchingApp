@@ -99,9 +99,6 @@ public class ActivityEditProfilePlayer extends AppCompatActivity {
                         .commit();
             }
         });
-
-
-
     }
 
 

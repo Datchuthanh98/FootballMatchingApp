@@ -7,29 +7,27 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.databinding.DataBindingUtil;
 
+import com.example.myclub.View.Field.Activity.ActivityListField;
 import com.example.myclub.View.Field.Activity.ActivityMainField;
 import com.example.myclub.View.Player.Activity.ActivityMainPlayer;
+import com.example.myclub.View.Team.Activity.ActivityListTeam;
 import com.example.myclub.View.Team.Activity.ActivityMainTeam;
 import com.example.myclub.R;
+import com.example.myclub.databinding.ActivityEditPlayerBinding;
+import com.example.myclub.databinding.ActivityHomeBinding;
 
 public class ActivityHome extends AppCompatActivity {
 
-    private  CardView cardProfile;
-    private  CardView cardTeam;
-    private  CardView cardListTeam;
-    private  CardView cardListField;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        cardProfile  = findViewById( R.id.cardProfile);
-        cardTeam  = findViewById( R.id.cardTeams);
-        cardListTeam  = findViewById( R.id.cardListTeam);
-        cardListField  = findViewById( R.id.cardListField);
+        ActivityHomeBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_home);
 
-        cardProfile.setOnClickListener(new View.OnClickListener() {
+        binding.cardProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ActivityMainPlayer.class);
@@ -37,7 +35,7 @@ public class ActivityHome extends AppCompatActivity {
             }
         });
 
-        cardTeam.setOnClickListener(new View.OnClickListener() {
+       binding.cardTeams.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ActivityMainTeam.class);
@@ -45,18 +43,18 @@ public class ActivityHome extends AppCompatActivity {
             }
         });
 
-        cardListTeam.setOnClickListener(new View.OnClickListener() {
+        binding.cardListTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ActivityMainTeam.class);
+                Intent intent = new Intent(getApplicationContext(), ActivityListTeam.class);
                 startActivity(intent);
             }
         });
 
-        cardListField.setOnClickListener(new View.OnClickListener() {
+        binding.cardListField.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ActivityMainField.class);
+                Intent intent = new Intent(getApplicationContext(), ActivityListField.class);
                 startActivity(intent);
             }
         });

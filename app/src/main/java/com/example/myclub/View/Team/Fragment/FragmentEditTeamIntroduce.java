@@ -13,6 +13,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.myclub.R;
+import com.example.myclub.View.Player.Fragment.FragmentProfilePlayer;
 import com.example.myclub.databinding.FragmentEditPlayerIntroduceBinding;
 import com.example.myclub.databinding.FragmentEditTeamIntroduceBinding;
 
@@ -34,8 +35,6 @@ public class FragmentEditTeamIntroduce extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
         binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_back_white_24);
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +50,9 @@ public class FragmentEditTeamIntroduce extends Fragment {
                 detach();
             }
         });
+
+        FragmentProfilePlayer fragmentProfilePlayer = (FragmentProfilePlayer) getParentFragmentManager().findFragmentByTag("abc");
+       
 
     }
 

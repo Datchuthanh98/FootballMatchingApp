@@ -19,7 +19,7 @@ public class ActivityListMatch extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycleViewListMatchVertical);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         //Khởi tạo màn hình ban đầu của fragment
-        RecycleViewAdapterListMatchVertical adapter = new RecycleViewAdapterListMatchVertical();
+        RecycleViewAdapterListMatchVertical adapter = new RecycleViewAdapterListMatchVertical(getSupportFragmentManager());
         recyclerView.setAdapter(adapter);
 
     }

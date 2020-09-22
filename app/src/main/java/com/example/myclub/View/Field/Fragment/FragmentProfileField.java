@@ -10,28 +10,30 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.myclub.View.Field.Activity.ActivityListMatch;
 import com.example.myclub.R;
+import com.example.myclub.databinding.FragmentProfileFieldBinding;
 
 public class FragmentProfileField extends Fragment {
 
 
-
-    private Button btnListMatch;
-    private Toolbar toolbar;
+    FragmentProfileFieldBinding binding;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_profile_field,container,false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile_field, container, false);
+        View view = binding.getRoot();
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        btnListMatch = view.findViewById(R.id.btnListMatch);
-        btnListMatch.setOnClickListener(new View.OnClickListener() {
+
+        binding.btnListMatch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), ActivityListMatch.class);
@@ -39,9 +41,8 @@ public class FragmentProfileField extends Fragment {
             }
         });
 
-        toolbar = view.findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_baseline_back_white_24);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_back_white_24);
+        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().finish();

@@ -8,8 +8,7 @@
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorBG">
+    android:layout_height="match_parent">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -29,21 +28,15 @@
                 android:textSize="20dp"
                 android:textColor="@color/white"/>
 
+
+
             <ImageButton
-                android:id="@+id/btnCall"
+                android:id="@+id/btnEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:paddingHorizontal="15dp"
                 android:background="?android:attr/selectableItemBackground"
-                android:src="@drawable/ic_baseline_phone_24_green"/>
-            <ImageButton
-            android:id="@+id/btnEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingHorizontal="15dp"
-            android:background="?android:attr/selectableItemBackground"
-            android:src="@drawable/ic_baseline_email_24_yeallow"/>
-
+                android:src="@drawable/ic_baseline_edit_30_white"/>
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
@@ -59,7 +52,6 @@
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 app:cardCornerRadius="20dp">
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -67,9 +59,9 @@
                     <ImageView
                         android:id="@+id/cover"
                         android:layout_width="match_parent"
-                        android:layout_height="160dp"
-                        android:scaleType="fitXY"
                         android:src="@drawable/cover_player"
+                        android:scaleType="fitXY"
+                        android:layout_height="160dp"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -83,65 +75,61 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/cover" />
-
                     <LinearLayout
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
                         android:id="@+id/inforBasic"
+                        app:layout_constraintTop_toBottomOf="@id/avatar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/avatar">
-
+                        android:paddingRight="10dp">
                         <LinearLayout
+                            android:gravity="center_vertical"
+                            android:orientation="vertical"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_gravity=""
-                            android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:orientation="vertical">
-
+                            android:layout_weight="1">
                             <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
-                                android:text=" Chu Thanh Dat"
                                 android:textSize="20dp"
-                                android:textStyle="bold" />
-
-                            <TextView
+                                android:textStyle="bold"
+                                android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:text=" Chu Thanh Dat"/>
+                            <TextView
                                 android:drawableStart="@drawable/ic_baseline_phone_24_green"
-                                android:text=" 0984060798"
                                 android:textSize="16dp"
-                                android:textStyle="bold" />
-                            <TextView
+                                android:textStyle="bold"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:text=" 0984060798"/>
+                            <TextView
                                 android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
-                                android:text=" datchuthanh98@gmail.com"
                                 android:textSize="16dp"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" datchuthanh98@gmail.com"/>
                         </LinearLayout>
-
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:orientation="vertical"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:orientation="vertical">
-
+                            >
                             <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:text="Team"
                                 android:textColor="@color/colorTittle"
                                 android:textSize="20dp"
-                                android:textStyle="bold"></TextView>
+                                android:textStyle="bold"
+                                android:gravity="center"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="Team">
+                            </TextView>
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:layout_width="80dp"
@@ -156,223 +144,209 @@
                         android:id="@+id/lblInfor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/inforBasic"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/inforBasic">
-
+                        >
                         <TextView
+                            android:textColor="@color/colorTittle"
+                            android:layout_marginLeft="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
                             android:text="Basic information"
-                            android:textColor="@color/colorTittle"
                             android:textSize="15dp"
-                            android:textStyle="bold"></TextView>
+                            android:textStyle="bold"
+                            >
+                        </TextView>
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/listGridData"
+                        app:layout_constraintTop_toBottomOf="@id/lblInfor"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/lblInfor">
+                        android:id="@+id/listGridData"
+                        >
 
                         <LinearLayout
 
+                            android:orientation="horizontal"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
-
+                            android:layout_height="match_parent">
                             <androidx.cardview.widget.CardView
+                                android:layout_margin="10dp"
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
-                                android:layout_margin="10dp"
-                                app:cardCornerRadius="10dp">
-
+                                app:cardCornerRadius="10dp"
+                                >
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:orientation="vertical">
-
                                     <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="30dp"
                                         android:layout_margin="10dp"
                                         android:gravity="center"
-                                        android:text="Age"></TextView>
-
-                                    <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="30dp"
+                                        android:text="Age">
+                                    </TextView>
+                                    <TextView
+                                        android:textStyle="bold"
                                         android:layout_margin="10dp"
                                         android:gravity="center"
-                                        android:text="20"
-                                        android:textStyle="bold"></TextView>
+                                        android:layout_width="match_parent"
+                                        android:layout_height="30dp"
+                                        android:text="20">
+                                    </TextView>
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
-
                             <androidx.cardview.widget.CardView
+                                android:layout_margin="10dp"
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
-                                android:layout_margin="10dp"
-                                app:cardCornerRadius="10dp">
-
+                                app:cardCornerRadius="10dp"
+                                >
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:orientation="vertical">
-
                                     <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="30dp"
                                         android:layout_margin="10dp"
                                         android:gravity="center"
-                                        android:text="Height"></TextView>
-
-                                    <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="30dp"
+                                        android:text="Height">
+                                    </TextView>
+                                    <TextView
+                                        android:textStyle="bold"
                                         android:layout_margin="10dp"
                                         android:gravity="center"
-                                        android:text="170 cm"
-                                        android:textStyle="bold"></TextView>
+                                        android:layout_width="match_parent"
+                                        android:layout_height="30dp"
+                                        android:text="170 cm">
+                                    </TextView>
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
-
                             <androidx.cardview.widget.CardView
+                                android:layout_margin="10dp"
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
-                                android:layout_margin="10dp"
-                                app:cardCornerRadius="10dp">
-
+                                app:cardCornerRadius="10dp"
+                                >
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:orientation="vertical">
-
                                     <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="30dp"
                                         android:layout_margin="10dp"
                                         android:gravity="center"
-                                        android:text="Weight"></TextView>
-
-                                    <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="30dp"
+                                        android:text="Weight">
+                                    </TextView>
+                                    <TextView
+                                        android:textStyle="bold"
                                         android:layout_margin="10dp"
                                         android:gravity="center"
-                                        android:text="58"
-                                        android:textStyle="bold"></TextView>
+                                        android:layout_width="match_parent"
+                                        android:layout_height="30dp"
+                                        android:text="58">
+                                    </TextView>
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
                         </LinearLayout>
-
                         <LinearLayout
+                            android:orientation="horizontal"
                             android:id="@+id/gridRow1"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
-
+                            android:layout_height="match_parent">
                             <androidx.cardview.widget.CardView
                                 android:id="@+id/weight"
+                                android:layout_margin="10dp"
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
-                                android:layout_margin="10dp"
-                                app:cardCornerRadius="10dp">
-
+                                app:cardCornerRadius="10dp"
+                                >
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:orientation="vertical">
-
                                     <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="30dp"
                                         android:layout_margin="10dp"
                                         android:gravity="center"
-                                        android:text="Number"></TextView>
-
-                                    <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="30dp"
+                                        android:text="Number">
+                                    </TextView>
+                                    <TextView
+                                        android:textStyle="bold"
                                         android:layout_margin="10dp"
                                         android:gravity="center"
-                                        android:text="10"
-                                        android:textStyle="bold"></TextView>
+                                        android:layout_width="match_parent"
+                                        android:layout_height="30dp"
+                                        android:text="10">
+                                    </TextView>
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
-
                             <androidx.cardview.widget.CardView
                                 android:id="@+id/height"
+                                android:layout_margin="10dp"
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
-                                android:layout_margin="10dp"
-                                app:cardCornerRadius="10dp">
-
+                                app:cardCornerRadius="10dp"
+                                >
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:orientation="vertical">
-
                                     <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="30dp"
                                         android:layout_margin="10dp"
                                         android:gravity="center"
-                                        android:text="Possition"></TextView>
-
-                                    <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="30dp"
+                                        android:text="Possition">
+                                    </TextView>
+                                    <TextView
+                                        android:textStyle="bold"
                                         android:layout_margin="10dp"
                                         android:gravity="center"
-                                        android:text="ST"
-                                        android:textStyle="bold"></TextView>
+                                        android:layout_width="match_parent"
+                                        android:layout_height="30dp"
+                                        android:text="ST">
+                                    </TextView>
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
-
                             <androidx.cardview.widget.CardView
                                 android:id="@+id/agePlayer"
+                                android:layout_margin="10dp"
                                 android:layout_width="100dp"
                                 android:layout_height="100dp"
-                                android:layout_margin="10dp"
-                                app:cardCornerRadius="10dp">
-
+                                app:cardCornerRadius="10dp"
+                                >
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:orientation="vertical">
-
                                     <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="30dp"
                                         android:layout_margin="10dp"
                                         android:gravity="center"
-                                        android:text="Right foot"></TextView>
-
-                                    <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="30dp"
+                                        android:text="Right foot">
+                                    </TextView>
+                                    <TextView
+                                        android:textStyle="bold"
                                         android:layout_margin="10dp"
                                         android:gravity="center"
-                                        android:text="Right"
-                                        android:textStyle="bold"></TextView>
+                                        android:layout_width="match_parent"
+                                        android:layout_height="30dp"
+                                        android:text="Right">
+                                    </TextView>
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
                         </LinearLayout>
                     </LinearLayout>
-
-                    <Button
-                        android:id="@+id/editProfile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_baseline_join_24_green"
-                        android:text="Invite"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/listGridData"></Button>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
         </ScrollView>

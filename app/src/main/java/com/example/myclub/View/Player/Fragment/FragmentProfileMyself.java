@@ -2,7 +2,6 @@ package com.example.myclub.View.Player.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,18 +11,19 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
-import com.example.myclub.View.Player.Activity.ActivityEditProfilePlayer;
 import com.example.myclub.R;
+import com.example.myclub.View.Player.Activity.ActivityEditProfilePlayer;
+import com.example.myclub.databinding.FragmentProfileMyselfBinding;
 import com.example.myclub.databinding.FragmentProfilePlayerBinding;
 
-public class FragmentProfilePlayer extends Fragment {
+public class FragmentProfileMyself extends Fragment {
 
-    private FragmentProfilePlayerBinding binding;
+    private FragmentProfileMyselfBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile_player, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile_myself, container, false);
         View view = binding.getRoot();
         return view;
     }
@@ -38,15 +38,17 @@ public class FragmentProfilePlayer extends Fragment {
                 detach();
             }
         });
+
+        binding.btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ActivityEditProfilePlayer.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void detach() {
-        getParentFragmentManager().popBackStack();
-        getParentFragmentManager()
-                .beginTransaction()
-                .detach(this)
-                .commit();
+        getActivity().finish();
     }
-
-
 }

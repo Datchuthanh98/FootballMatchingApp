@@ -27,7 +27,7 @@
             android:id="@+id/avatarPlayer"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:srcCompat="@drawable/player_default"
+            app:srcCompat="@drawable/cover_field"
             />
         <TextView
             android:textStyle="bold"

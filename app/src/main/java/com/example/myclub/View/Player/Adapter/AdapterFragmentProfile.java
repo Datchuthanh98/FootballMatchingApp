@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.example.myclub.View.Player.Fragment.FragmentProfileMyself;
+import com.example.myclub.View.Team.Fragment.FragmentListPlayer;
 import com.example.myclub.View.Player.Fragment.FragmentProfilePlayer;
 
 public class AdapterFragmentProfile extends FragmentPagerAdapter {
@@ -19,7 +21,8 @@ public class AdapterFragmentProfile extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new FragmentProfilePlayer();
+                return new FragmentProfileMyself();
+
         }
         return  null;
     }

@@ -1,4 +1,4 @@
-package com.example.myclub.Data.repository;
+package com.example.myclub.Data.Sqlite;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

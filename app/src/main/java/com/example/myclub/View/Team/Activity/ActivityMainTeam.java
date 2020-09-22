@@ -13,11 +13,6 @@ import com.example.myclub.Animation.HorizontalFlipTransformation;
 import com.google.android.material.tabs.TabLayout;
 
 public class ActivityMainTeam extends AppCompatActivity {
-//    private String emailLogin, phoneLogin;
-//    private SQLiteHelper sqLiteHelper;
-//    private boolean isManager, isOnline;
-//    private SharedPreferences sharedPref;
-//    private SyncFireBase syncFireBase = SyncFireBase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +29,7 @@ public class ActivityMainTeam extends AppCompatActivity {
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_account_circle_black_24dp);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_account_circle_black_24dp);
 
     }
 

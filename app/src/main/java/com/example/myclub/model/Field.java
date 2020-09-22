@@ -1,6 +1,6 @@
 package com.example.myclub.model;
 
-public class Pitch {
+public class Field {
     private  String id ;
     private  String email;
     private  String phone;
@@ -8,6 +8,6 @@ public class Pitch {
     private  String urlAvatar;
     private  String urlCover;
 
-    public Pitch() {
+    public Field() {
     }
 }

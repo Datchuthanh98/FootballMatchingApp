@@ -23,7 +23,6 @@ public class FragmentEditPlayerBasic extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        return inflater.inflate(R.layout.fragment_edit_player_basic_,container,false);
           binding = DataBindingUtil.inflate(inflater,R.layout.fragment_edit_player_basic_,container,false);
         View view = binding.getRoot();
         return  view;

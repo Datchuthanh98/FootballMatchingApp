@@ -18,9 +18,6 @@ public class ActivityMainPlayer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_main_profile);
         super.onCreate(savedInstanceState);
-
-
-
         TabLayout tabLayout = findViewById(R.id.tablayout);
         ViewPager viewPager = findViewById(R.id.viewpager);
         viewPager.setPageTransformer(true, new HorizontalFlipTransformation());
@@ -29,6 +26,7 @@ public class ActivityMainPlayer extends AppCompatActivity {
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(0).setIcon(R.drawable.ic_account_circle_black_24dp);
+
 
     }
 
