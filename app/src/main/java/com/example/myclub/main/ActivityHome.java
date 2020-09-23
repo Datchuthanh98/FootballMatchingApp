@@ -6,59 +6,41 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.viewpager.widget.ViewPager;
 
-import com.example.myclub.View.Field.Activity.ActivityListField;
-import com.example.myclub.View.Field.Activity.ActivityMainField;
-import com.example.myclub.View.Player.Activity.ActivityMainPlayer;
-import com.example.myclub.View.Team.Activity.ActivityListTeam;
-import com.example.myclub.View.Team.Activity.ActivityMainTeam;
+import com.example.myclub.animation.HorizontalFlipTransformation;
+import com.example.myclub.view.Player.Adapter.AdapterFragmentProfile;
 import com.example.myclub.R;
-import com.example.myclub.databinding.ActivityEditPlayerBinding;
-import com.example.myclub.databinding.ActivityHomeBinding;
+import com.google.android.material.tabs.TabLayout;
 
 public class ActivityHome extends AppCompatActivity {
-
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        setContentView(R.layout.activity_home);
         super.onCreate(savedInstanceState);
-        ActivityHomeBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_home);
-
-        binding.cardProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ActivityMainPlayer.class);
-                startActivity(intent);
-            }
-        });
-
-       binding.cardTeams.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ActivityMainTeam.class);
-                startActivity(intent);
-            }
-        });
-
-        binding.cardListTeam.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ActivityListTeam.class);
-                startActivity(intent);
-            }
-        });
-
-        binding.cardListField.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ActivityListField.class);
-                startActivity(intent);
-            }
-        });
 
 
+
+        TabLayout tabLayout = findViewById(R.id.tablayout);
+        ViewPager viewPager = findViewById(R.id.viewpager);
+        viewPager.setPageTransformer(true, new HorizontalFlipTransformation());
+        FragmentManager manager = getSupportFragmentManager();
+        AdapterFragmentHome adapter = new AdapterFragmentHome(manager, AdapterFragmentProfile.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        viewPager.setAdapter(adapter);
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_account_circle_black_24dp);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_account_circle_black_24dp);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_account_circle_black_24dp);
+        tabLayout.getTabAt(3).setIcon(R.drawable.ic_account_circle_black_24dp);
+
+
+
+    }
+
+    public void addFragment(Fragment fragment){
+        getSupportFragmentManager().beginTransaction().add(R.id.container, fragment, null).addToBackStack(null).commit();
     }
 }

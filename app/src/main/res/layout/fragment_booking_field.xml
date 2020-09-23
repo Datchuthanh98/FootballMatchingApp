@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<TextView
+    android:id="@id/title"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    android:text="Booking Field"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"></TextView>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/inforField"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:id="@+id/avatarPlayer"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/cover_field"
+            />
+        <TextView
+            android:text="123"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/namePlayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/avatarPlayer"
+            app:layout_constraintBottom_toTopOf="@+id/position"
+            />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:id="@+id/position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+        android:text="456"
+            app:layout_constraintTop_toBottomOf="@+id/namePlayer"
+            app:layout_constraintLeft_toRightOf="@id/avatarPlayer"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+        <TextView
+            android:id="@+id/numberShirt"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="10"
+            android:textSize="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </TextView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        app:layout_constraintTop_toBottomOf="@id/inforField"
+        android:id="@+id/lblSelectClub"
+        android:text="Select Team"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></TextView>
+    <androidx.recyclerview.widget.RecyclerView
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lblSelectClub"
+        android:id="@+id/recycleViewListTeamHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+        <TextView
+            app:layout_constraintTop_toBottomOf="@id/recycleViewListTeamHorizontal"
+            android:id="@+id/lblSelectDate"
+            android:text="Select Time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></TextView>
+       <LinearLayout
+           app:layout_constraintTop_toBottomOf="@id/lblSelectDate"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+           <TextView
+               android:text="22/2/2020"
+               android:layout_weight="1"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content">
+           </TextView>
+           <ImageButton
+               android:background="@drawable/ic_baseline_calendar_today_24"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"></ImageButton>
+       </LinearLayout>
+    <TextView
+        app:layout_constraintTop_toBottomOf="@id/lblSelectDate"
+        android:id="@+id/lblSelectTime"
+        android:text="Select Time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></TextView>
+    <androidx.recyclerview.widget.RecyclerView
+        app:layout_constraintTop_toBottomOf="@id/lblSelectTime"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+
+        android:id="@+id/recycleViewListTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btnConfirm"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recycleViewListTime"
+        android:text="Confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></Button>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

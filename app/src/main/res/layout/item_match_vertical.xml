@@ -5,6 +5,9 @@
 
     <data>
         <import type="android.view.View" />
+        <variable
+            name="todo"
+            type="com.example.myclub.model.Todo" />
     </data>
 
 <androidx.cardview.widget.CardView
