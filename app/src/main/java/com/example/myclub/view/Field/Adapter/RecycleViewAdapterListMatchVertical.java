@@ -10,8 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myclub.databinding.ItemMatchVerticalBinding;
-import com.example.myclub.view.Field.Fragment.FragmentProfileField;
-import com.example.myclub.databinding.ItemFieldVerticalBinding;
+import com.example.myclub.view.Field.Fragment.FragmentMainMatch;
 import com.example.myclub.model.Todo;
 
 import java.util.ArrayList;
@@ -59,9 +58,9 @@ public class RecycleViewAdapterListMatchVertical extends RecyclerView.Adapter<Re
         holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentProfileField fragmentProfileField = new FragmentProfileField();
+                FragmentMainMatch fragmentMainMatch = new FragmentMainMatch();
                 fm.beginTransaction()
-                        .add(android.R.id.content, fragmentProfileField, "abc")
+                        .add(android.R.id.content, fragmentMainMatch, "abc")
                         .addToBackStack(null).commit();
             }
         });

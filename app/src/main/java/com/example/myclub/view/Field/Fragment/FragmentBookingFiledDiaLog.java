@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myclub.R;
@@ -35,30 +36,26 @@ public class FragmentBookingFiledDiaLog extends DialogFragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_booking_field, container, false);
-        View view = binding.getRoot();
+        viewModel = new ViewModelProvider(this).get(ViewModelTodo.class);
+        binding.recycleViewListTeamHorizontal.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        RecycleViewAdapterListTeamHorizontal adapterListTeamHorizontal = viewModel.getAdapterListTeamHorizontal();
+        adapterListTeamHorizontal.setFm(getChildFragmentManager());
+        binding.recycleViewListTeamHorizontal.setAdapter(viewModel.getAdapterListTeamHorizontal());
 
+        binding.recycleViewListTime.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        RecycleViewAdapterListTimeHorizontal adapterListTimeHorizontal = viewModel.getAdapterListTimeHorizontal();
+        adapterListTimeHorizontal.setFm(getChildFragmentManager());
+        binding.recycleViewListTime.setAdapter(viewModel.getAdapterListTimeHorizontal());
 
+        binding.btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),"Show r ",Toast.LENGTH_SHORT).show();
+               dismiss();
+            }
+        });
 
-//        binding.recycleViewListTeamHorizontal.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-//        RecycleViewAdapterListTeamHorizontal adapterListTeamHorizontal = viewModel.getAdapterListTeamHorizontal();
-//        adapterListTeamHorizontal.setFm(getParentFragmentManager());
-//        binding.recycleViewListTeamHorizontal.setAdapter(viewModel.getAdapterListTeamHorizontal());
-//
-//        binding.recycleViewListTime.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-//        RecycleViewAdapterListTimeHorizontal adapterListTimeHorizontal = viewModel.getAdapterListTimeHorizontal();
-//        adapterListTimeHorizontal.setFm(getParentFragmentManager());
-//        binding.recycleViewListTime.setAdapter(viewModel.getAdapterListTimeHorizontal());
-//
-//        binding.btnConfirm.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(getContext(),"Show r ",Toast.LENGTH_SHORT).show();
-//               getDialog().dismiss();
-//            }
-//        });
-
-        return view;
+        return binding.getRoot();
 
     }
 
@@ -67,28 +64,8 @@ public class FragmentBookingFiledDiaLog extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
-        builder.setView(inflater.inflate(R.layout.fragment_booking_field, null));
-        builder.setNegativeButton("Save", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getContext(),"Show r ",Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
-            }
-        });
-
+        binding = FragmentBookingFieldBinding.inflate(inflater);
+        builder.setView(binding.getRoot());
         return builder.create();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-//        binding.btnConfirm.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(getContext(),"Show r ",Toast.LENGTH_SHORT).show();
-//               getDialog().dismiss();
-//            }
-//        });
     }
 }

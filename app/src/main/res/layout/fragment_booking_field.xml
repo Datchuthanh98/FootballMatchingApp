@@ -84,6 +84,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></TextView>
        <LinearLayout
+           android:id="@+id/editSelectDate"
            app:layout_constraintTop_toBottomOf="@id/lblSelectDate"
            android:layout_width="match_parent"
            android:layout_height="wrap_content">
@@ -99,7 +100,7 @@
                android:layout_height="wrap_content"></ImageButton>
        </LinearLayout>
     <TextView
-        app:layout_constraintTop_toBottomOf="@id/lblSelectDate"
+        app:layout_constraintTop_toBottomOf="@id/editSelectDate"
         android:id="@+id/lblSelectTime"
         android:text="Select Time"
         android:layout_width="match_parent"

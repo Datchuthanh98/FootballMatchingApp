@@ -13,13 +13,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myclub.R;
-import com.example.myclub.databinding.FragmentListPlayerBinding;
 import com.example.myclub.databinding.FragmentListTeamBinding;
-import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListPlayerVertical;
 import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListTeamVertical;
 import com.example.myclub.viewModel.ViewModelTodo;
 
-public class FragmentListTeam extends Fragment {
+public class FragmentListOtherTeam extends Fragment {
     private ViewModelTodo viewModel;
     private FragmentListTeamBinding binding;
 
@@ -36,13 +34,7 @@ public class FragmentListTeam extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_back_white_24);
-        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().finish();
-            }
-        });
+
 
        binding.recycleViewListTeamVertical.setLayoutManager(new LinearLayoutManager(getContext()));
         //Khởi tạo màn hình ban đầu của fragment

@@ -6,8 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.myclub.view.Team.Fragment.FragmentListPlayer;
-import com.example.myclub.view.Team.Fragment.FragmentListTeam;
+import com.example.myclub.view.Team.Fragment.FragmentListMyTeam;
+import com.example.myclub.view.Team.Fragment.FragmentListOtherTeam;
 import com.example.myclub.view.Team.Fragment.FragmentMyTeam;
 
 public class AdapterFragmentTeam extends FragmentPagerAdapter {
@@ -23,9 +23,9 @@ public class AdapterFragmentTeam extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new FragmentMyTeam();
+                return new FragmentListOtherTeam();
             case 1:
-                return new FragmentListTeam();
+                return new FragmentListMyTeam();
         }
         return  null;
     }
@@ -40,9 +40,9 @@ public class AdapterFragmentTeam extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "Team";
+                return "My Team";
             case 1:
-                return "List Team";
+                return "Other Team";
         }
         return null;
     }

@@ -12,36 +12,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:background="@color/colorPrimary"
-            android:layout_height="?attr/actionBarSize"
-            app:layout_constraintTop_toTopOf="parent">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:text="List Team"
-                    android:gravity="center_vertical"
-                    android:textSize="20dp"
-                    android:textColor="@color/white"
-                    android:layout_weight="1"/>
-                <ImageButton
-                    android:id="@+id/image_btn_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:paddingHorizontal="15dp"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:src="@drawable/ic_baseline_replay_white_24"/>
 
-            </LinearLayout>
-        </androidx.appcompat.widget.Toolbar>
             <androidx.constraintlayout.widget.ConstraintLayout
-                app:layout_constraintTop_toBottomOf="@id/toolbar"
+                app:layout_constraintTop_toTopOf="parent"
                 android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="0dp">

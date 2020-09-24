@@ -1,6 +1,5 @@
 package com.example.myclub.view.Field.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,16 +12,17 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myclub.R;
 import com.example.myclub.databinding.FragmentMapBinding;
+import com.example.myclub.databinding.FragmentMatchCommentBinding;
 
 
-public class FragmentMap extends Fragment {
+public class FragmentComment extends Fragment {
 
 
-    FragmentMapBinding binding;
+    FragmentMatchCommentBinding binding;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_map, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_match_comment, container, false);
         View view = binding.getRoot();
         return view;
     }

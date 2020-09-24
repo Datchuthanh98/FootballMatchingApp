@@ -1,6 +1,5 @@
 package com.example.myclub.view.Field.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,19 +14,21 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.myclub.R;
 import com.example.myclub.animation.HorizontalFlipTransformation;
-import com.example.myclub.databinding.FragmentMainFieldBinding;
-import com.example.myclub.view.Field.Adapter.AdapterFragmentField;
+import com.example.myclub.databinding.FragmentMainMatchBinding;
+import com.example.myclub.databinding.FragmentMatchCommentBinding;
+import com.example.myclub.databinding.FragmentMatchInformationBinding;
+import com.example.myclub.view.Field.Adapter.AdapterFragmentInformationMatch;
 import com.example.myclub.view.Player.Adapter.AdapterFragmentProfile;
 import com.google.android.material.tabs.TabLayout;
 
-public class FragmentMainField extends Fragment {
+public class FragmentMainMatch extends Fragment {
 
 
-    FragmentMainFieldBinding binding;
+        FragmentMainMatchBinding binding;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main_field, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main_match, container, false);
         View view = binding.getRoot();
         return view;
     }
@@ -39,11 +40,27 @@ public class FragmentMainField extends Fragment {
         ViewPager viewPager = view.findViewById(R.id.viewpager);
         viewPager.setPageTransformer(true, new HorizontalFlipTransformation());
         FragmentManager manager = getParentFragmentManager();
-        AdapterFragmentField adapter = new AdapterFragmentField(getChildFragmentManager(), AdapterFragmentProfile.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        AdapterFragmentInformationMatch adapter = new AdapterFragmentInformationMatch(getChildFragmentManager(), AdapterFragmentProfile.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+        binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_back_white_24);
+        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                detach();
+            }
+        });
+
+    }
 
 
 
+
+    private void detach() {
+        getParentFragmentManager().popBackStack();
+        getParentFragmentManager()
+                .beginTransaction()
+                .detach(this)
+                .commit();
     }
 }
