@@ -11,9 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myclub.databinding.ItemMatchVerticalBinding;
 import com.example.myclub.main.ActivityHome;
-import com.example.myclub.view.Field.Fragment.FragmentProfileField;
-import com.example.myclub.view.Match.Fragment.FragmentMainInformationMatch;
-import com.example.myclub.view.Match.Fragment.FragmentMainMatch;
+import com.example.myclub.view.Match.Fragment.FragmentMainProfileMatch;
 import com.example.myclub.model.Todo;
 
 import java.util.ArrayList;
@@ -62,7 +60,7 @@ public class RecycleViewAdapterListMatchVertical extends RecyclerView.Adapter<Re
             @Override
             public void onClick(View v) {
                 ActivityHome activityHome = (ActivityHome) holder.itemView.getContext();
-                activityHome.addFragment(new FragmentMainInformationMatch());
+                activityHome.addFragment(new FragmentMainProfileMatch());
             }
         });
         holder.binding.setTodo(todos.get(position));

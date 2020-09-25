@@ -14,8 +14,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myclub.R;
 import com.example.myclub.databinding.FragmentEditPlayerIntroduceBinding;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-public class FragmentEditPlayerIntroduce extends Fragment {
+public class FragmentEditPlayerIntroduce extends BottomSheetDialogFragment {
 
      private ImageButton btnSave;
      private FragmentEditPlayerIntroduceBinding binding;

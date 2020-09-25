@@ -14,21 +14,19 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.myclub.R;
 import com.example.myclub.animation.HorizontalFlipTransformation;
-import com.example.myclub.databinding.FragmentMainMatchBinding;
-import com.example.myclub.main.ActivityHome;
-import com.example.myclub.view.Match.Adapter.AdapterFragmentMatch;
+import com.example.myclub.databinding.FragmentMainInformationMatchBinding;
+import com.example.myclub.view.Match.Adapter.AdapterFragmentInformationMatch;
 import com.example.myclub.view.Player.Adapter.AdapterFragmentProfile;
-import com.example.myclub.view.Team.Fragment.FragmentMainEditTeam;
 import com.google.android.material.tabs.TabLayout;
 
-public class FragmentMainMatch extends Fragment {
+public class FragmentMainProfileMatch extends Fragment {
 
 
-        FragmentMainMatchBinding binding;
+        FragmentMainInformationMatchBinding binding;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main_match, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main_information_match, container, false);
         View view = binding.getRoot();
         return view;
     }
@@ -40,16 +38,18 @@ public class FragmentMainMatch extends Fragment {
         ViewPager viewPager = view.findViewById(R.id.viewpager);
         viewPager.setPageTransformer(true, new HorizontalFlipTransformation());
         FragmentManager manager = getParentFragmentManager();
-        AdapterFragmentMatch adapter = new AdapterFragmentMatch(getChildFragmentManager(), AdapterFragmentProfile.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        AdapterFragmentInformationMatch adapter = new AdapterFragmentInformationMatch(getChildFragmentManager(), AdapterFragmentProfile.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
-        binding.btnCreateMatch.setOnClickListener(new View.OnClickListener() {
+
+        binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_back_white_24);
+        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityHome activityHome = (ActivityHome) getContext();
-                activityHome.addFragment(new FragmentAddMatch());
+                detach();
             }
         });
+
 
     }
 

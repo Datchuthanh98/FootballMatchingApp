@@ -8,10 +8,11 @@
 
     </data>
 
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:layout_height="match_parent">
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -51,12 +52,8 @@
     <LinearLayout
         android:layout_margin="10dp"
         android:orientation="vertical"
-       app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="0dp"
-        android:layout_height="0dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
  <TextView
      android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
      android:text=" Introduce"
@@ -70,10 +67,6 @@
             android:layout_height="wrap_content"
             android:text="Câu lạc bộ bóng đá Chelsea là một câu lạc bộ bóng đá chuyên nghiệp có trụ sở tại Fulham, London, hiện đang thi đấu tại Giải bóng đá Ngoại hạng Anh"
             ></EditText>
-
-
-
     </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
 </layout>

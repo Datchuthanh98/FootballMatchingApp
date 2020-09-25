@@ -17,15 +17,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class RecycleViewAdapterListTimeHorizontal extends RecyclerView.Adapter<RecycleViewAdapterListTimeHorizontal.MyViewHolder> {
+public class RecycleViewAdapterListTimeVertical extends RecyclerView.Adapter<RecycleViewAdapterListTimeVertical.MyViewHolder> {
 
     private FragmentManager fm;
     private List<Todo> todos = new ArrayList<>();
-    public RecycleViewAdapterListTimeHorizontal() {
+    public RecycleViewAdapterListTimeVertical() {
 
     }
 
-    public RecycleViewAdapterListTimeHorizontal(FragmentManager fm) {
+    public RecycleViewAdapterListTimeVertical(FragmentManager fm) {
         this.fm = fm;
     }
 

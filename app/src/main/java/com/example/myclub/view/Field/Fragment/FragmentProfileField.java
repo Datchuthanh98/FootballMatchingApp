@@ -1,6 +1,5 @@
 package com.example.myclub.view.Field.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +13,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.myclub.R;
 import com.example.myclub.databinding.FragmentProfileFieldBinding;
-import com.example.myclub.view.Player.Fragment.FragmentTest;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.example.myclub.main.ActivityHome;
+import com.example.myclub.view.Match.Fragment.FragmentAddMatch;
+import com.example.myclub.view.Team.Fragment.FragmentMainEditTeam;
 
 public class FragmentProfileField extends Fragment {
 
@@ -44,8 +44,9 @@ public class FragmentProfileField extends Fragment {
         binding.btnBooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment dialog = new FragmentBookingFiledDiaLog();
-                dialog.show(getParentFragmentManager(), null);
+                ActivityHome activityHome = (ActivityHome) getContext();
+                activityHome.addFragment(new FragmentAddMatch());
+
             }
         });
     }

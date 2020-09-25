@@ -16,6 +16,7 @@ import com.example.myclub.databinding.FragmentEditMainPlayerBinding;
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.view.Team.Fragment.FragmentEditTeamBasic;
 import com.example.myclub.view.Team.Fragment.FragmentEditTeamIntroduce;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class FragmentMainEditPlayer extends Fragment {
     private FragmentEditMainPlayerBinding binding;
@@ -66,9 +67,9 @@ public class FragmentMainEditPlayer extends Fragment {
             @Override
             public void onClick(View v) {
 
-                ActivityHome activityHome = (ActivityHome) getContext();
-                activityHome.addFragment(new FragmentEditTeamBasic());
 
+                BottomSheetDialogFragment dialog = new FragmentEditPlayerBasic();
+                dialog.show(getParentFragmentManager(), null);
 
             }
         });
@@ -77,8 +78,9 @@ public class FragmentMainEditPlayer extends Fragment {
             @Override
             public void onClick(View v) {
 
-                ActivityHome activityHome = (ActivityHome) getContext();
-                activityHome.addFragment(new FragmentEditPlayerPlayer());
+                BottomSheetDialogFragment dialog = new FragmentEditPlayerPlayer();
+                dialog.show(getParentFragmentManager(), null);
+
             }
         });
 
@@ -87,8 +89,8 @@ public class FragmentMainEditPlayer extends Fragment {
         binding.btnEditIntroduce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityHome activityHome = (ActivityHome) getContext();
-                activityHome.addFragment(new FragmentEditTeamIntroduce());
+                BottomSheetDialogFragment dialog = new FragmentEditPlayerIntroduce();
+                dialog.show(getParentFragmentManager(), null);
             }
         });
     }

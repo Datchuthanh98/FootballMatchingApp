@@ -10,7 +10,6 @@
             type="com.example.myclub.viewModel.ViewModelTodo" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -45,18 +44,13 @@
 
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycleViewListTeamVertical"
+                        android:id="@+id/recycleViewListTimeVertical"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
 <!--                    android:adapter="@{viewModel.adapter}"-->
 
                 </LinearLayout>
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:src="@drawable/ic_add_white_24"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"/>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

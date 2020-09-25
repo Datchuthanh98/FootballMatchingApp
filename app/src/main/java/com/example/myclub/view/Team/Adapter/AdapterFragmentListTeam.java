@@ -9,10 +9,10 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.example.myclub.view.Team.Fragment.FragmentListMyTeam;
 import com.example.myclub.view.Team.Fragment.FragmentListOtherTeam;
 
-public class AdapterFragmentTeam extends FragmentPagerAdapter {
+public class AdapterFragmentListTeam extends FragmentPagerAdapter {
     int numTab = 2;
 
-    public AdapterFragmentTeam(@NonNull FragmentManager fm, int behavior) {
+    public AdapterFragmentListTeam(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
 
     }

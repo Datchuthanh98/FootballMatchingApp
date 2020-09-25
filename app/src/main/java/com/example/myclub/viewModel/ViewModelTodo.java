@@ -13,7 +13,7 @@ import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListTeamHorizontal
 import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListTeamVertical;
 import com.example.myclub.model.Todo;
 import com.example.myclub.view.Player.Adapter.RecycleViewAdapterListPlayerVertical;
-import com.example.myclub.view.Match.Adapter.RecycleViewAdapterListTimeHorizontal;
+import com.example.myclub.view.Match.Adapter.RecycleViewAdapterListTimeVertical;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ public class ViewModelTodo extends ViewModel {
     private RecycleViewAdapterListTeamHorizontal adapterListTeamHorizontal = new RecycleViewAdapterListTeamHorizontal();
     private RecycleViewAdapterListFieldVertical adapterListField = new RecycleViewAdapterListFieldVertical();
     private RecycleViewAdapterListMatchVertical adapterListMatch = new RecycleViewAdapterListMatchVertical();
-    private RecycleViewAdapterListTimeHorizontal adapterListTimeHorizontal = new RecycleViewAdapterListTimeHorizontal();
+    private RecycleViewAdapterListTimeVertical adapterListTimeVertical = new RecycleViewAdapterListTimeVertical();
     private MutableLiveData<List<Todo>> listTodoLiveData = new MutableLiveData<>();
 
 
@@ -56,8 +56,8 @@ public class ViewModelTodo extends ViewModel {
                     adapterListTeamHorizontal.setListTodo(todos);
                     adapterListTeamHorizontal.notifyDataSetChanged();
 
-                    adapterListTimeHorizontal.setListTodo(todos);
-                    adapterListTimeHorizontal.notifyDataSetChanged();
+                    adapterListTimeVertical.setListTodo(todos);
+                    adapterListTimeVertical.notifyDataSetChanged();
 
 
                 }
@@ -86,8 +86,8 @@ public class ViewModelTodo extends ViewModel {
         return  adapterListTeamHorizontal;
     }
 
-    public RecycleViewAdapterListTimeHorizontal getAdapterListTimeHorizontal(){
-        return  adapterListTimeHorizontal;
+    public RecycleViewAdapterListTimeVertical getAdapterListTimeVertical(){
+        return  adapterListTimeVertical;
     }
 
 

@@ -4,12 +4,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myclub.main.ActivityHome;
+import com.example.myclub.view.Team.Fragment.FragmentMainProfileTeam;
 import com.example.myclub.view.Team.Fragment.FragmentMyTeam;
 import com.example.myclub.view.Team.Fragment.FragmentProfileTeam;
 import com.example.myclub.databinding.ItemTeamVerticalBinding;
@@ -23,7 +26,9 @@ public class RecycleViewAdapterListTeamVertical extends RecyclerView.Adapter<Rec
 
     private FragmentManager fm;
     private List<Todo> todos = new ArrayList<>();
-    public Boolean isMy = false ;
+    public Boolean isMy = false;
+    public Boolean isShow = true;
+    public Fragment fragment;
     public RecycleViewAdapterListTeamVertical() {
 
     }
@@ -66,9 +71,16 @@ public class RecycleViewAdapterListTeamVertical extends RecyclerView.Adapter<Rec
                 ActivityHome activityHome = (ActivityHome) holder.itemView.getContext();
 
                 if(isMy){
-                activityHome.addFragment(new FragmentMyTeam());}
-                else{
-                    activityHome.addFragment(new FragmentProfileTeam());}
+                    if(isShow){
+                        activityHome.addFragment(new FragmentMainProfileTeam());
+                    }else {
+                        //select Team
+                      Log.d("SelectItem ",""+position);
+                      detach();
+
+                    }
+                }else{
+                    activityHome.addFragment(new FragmentMainProfileTeam());}
 
             }
         });
@@ -78,6 +90,12 @@ public class RecycleViewAdapterListTeamVertical extends RecyclerView.Adapter<Rec
     @Override
     public int getItemCount() {
         return todos.size();
+    }
+
+    private void detach() {
+        fm.popBackStack();
+//        fm.beginTransaction().detach(fragment).commit();
+
     }
 }
 

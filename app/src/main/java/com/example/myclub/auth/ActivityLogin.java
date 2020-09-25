@@ -39,7 +39,7 @@ public class ActivityLogin extends AppCompatActivity {
 //            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 //            startActivity(intent);
 //        }
-        setContentView(R.layout.login);
+        setContentView(R.layout.activity_login);
 //
 //        sharedPref = getApplicationContext().getSharedPreferences("sessionUser", Context.MODE_PRIVATE);
 //        final SharedPreferences.Editor editor = sharedPref.edit();
