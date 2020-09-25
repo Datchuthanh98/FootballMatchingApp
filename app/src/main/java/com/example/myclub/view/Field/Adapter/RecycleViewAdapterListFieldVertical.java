@@ -66,11 +66,11 @@ public class RecycleViewAdapterListFieldVertical extends RecyclerView.Adapter<Re
             }
         });
         holder.binding.setTodo(todos.get(position));
+        holder.binding.numberShirt.setSelected(true);
     }
 
     @Override
     public int getItemCount() {
-        Log.d("RV", "getItemCount: "+todos.size());
         return todos.size();
     }
 }

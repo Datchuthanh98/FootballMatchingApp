@@ -1,4 +1,4 @@
-package com.example.myclub.view.Field.Adapter;
+package com.example.myclub.view.Match.Adapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -6,11 +6,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.myclub.view.Field.Fragment.FragmentComment;
-import com.example.myclub.view.Field.Fragment.FragmentInformationMatch;
-import com.example.myclub.view.Field.Fragment.FragmentListField;
-import com.example.myclub.view.Field.Fragment.FragmentListQueueTeam;
-import com.example.myclub.view.Field.Fragment.FragmentMap;
+import com.example.myclub.view.Match.Fragment.FragmentComment;
+import com.example.myclub.view.Match.Fragment.FragmentInformationMatch;
+import com.example.myclub.view.Match.Fragment.FragmentListQueueTeam;
 
 public class AdapterFragmentInformationMatch extends FragmentStatePagerAdapter {
     int numTab = 3;

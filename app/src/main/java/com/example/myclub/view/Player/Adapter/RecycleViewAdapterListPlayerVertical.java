@@ -1,4 +1,4 @@
-package com.example.myclub.view.Team.Adapter;
+package com.example.myclub.view.Player.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +12,6 @@ import com.example.myclub.main.ActivityHome;
 import com.example.myclub.model.Todo;
 import com.example.myclub.view.Player.Fragment.FragmentProfilePlayer;
 import com.example.myclub.databinding.ItemPlayerVerticalBinding;
-import com.example.myclub.view.Team.Fragment.FragmentProfileTeam;
 
 import java.util.ArrayList;
 import java.util.List;

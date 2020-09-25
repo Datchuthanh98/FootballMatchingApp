@@ -1,20 +1,19 @@
-package com.example.myclub.view.Team.Adapter;
+package com.example.myclub.view.Match.Adapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.myclub.view.Team.Fragment.FragmentListMyTeam;
-import com.example.myclub.view.Team.Fragment.FragmentListOtherTeam;
+import com.example.myclub.view.Field.Fragment.FragmentListField;
+import com.example.myclub.view.Field.Fragment.FragmentMap;
+import com.example.myclub.view.Match.Fragment.FragmentListMatch;
 
-public class AdapterFragmentTeam extends FragmentPagerAdapter {
+public class AdapterFragmentMatch extends FragmentStatePagerAdapter {
     int numTab = 2;
-
-    public AdapterFragmentTeam(@NonNull FragmentManager fm, int behavior) {
+    public AdapterFragmentMatch(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
-
     }
 
     @NonNull
@@ -22,9 +21,9 @@ public class AdapterFragmentTeam extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new FragmentListMyTeam();
-            case 1:
-                return new FragmentListOtherTeam();
+                return new FragmentListMatch();
+            case 1 :
+                return  new FragmentListMatch();
         }
         return  null;
     }
@@ -39,12 +38,11 @@ public class AdapterFragmentTeam extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "My Team";
+                return "Macthes";
             case 1:
-                return "Other Team";
+                return "My Match";
         }
         return null;
     }
-
 
 }

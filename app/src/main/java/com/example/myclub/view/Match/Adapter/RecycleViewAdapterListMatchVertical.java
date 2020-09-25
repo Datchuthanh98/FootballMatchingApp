@@ -1,4 +1,4 @@
-package com.example.myclub.view.Field.Adapter;
+package com.example.myclub.view.Match.Adapter;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,7 +10,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myclub.databinding.ItemMatchVerticalBinding;
-import com.example.myclub.view.Field.Fragment.FragmentMainMatch;
+import com.example.myclub.main.ActivityHome;
+import com.example.myclub.view.Field.Fragment.FragmentProfileField;
+import com.example.myclub.view.Match.Fragment.FragmentMainInformationMatch;
+import com.example.myclub.view.Match.Fragment.FragmentMainMatch;
 import com.example.myclub.model.Todo;
 
 import java.util.ArrayList;
@@ -58,10 +61,8 @@ public class RecycleViewAdapterListMatchVertical extends RecyclerView.Adapter<Re
         holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentMainMatch fragmentMainMatch = new FragmentMainMatch();
-                fm.beginTransaction()
-                        .add(android.R.id.content, fragmentMainMatch, "abc")
-                        .addToBackStack(null).commit();
+                ActivityHome activityHome = (ActivityHome) holder.itemView.getContext();
+                activityHome.addFragment(new FragmentMainInformationMatch());
             }
         });
         holder.binding.setTodo(todos.get(position));

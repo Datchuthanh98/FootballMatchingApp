@@ -11,14 +11,15 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.myclub.R;
-import com.example.myclub.databinding.FragmentProfileTeamBinding;
+import com.example.myclub.databinding.FragmentProfileOtherTeamBinding;
+
 
 public class FragmentProfileTeam extends Fragment {
-    private FragmentProfileTeamBinding binding;
+    private FragmentProfileOtherTeamBinding binding;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_profile_team,container,false);
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_profile_other_team,container,false);
         View view = binding.getRoot();
         return  view;
     }

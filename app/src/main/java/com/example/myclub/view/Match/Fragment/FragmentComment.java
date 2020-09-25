@@ -1,4 +1,4 @@
-package com.example.myclub.view.Field.Fragment;
+package com.example.myclub.view.Match.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,18 +11,18 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.myclub.R;
+import com.example.myclub.databinding.FragmentMapBinding;
 import com.example.myclub.databinding.FragmentMatchCommentBinding;
-import com.example.myclub.databinding.FragmentMatchInformationBinding;
 
 
-public class FragmentInformationMatch extends Fragment {
+public class FragmentComment extends Fragment {
 
 
-    FragmentMatchInformationBinding binding;
+    FragmentMatchCommentBinding binding;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_match_information, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_match_comment, container, false);
         View view = binding.getRoot();
         return view;
     }

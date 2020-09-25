@@ -1,18 +1,13 @@
 package com.example.myclub.view.Field.Adapter;
 
-        import android.util.Log;
-
         import androidx.annotation.NonNull;
         import androidx.annotation.Nullable;
         import androidx.fragment.app.Fragment;
         import androidx.fragment.app.FragmentManager;
-        import androidx.fragment.app.FragmentPagerAdapter;
         import androidx.fragment.app.FragmentStatePagerAdapter;
 
         import com.example.myclub.view.Field.Fragment.FragmentListField;
         import com.example.myclub.view.Field.Fragment.FragmentMap;
-        import com.example.myclub.view.Field.Fragment.FragmentProfileField;
-        import com.example.myclub.view.Team.Fragment.FragmentListPlayer;
 
 public class AdapterFragmentField extends FragmentStatePagerAdapter {
     int numTab = 2;

@@ -1,55 +1,47 @@
-package com.example.myclub.view.Player.Activity;
+package com.example.myclub.view.Player.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 
 import com.example.myclub.R;
-import com.example.myclub.view.Player.Fragment.FragmentEditPlayerBasic;
-import com.example.myclub.view.Player.Fragment.FragmentEditPlayerIntroduce;
-import com.example.myclub.view.Player.Fragment.FragmentEditPlayerPlayer;
-import com.example.myclub.databinding.ActivityEditPlayerBinding;
+import com.example.myclub.databinding.FragmentEditMainPlayerBinding;
+import com.example.myclub.main.ActivityHome;
+import com.example.myclub.view.Team.Fragment.FragmentEditTeamBasic;
+import com.example.myclub.view.Team.Fragment.FragmentEditTeamIntroduce;
 
-public class ActivityEditProfilePlayer extends AppCompatActivity {
+public class FragmentMainEditPlayer extends Fragment {
+    private FragmentEditMainPlayerBinding binding;
     public static int RESULT_LOAD_IMG_AVATAR = 1012;
     public static int RESULT_LOAD_IMG_COVER = 1013;
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_edit_main_player,container,false);
+        View view = binding.getRoot();
+        return  view;
+    }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_edit_player);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        ActivityEditPlayerBinding binding = DataBindingUtil.setContentView(this,R.layout.activity_edit_player);
-
-        binding.btnEditAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
 
         binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_back_white_24);
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                detach();
             }
         });
-
-
-
-//        toolbar.inflateMenu(R.menu.mymenu);
-//        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-//            @Override
-//            public boolean onMenuItemClick(MenuItem item) {
-//                return false;
-//            }
-//        });
 
 
         binding.btnEditAvatar.setOnClickListener(new View.OnClickListener() {
@@ -73,40 +65,46 @@ public class ActivityEditProfilePlayer extends AppCompatActivity {
         binding.btnEditBasic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction()
-                        .add(R.id.container, new FragmentEditPlayerBasic(), null)
-                        .addToBackStack(null)
-                        .commit();
+
+                ActivityHome activityHome = (ActivityHome) getContext();
+                activityHome.addFragment(new FragmentEditTeamBasic());
+
+
             }
         });
 
         binding.btnEditPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction()
-                        .add(R.id.container, new FragmentEditPlayerPlayer(), null)
-                        .addToBackStack(null)
-                        .commit();
+
+                ActivityHome activityHome = (ActivityHome) getContext();
+                activityHome.addFragment(new FragmentEditPlayerPlayer());
             }
         });
+
+
 
         binding.btnEditIntroduce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getSupportFragmentManager().beginTransaction()
-                        .add(R.id.container, new FragmentEditPlayerIntroduce(), null)
-                        .addToBackStack(null)
-                        .commit();
+                ActivityHome activityHome = (ActivityHome) getContext();
+                activityHome.addFragment(new FragmentEditTeamIntroduce());
             }
         });
     }
 
-
+    private void detach() {
+        getParentFragmentManager().popBackStack();
+        getParentFragmentManager()
+                .beginTransaction()
+                .detach(this)
+                .commit();
+    }
 
     @Override
-    public void onActivityResult(int reqCode, int resultCode, Intent data) {
-        super.onActivityResult(reqCode, resultCode, data);
-//        if (resultCode == Activity.RESULT_OK) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //        if (resultCode == Activity.RESULT_OK) {
 //            try {
 //                imageUri = data.getData();
 //                final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
@@ -128,5 +126,4 @@ public class ActivityEditProfilePlayer extends AppCompatActivity {
 //            Toast.makeText(getContext(), "You haven't picked Image", Toast.LENGTH_LONG).show();
 //        }
     }
-
 }

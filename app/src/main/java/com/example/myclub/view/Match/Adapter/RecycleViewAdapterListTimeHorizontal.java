@@ -1,4 +1,4 @@
-package com.example.myclub.view.Team.Adapter;
+package com.example.myclub.view.Match.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myclub.databinding.ItemPlayerVerticalBinding;
 import com.example.myclub.databinding.ItemTimeHorizontalBinding;
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.model.Todo;

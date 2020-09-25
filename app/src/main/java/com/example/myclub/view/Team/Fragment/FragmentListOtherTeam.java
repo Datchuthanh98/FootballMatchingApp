@@ -13,20 +13,20 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myclub.R;
-import com.example.myclub.databinding.FragmentListTeamBinding;
+import com.example.myclub.databinding.FragmentListOtherTeamBinding;;
 import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListTeamVertical;
 import com.example.myclub.viewModel.ViewModelTodo;
 
 public class FragmentListOtherTeam extends Fragment {
     private ViewModelTodo viewModel;
-    private FragmentListTeamBinding binding;
+    private FragmentListOtherTeamBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(this).get(ViewModelTodo.class);
 
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_list_team,container,false);
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_list_other_team,container,false);
         View view = binding.getRoot();
         return  view;
     }

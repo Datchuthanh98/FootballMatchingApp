@@ -1,7 +1,5 @@
-package com.example.myclub.view.Field.Fragment;
+package com.example.myclub.view.Player.Fragment;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +8,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -18,14 +15,20 @@ import com.example.myclub.databinding.FragmentBookingFieldBinding;
 import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListTeamHorizontal;
 import com.example.myclub.view.Match.Adapter.RecycleViewAdapterListTimeHorizontal;
 import com.example.myclub.viewModel.ViewModelTodo;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-public class FragmentBookingFiledDiaLog extends DialogFragment {
+public class FragmentTest extends BottomSheetDialogFragment {
     private ViewModelTodo viewModel;
-
     FragmentBookingFieldBinding binding;
+
+    public FragmentTest() {
+
+    }
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = FragmentBookingFieldBinding.inflate(inflater);
         viewModel = new ViewModelProvider(this).get(ViewModelTodo.class);
         binding.recycleViewListTeamHorizontal.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         RecycleViewAdapterListTeamHorizontal adapterListTeamHorizontal = viewModel.getAdapterListTeamHorizontal();
@@ -41,7 +44,7 @@ public class FragmentBookingFiledDiaLog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(),"Show r ",Toast.LENGTH_SHORT).show();
-               dismiss();
+                dismiss();
             }
         });
 
@@ -49,13 +52,5 @@ public class FragmentBookingFiledDiaLog extends DialogFragment {
 
     }
 
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = requireActivity().getLayoutInflater();
-        binding = FragmentBookingFieldBinding.inflate(inflater);
-        builder.setView(binding.getRoot());
-        return builder.create();
-    }
+
 }

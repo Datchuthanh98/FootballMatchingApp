@@ -1,4 +1,4 @@
-package com.example.myclub.view.Field.Fragment;
+package com.example.myclub.view.Match.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,27 +8,29 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.myclub.R;
 import com.example.myclub.animation.HorizontalFlipTransformation;
+import com.example.myclub.databinding.FragmentMainInformationMatchBinding;
 import com.example.myclub.databinding.FragmentMainMatchBinding;
-import com.example.myclub.databinding.FragmentMatchCommentBinding;
-import com.example.myclub.databinding.FragmentMatchInformationBinding;
-import com.example.myclub.view.Field.Adapter.AdapterFragmentInformationMatch;
+import com.example.myclub.view.Field.Fragment.FragmentBookingFiledDiaLog;
+import com.example.myclub.view.Match.Adapter.AdapterFragmentInformationMatch;
+import com.example.myclub.view.Match.Adapter.AdapterFragmentMatch;
 import com.example.myclub.view.Player.Adapter.AdapterFragmentProfile;
 import com.google.android.material.tabs.TabLayout;
 
-public class FragmentMainMatch extends Fragment {
+public class FragmentMainInformationMatch extends Fragment {
 
 
-        FragmentMainMatchBinding binding;
+        FragmentMainInformationMatchBinding binding;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main_match, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main_information_match, container, false);
         View view = binding.getRoot();
         return view;
     }
@@ -43,6 +45,7 @@ public class FragmentMainMatch extends Fragment {
         AdapterFragmentInformationMatch adapter = new AdapterFragmentInformationMatch(getChildFragmentManager(), AdapterFragmentProfile.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+
         binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_back_white_24);
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +53,7 @@ public class FragmentMainMatch extends Fragment {
                 detach();
             }
         });
+
 
     }
 

@@ -1,4 +1,4 @@
-package com.example.myclub.view.Field.Fragment;
+package com.example.myclub.view.Player.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,22 +13,20 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myclub.R;
-import com.example.myclub.databinding.FragmentListMatchBinding;
-import com.example.myclub.databinding.FragmentListTeamBinding;
-import com.example.myclub.view.Field.Adapter.RecycleViewAdapterListMatchVertical;
-import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListTeamVertical;
+import com.example.myclub.view.Player.Adapter.RecycleViewAdapterListPlayerVertical;
+import com.example.myclub.databinding.FragmentListPlayerBinding;
 import com.example.myclub.viewModel.ViewModelTodo;
 
-public class FragmentListMatch extends Fragment {
+public class FragmentListPlayer extends Fragment {
     private ViewModelTodo viewModel;
-    private FragmentListMatchBinding binding;
+    private FragmentListPlayerBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(this).get(ViewModelTodo.class);
 
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_list_match,container,false);
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_list_player,container,false);
         View view = binding.getRoot();
         return  view;
     }
@@ -36,13 +34,19 @@ public class FragmentListMatch extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_back_white_24);
+        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        });
 
-
-       binding.recycleViewListMatchVertical.setLayoutManager(new LinearLayoutManager(getContext()));
+       binding.recycleViewListPlayerVertical.setLayoutManager(new LinearLayoutManager(getContext()));
         //Khởi tạo màn hình ban đầu của fragment
-        RecycleViewAdapterListMatchVertical adapter = viewModel.getAdapterListMatch();
+        RecycleViewAdapterListPlayerVertical adapter = viewModel.getAdapterListPlayer();
         adapter.setFm(getParentFragmentManager());
-        binding.recycleViewListMatchVertical.setAdapter(viewModel.getAdapterListMatch());
+        binding.recycleViewListPlayerVertical.setAdapter(viewModel.getAdapterListPlayer());
 
 
     }

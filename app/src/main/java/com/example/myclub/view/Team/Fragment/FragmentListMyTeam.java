@@ -13,24 +13,22 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myclub.R;
-import com.example.myclub.databinding.FragmentListPlayerBinding;
-import com.example.myclub.databinding.FragmentListTeamBinding;
-import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListPlayerVertical;
+import com.example.myclub.databinding.FragmentListFieldBinding;
+import com.example.myclub.databinding.FragmentListMyTeamBinding;
 import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListTeamVertical;
 import com.example.myclub.viewModel.ViewModelTodo;
 
 public class FragmentListMyTeam extends Fragment {
     private ViewModelTodo viewModel;
-    private FragmentListTeamBinding binding;
+    private FragmentListMyTeamBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(this).get(ViewModelTodo.class);
 
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_list_team,container,false);
-        View view = binding.getRoot();
-        return  view;
+        binding = FragmentListMyTeamBinding.inflate(inflater);
+        return  binding.getRoot();
     }
 
     @Override
@@ -41,7 +39,9 @@ public class FragmentListMyTeam extends Fragment {
         //Khởi tạo màn hình ban đầu của fragment
         RecycleViewAdapterListTeamVertical adapter = viewModel.getAdapterListTeam();
         adapter.setFm(getParentFragmentManager());
+        adapter.isMy = true ;
         binding.recycleViewListTeamVertical.setAdapter(viewModel.getAdapterListTeam());
+
 
 
     }

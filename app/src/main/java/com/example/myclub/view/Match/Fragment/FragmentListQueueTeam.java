@@ -1,4 +1,4 @@
-package com.example.myclub.view.Field.Fragment;
+package com.example.myclub.view.Match.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

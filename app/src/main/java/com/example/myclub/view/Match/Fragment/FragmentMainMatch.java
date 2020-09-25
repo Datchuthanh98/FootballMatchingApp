@@ -1,4 +1,4 @@
-package com.example.myclub.view.Team.Fragment;
+package com.example.myclub.view.Match.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,20 +14,19 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.myclub.R;
 import com.example.myclub.animation.HorizontalFlipTransformation;
-import com.example.myclub.databinding.FragmentMainFieldBinding;
-import com.example.myclub.view.Field.Adapter.AdapterFragmentField;
+import com.example.myclub.databinding.FragmentMainMatchBinding;
+import com.example.myclub.view.Match.Adapter.AdapterFragmentMatch;
 import com.example.myclub.view.Player.Adapter.AdapterFragmentProfile;
-import com.example.myclub.view.Team.Adapter.AdapterFragmentTeam;
 import com.google.android.material.tabs.TabLayout;
 
-public class FragmentMainTeam extends Fragment {
+public class FragmentMainMatch extends Fragment {
 
 
-    FragmentMainFieldBinding binding;
+        FragmentMainMatchBinding binding;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main_field, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main_match, container, false);
         View view = binding.getRoot();
         return view;
     }
@@ -39,11 +38,20 @@ public class FragmentMainTeam extends Fragment {
         ViewPager viewPager = view.findViewById(R.id.viewpager);
         viewPager.setPageTransformer(true, new HorizontalFlipTransformation());
         FragmentManager manager = getParentFragmentManager();
-        AdapterFragmentTeam adapter = new AdapterFragmentTeam(getChildFragmentManager(), AdapterFragmentProfile.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        AdapterFragmentMatch adapter = new AdapterFragmentMatch(getChildFragmentManager(), AdapterFragmentProfile.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
+    }
 
 
+
+
+    private void detach() {
+        getParentFragmentManager().popBackStack();
+        getParentFragmentManager()
+                .beginTransaction()
+                .detach(this)
+                .commit();
     }
 }

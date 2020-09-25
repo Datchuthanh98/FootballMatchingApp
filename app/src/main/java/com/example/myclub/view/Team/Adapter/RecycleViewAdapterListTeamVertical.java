@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myclub.main.ActivityHome;
+import com.example.myclub.view.Team.Fragment.FragmentMyTeam;
 import com.example.myclub.view.Team.Fragment.FragmentProfileTeam;
 import com.example.myclub.databinding.ItemTeamVerticalBinding;
 import com.example.myclub.model.Todo;
@@ -22,9 +23,11 @@ public class RecycleViewAdapterListTeamVertical extends RecyclerView.Adapter<Rec
 
     private FragmentManager fm;
     private List<Todo> todos = new ArrayList<>();
+    public Boolean isMy = false ;
     public RecycleViewAdapterListTeamVertical() {
 
     }
+
 
     public RecycleViewAdapterListTeamVertical(FragmentManager fm) {
         this.fm = fm;
@@ -61,7 +64,12 @@ public class RecycleViewAdapterListTeamVertical extends RecyclerView.Adapter<Rec
             @Override
             public void onClick(View v) {
                 ActivityHome activityHome = (ActivityHome) holder.itemView.getContext();
-                activityHome.addFragment(new FragmentProfileTeam());
+
+                if(isMy){
+                activityHome.addFragment(new FragmentMyTeam());}
+                else{
+                    activityHome.addFragment(new FragmentProfileTeam());}
+
             }
         });
         holder.binding.setTodo(todos.get(position));

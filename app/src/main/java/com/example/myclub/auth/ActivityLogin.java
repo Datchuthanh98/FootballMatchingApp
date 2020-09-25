@@ -17,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.R;
-import com.example.myclub.view.Player.Activity.ActivityMainPlayer;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -100,16 +99,6 @@ public class ActivityLogin extends AppCompatActivity {
             }
         });
 
-        btnOff=findViewById(R.id.btnOffline);
-        btnOff.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ActivityLogin.this, ActivityMainPlayer.class);
-//                editor.putString("session","");
-//                editor.apply();
-                startActivity(intent);
-                finish();
-            }
-        });
+
     }
 }

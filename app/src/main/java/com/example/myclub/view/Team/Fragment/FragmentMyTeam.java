@@ -12,8 +12,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.myclub.R;
-import com.example.myclub.view.Team.Activity.ActivityEditProfileTeam;
 import com.example.myclub.databinding.FragmentProfileMyTeamBinding;
+import com.example.myclub.main.ActivityHome;
 
 public class FragmentMyTeam extends Fragment {
     private FragmentProfileMyTeamBinding binding;
@@ -42,8 +42,8 @@ public class FragmentMyTeam extends Fragment {
         binding.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), ActivityEditProfileTeam.class);
-                startActivity(intent);
+                ActivityHome activityHome = (ActivityHome) getContext();
+                activityHome.addFragment(new FragmentMainEditTeam());
             }
         });
 

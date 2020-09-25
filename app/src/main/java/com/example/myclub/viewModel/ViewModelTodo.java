@@ -8,12 +8,12 @@ import androidx.lifecycle.ViewModel;
 import com.example.myclub.data.repository.TestRepository;
 import com.example.myclub.Interface.FirebaseLoadListTodo;
 import com.example.myclub.view.Field.Adapter.RecycleViewAdapterListFieldVertical;
-import com.example.myclub.view.Field.Adapter.RecycleViewAdapterListMatchVertical;
+import com.example.myclub.view.Match.Adapter.RecycleViewAdapterListMatchVertical;
 import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListTeamHorizontal;
 import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListTeamVertical;
 import com.example.myclub.model.Todo;
-import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListPlayerVertical;
-import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListTimeHorizontal;
+import com.example.myclub.view.Player.Adapter.RecycleViewAdapterListPlayerVertical;
+import com.example.myclub.view.Match.Adapter.RecycleViewAdapterListTimeHorizontal;
 
 import java.util.ArrayList;
 import java.util.List;
