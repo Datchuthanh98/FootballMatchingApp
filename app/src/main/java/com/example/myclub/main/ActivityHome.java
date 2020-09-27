@@ -26,7 +26,7 @@ public class ActivityHome extends AppCompatActivity {
 
         TabLayout tabLayout = findViewById(R.id.tablayout);
         ViewPager viewPager = findViewById(R.id.viewpager);
-        viewPager.setPageTransformer(true, new HorizontalFlipTransformation());
+//        viewPager.setPageTransformer(true, new HorizontalFlipTransformation());
         FragmentManager manager = getSupportFragmentManager();
         AdapterFragmentHome adapter = new AdapterFragmentHome(manager, AdapterFragmentProfile.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(adapter);

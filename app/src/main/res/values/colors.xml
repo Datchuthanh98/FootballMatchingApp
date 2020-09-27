@@ -6,4 +6,8 @@
     <color name="white">#ffffff</color>
     <color name="colorBG">#e6f9ff</color>
     <color name="colorTittle">#006080</color>
+
+    <color name="tabTextColor">#ffffff</color>
+    <color name="tabSelectedTextColor">#ffffff</color>
+    <color name="tabIndicatorColor">#ffffff</color>
 </resources>

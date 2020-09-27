@@ -20,7 +20,7 @@ import java.util.List;
 
 
 public class RecycleViewAdapterListFieldVertical extends RecyclerView.Adapter<RecycleViewAdapterListFieldVertical.MyViewHolder> {
-
+    public Boolean isShow = false;
     private FragmentManager fm;
     private List<Todo> todos = new ArrayList<>();
     public RecycleViewAdapterListFieldVertical() {
@@ -61,8 +61,12 @@ public class RecycleViewAdapterListFieldVertical extends RecyclerView.Adapter<Re
         holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityHome activityHome = (ActivityHome) holder.itemView.getContext();
-                activityHome.addFragment(new FragmentProfileField());
+                if(isShow) {
+                    ActivityHome activityHome = (ActivityHome) holder.itemView.getContext();
+                    activityHome.addFragment(new FragmentProfileField());
+                }else{
+                    detach();
+                }
             }
         });
         holder.binding.setTodo(todos.get(position));
@@ -72,6 +76,10 @@ public class RecycleViewAdapterListFieldVertical extends RecyclerView.Adapter<Re
     @Override
     public int getItemCount() {
         return todos.size();
+    }
+
+    public void detach(){
+        fm.popBackStack();
     }
 }
 

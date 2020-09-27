@@ -4,11 +4,17 @@
     <string name="tab_text_2">Tab 2</string>
     <string name="facebook_app_id">2237692446532465</string>
     <string name="fb_login_protocol_scheme">fb2237692446532465</string>
-        <string-array name="option_play">
+    <string name="google_map_api_key">AIzaSyBpNrKwDUDi8gPkBIraLmTe-B30n2SKcmg</string>
+    <string-array name="option_play">
             <item>Local</item>
             <item>All</item>
         </string-array>
+    <string-array name="nearby_option">
 
+        <item>Select a Type</item>
+        <item>Sân bóng</item>
+
+    </string-array>
 
 
 </resources>

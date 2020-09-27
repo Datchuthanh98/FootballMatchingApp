@@ -39,10 +39,10 @@ public class FragmentProfilePlayer extends Fragment {
 
     private void detach() {
         getParentFragmentManager().popBackStack();
-        getParentFragmentManager()
-                .beginTransaction()
-                .detach(this)
-                .commit();
+//        getParentFragmentManager()
+//                .beginTransaction()
+//                .detach(this)
+//                .commit();
     }
 
 

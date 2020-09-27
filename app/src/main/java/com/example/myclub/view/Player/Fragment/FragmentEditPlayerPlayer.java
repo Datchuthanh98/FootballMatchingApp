@@ -55,6 +55,6 @@ public class FragmentEditPlayerPlayer extends BottomSheetDialogFragment {
 
     private void detach(){
         getParentFragmentManager().popBackStack();
-        getParentFragmentManager().beginTransaction().detach(this).commit();
+//        getParentFragmentManager().beginTransaction().detach(this).commit();
     }
 }

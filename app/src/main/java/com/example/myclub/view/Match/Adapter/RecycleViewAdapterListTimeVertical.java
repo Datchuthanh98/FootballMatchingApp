@@ -59,16 +59,23 @@ public class RecycleViewAdapterListTimeVertical extends RecyclerView.Adapter<Rec
         holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityHome activityHome = (ActivityHome) holder.itemView.getContext();
-                activityHome.addFragment(new FragmentProfilePlayer());
+               detach();
             }
+
+
         });
-        holder.binding.setTodo(todos.get(position));
+//        holder.binding.setTodo(todos.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return todos.size();
+
+//        return todos.size();
+        return 5;
+    }
+
+    public void detach() {
+        fm.popBackStack();
     }
 }
 

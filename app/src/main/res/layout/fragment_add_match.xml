@@ -67,6 +67,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/selectClub"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -114,12 +115,13 @@
                         android:textColor="@color/colorTittle"
                         android:textSize="20dp"
                         android:textStyle="bold"></TextView>
-                </LinearLayout>
+
                 <Spinner
                      android:entries="@array/option_play"
                      android:id="@+id/optionPlay"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -187,6 +189,7 @@
                             android:textStyle="bold"></ImageButton>
                     </LinearLayout>
                     <TextView
+                        android:id="@+id/lblDate"
                         android:gravity="center"
                         android:text="30/10/2020"
                         android:layout_width="match_parent"
@@ -254,11 +257,11 @@
                             android:textSize="20dp"
                             android:textStyle="bold"></TextView>
                     </LinearLayout>
-                    <TextView
+                    <EditText
                         android:gravity="center"
                         android:text="0984060798"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"></TextView>
+                        android:layout_height="wrap_content"></EditText>
                 </LinearLayout>
 
                 <LinearLayout
@@ -281,11 +284,11 @@
                             android:textSize="20dp"
                             android:textStyle="bold"></TextView>
                     </LinearLayout>
-                    <TextView
+                    <EditText
                         android:gravity="center"
                         android:text="Chơi đẹp ,50-50, không chân tay"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"></TextView>
+                        android:layout_height="wrap_content"></EditText>
                 </LinearLayout>
 
 

@@ -20,6 +20,15 @@ import com.example.myclub.viewModel.ViewModelTodo;
 
 public class FragmentListField extends Fragment {
     private ViewModelTodo viewModel;
+    public boolean isShown = true;
+
+    public FragmentListField() {
+    }
+
+    public
+    FragmentListField(Boolean isShown) {
+        this.isShown = isShown;
+    }
 
     FragmentListFieldBinding binding;
     @Nullable
@@ -35,6 +44,7 @@ public class FragmentListField extends Fragment {
         viewModel = new ViewModelProvider(this).get(ViewModelTodo.class);
         RecycleViewAdapterListFieldVertical adapter = viewModel.getAdapterListField();
         adapter.setFm(getParentFragmentManager());
+        adapter.isShow = this.isShown;
         binding.recycleViewListFieldVertical.setAdapter(viewModel.getAdapterListField());
         binding.recycleViewListFieldVertical.setLayoutManager(new LinearLayoutManager(getContext()));
 
