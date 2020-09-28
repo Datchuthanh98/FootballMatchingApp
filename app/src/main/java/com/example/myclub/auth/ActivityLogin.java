@@ -15,7 +15,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myclub.auth.facebookauthentication.FaceBookLoginActivity;
 import com.example.myclub.databinding.ActivityLoginBinding;
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.R;

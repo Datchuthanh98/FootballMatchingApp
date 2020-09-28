@@ -25,7 +25,7 @@ public class HomeTabFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home_tab, container, false);
-        Toast.makeText(getContext(),"HomeTab Fragment",Toast.LENGTH_SHORT).show();
+
         tabLayout = v.findViewById(R.id.tabs);
         viewPager = v.findViewById(R.id.viewpager);
 

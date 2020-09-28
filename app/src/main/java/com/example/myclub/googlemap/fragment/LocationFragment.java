@@ -21,8 +21,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
 import com.example.myclub.R;
+import com.example.myclub.googlemap.constants.PlacesConstant;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -33,15 +35,6 @@ import java.util.Locale;
 
 public class LocationFragment extends Fragment {
 
-    private FusedLocationProviderClient mFusedLocationClient;
-    LocationManager lm;
-    LocationManager locationManager;
-
-    double lat, lng;
-
-    String longitude, latitude;
-
-    ProgressDialog progressDialog;
     private TextView textViewAddress;
     private TextView textViewCity;
     private TextView textViewPostalCode;
@@ -69,11 +62,17 @@ public class LocationFragment extends Fragment {
         textViewPostalCode = view.findViewById(R.id.postalCode);
         textViewShowMe = view.findViewById(R.id.show_me);
 
-        locationService();
+//        locationService();
 
-        if (lat != 0 && lng != 0) {
-            getAddress();
-        }
+        PlacesConstant.locationChange.observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                if (integer == null) return;
+                textViewLatitude.setText(Double.toString(PlacesConstant.latitude));
+                textViewLongitude.setText(Double.toString(PlacesConstant.longitude));
+                getAddress();
+            }
+        });
 
         textViewShowMe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,94 +82,6 @@ public class LocationFragment extends Fragment {
         });
 
         return view;
-    }
-
-    private void locationService() {
-
-        lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-
-        if (lm.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
-                lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-
-            progressDialog = new ProgressDialog(getContext());
-            progressDialog.setMessage("Please wait while fetching data from GPS .......");
-            progressDialog.setCancelable(false);
-            progressDialog.show();
-
-
-            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-
-            final LocationListener locationListener = new MyLocationListener();
-            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(),
-                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-                progressDialog.dismiss();
-
-                return;
-            }
-
-            progressDialog.dismiss();
-
-            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
-
-            mFusedLocationClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
-                @Override
-                public void onSuccess(Location location) {
-
-                    if (location != null) {
-
-                        lat = location.getLatitude();
-                        lng = location.getLongitude();
-                        textViewLatitude.setText(String.valueOf(lat));
-                        textViewLongitude.setText(String.valueOf(lng));
-
-                        getAddress();
-
-                    } else {
-                        if (lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-
-                            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                                return;
-                            }
-
-                            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
-                        } else if (lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-
-                            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 10, locationListener);
-                        }
-                    }
-                }
-            });
-        } else {
-            //checkGpsStatus();
-            Toast.makeText(getContext(), "GPS off", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private class MyLocationListener implements LocationListener {
-
-        @Override
-        public void onLocationChanged(Location loc) {
-
-            longitude = String.valueOf(loc.getLongitude());
-            latitude = String.valueOf(+loc.getLatitude());
-
-            lat = loc.getLatitude();
-            lng = loc.getLongitude();
-        }
-
-        @Override
-        public void onProviderDisabled(String provider) {
-        }
-
-        @Override
-        public void onProviderEnabled(String provider) {
-        }
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-        }
     }
 
     private void getAddress() {
@@ -187,7 +98,7 @@ public class LocationFragment extends Fragment {
         List<Address> addresses;
 
         try {
-            addresses = gcd.getFromLocation(lat, lng, 1);
+            addresses = gcd.getFromLocation(PlacesConstant.latitude, PlacesConstant.longitude, 1);
             if (addresses.size() > 0) {
 
                 city = addresses.get(0).getLocality();

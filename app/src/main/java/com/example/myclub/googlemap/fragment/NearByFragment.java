@@ -21,20 +21,22 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.example.myclub.R;
-import  com.example.myclub.googlemap.activity.ShowPlacesOnMapActivity;
-import  com.example.myclub.googlemap.adapter.PlaceRecyclerViewAdapter;
-import  com.example.myclub.googlemap.constants.PlacesConstant;
-import  com.example.myclub.googlemap.models.MyPlaces;
-import  com.example.myclub.googlemap.remotes.GoogleApiService;
-import  com.example.myclub.googlemap.remotes.RetrofitBuilder;
+import com.example.myclub.googlemap.activity.ShowPlacesOnMapActivity;
+import com.example.myclub.googlemap.adapter.PlaceRecyclerViewAdapter;
+import com.example.myclub.googlemap.constants.PlacesConstant;
+import com.example.myclub.googlemap.models.MyPlaces;
+import com.example.myclub.googlemap.remotes.GoogleApiService;
+import com.example.myclub.googlemap.remotes.RetrofitBuilder;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -49,17 +51,7 @@ public class NearByFragment extends Fragment {
     private Spinner spinner_nearby_choices;
     private RecyclerView recyclerViewPlaces;
     private LinearLayout linearLayoutShowOnMap;
-    double latitude;
-    double longitude;
 
-    ProgressDialog progressDialog;
-
-    private FusedLocationProviderClient mFusedLocationClient;
-    LocationManager lm;
-    LocationManager locationManager;
-
-    double lat = 0;
-    double lng = 0;
     private String placeType = "Sân bóng";
     private GoogleApiService googleApiService;
     private MyPlaces myPlaces;
@@ -73,22 +65,20 @@ public class NearByFragment extends Fragment {
         recyclerViewPlaces = view.findViewById(R.id.recyclerViewPlaces);
         linearLayoutShowOnMap = view.findViewById(R.id.linearLayoutShowOnMap);
 
-        locationService();
+        PlacesConstant.locationChange.observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                if (integer == null) return;
+                getNearbyPlaces();
+            }
+        });
+
 
         imageViewSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                int position = spinner_nearby_choices.getSelectedItemPosition();
-//                if (position == 0) {
-//                    Toast.makeText(getContext(), "Please select valid type", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Toast.makeText(getContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
-//                    placeType = spinner_nearby_choices.getSelectedItem().toString();
-//                    getNearbyPlaces();
-//                }
 
                 getNearbyPlaces();
-
             }
 
 
@@ -106,97 +96,14 @@ public class NearByFragment extends Fragment {
         return view;
     }
 
-    private void locationService() {
-
-        lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-
-        if (lm.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
-                lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-
-            progressDialog = new ProgressDialog(getContext());
-            progressDialog.setMessage("Please wait while fetching data from GPS .......");
-            progressDialog.setCancelable(false);
-            progressDialog.show();
-
-
-            locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-
-            final LocationListener locationListener = new MyLocationListener();
-            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(),
-                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-                progressDialog.dismiss();
-
-                return;
-            }
-
-            progressDialog.dismiss();
-
-            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
-
-            mFusedLocationClient.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
-                @Override
-                public void onSuccess(Location location) {
-
-                    if (location != null) {
-
-                        lat = location.getLatitude();
-                        lng = location.getLongitude();
-
-                    } else {
-                        if (lm.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-
-                            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                                return;
-                            }
-
-                            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
-                        } else if (lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-
-                            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 10, locationListener);
-                        }
-                    }
-                }
-            });
-        } else {
-            Toast.makeText(getContext(), "GPS off", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private class MyLocationListener implements LocationListener {
-
-        @Override
-        public void onLocationChanged(Location loc) {
-
-            longitude = loc.getLongitude();
-            latitude = loc.getLatitude();
-
-            lat = loc.getLatitude();
-            lng = loc.getLongitude();
-        }
-
-        @Override
-        public void onProviderDisabled(String provider) {
-        }
-
-        @Override
-        public void onProviderEnabled(String provider) {
-        }
-
-        @Override
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-        }
-    }
-
-    private String buildUrl(double latitude, double longitude, String API_KEY) {
+    private String buildUrl(double latitude, double longitude, int radius, String API_KEY) {
         StringBuilder urlString = new StringBuilder("api/place/nearbysearch/json?");
 
         urlString.append("&location=");
         urlString.append(Double.toString(latitude));
         urlString.append(",");
         urlString.append(Double.toString(longitude));
-        urlString.append("&radius=5000"); // places between 5 kilometer
+        urlString.append("&radius=" + radius); // places between 5 kilometer
         urlString.append("&keyword=" + placeType.toLowerCase());
         urlString.append("&sensor=false&key=" + API_KEY);
 
@@ -204,7 +111,7 @@ public class NearByFragment extends Fragment {
     }
 
     private void getNearbyPlaces() {
-        if (lat != 0 && lng != 0) {
+        if (PlacesConstant.latitude != 0 && PlacesConstant.longitude != 0) {
 
             final ProgressDialog dialog = new ProgressDialog(getContext());
             dialog.setMessage("Loading...");
@@ -213,7 +120,7 @@ public class NearByFragment extends Fragment {
             dialog.show();
 
             String apiKey = getContext().getResources().getString(R.string.google_map_api_key);
-            String url = buildUrl(lat, lng, apiKey);
+            String url = buildUrl(PlacesConstant.latitude, PlacesConstant.longitude, PlacesConstant.radius, apiKey);
             Log.d("finalUrl", url);
 
             googleApiService = RetrofitBuilder.builder().create(GoogleApiService.class);
@@ -228,21 +135,15 @@ public class NearByFragment extends Fragment {
 //                    Log.d("MyPlaces", myPlaces.getResults().get(0).toString());
 
                     dialog.dismiss();
-                    PlaceRecyclerViewAdapter adapter = new PlaceRecyclerViewAdapter(getContext(), myPlaces, lat, lng);
+                    PlaceRecyclerViewAdapter adapter = new PlaceRecyclerViewAdapter(getContext(), myPlaces, PlacesConstant.latitude, PlacesConstant.longitude);
                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
                     recyclerViewPlaces.setLayoutManager(layoutManager);
                     recyclerViewPlaces.setItemAnimator(new DefaultItemAnimator());
                     recyclerViewPlaces.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                     linearLayoutShowOnMap.setVisibility(View.VISIBLE);
-                    linearLayoutShowOnMap.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            PlacesConstant.results = myPlaces.getResults();
-                            Intent intent = new Intent(getContext(), ShowPlacesOnMapActivity.class);
-                            startActivity(intent);
-                        }
-                    });
+                    PlacesConstant.results = myPlaces.getResults();
+                    PlacesConstant.resultUpdate.setValue(myPlaces.getResults().size());
                 }
 
                 @Override
