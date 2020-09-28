@@ -59,7 +59,6 @@ public class LocationFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_location, container, false);
-
         textViewAddress = view.findViewById(R.id.address);
         textViewCity = view.findViewById(R.id.city);
         textViewLongitude = view.findViewById(R.id.textViewLongitude);

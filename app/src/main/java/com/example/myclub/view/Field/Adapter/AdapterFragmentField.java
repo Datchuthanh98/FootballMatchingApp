@@ -5,8 +5,7 @@ package com.example.myclub.view.Field.Adapter;
         import androidx.fragment.app.Fragment;
         import androidx.fragment.app.FragmentManager;
         import androidx.fragment.app.FragmentStatePagerAdapter;
-
-        import com.example.myclub.view.Field.Fragment.FragmentListField;
+        import com.example.myclub.googlemap.fragment.NearByFragment;
         import com.example.myclub.view.Field.Fragment.FragmentMap;
 
 public class AdapterFragmentField extends FragmentStatePagerAdapter {
@@ -22,7 +21,8 @@ public class AdapterFragmentField extends FragmentStatePagerAdapter {
             case 0:
                 return new FragmentMap();
             case 1 :
-                return  new FragmentListField();
+//                return  new FragmentListField();
+                return  new NearByFragment();
         }
         return  null;
     }

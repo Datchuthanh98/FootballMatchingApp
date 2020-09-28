@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_origin);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             checkPermission();

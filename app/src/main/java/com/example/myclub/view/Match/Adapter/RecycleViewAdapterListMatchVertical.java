@@ -68,7 +68,6 @@ public class RecycleViewAdapterListMatchVertical extends RecyclerView.Adapter<Re
 
     @Override
     public int getItemCount() {
-        Log.d("RV", "getItemCount: "+todos.size());
         return todos.size();
     }
 }

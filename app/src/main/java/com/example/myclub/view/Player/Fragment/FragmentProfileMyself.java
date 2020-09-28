@@ -12,9 +12,12 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.myclub.R;
+import com.example.myclub.auth.ActivityLogin;
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.databinding.FragmentProfileMyselfBinding;
 import com.example.myclub.view.Team.Fragment.FragmentMainEditTeam;
+import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class FragmentProfileMyself extends Fragment {
 
@@ -44,6 +47,17 @@ public class FragmentProfileMyself extends Fragment {
             public void onClick(View v) {
                 ActivityHome activityHome = (ActivityHome) getContext();
                 activityHome.addFragment(new FragmentMainEditPlayer());
+            }
+        });
+
+        binding.btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                LoginManager.getInstance().logOut();
+                startActivity(new Intent(getContext(), ActivityLogin.class));
+//                startActivity(new Intent(DashBoardActivity.this, FaceBookLoginActivity.class));
+                getActivity().finish();
             }
         });
     }

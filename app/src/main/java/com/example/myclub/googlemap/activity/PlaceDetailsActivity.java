@@ -67,10 +67,12 @@ public class PlaceDetailsActivity extends AppCompatActivity {
                     .load(photoUrl)
                     .into(imageView);
         } catch (Exception e) {
+
+            //set image field default when cant get image fied from location
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             Picasso
                     .get()
-                    .load(R.drawable.ic_error_image)
+                    .load(R.drawable.field)
                     .into(imageView);
         }
 

@@ -30,7 +30,7 @@
                     android:id="@+id/placeImageView"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/ic_place"
+                    android:src="@drawable/field"
                     android:layout_gravity="center"
                     android:padding="5dp" />
 

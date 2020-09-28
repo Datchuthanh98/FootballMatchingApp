@@ -60,7 +60,7 @@ public class NearByFragment extends Fragment {
 
     double lat = 0;
     double lng = 0;
-    private String placeType = "";
+    private String placeType = "Sân bóng";
     private GoogleApiService googleApiService;
     private MyPlaces myPlaces;
 
@@ -68,7 +68,6 @@ public class NearByFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_near_by, container, false);
-
         spinner_nearby_choices = view.findViewById(R.id.spinner_nearby_choices);
         imageViewSearch = view.findViewById(R.id.imageViewSearch);
         recyclerViewPlaces = view.findViewById(R.id.recyclerViewPlaces);
@@ -79,15 +78,20 @@ public class NearByFragment extends Fragment {
         imageViewSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int position = spinner_nearby_choices.getSelectedItemPosition();
-                if (position == 0) {
-                    Toast.makeText(getContext(), "Please select valid type", Toast.LENGTH_SHORT).show();
-                } else {
-                    //Toast.makeText(getContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
-                    placeType = spinner_nearby_choices.getSelectedItem().toString();
-                    getNearbyPlaces();
-                }
+//                int position = spinner_nearby_choices.getSelectedItemPosition();
+//                if (position == 0) {
+//                    Toast.makeText(getContext(), "Please select valid type", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(getContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
+//                    placeType = spinner_nearby_choices.getSelectedItem().toString();
+//                    getNearbyPlaces();
+//                }
+
+                getNearbyPlaces();
+
             }
+
+
         });
 
         linearLayoutShowOnMap.setOnClickListener(new View.OnClickListener() {
@@ -200,7 +204,6 @@ public class NearByFragment extends Fragment {
     }
 
     private void getNearbyPlaces() {
-
         if (lat != 0 && lng != 0) {
 
             final ProgressDialog dialog = new ProgressDialog(getContext());
@@ -232,6 +235,14 @@ public class NearByFragment extends Fragment {
                     recyclerViewPlaces.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                     linearLayoutShowOnMap.setVisibility(View.VISIBLE);
+                    linearLayoutShowOnMap.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            PlacesConstant.results = myPlaces.getResults();
+                            Intent intent = new Intent(getContext(), ShowPlacesOnMapActivity.class);
+                            startActivity(intent);
+                        }
+                    });
                 }
 
                 @Override
@@ -240,67 +251,6 @@ public class NearByFragment extends Fragment {
                     Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
-//
-//
-////            String baseUrl = "https://maps.googleapis.com/maps/api/place/search/json?"
-////                    + "&location="
-////                    + Double.toString(lat) +","
-////                    +Double.toString(lng)
-////                    + "&radius=" + finalRadius
-////                    +"&types="+category
-////                    + "&sensor/";
-//
-//            String restUrl = "json?&location=" + Double.toString(lat) + ","
-//                    + Double.toString(lng)
-//                    + "&radius=" + finalRadius
-//                    + "&types=" + category
-//                    + "&sensor=false&key=" + apiKey;
-//
-//
-//            Retrofit retrofit = new Retrofit.Builder().baseUrl(Api.BASE_URL)
-//                    .addConverterFactory(GsonConverterFactory.create()).build();
-//
-//            Api api = retrofit.create(Api.class);
-//            Call<ModelPlace> call = api.getResults(restUrl);
-//
-//
-//            call.enqueue(new Callback<ModelPlace>() {
-//                @Override
-//                public void onResponse(Call<ModelPlace> call, Response<ModelPlace> response) {
-//
-//                    ModelPlace modelPlace = response.body();
-//
-//
-//                    resultList = modelPlace.getResults();
-//                    adapter = new PlaceAdapter(resultList, getContext(), lat, lng, categorySP.getSelectedItemPosition());
-//                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-//                    recyclerView.setLayoutManager(layoutManager);
-//                    recyclerView.setItemAnimator(new DefaultItemAnimator());
-//                    recyclerView.setAdapter(adapter);
-//                    adapter.notifyDataSetChanged();
-//
-//                    dialog.dismiss();
-//
-//                    if (resultList.size() > 0) {
-//
-//                        mapLayout.setVisibility(View.VISIBLE);
-//
-//                    } else {
-//
-//                        Toast.makeText(getContext(), "No place found between " + radius + " kilometer", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//
-//                }
-//
-//                @Override
-//                public void onFailure(Call<ModelPlace> call, Throwable t) {
-//
-//                    Toast.makeText(getContext(), "Error found", Toast.LENGTH_SHORT).show();
-//                    dialog.dismiss();
-//                    Log.d("ErrorOccur", t.getMessage());
-//                }
-//            });
         }
     }
 }

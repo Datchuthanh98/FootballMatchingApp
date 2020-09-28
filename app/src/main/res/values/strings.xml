@@ -9,10 +9,13 @@
             <item>Local</item>
             <item>All</item>
         </string-array>
-    <string-array name="nearby_option">
+    <string-array name="distance">
 
         <item>Select a Type</item>
-        <item>Sân bóng</item>
+        <item>5km</item>
+        <item>10km</item>
+        <item>15km</item>
+        <item>20kmkm</item>
 
     </string-array>
 

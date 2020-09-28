@@ -44,7 +44,7 @@
                             android:layout_gravity="center"
                             android:layout_marginLeft="2dp"
                             android:layout_marginRight="2dp"
-                            android:entries="@array/nearby_option"
+                            android:entries="@array/distance"
                             android:popupBackground="#fff"
                             android:spinnerMode="dropdown"
                             android:textAlignment="center"
