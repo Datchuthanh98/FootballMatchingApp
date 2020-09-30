@@ -1,13 +1,12 @@
 package com.example.myclub.model;
 
-public class Field {
-    private  String id ;
-    private  String email;
-    private  String phone;
-    private  String fullName;
-    private  String urlAvatar;
-    private  String urlCover;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Field() {
-    }
+public class Field {
+    private String id;
+    private String name;
+    private Location location;
+    private List<Price> listPrice = new ArrayList<>();
+    private  List<Integer> ListField = new ArrayList<>();
 }

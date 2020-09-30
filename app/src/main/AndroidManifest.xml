@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.myclub">
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
@@ -14,6 +15,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 
     <uses-feature android:name="android.hardware.location.gps" />
     <application
@@ -36,6 +38,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+<!--        <activity-->
+<!--            android:name=".main.ActivityHome"-->
+<!--            android:label="@string/app_name"-->
+<!--            android:theme="@style/AppTheme"></activity>-->
 
         <activity
             android:name=".auth.PhoneLoginActivity"
@@ -63,11 +70,6 @@
 <!--            android:theme="@style/AppTheme"></activity>-->
 
 
-                <activity
-                    android:name=".googlemap.activity.MainActivity"
-                    android:label="@string/app_name"
-                    android:theme="@style/AppTheme"></activity>
-
  
 
         <activity
@@ -80,10 +82,6 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme"></activity>
 
-        <activity
-            android:name=".googlemap.activity.ShowPlacesOnMapActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -94,13 +92,22 @@
             android:value="@string/facebook_app_id"/>
 
 
+<!--        Firebase Cloud Message-->
+        <service
+            android:name=".view.Notification.MyFirebaseMessagingService"
+            tools:ignore="Instantiatable">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
+
+<!--        BroadCast Receiver-->
         <!--        <receiver-->
         <!--            android:name=".main.FireBaseSyncReceiver"-->
         <!--            android:enabled="true"-->
         <!--            android:exported="true" />-->
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

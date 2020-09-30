@@ -89,26 +89,4 @@
         </androidx.recyclerview.widget.RecyclerView>
 
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayoutShowOnMap"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="5dp"
-        android:layout_marginTop="2dp"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:visibility="gone">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Show places on Map"
-            android:textColor="#fff"
-            android:textSize="15sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
 </LinearLayout>

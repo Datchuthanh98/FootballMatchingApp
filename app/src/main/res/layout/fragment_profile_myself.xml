@@ -23,7 +23,7 @@
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="Information Player"
+                android:text="My Information "
                 android:gravity="center_vertical"
                 android:textSize="20dp"
                 android:textColor="@color/white"/>
@@ -46,13 +46,15 @@
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
+    <ScrollView
+        android:paddingTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <androidx.constraintlayout.widget.ConstraintLayout
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
             <androidx.cardview.widget.CardView
                 android:layout_width ="match_parent"
                 android:layout_height="match_parent"
@@ -81,92 +83,20 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/cover" />
-                    <LinearLayout
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        android:id="@+id/inforBasic"
-                        app:layout_constraintTop_toBottomOf="@id/avatar"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp">
-                        <LinearLayout
-                            android:gravity="center_vertical"
-                            android:orientation="vertical"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity=""
-                            android:layout_weight="1">
-                            <TextView
-                                android:textSize="20dp"
-                                android:textStyle="bold"
-                                android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=" Chu Thanh Dat"/>
-                            <TextView
-                                android:drawableStart="@drawable/ic_baseline_phone_24_green"
-                                android:textSize="16dp"
-                                android:textStyle="bold"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=" 0984060798"/>
-                            <TextView
-                                android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
-                                android:textSize="16dp"
-                                android:textStyle="bold"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=" datchuthanh98@gmail.com"/>
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            >
-                            <TextView
-                                android:textColor="@color/colorTittle"
-                                android:textSize="20dp"
-                                android:textStyle="bold"
-                                android:gravity="center"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:text="Team">
-                            </TextView>
 
-                            <de.hdodenhof.circleimageview.CircleImageView
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
-                                android:src="@drawable/avatar_team"
-                                app:border_color="@color/white"
-                                app:border_width="5dp" />
-                        </LinearLayout>
-                    </LinearLayout>
+                    //Username
+                  <TextView
+                      android:id="@+id/lblName"
+                      app:layout_constraintLeft_toLeftOf="parent"
+                      app:layout_constraintRight_toRightOf="parent"
+                      app:layout_constraintTop_toBottomOf="@id/avatar"
+                      android:textSize="30dp"
+                      android:text="Chu Thanh Dat"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"></TextView>
 
                     <LinearLayout
-                        android:id="@+id/lblInfor"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/inforBasic"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        >
-                        <TextView
-                            android:textColor="@color/colorTittle"
-                            android:layout_marginLeft="10dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Basic information"
-                            android:textSize="15dp"
-                            android:textStyle="bold"
-                            >
-                        </TextView>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        app:layout_constraintTop_toBottomOf="@id/lblInfor"
+                        app:layout_constraintTop_toBottomOf="@id/lblName"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         android:layout_width="wrap_content"
@@ -195,7 +125,7 @@
                                         android:gravity="center"
                                         android:layout_width="match_parent"
                                         android:layout_height="30dp"
-                                        android:text="Age">
+                                        android:text="Birthday">
                                     </TextView>
                                     <TextView
                                         android:textStyle="bold"
@@ -203,7 +133,7 @@
                                         android:gravity="center"
                                         android:layout_width="match_parent"
                                         android:layout_height="30dp"
-                                        android:text="20">
+                                        android:text="11/2/2020">
                                     </TextView>
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
@@ -257,7 +187,7 @@
                                         android:gravity="center"
                                         android:layout_width="match_parent"
                                         android:layout_height="30dp"
-                                        android:text="58">
+                                        android:text="58kg">
                                     </TextView>
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
@@ -283,7 +213,7 @@
                                         android:gravity="center"
                                         android:layout_width="match_parent"
                                         android:layout_height="30dp"
-                                        android:text="Number">
+                                        android:text="Level">
                                     </TextView>
                                     <TextView
                                         android:textStyle="bold"
@@ -291,7 +221,7 @@
                                         android:gravity="center"
                                         android:layout_width="match_parent"
                                         android:layout_height="30dp"
-                                        android:text="10">
+                                        android:text="Normal">
                                     </TextView>
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
@@ -319,7 +249,7 @@
                                         android:gravity="center"
                                         android:layout_width="match_parent"
                                         android:layout_height="30dp"
-                                        android:text="ST">
+                                        android:text="ST,LM">
                                     </TextView>
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
@@ -353,11 +283,60 @@
                             </androidx.cardview.widget.CardView>
                         </LinearLayout>
                     </LinearLayout>
+
+                    //Inforcontact
+                    <LinearLayout
+                        android:layout_marginHorizontal="20dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/listGridData"
+                        android:id="@+id/inforContact"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:textSize="20dp"
+                            android:text="Contact"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"></TextView>
+
+                            <TextView
+                                android:textStyle="bold"
+                                android:layout_weight="1"
+                                android:id="@+id/phone"
+                                android:drawableStart="@drawable/ic_baseline_phone_24_green"
+                                android:text="0984060798"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"></TextView>
+                            <TextView
+                                android:textStyle="bold"
+                                android:id="@+id/email"
+                                android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
+                                android:text="datchuthanh98@gmail.com"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"></TextView>
+
+                        <TextView
+                            android:textStyle="bold"
+                            android:drawableStart="@drawable/ic_baseline_home_24"
+                            android:text="Số 7 ,ngõ 207 , ngách 28, Bùi Xương Trạch , Thanh Xuân"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"></TextView>
+                        <TextView
+                            android:textSize="20dp"
+                            android:text="Introduce"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"></TextView>
+                        <TextView
+                            android:textStyle="bold"
+                            android:text="Là một cầu thủ newbiew , nói ít làm nhiều , pro vip no1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"></TextView>
+
+                    </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
-        </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

@@ -48,11 +48,11 @@
                 android:scaleType="centerCrop"/>
 
             <TextView
-                android:textSize="40dp"
+                android:textSize="30dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#ffffff"
-                android:text="Codeinger"/>
+                android:text="Enter number verify"/>
 
 
         </LinearLayout>
@@ -99,7 +99,7 @@
                         android:inputType="number"
                         android:textColor="#ffffff"
                         android:textColorHint="#FFFFFF"
-                        android:textCursorDrawable="@drawable/cursor_white" />
+                   />
 
                 </LinearLayout>
 

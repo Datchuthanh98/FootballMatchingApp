@@ -15,7 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.myclub.Interface.RegisterCallBack;
 import com.example.myclub.R;
+import com.example.myclub.data.firestore.PlayerDataSource;
+import com.example.myclub.databinding.ActivityEmailRegistrationBinding;
+import com.example.myclub.databinding.ActivityLoginBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -29,104 +33,45 @@ import java.util.Map;
 
 public class EmailRegistrationActivity extends AppCompatActivity {
 
-    EditText name,email,password;
-    TextView login;
-    ImageView back;
-    Button registration;
-
+    private ActivityEmailRegistrationBinding binding;
+    private PlayerDataSource playerDataSource = PlayerDataSource.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_email_registration);
+        binding = ActivityEmailRegistrationBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
 
 
-        email = findViewById(R.id.email);
-        password = findViewById(R.id.password);
-        name = findViewById(R.id.name);
-        login = findViewById(R.id.login);
-        registration = findViewById(R.id.register);
-        back = findViewById(R.id.back);
-
-        login.setOnClickListener(new View.OnClickListener() {
+        binding.login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(EmailRegistrationActivity.this,ActivityLogin.class));
-            }
-        });
-
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
                 finish();
             }
         });
 
-
-        registration.setOnClickListener(new View.OnClickListener() {
+        binding.register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(TextUtils.isEmpty(email.getText().toString())){
-                    Toast.makeText(EmailRegistrationActivity.this, "Pleas Enter Email Address", Toast.LENGTH_SHORT).show();
-                }
-                else if(!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()){
-                    Toast.makeText(EmailRegistrationActivity.this, "Pleas Enter valid Email Address", Toast.LENGTH_SHORT).show();
-                }
-                else  if(TextUtils.isEmpty(password.getText().toString())){
-                    Toast.makeText(EmailRegistrationActivity.this, "Pleas Enter Password", Toast.LENGTH_SHORT).show();
-                }
-                else if(password.getText().toString().length()<6){
-                    Toast.makeText(EmailRegistrationActivity.this, "Pleas Enter 6 or more than digit password", Toast.LENGTH_SHORT).show();
-                }
-                else  if(TextUtils.isEmpty(name.getText().toString())){
-                    Toast.makeText(EmailRegistrationActivity.this, "Pleas Enter Password", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    registration();
-                }
 
-            }
-        });
-
-
-
-
-    }
-
-    private void registration() {
-
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email.getText().toString(),password.getText().toString())
-                .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                playerDataSource.register(binding.txtEmail.getText().toString(), binding.txtPassword.getText().toString(), new RegisterCallBack() {
                     @Override
-                    public void onSuccess(AuthResult authResult) {
-
-                        Map<String,Object> map = new HashMap<>();
-                        map.put("email",email.getText().toString());
-                        map.put("password",password.getText().toString());
-                        map.put("name",name.getText().toString());
-
-                        FirebaseDatabase.getInstance().getReference()
-                                .child("Users")
-                                .child(FirebaseAuth.getInstance().getUid())
-                                .setValue(map)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        Toast.makeText(EmailRegistrationActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(EmailRegistrationActivity.this, ActivityLogin.class));
-                                        finish();
-                                    }
-                                });
-
+                    public void onSuccess() {
+                        startActivity(new Intent(EmailRegistrationActivity.this,ActivityLogin.class));
+                        finish();
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
+
                     @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(EmailRegistrationActivity.this, "Failed :"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    public void onFailure(String message) {
+                         Toast.makeText(getApplicationContext(),"Error: "+message,Toast.LENGTH_SHORT).show();
                     }
                 });
-
+                finish();
+            }
+        });
     }
+
 
 
 }

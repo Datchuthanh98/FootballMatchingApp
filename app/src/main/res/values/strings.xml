@@ -10,13 +10,10 @@
             <item>All</item>
         </string-array>
     <string-array name="distance">
-
-        <item>Select a Type</item>
-        <item>5km</item>
-        <item>10km</item>
-        <item>15km</item>
-        <item>20kmkm</item>
-
+        <item>500</item>
+        <item>1000</item>
+        <item>2000</item>
+        <item>5000</item>
     </string-array>
 
 

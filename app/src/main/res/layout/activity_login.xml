@@ -12,8 +12,14 @@
     android:layout_height="match_parent"
     android:background="@drawable/login_background"
     >
+
+ <androidx.constraintlayout.widget.ConstraintLayout
+     app:layout_constraintTop_toTopOf="parent"
+     app:layout_constraintBottom_toBottomOf="parent"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content">
+
   <ImageView
-      android:layout_marginTop="100dp"
       android:id="@+id/logoApp"
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintLeft_toLeftOf="parent"
@@ -167,6 +173,8 @@
      app:layout_constraintTop_toTopOf="parent"
      app:mk_color="#ffffff"
      app:mk_type="FishSpinner" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

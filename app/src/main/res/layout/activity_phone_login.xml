@@ -53,9 +53,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="Codeinger"
+                android:text="Verify by phone"
                 android:textColor="@color/white"
-                android:textSize="40sp"
+                android:textSize="30sp"
                 android:textStyle="bold" />
 
 
@@ -108,7 +108,7 @@
                     android:inputType="phone"
                     android:textColor="#ffffff"
                     android:textColorHint="#FFFFFF"
-                    android:textCursorDrawable="@drawable/cursor_white" />
+                    />
 
             </LinearLayout>
             <View

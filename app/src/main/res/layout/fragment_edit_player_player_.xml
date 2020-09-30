@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <import type="android.view.View" />
+        <variable
+            name="viewModel"
+            type="com.example.myclub.viewModel.PlayerViewModel" />
     </data>
 <LinearLayout
     android:layout_width="match_parent"
@@ -53,13 +55,14 @@
         android:layout_height="match_parent">
  <TextView
      android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
-     android:text=" Age"
+     android:text=" Birhday"
      android:textStyle="bold"
      android:textSize="15dp"
      android:layout_width="match_parent"
      android:layout_height="wrap_content"></TextView>
         <EditText
-            android:text="20"
+            android:id="@+id/txtBrith"
+            android:text="06/07/1998"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></EditText>
         <TextView
@@ -70,41 +73,45 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></TextView>
         <EditText
+            android:id="@+id/txtHeight"
             android:text="170"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></EditText>
         <TextView
             android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
-            android:text=" Email"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></TextView>
-        <EditText
-            android:text="datchuthanh98@gmail.com"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></EditText>
-
-        <TextView
-            android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
             android:text=" Weight (kg)"
             android:textStyle="bold"
             android:textSize="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></TextView>
         <EditText
-            android:text="60"
+            android:id="@+id/txtWeight"
+            android:text="datchuthanh98@gmail.com"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></EditText>
+
         <TextView
-            android:drawableStart="@drawable/ic_baseline_phone_24_green"
-            android:text=" Number Shirt"
+            android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
+            android:text=" Level"
             android:textStyle="bold"
             android:textSize="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></TextView>
         <EditText
-            android:text="10"
+            android:id="@+id/txtLevel"
+            android:text="Pro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></EditText>
+        <TextView
+            android:drawableStart="@drawable/ic_baseline_phone_24_green"
+            android:text=" Posstion"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></TextView>
+        <EditText
+            android:id="@+id/txtPosition"
+            android:text="ST,LW"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></EditText>
         <TextView
@@ -115,7 +122,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></TextView>
         <EditText
-            android:text="left and right"
+            android:id="@+id/txtNiceFoot"
+            android:text="Right"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></EditText>
 

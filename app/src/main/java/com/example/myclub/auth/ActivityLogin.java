@@ -1,6 +1,8 @@
 package com.example.myclub.auth;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,9 +17,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.myclub.Interface.LoginCallBack;
+import com.example.myclub.data.firestore.PlayerDataSource;
+import com.example.myclub.data.session.Session;
 import com.example.myclub.databinding.ActivityLoginBinding;
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.R;
+import com.example.myclub.model.Player;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -41,14 +47,16 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.tuyenmonkey.mkloader.MKLoader;
 
+import java.net.Inet4Address;
 import java.util.Arrays;
 
 public class ActivityLogin extends AppCompatActivity {
 
 
     private FirebaseAuth mAuth;
+    private PlayerDataSource playerDataSource = PlayerDataSource.getInstance();
     private SharedPreferences sharedPref;
-    private Dialog loginLoading;
+    private Dialog loadingDialog;
     private ActivityLoginBinding binding;
     //google
     private static final int RC_SIGN_IN = 123;
@@ -69,9 +77,7 @@ public class ActivityLogin extends AppCompatActivity {
 //            startActivity(intent);
 //        }
 
-//
-//        sharedPref = getApplicationContext().getSharedPreferences("sessionUser", Context.MODE_PRIVATE);
-//        final SharedPreferences.Editor editor = sharedPref.edit();
+
         mAuth = FirebaseAuth.getInstance();
 
 
@@ -79,49 +85,20 @@ public class ActivityLogin extends AppCompatActivity {
         binding.btnLoginEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(TextUtils.isEmpty(binding.txtEmail.getText().toString())){
-                    Toast.makeText(ActivityLogin.this, "Pleas Enter Email Address", Toast.LENGTH_SHORT).show();
-                }
-                else if(!Patterns.EMAIL_ADDRESS.matcher(binding.txtEmail.getText().toString()).matches()){
-                    Toast.makeText(ActivityLogin.this, "Pleas Enter valid Email Address", Toast.LENGTH_SHORT).show();
-                }
-                else  if(TextUtils.isEmpty(binding.txtPassword.getText().toString())){
-                    Toast.makeText(ActivityLogin.this, "Pleas Enter Password", Toast.LENGTH_SHORT).show();
-                }
-                else if(binding.txtPassword.getText().toString().length()<6){
-                    Toast.makeText(ActivityLogin.this, "Pleas Enter 6 or more than digit password", Toast.LENGTH_SHORT).show();
-                }
-                else {
+               playerDataSource.login(binding.txtEmail.getText().toString(), binding.txtPassword.getText().toString(), new LoginCallBack() {
+                   @Override
+                   public void onSuccess(Player player) {
+                       Session.getInstance().setPlayerLiveData(player);
+                       Intent intent = new Intent(ActivityLogin.this,ActivityHome.class);
+                       startActivity(intent);
+                   }
 
-                    loginLoading = new Dialog(ActivityLogin.this);
-                    loginLoading.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                    loginLoading.setContentView(R.layout.custom_loading_layout);
-                    loginLoading.setCancelable(false);
-                    loginLoading.show();
+                   @Override
+                   public void onFailure(String message) {
+                       Toast.makeText(getApplicationContext(),"Error "+message,Toast.LENGTH_SHORT).show();
+                   }
+               });
 
-                   // firebaseAuthWithEmail();
-                    FirebaseAuth.getInstance().signInWithEmailAndPassword(binding.txtEmail.getText().toString(),binding.txtPassword.getText().toString())
-                            .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                                @Override
-                                public void onSuccess(AuthResult authResult) {
-                                    FirebaseUser user = authResult.getUser();
-                                    Toast.makeText(ActivityLogin.this, "Login Successful....", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(ActivityLogin.this, ActivityHome.class);
-//                                    editor.putString("session",user.getEmail());
-//                                    editor.apply();
-                                    loginLoading.cancel();
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(ActivityLogin.this, "Failed :"+e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    loginLoading.cancel();
-                                }
-                            });
-                }
             }
         });
 
@@ -278,5 +255,7 @@ public class ActivityLogin extends AppCompatActivity {
             mCallbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
+
+
 
 }

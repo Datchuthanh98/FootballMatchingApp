@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorPrimary">#008000</color>008000
+    <color name="colorPrimaryDark">#003300</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="white">#ffffff</color>
     <color name="colorBG">#e6f9ff</color>
@@ -10,4 +10,5 @@
     <color name="tabTextColor">#ffffff</color>
     <color name="tabSelectedTextColor">#ffffff</color>
     <color name="tabIndicatorColor">#ffffff</color>
+
 </resources>

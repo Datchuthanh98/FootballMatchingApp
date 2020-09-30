@@ -1,4 +1,4 @@
-package com.example.myclub.data.Firebase;
+package com.example.myclub.data.firestore;
 
 import android.util.Log;
 
@@ -13,14 +13,14 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestDataSource {
-    static TestDataSource instance;
+public class TodoDataSource {
+    static TodoDataSource instance;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
-    public static TestDataSource getInstance() {
+    public static TodoDataSource getInstance() {
         if (instance == null) {
-            instance = new TestDataSource();
+            instance = new TodoDataSource();
         }
         return instance;
     }
@@ -47,6 +47,8 @@ public class TestDataSource {
             });
 
     }
+
+
 
 //
 

@@ -25,20 +25,12 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.example.myclub.R;
-import com.example.myclub.googlemap.activity.ShowPlacesOnMapActivity;
 import com.example.myclub.googlemap.adapter.PlaceRecyclerViewAdapter;
 import com.example.myclub.googlemap.constants.PlacesConstant;
 import com.example.myclub.googlemap.models.MyPlaces;
 import com.example.myclub.googlemap.remotes.GoogleApiService;
 import com.example.myclub.googlemap.remotes.RetrofitBuilder;
-
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import retrofit2.Call;
@@ -50,7 +42,7 @@ public class NearByFragment extends Fragment {
     private ImageView imageViewSearch;
     private Spinner spinner_nearby_choices;
     private RecyclerView recyclerViewPlaces;
-    private LinearLayout linearLayoutShowOnMap;
+
 
     private String placeType = "Sân bóng";
     private GoogleApiService googleApiService;
@@ -63,13 +55,14 @@ public class NearByFragment extends Fragment {
         spinner_nearby_choices = view.findViewById(R.id.spinner_nearby_choices);
         imageViewSearch = view.findViewById(R.id.imageViewSearch);
         recyclerViewPlaces = view.findViewById(R.id.recyclerViewPlaces);
-        linearLayoutShowOnMap = view.findViewById(R.id.linearLayoutShowOnMap);
+
 
         PlacesConstant.locationChange.observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
                 if (integer == null) return;
                 getNearbyPlaces();
+
             }
         });
 
@@ -77,24 +70,22 @@ public class NearByFragment extends Fragment {
         imageViewSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+               String distance = spinner_nearby_choices.getSelectedItem().toString();
+               int intDistance = Integer.parseInt(distance);
+                PlacesConstant.radius = intDistance;
+                PlacesConstant.locationChange.setValue(intDistance);
                 getNearbyPlaces();
             }
 
 
         });
 
-        linearLayoutShowOnMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PlacesConstant.results = myPlaces.getResults();
-                Intent intent = new Intent(getContext(), ShowPlacesOnMapActivity.class);
-                startActivity(intent);
-            }
-        });
+
 
         return view;
     }
+
+
 
     private String buildUrl(double latitude, double longitude, int radius, String API_KEY) {
         StringBuilder urlString = new StringBuilder("api/place/nearbysearch/json?");
@@ -132,7 +123,7 @@ public class NearByFragment extends Fragment {
                 public void onResponse(Call<MyPlaces> call, Response<MyPlaces> response) {
                     Log.d("MyPlaces", response.body().toString());
                     myPlaces = response.body();
-//                    Log.d("MyPlaces", myPlaces.getResults().get(0).toString());
+
 
                     dialog.dismiss();
                     PlaceRecyclerViewAdapter adapter = new PlaceRecyclerViewAdapter(getContext(), myPlaces, PlacesConstant.latitude, PlacesConstant.longitude);
@@ -141,7 +132,6 @@ public class NearByFragment extends Fragment {
                     recyclerViewPlaces.setItemAnimator(new DefaultItemAnimator());
                     recyclerViewPlaces.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
-                    linearLayoutShowOnMap.setVisibility(View.VISIBLE);
                     PlacesConstant.results = myPlaces.getResults();
                     PlacesConstant.resultUpdate.setValue(myPlaces.getResults().size());
                 }

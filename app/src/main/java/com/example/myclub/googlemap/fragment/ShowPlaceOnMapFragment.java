@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -52,6 +53,16 @@ public class ShowPlaceOnMapFragment extends Fragment implements OnMapReadyCallba
                 mapView.getMapAsync(ShowPlaceOnMapFragment.this);
             }
         });
+
+        PlacesConstant.locationChange.observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                Toast.makeText(getContext(),"get change location in Map",Toast.LENGTH_SHORT).show();
+                if (PlacesConstant.locationChange.getValue() == null) return;
+                results = PlacesConstant.results;
+                mapView.getMapAsync(ShowPlaceOnMapFragment.this);
+            }
+        });
     }
 
     @Override
@@ -61,6 +72,13 @@ public class ShowPlaceOnMapFragment extends Fragment implements OnMapReadyCallba
         myMarkerOptions.position(new LatLng(PlacesConstant.latitude, PlacesConstant.longitude));
         myMarkerOptions.title("You");
         googleMap.addMarker(myMarkerOptions);
+
+        //moveCametra
+        LatLng MylatLng =new LatLng(PlacesConstant.latitude,PlacesConstant.longitude);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(MylatLng));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(MylatLng, 15.0f));
+        googleMap.getUiSettings().setCompassEnabled(true);
+        googleMap.getUiSettings().setZoomControlsEnabled(true);
 
         // add markers for stadiums
         for (int i = 0; i < results.size(); i++) {
@@ -76,12 +94,8 @@ public class ShowPlaceOnMapFragment extends Fragment implements OnMapReadyCallba
             markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.field_24));
             // add marker to map
             googleMap.addMarker(markerOptions).showInfoWindow();;
-            // move camera
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-            //googleMap.animateCamera(CameraUpdateFactory.zoomTo(15));
-            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15.0f));
-            googleMap.getUiSettings().setCompassEnabled(true);
-            googleMap.getUiSettings().setZoomControlsEnabled(true);
+
+
         }
     }
 }

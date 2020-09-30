@@ -109,6 +109,7 @@ public class MyApplication extends Application {
             PlacesConstant.latitude = loc.getLatitude();
             PlacesConstant.longitude = loc.getLongitude();
             PlacesConstant.locationChange.setValue(0);
+
         }
 
         @Override
