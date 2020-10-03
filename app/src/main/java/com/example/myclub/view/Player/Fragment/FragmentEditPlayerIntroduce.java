@@ -14,11 +14,11 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.myclub.R;
 import com.example.myclub.data.enumeration.Result;
+import com.example.myclub.viewModel.SessionViewModel;
 import com.example.myclub.databinding.FragmentEditPlayerIntroduceBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
-import com.example.myclub.viewModel.PlayerViewModel;
+import com.example.myclub.model.Player;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.HashMap;
@@ -27,15 +27,16 @@ import java.util.Map;
 public class FragmentEditPlayerIntroduce extends BottomSheetDialogFragment {
 
      private FragmentEditPlayerIntroduceBinding binding;
-     private PlayerViewModel viewModel;
+     private SessionViewModel viewModel;
     private Dialog loadingDialog;
     private LoadingLayoutBinding loadingLayoutBinding;
+    private  Map<String, Object> data = new HashMap<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
           binding = FragmentEditPlayerIntroduceBinding.inflate(inflater);
           binding.setLifecycleOwner(this);
-          viewModel = new ViewModelProvider(this).get(PlayerViewModel.class);
+          viewModel = new ViewModelProvider(this).get(SessionViewModel.class);
           binding.setViewModel(viewModel);
           View view = binding.getRoot();
            return  view;
@@ -57,9 +58,11 @@ public class FragmentEditPlayerIntroduce extends BottomSheetDialogFragment {
                 if (result == Result.SUCCESS) {
                     loadingDialog.dismiss();
                     Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show();
-                    getParentFragmentManager().popBackStack();
+                    updateUIPlayer();
+                  detach();
                 } else if (result == Result.FAILURE) {
                     loadingDialog.dismiss();
+                    detach();
                     Toast.makeText(context, viewModel.getResultMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -67,13 +70,6 @@ public class FragmentEditPlayerIntroduce extends BottomSheetDialogFragment {
     }
 
     private  void initComponent(final Context context){
-        binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_back_white_24);
-        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                detach();
-            }
-        });
         binding.imageBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +81,7 @@ public class FragmentEditPlayerIntroduce extends BottomSheetDialogFragment {
     }
 
     private void detach(){
-        getParentFragmentManager().popBackStack();
+       dismiss();
     }
 
     private void initLoadingDialog(Context context) {
@@ -98,9 +94,14 @@ public class FragmentEditPlayerIntroduce extends BottomSheetDialogFragment {
     }
 
     private Map<String, Object> getUpdateIntroduction() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("introduction", binding.txtIntroduce.getText().toString());
+        data.put("introduce", binding.txtIntroduce.getText().toString());
         return data;
+    }
+
+    private  void updateUIPlayer (){
+        Player player = SessionViewModel.getInstance().getPlayerLiveData().getValue();
+        player.setIntroduce(binding.txtIntroduce.getText().toString());
+        SessionViewModel.getInstance().setPlayerLiveData(player);
     }
 
 }

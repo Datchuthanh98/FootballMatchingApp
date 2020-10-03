@@ -4,8 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <import type="android.view.View" />
-
+        <variable
+            name="viewModel"
+            type="com.example.myclub.viewModel.TeamViewModel" />
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,6 +54,7 @@
             android:layout_width="match_parent"
             >
             <TextView
+
                 android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
                 android:text=" Name Team"
                 android:textStyle="bold"
@@ -60,29 +62,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></TextView>
             <EditText
+                android:id="@+id/txtName"
                 android:text="Chu Thanh Dat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></EditText>
             <TextView
                 android:drawableStart="@drawable/ic_baseline_phone_24_green"
-                android:text=" Introduce"
+                android:text=" Phone"
                 android:textStyle="bold"
                 android:textSize="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></TextView>
             <EditText
-                android:text="new club pro zz vop no 1"
+                android:id="@+id/txtPhone"
+                android:text="123456789"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></EditText>
             <TextView
                 android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
-                android:text=" Độ đuổi"
+                android:text=" Email"
                 android:textStyle="bold"
                 android:textSize="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></TextView>
             <EditText
-                android:text="Mọi lứa tuổi"
+                android:id="@+id/txtEmail"
+                android:text="chelsea@gmail.com"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></EditText>
 

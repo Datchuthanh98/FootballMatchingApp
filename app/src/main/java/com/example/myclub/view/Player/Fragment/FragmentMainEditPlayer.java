@@ -1,5 +1,6 @@
 package com.example.myclub.view.Player.Fragment;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -26,14 +27,16 @@ import com.example.myclub.R;
 import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.databinding.FragmentEditMainPlayerBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
-import com.example.myclub.viewModel.PlayerViewModel;
+import com.example.myclub.viewModel.SessionViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FragmentMainEditPlayer extends Fragment {
-    private PlayerViewModel viewModel;
+    private SessionViewModel viewModel;
     private Dialog loadingDialog;
     private LoadingLayoutBinding loadingLayoutBinding;
     private FragmentEditMainPlayerBinding binding;
@@ -46,7 +49,7 @@ public class FragmentMainEditPlayer extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentEditMainPlayerBinding.inflate(inflater);
         binding.setLifecycleOwner(this);
-        viewModel = new ViewModelProvider(this).get(PlayerViewModel.class);
+        viewModel = new ViewModelProvider(this).get(SessionViewModel.class);
         binding.setViewModel(viewModel);
         View view = binding.getRoot();
         return  view;
@@ -134,13 +137,14 @@ public class FragmentMainEditPlayer extends Fragment {
     }
 
     private void observeLiveData(final Context context) {
-        viewModel.getResultLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
+        viewModel.getResultPhotoLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
             @Override
             public void onChanged(Result result) {
                 if (result == null) return;
                 if (result == Result.SUCCESS) {
                     loadingDialog.dismiss();
                     Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show();
+
                 } else if (result == Result.FAILURE) {
                     loadingDialog.dismiss();
                     Toast.makeText(context, viewModel.getResultMessage(), Toast.LENGTH_SHORT).show();
@@ -154,7 +158,7 @@ public class FragmentMainEditPlayer extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == RESULT_LOAD_IMG_AVATAR || requestCode == RESULT_LOAD_IMG_COVER) {
+        if ((requestCode == RESULT_LOAD_IMG_AVATAR || requestCode == RESULT_LOAD_IMG_COVER) && resultCode == Activity.RESULT_OK) {
             try {
                 Uri imageUri = data.getData();
                 final InputStream imageStream = getContext().getContentResolver().openInputStream(imageUri);
@@ -167,12 +171,13 @@ public class FragmentMainEditPlayer extends Fragment {
 
                 if(requestCode == RESULT_LOAD_IMG_AVATAR){
                     binding.imgAvatar.setImageBitmap(selectedImage);
-                    urlAvatar = "/Avatar/" + returnCursor.getString(nameIndex);
-                    updateImage(imageUri,urlAvatar);
+                    urlAvatar = returnCursor.getString(nameIndex);
+                    Toast.makeText(getContext(), "urlAvatar"+urlAvatar, Toast.LENGTH_LONG).show();
+                    updateImage(imageUri,urlAvatar,true);
                 }else if(requestCode == RESULT_LOAD_IMG_COVER){
                     binding.imgCover.setImageBitmap(selectedImage) ;
-                    urlCover = "/Cover/" + returnCursor.getString(nameIndex);
-                    updateImage(imageUri,urlCover);
+                    urlCover =  returnCursor.getString(nameIndex);
+                    updateImage(imageUri,urlCover,false);
                 }
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -184,19 +189,9 @@ public class FragmentMainEditPlayer extends Fragment {
         }
     }
 
-    private void updateImage(Uri uri, String path) {
+    private void updateImage(Uri uri, String path , boolean isAvatar) {
         loadingDialog.show();
-        viewModel.updateImage(uri, path, new UpdateProfileCallBack() {
-            @Override
-            public void onSuccess() {
-
-            }
-
-            @Override
-            public void onFailure(String message) {
-
-            }
-        });
+        viewModel.updateImage(uri, path,isAvatar);
     }
 
 

@@ -4,7 +4,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -13,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.view.Team.Fragment.FragmentMainProfileTeam;
-import com.example.myclub.view.Team.Fragment.FragmentMyTeam;
-import com.example.myclub.view.Team.Fragment.FragmentProfileTeam;
 import com.example.myclub.databinding.ItemTeamVerticalBinding;
 import com.example.myclub.model.Todo;
 

@@ -1,8 +1,7 @@
 package com.example.myclub.Interface;
 
-import java.io.File;
 
-public interface UpdateProfileCallBack {
+public interface UpdateImageCallBack {
     void onSuccess();
 
     void onFailure(String message);

@@ -134,6 +134,7 @@ public class NearByFragment extends Fragment {
                     adapter.notifyDataSetChanged();
                     PlacesConstant.results = myPlaces.getResults();
                     PlacesConstant.resultUpdate.setValue(myPlaces.getResults().size());
+
                 }
 
                 @Override

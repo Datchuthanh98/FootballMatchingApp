@@ -2,21 +2,17 @@ package com.example.myclub.main;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.myclub.animation.HorizontalFlipTransformation;
 import com.example.myclub.view.Player.Adapter.AdapterFragmentProfile;
 import com.example.myclub.R;
 import com.google.android.material.tabs.TabLayout;
@@ -27,12 +23,14 @@ public class ActivityHome extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         super.onCreate(savedInstanceState);
 
-
+        //Check Permission
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             checkPermission();
         }
 
 
+
+        //Create UI
         TabLayout tabLayout = findViewById(R.id.tablayout);
         ViewPager viewPager = findViewById(R.id.viewpager);
 //        viewPager.setPageTransformer(true, new HorizontalFlipTransformation());

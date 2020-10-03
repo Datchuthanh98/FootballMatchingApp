@@ -2,10 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
     <data>
-        <import type="android.view.View" />
+        <import type="com.example.myclub.viewModel.SessionViewModel"></import>
     </data>
+
+
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -91,7 +92,7 @@
                       app:layout_constraintRight_toRightOf="parent"
                       app:layout_constraintTop_toBottomOf="@id/avatar"
                       android:textSize="30dp"
-                      android:text="Chu Thanh Dat"
+                      android:text="@{SessionViewModel.getInstance().playerLiveData.name}"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"></TextView>
 
@@ -133,7 +134,7 @@
                                         android:gravity="center"
                                         android:layout_width="match_parent"
                                         android:layout_height="30dp"
-                                        android:text="11/2/2020">
+                                        android:text="@{SessionViewModel.getInstance().playerLiveData.birthday}">
                                     </TextView>
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
@@ -152,16 +153,17 @@
                                         android:gravity="center"
                                         android:layout_width="match_parent"
                                         android:layout_height="30dp"
+
                                         android:text="Height">
                                     </TextView>
+
                                     <TextView
-                                        android:textStyle="bold"
-                                        android:layout_margin="10dp"
-                                        android:gravity="center"
                                         android:layout_width="match_parent"
                                         android:layout_height="30dp"
-                                        android:text="170 cm">
-                                    </TextView>
+                                        android:layout_margin="10dp"
+                                        android:gravity="center"
+                                        android:text= "@{Integer.toString(SessionViewModel.getInstance().playerLiveData.height)}"
+                                        android:textStyle="bold"></TextView>
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
                             <androidx.cardview.widget.CardView
@@ -187,7 +189,8 @@
                                         android:gravity="center"
                                         android:layout_width="match_parent"
                                         android:layout_height="30dp"
-                                        android:text="58kg">
+                                        android:text= "@{Integer.toString(SessionViewModel.getInstance().playerLiveData.weight)}"
+                                    >
                                     </TextView>
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
@@ -221,7 +224,7 @@
                                         android:gravity="center"
                                         android:layout_width="match_parent"
                                         android:layout_height="30dp"
-                                        android:text="Normal">
+                                        android:text="@{SessionViewModel.getInstance().playerLiveData.level}">>
                                     </TextView>
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
@@ -249,7 +252,7 @@
                                         android:gravity="center"
                                         android:layout_width="match_parent"
                                         android:layout_height="30dp"
-                                        android:text="ST,LM">
+                                        android:text="@{SessionViewModel.getInstance().playerLiveData.position}">>
                                     </TextView>
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
@@ -277,7 +280,7 @@
                                         android:gravity="center"
                                         android:layout_width="match_parent"
                                         android:layout_height="30dp"
-                                        android:text="Right">
+                                        android:text="@{SessionViewModel.getInstance().playerLiveData.foot}">
                                     </TextView>
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
@@ -305,21 +308,21 @@
                                 android:layout_weight="1"
                                 android:id="@+id/phone"
                                 android:drawableStart="@drawable/ic_baseline_phone_24_green"
-                                android:text="0984060798"
+                                android:text="@{SessionViewModel.getInstance().playerLiveData.phone}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"></TextView>
                             <TextView
                                 android:textStyle="bold"
                                 android:id="@+id/email"
                                 android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
-                                android:text="datchuthanh98@gmail.com"
+                                android:text="@{SessionViewModel.getInstance().playerLiveData.email}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"></TextView>
 
                         <TextView
+                            android:text="@{SessionViewModel.getInstance().playerLiveData.address}"
                             android:textStyle="bold"
                             android:drawableStart="@drawable/ic_baseline_home_24"
-                            android:text="Số 7 ,ngõ 207 , ngách 28, Bùi Xương Trạch , Thanh Xuân"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"></TextView>
                         <TextView
@@ -328,10 +331,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"></TextView>
                         <TextView
+
                             android:textStyle="bold"
-                            android:text="Là một cầu thủ newbiew , nói ít làm nhiều , pro vip no1"
+                            android:text="@{SessionViewModel.getInstance().playerLiveData.introduce}"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"></TextView>
+                            android:layout_height="150dp"></TextView>
 
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>

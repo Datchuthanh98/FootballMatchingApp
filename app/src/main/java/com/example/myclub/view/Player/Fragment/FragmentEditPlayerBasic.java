@@ -14,11 +14,11 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.myclub.R;
 import com.example.myclub.data.enumeration.Result;
+import com.example.myclub.viewModel.SessionViewModel;
 import com.example.myclub.databinding.FragmentEditPlayerBasicBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
-import com.example.myclub.viewModel.PlayerViewModel;
+import com.example.myclub.model.Player;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.HashMap;
@@ -28,15 +28,16 @@ public class FragmentEditPlayerBasic extends BottomSheetDialogFragment {
 
 
      private  FragmentEditPlayerBasicBinding binding;
-    private PlayerViewModel viewModel;
+    private SessionViewModel viewModel;
     private Dialog loadingDialog;
     private LoadingLayoutBinding loadingLayoutBinding;
+    private    Map<String, Object> data = new HashMap<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentEditPlayerBasicBinding.inflate(inflater);
         binding.setLifecycleOwner(this);
-        viewModel = new ViewModelProvider(this).get(PlayerViewModel.class);
+        viewModel = new ViewModelProvider(this).get(SessionViewModel.class);
         binding.setViewModel(viewModel);
         View view = binding.getRoot();
         return  view;
@@ -51,14 +52,15 @@ public class FragmentEditPlayerBasic extends BottomSheetDialogFragment {
 
     }
 
+
+
+    private void detach(){
+       dismiss();
+    }
+
+
+
     private  void initComponent(final Context context){
-        binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_back_white_24);
-        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                detach();
-            }
-        });
         binding.imageBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,10 +69,6 @@ public class FragmentEditPlayerBasic extends BottomSheetDialogFragment {
                 viewModel.updateProfile(getUpdateBasic());
             }
         });
-    }
-
-    private void detach(){
-        getParentFragmentManager().popBackStack();
     }
 
     private void initLoadingDialog(Context context) {
@@ -82,14 +80,6 @@ public class FragmentEditPlayerBasic extends BottomSheetDialogFragment {
         loadingDialog.setCancelable(false);
     }
 
-    private Map<String, Object> getUpdateBasic() {
-        Map<String, Object> data = new HashMap<>();
-        data.put("email", binding.txtEmail.getText().toString());
-        data.put("phone", binding.txtPhone.getText().toString());
-        data.put("name", binding.txtName.getText().toString());
-        return data;
-    }
-
     private void observeLiveData(final Context context) {
         viewModel.getResultLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
             @Override
@@ -97,14 +87,33 @@ public class FragmentEditPlayerBasic extends BottomSheetDialogFragment {
                 if (result == null) return;
                 if (result == Result.SUCCESS) {
                     loadingDialog.dismiss();
+                    detach();
                     Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show();
-                    getParentFragmentManager().popBackStack();
+
+                    updateUIPlayer();
+
                 } else if (result == Result.FAILURE) {
                     loadingDialog.dismiss();
+                    detach();
                     Toast.makeText(context, viewModel.getResultMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+
+    private Map<String, Object> getUpdateBasic() {
+        data.put("email", binding.txtEmail.getText().toString());
+        data.put("phone", binding.txtPhone.getText().toString());
+        data.put("name", binding.txtName.getText().toString());
+        data.put("address", binding.txtAddress.getText().toString());
+        return data;
+    }
+
+    private  void updateUIPlayer (){
+        Player player = SessionViewModel.getInstance().getPlayerLiveData().getValue();
+        player.setInforBasic(data);
+        SessionViewModel.getInstance().setPlayerLiveData(player);
     }
 
 

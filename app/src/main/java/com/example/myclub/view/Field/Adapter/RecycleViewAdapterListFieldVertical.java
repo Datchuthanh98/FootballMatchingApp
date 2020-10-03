@@ -1,6 +1,5 @@
 package com.example.myclub.view.Field.Adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import com.example.myclub.main.ActivityHome;
 import com.example.myclub.view.Field.Fragment.FragmentProfileField;
 import com.example.myclub.databinding.ItemFieldVerticalBinding;
 import com.example.myclub.model.Todo;
-import com.example.myclub.view.Player.Fragment.FragmentProfilePlayer;
 
 import java.util.ArrayList;
 import java.util.List;

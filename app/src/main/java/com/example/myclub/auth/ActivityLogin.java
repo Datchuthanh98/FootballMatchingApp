@@ -2,13 +2,9 @@ package com.example.myclub.auth;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
@@ -18,9 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myclub.Interface.LoginCallBack;
-import com.example.myclub.data.firestore.PlayerDataSource;
-import com.example.myclub.data.session.Session;
+import com.example.myclub.data.datasource.PlayerDataSource;
+import com.example.myclub.viewModel.SessionViewModel;
 import com.example.myclub.databinding.ActivityLoginBinding;
+import com.example.myclub.databinding.LoadingLayoutBinding;
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.R;
 import com.example.myclub.model.Player;
@@ -36,8 +33,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -47,7 +42,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.tuyenmonkey.mkloader.MKLoader;
 
-import java.net.Inet4Address;
 import java.util.Arrays;
 
 public class ActivityLogin extends AppCompatActivity {
@@ -55,8 +49,6 @@ public class ActivityLogin extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private PlayerDataSource playerDataSource = PlayerDataSource.getInstance();
-    private SharedPreferences sharedPref;
-    private Dialog loadingDialog;
     private ActivityLoginBinding binding;
     //google
     private static final int RC_SIGN_IN = 123;
@@ -65,6 +57,8 @@ public class ActivityLogin extends AppCompatActivity {
     //facebook
     private LinearLayout fb;
     private CallbackManager mCallbackManager;
+    private Dialog loadingDialog;
+    private LoadingLayoutBinding loadingLayoutBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +66,9 @@ public class ActivityLogin extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+        initLoadingDialog(ActivityLogin.this);
+
+
 //        if (FirebaseAuth.getInstance().getCurrentUser() != null){
 //            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 //            startActivity(intent);
@@ -85,16 +82,19 @@ public class ActivityLogin extends AppCompatActivity {
         binding.btnLoginEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                loadingDialog.show();
                playerDataSource.login(binding.txtEmail.getText().toString(), binding.txtPassword.getText().toString(), new LoginCallBack() {
                    @Override
                    public void onSuccess(Player player) {
-                       Session.getInstance().setPlayerLiveData(player);
+                       SessionViewModel.getInstance().onUserChange(player);
+                       loadingDialog.dismiss();
                        Intent intent = new Intent(ActivityLogin.this,ActivityHome.class);
                        startActivity(intent);
                    }
 
                    @Override
                    public void onFailure(String message) {
+                       loadingDialog.dismiss();
                        Toast.makeText(getApplicationContext(),"Error "+message,Toast.LENGTH_SHORT).show();
                    }
                });
@@ -256,6 +256,15 @@ public class ActivityLogin extends AppCompatActivity {
         }
     }
 
+
+    private void initLoadingDialog(Context context) {
+        loadingDialog = new Dialog(context);
+        loadingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        loadingLayoutBinding = LoadingLayoutBinding.inflate(getLayoutInflater());
+        loadingDialog.setContentView(loadingLayoutBinding.getRoot());
+//        loadingLayoutBinding.title.setText(R.string.updating_information);
+        loadingDialog.setCancelable(false);
+    }
 
 
 }

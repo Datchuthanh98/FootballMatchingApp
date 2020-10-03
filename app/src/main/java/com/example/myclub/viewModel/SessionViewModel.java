@@ -1,0 +1,157 @@
+package com.example.myclub.viewModel;
+
+import android.app.Application;
+import android.content.Context;
+import android.net.Uri;
+import android.util.Log;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModel;
+
+import com.example.myclub.Interface.GetUserCoverCallBack;
+import com.example.myclub.Interface.GetUserPhotoCallBack;
+import com.example.myclub.Interface.UpdateImageCallBack;
+import com.example.myclub.Interface.UpdateProfileCallBack;
+import com.example.myclub.Interface.UserChangeCallBack;
+import com.example.myclub.data.enumeration.Result;
+import com.example.myclub.data.repository.SessionRepository;
+import com.example.myclub.model.Player;
+
+import java.io.File;
+import java.util.Calendar;
+import java.util.Map;
+
+public class SessionViewModel extends ViewModel implements  UserChangeCallBack {
+    private final String TAG = "Session";
+    private static SessionViewModel instance;
+    private Context applicationContext;
+    private SessionRepository sessionRepository = SessionRepository.getInstance();
+    private MutableLiveData<Player> playerLiveData = new MutableLiveData<>();
+    private MutableLiveData<File> playerAvatarLiveData= new MutableLiveData<>();
+    private MutableLiveData<File> playerCoverLiveData = new MutableLiveData<>();
+    private MutableLiveData<Result> resultLiveData = new MutableLiveData<>(null);
+    private MutableLiveData<Result> resultPhotoLiveData = new MutableLiveData<>(null);
+    private String resultMessage = null;
+
+    public static SessionViewModel getInstance() {
+        if (instance == null) {
+            instance = new SessionViewModel();
+        }
+        return instance;
+    }
+
+    public void setApplicationContext(Context applicationContext) {
+        this.applicationContext = applicationContext;
+    }
+
+    public LiveData<Player> getPlayerLiveData() {
+        return playerLiveData;
+    }
+
+    public void setPlayerLiveData(Player player){
+        playerLiveData.setValue(player);
+    }
+
+    public LiveData<File>  getAvatarLiveData() {return  playerAvatarLiveData ;};
+
+    public LiveData<File>  getCoverLiveData() {return  playerCoverLiveData ;};
+
+
+    @Override
+    public void onUserChange(Player player) {
+        playerLiveData.setValue(player);
+        if (player != null) {
+            if (!player.getUrlAvatar().isEmpty()) {
+                String[] files = player.getUrlAvatar().split("/");
+                String fileName = files[files.length-1];
+                File photo = new File(applicationContext.getCacheDir(), fileName);
+                // 24 hours
+                if (photo.exists() && photo.lastModified() < Calendar.getInstance().getTimeInMillis() - 86400000){
+                    playerAvatarLiveData.setValue(photo);
+                } else {
+                    sessionRepository.getUserPhoto(new GetUserPhotoCallBack() {
+                        @Override
+                        public void onGetUserPhotoCallBack(File photo) {
+                            playerAvatarLiveData.setValue(photo);
+                        }
+                    }, player.getUrlAvatar(), applicationContext);
+                }
+            }
+
+            if (!player.getUrlCover().isEmpty()) {
+                String[] files = player.getUrlCover().split("/");
+                String fileName = files[files.length-1];
+                File photo = new File(applicationContext.getCacheDir(), fileName);
+                // 24 hours
+                if (photo.exists() && photo.lastModified() < Calendar.getInstance().getTimeInMillis() - 86400000){
+                    playerCoverLiveData.setValue(photo);
+                } else {
+                    sessionRepository.getCoverPhoto(new GetUserCoverCallBack() {
+                        @Override
+                        public void onGetUserCoverCallBack(File photo) {
+                            playerCoverLiveData.setValue(photo);
+                        }
+                    }, player.getUrlCover(), applicationContext);
+                }
+            }
+
+
+        }
+    }
+
+    public LiveData<Result> getResultLiveData() {
+        return resultLiveData;
+    }
+
+
+    public LiveData<Result> getResultPhotoLiveData() {
+        return resultPhotoLiveData;
+    }
+
+    public String getResultMessage() {
+        return resultMessage;
+    }
+
+    public void updateProfile(Map<String, Object> updateBasic) {
+        sessionRepository.updateProfile(updateBasic, new UpdateProfileCallBack() {
+            @Override
+            public void onSuccess() {
+                resultLiveData.setValue(Result.SUCCESS);
+            }
+
+            @Override
+            public void onFailure(String message) {
+                resultMessage = message;
+                resultLiveData.setValue(Result.FAILURE);
+            }
+        });
+    }
+
+    public  void updateImage(Uri uri, final String path , final boolean isAvatar){
+
+        sessionRepository.updateImage(uri, path, isAvatar, new UpdateImageCallBack() {
+            @Override
+            public void onSuccess() {
+                Log.d("check updateUI", "onSuccess: VAO DAY R NE");
+                resultPhotoLiveData.setValue(Result.SUCCESS);
+                Player player = getInstance().playerLiveData.getValue();
+                if (isAvatar){
+                    player.setUrlAvatar(path);
+                } else {
+                    player.setUrlCover(path);
+                }
+                onUserChange(player);
+            }
+
+            @Override
+            public void onFailure(String message) {
+                resultMessage = message;
+                resultPhotoLiveData.setValue(Result.FAILURE);
+            }
+        });
+    }
+
+
+
+}

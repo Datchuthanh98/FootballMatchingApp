@@ -1,35 +1,16 @@
 package com.example.myclub.auth;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.example.myclub.Interface.RegisterCallBack;
-import com.example.myclub.R;
-import com.example.myclub.data.firestore.PlayerDataSource;
+import com.example.myclub.Interface.RegisterPlayerCallBack;
+import com.example.myclub.data.datasource.PlayerDataSource;
 import com.example.myclub.databinding.ActivityEmailRegistrationBinding;
-import com.example.myclub.databinding.ActivityLoginBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class EmailRegistrationActivity extends AppCompatActivity {
 
@@ -55,7 +36,7 @@ public class EmailRegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                playerDataSource.register(binding.txtEmail.getText().toString(), binding.txtPassword.getText().toString(), new RegisterCallBack() {
+                playerDataSource.register(binding.txtEmail.getText().toString(), binding.txtPassword.getText().toString(), new RegisterPlayerCallBack() {
                     @Override
                     public void onSuccess() {
                         startActivity(new Intent(EmailRegistrationActivity.this,ActivityLogin.class));

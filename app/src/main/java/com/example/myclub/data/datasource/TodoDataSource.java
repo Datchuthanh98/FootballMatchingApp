@@ -1,10 +1,9 @@
-package com.example.myclub.data.firestore;
+package com.example.myclub.data.datasource;
 
 import android.util.Log;
 
 import com.example.myclub.Interface.FirebaseLoadListTodo;
 import com.example.myclub.model.Todo;
-
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;

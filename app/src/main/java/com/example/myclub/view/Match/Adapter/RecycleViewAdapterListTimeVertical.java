@@ -9,9 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myclub.databinding.ItemTimeHorizontalBinding;
-import com.example.myclub.main.ActivityHome;
 import com.example.myclub.model.Todo;
-import com.example.myclub.view.Player.Fragment.FragmentProfilePlayer;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,39 +1,33 @@
-package com.example.myclub.data.firestore;
+package com.example.myclub.data.datasource;
 
-import android.content.Intent;
 import android.net.Uri;
-import android.text.Editable;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
-import com.example.myclub.Interface.FirebaseLoadListTodo;
 import com.example.myclub.Interface.LoginCallBack;
-import com.example.myclub.Interface.RegisterCallBack;
+import com.example.myclub.Interface.RegisterPlayerCallBack;
+import com.example.myclub.Interface.UpdateImageCallBack;
 import com.example.myclub.Interface.UpdateProfileCallBack;
-import com.example.myclub.data.session.Session;
+import com.example.myclub.viewModel.SessionViewModel;
 import com.example.myclub.model.Player;
-import com.example.myclub.model.Todo;
 
+import com.google.android.gms.nearby.messages.internal.Update;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.util.ArrayList;
+import java.io.File;
+import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class PlayerDataSource {
@@ -43,6 +37,7 @@ public class PlayerDataSource {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseStorage storage = FirebaseStorage.getInstance();
 
+
     public static PlayerDataSource getInstance() {
         if (instance == null) {
             instance = new PlayerDataSource();
@@ -51,8 +46,7 @@ public class PlayerDataSource {
     }
 
 
-    public void register(final String email, final String password, final RegisterCallBack callBack) {
-
+    public void register(final String email, final String password, final RegisterPlayerCallBack callBack) {
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
@@ -60,6 +54,8 @@ public class PlayerDataSource {
                 map.put("id", authResult.getUser().getUid());
                 map.put("email", email);
                 map.put("password",password);
+                map.put("urlAvatar","/Avatar/default");
+                map.put("urlCover","/Cover/default");
                 db.collection("Player").document(authResult.getUser().getUid()).set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -76,7 +72,6 @@ public class PlayerDataSource {
     }
 
     public void login(String email, final String password, final LoginCallBack callBack) {
-
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
@@ -100,12 +95,50 @@ public class PlayerDataSource {
     }
 
     public void updateProfile(Map<String, Object> updateData, final UpdateProfileCallBack callBack) {
-//        String uid = Session.getInstance().getPlayerLiveData().getValue().getId() ;
-        String uid ="nb6va8HOIJSMFYcWdCO9m25ruZ33";
+        String uid = SessionViewModel.getInstance().getPlayerLiveData().getValue().getId();
         db.collection("Player").document(uid).update(updateData).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 callBack.onSuccess();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+                callBack.onFailure(e.getMessage());
+            }
+        });
+    }
+
+
+    public void updateImage(Uri uri, String path ,boolean isAvatar, final UpdateImageCallBack callBack){
+        final String uid = SessionViewModel.getInstance().getPlayerLiveData().getValue().getId();
+        Date date = new Date();
+        String urlFile ="", key="";
+        String[] parts = path.split("\\.");
+        if(isAvatar) {
+            key="urlAvatar";
+            urlFile = "/Avatar/"+uid+"_"+date.getTime()+"."+parts[1];
+
+        }else{
+            key="urlCover";
+            urlFile = "/Cover/"+uid+"_"+date.getTime()+"."+parts[1];
+        }
+
+        final String finalUrlFile = urlFile;
+        final String finalKey = key;
+        storage.getReference().child(urlFile).putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Map<String,Object> map = new HashMap<>();
+
+                map.put(finalKey, finalUrlFile);// "avatar/dsa.jpg"
+                db.collection("Player").document(uid).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        callBack.onSuccess();
+                    }
+                });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -115,17 +148,14 @@ public class PlayerDataSource {
         });
     }
 
-    public void updateImage(Uri uri, String path , final UpdateProfileCallBack callBack){
-          storage.getReference().child(path).putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-             @Override
-             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                  callBack.onSuccess();
-             }
-         }).addOnFailureListener(new OnFailureListener() {
-             @Override
-             public void onFailure(@NonNull Exception e) {
-                  callBack.onFailure(e.getMessage());
-             }
-         });
+    public FileDownloadTask getUserPhoto(String url, File downloadLocation) {
+        Log.d("image ","vao day r");
+        StorageReference fileRef = storage.getReference().child(url);
+        return fileRef.getFile(downloadLocation);
     }
+
+
+
+
+
 }

@@ -1,18 +1,14 @@
 package com.example.myclub.view.Team.Adapter;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myclub.databinding.ItemPlayerVerticalBinding;
 import com.example.myclub.databinding.ItemTeamHorizontalBinding;
-import com.example.myclub.main.ActivityHome;
 import com.example.myclub.model.Todo;
-import com.example.myclub.view.Player.Fragment.FragmentProfilePlayer;
 
 import java.util.ArrayList;
 import java.util.List;

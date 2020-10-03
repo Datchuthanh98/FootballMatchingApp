@@ -1,32 +1,26 @@
 package com.example.myclub.model;
-import com.google.firebase.Timestamp;
+
+import java.util.Map;
 
 public class Player {
     private String id;
     private String email;
+    private String phone;
     private String password;
-    private String fullName;
+    private String address;
+    private String name;
     private String urlCover;
     private String urlAvatar;
-    private String address;
-    private Timestamp birthday;
-    private String phone;
+    private String birthday;
     private int height;
     private int weight;
-    private String introduction;
-    private PositionPlayer positionPlayer;
-    private Location location;
-    private Timestamp lastUpdateNotificationTimestamp;
+    private String introduce;
+    private String position;
+    private String level;
+    private String foot;
+
 
     public Player() {
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getId() {
@@ -45,12 +39,36 @@ public class Player {
         this.email = email;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getUrlCover() {
@@ -69,28 +87,12 @@ public class Player {
         this.urlAvatar = urlAvatar;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public Timestamp getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Timestamp birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public int getHeight() {
@@ -109,35 +111,56 @@ public class Player {
         this.weight = weight;
     }
 
-    public PositionPlayer getPositionPlayer() {
-        return positionPlayer;
+    public String getIntroduce() {
+        return introduce;
     }
 
-    public void setPositionPlayer(PositionPlayer positionPlayer) {
-        this.positionPlayer = positionPlayer;
+    public void setIntroduce(String introduce) {
+        this.introduce = introduce;
     }
 
-    public String getIntroduction() {
-        return introduction;
+    public String getPosition() {
+        return position;
     }
 
-    public void setIntroduction(String introduction) {
-        this.introduction = introduction;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
-    public Location getLocation() {
-        return location;
+    public String getLevel() {
+        return level;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setLevel(String level) {
+        this.level = level;
     }
 
-    public Timestamp getLastUpdateNotificationTimestamp() {
-        return lastUpdateNotificationTimestamp;
+    public String getFoot() {
+        return foot;
     }
 
-    public void setLastUpdateNotificationTimestamp(Timestamp lastUpdateNotificationTimestamp) {
-        this.lastUpdateNotificationTimestamp = lastUpdateNotificationTimestamp;
+    public void setFoot(String foot) {
+        this.foot = foot;
     }
+
+    public  void setInforBasic(Map<String, Object> inforBasic){
+        this.name = inforBasic.get("name").toString() ;
+        this.phone =  inforBasic.get("phone").toString() ;
+        this.email =  inforBasic.get("email").toString() ;
+        this.address =  inforBasic.get("address").toString() ;
+    }
+
+    public void setInforPlayer(Map<String, Object> inforPlayer) {
+        this.birthday = inforPlayer.get("birthday").toString();
+        this.height =  Integer.parseInt(inforPlayer.get("height").toString());
+        this.weight = Integer.parseInt(inforPlayer.get("weight").toString());
+        this.position = inforPlayer.get("position").toString();
+        this.level = inforPlayer.get("level").toString();
+        this.foot = inforPlayer.get("foot").toString();
+    }
+
+
+
+
+
 }

@@ -1,13 +1,5 @@
 package com.example.myclub.model;
 
-import com.google.android.gms.maps.MapView;
-import com.google.firebase.Timestamp;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 public class MatchHistory extends MatchSchedule {
     private  String id ;
     private  int scoreTeam1;

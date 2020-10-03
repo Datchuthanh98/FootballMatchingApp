@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.myclub.viewModel.PlayerViewModel" />
+            type="com.example.myclub.viewModel.SessionViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

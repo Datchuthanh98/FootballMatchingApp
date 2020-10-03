@@ -30,7 +30,7 @@
 
 
         <activity
-            android:name=".main.ActivityHome"
+            android:name=".auth.ActivityLogin"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -39,10 +39,10 @@
             </intent-filter>
         </activity>
 
-<!--        <activity-->
-<!--            android:name=".main.ActivityHome"-->
-<!--            android:label="@string/app_name"-->
-<!--            android:theme="@style/AppTheme"></activity>-->
+        <activity
+            android:name=".main.ActivityHome"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme"></activity>
 
         <activity
             android:name=".auth.PhoneLoginActivity"

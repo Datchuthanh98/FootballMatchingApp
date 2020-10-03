@@ -1,6 +1,7 @@
 package com.example.myclub.googlemap.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,19 +55,12 @@ public class ShowPlaceOnMapFragment extends Fragment implements OnMapReadyCallba
             }
         });
 
-        PlacesConstant.locationChange.observe(getViewLifecycleOwner(), new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer integer) {
-                Toast.makeText(getContext(),"get change location in Map",Toast.LENGTH_SHORT).show();
-                if (PlacesConstant.locationChange.getValue() == null) return;
-                results = PlacesConstant.results;
-                mapView.getMapAsync(ShowPlaceOnMapFragment.this);
-            }
-        });
+
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        googleMap.clear();
         // add marker for myself
         MarkerOptions myMarkerOptions = new MarkerOptions();
         myMarkerOptions.position(new LatLng(PlacesConstant.latitude, PlacesConstant.longitude));
@@ -87,13 +81,14 @@ public class ShowPlaceOnMapFragment extends Fragment implements OnMapReadyCallba
             double lat = Double.parseDouble(googlePlace.getGeometry().getLocation().getLat());
             double lng = Double.parseDouble(googlePlace.getGeometry().getLocation().getLng());
             String placeName = googlePlace.getName();
+            System.out.println(placeName);
             String vicinity = googlePlace.getVicinity();
             LatLng latLng = new LatLng(lat, lng);
             markerOptions.position(latLng);
             markerOptions.title(placeName);
             markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.field_24));
             // add marker to map
-            googleMap.addMarker(markerOptions).showInfoWindow();;
+            googleMap.addMarker(markerOptions).showInfoWindow();
 
 
         }

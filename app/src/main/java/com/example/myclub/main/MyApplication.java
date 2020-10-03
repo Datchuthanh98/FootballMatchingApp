@@ -19,6 +19,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.example.myclub.googlemap.constants.PlacesConstant;
 import com.example.myclub.googlemap.fragment.LocationFragment;
+import com.example.myclub.viewModel.SessionViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -33,6 +34,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         //init Firebase for app
+        SessionViewModel.getInstance().setApplicationContext(getApplicationContext());
         FirebaseApp.initializeApp(this);
         createNotificationChannel();
         locationService();

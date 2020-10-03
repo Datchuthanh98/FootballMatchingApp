@@ -47,7 +47,7 @@
       android:textColor="#0c0d0c"
       android:textColorHint="#0c0d0c"
       android:textColorHighlight="#FFFFFF"
-      android:text="admin@gmail.com"
+      android:text="test@gmail.com"
       />
 
   <EditText
@@ -61,7 +61,7 @@
       android:hint="Password"
       android:inputType="textPassword"
       android:padding="15dp"
-      android:text="datchuthanh"
+      android:text="123456"
       android:textColor="#0c0d0c"
       android:textColorHighlight="#FFFFFF"
       android:textColorHint="#0c0d0c" />
