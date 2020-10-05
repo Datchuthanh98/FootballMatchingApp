@@ -18,18 +18,16 @@ import com.google.firebase.storage.FileDownloadTask;
 import java.io.File;
 import java.util.Map;
 
-public class SessionRepository {
-    private static SessionRepository instance;
+public class PlayerRepository {
+    private static PlayerRepository instance;
     private PlayerDataSource userDataSource = PlayerDataSource.getInstance();
 
-
-
-    private SessionRepository() {
+    private PlayerRepository() {
     }
 
-    public static SessionRepository getInstance() {
+    public static PlayerRepository getInstance() {
         if (instance == null) {
-            instance = new SessionRepository();
+            instance = new PlayerRepository();
         }
         return instance;
     }

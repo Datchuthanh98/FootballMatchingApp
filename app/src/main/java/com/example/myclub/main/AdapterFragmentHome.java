@@ -28,7 +28,6 @@ public class AdapterFragmentHome extends FragmentStatePagerAdapter {
                 return new FragmentMainMatch();
             case 2:
                 return new FragmentMainListTeam();
-
             case 3:
                 return new FragmentProfileMyself();
 

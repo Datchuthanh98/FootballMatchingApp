@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <import type="com.example.myclub.viewModel.SessionViewModel"></import>
+        <import type="com.example.myclub.viewModel.PlayerViewModel"></import>
     </data>
 
 
@@ -92,7 +92,7 @@
                       app:layout_constraintRight_toRightOf="parent"
                       app:layout_constraintTop_toBottomOf="@id/avatar"
                       android:textSize="30dp"
-                      android:text="@{SessionViewModel.getInstance().playerLiveData.name}"
+                      android:text="@{PlayerViewModel.getInstance().playerLiveData.name}"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"></TextView>
 
@@ -134,7 +134,7 @@
                                         android:gravity="center"
                                         android:layout_width="match_parent"
                                         android:layout_height="30dp"
-                                        android:text="@{SessionViewModel.getInstance().playerLiveData.birthday}">
+                                        android:text="@{PlayerViewModel.getInstance().playerLiveData.birthday}">
                                     </TextView>
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
@@ -162,7 +162,7 @@
                                         android:layout_height="30dp"
                                         android:layout_margin="10dp"
                                         android:gravity="center"
-                                        android:text= "@{Integer.toString(SessionViewModel.getInstance().playerLiveData.height)}"
+                                        android:text= "@{Integer.toString(PlayerViewModel.getInstance().playerLiveData.height)}"
                                         android:textStyle="bold"></TextView>
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
@@ -189,7 +189,7 @@
                                         android:gravity="center"
                                         android:layout_width="match_parent"
                                         android:layout_height="30dp"
-                                        android:text= "@{Integer.toString(SessionViewModel.getInstance().playerLiveData.weight)}"
+                                        android:text= "@{Integer.toString(PlayerViewModel.getInstance().playerLiveData.weight)}"
                                     >
                                     </TextView>
                                 </LinearLayout>
@@ -224,7 +224,7 @@
                                         android:gravity="center"
                                         android:layout_width="match_parent"
                                         android:layout_height="30dp"
-                                        android:text="@{SessionViewModel.getInstance().playerLiveData.level}">>
+                                        android:text="@{PlayerViewModel.getInstance().playerLiveData.level}">>
                                     </TextView>
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
@@ -252,7 +252,7 @@
                                         android:gravity="center"
                                         android:layout_width="match_parent"
                                         android:layout_height="30dp"
-                                        android:text="@{SessionViewModel.getInstance().playerLiveData.position}">>
+                                        android:text="@{PlayerViewModel.getInstance().playerLiveData.position}">>
                                     </TextView>
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
@@ -280,7 +280,7 @@
                                         android:gravity="center"
                                         android:layout_width="match_parent"
                                         android:layout_height="30dp"
-                                        android:text="@{SessionViewModel.getInstance().playerLiveData.foot}">
+                                        android:text="@{PlayerViewModel.getInstance().playerLiveData.foot}">
                                     </TextView>
                                 </LinearLayout>
                             </androidx.cardview.widget.CardView>
@@ -308,19 +308,19 @@
                                 android:layout_weight="1"
                                 android:id="@+id/phone"
                                 android:drawableStart="@drawable/ic_baseline_phone_24_green"
-                                android:text="@{SessionViewModel.getInstance().playerLiveData.phone}"
+                                android:text="@{PlayerViewModel.getInstance().playerLiveData.phone}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"></TextView>
                             <TextView
                                 android:textStyle="bold"
                                 android:id="@+id/email"
                                 android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
-                                android:text="@{SessionViewModel.getInstance().playerLiveData.email}"
+                                android:text="@{PlayerViewModel.getInstance().playerLiveData.email}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"></TextView>
 
                         <TextView
-                            android:text="@{SessionViewModel.getInstance().playerLiveData.address}"
+                            android:text="@{PlayerViewModel.getInstance().playerLiveData.address}"
                             android:textStyle="bold"
                             android:drawableStart="@drawable/ic_baseline_home_24"
                             android:layout_width="match_parent"
@@ -333,7 +333,7 @@
                         <TextView
 
                             android:textStyle="bold"
-                            android:text="@{SessionViewModel.getInstance().playerLiveData.introduce}"
+                            android:text="@{PlayerViewModel.getInstance().playerLiveData.introduce}"
                             android:layout_width="match_parent"
                             android:layout_height="150dp"></TextView>
 

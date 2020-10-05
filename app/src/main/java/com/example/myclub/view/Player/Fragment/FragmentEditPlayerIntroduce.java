@@ -12,10 +12,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myclub.data.enumeration.Result;
-import com.example.myclub.viewModel.SessionViewModel;
+import com.example.myclub.viewModel.PlayerViewModel;
 import com.example.myclub.databinding.FragmentEditPlayerIntroduceBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
 import com.example.myclub.model.Player;
@@ -27,19 +26,16 @@ import java.util.Map;
 public class FragmentEditPlayerIntroduce extends BottomSheetDialogFragment {
 
      private FragmentEditPlayerIntroduceBinding binding;
-     private SessionViewModel viewModel;
+    private PlayerViewModel session = PlayerViewModel.getInstance();
     private Dialog loadingDialog;
     private LoadingLayoutBinding loadingLayoutBinding;
     private  Map<String, Object> data = new HashMap<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-          binding = FragmentEditPlayerIntroduceBinding.inflate(inflater);
-          binding.setLifecycleOwner(this);
-          viewModel = new ViewModelProvider(this).get(SessionViewModel.class);
-          binding.setViewModel(viewModel);
-          View view = binding.getRoot();
-           return  view;
+        binding = FragmentEditPlayerIntroduceBinding.inflate(inflater);
+        binding.setLifecycleOwner(this);
+        return binding.getRoot();
 
     }
 
@@ -51,19 +47,21 @@ public class FragmentEditPlayerIntroduce extends BottomSheetDialogFragment {
     }
 
     private void observeLiveData(final Context context) {
-        viewModel.getResultLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
+        session.getResultLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
             @Override
             public void onChanged(Result result) {
                 if (result == null) return;
                 if (result == Result.SUCCESS) {
+                    session.resetResult();
                     loadingDialog.dismiss();
                     Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show();
                     updateUIPlayer();
                   detach();
                 } else if (result == Result.FAILURE) {
+                    session.resetResult();
                     loadingDialog.dismiss();
                     detach();
-                    Toast.makeText(context, viewModel.getResultMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, session.getResultMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -74,8 +72,9 @@ public class FragmentEditPlayerIntroduce extends BottomSheetDialogFragment {
             @Override
             public void onClick(View v) {
                 initLoadingDialog(context);
+                session.resetResult();
                 loadingDialog.show();
-                viewModel.updateProfile(getUpdateIntroduction());
+                session.updateProfile(getUpdateIntroduction());
             }
         });
     }
@@ -99,9 +98,9 @@ public class FragmentEditPlayerIntroduce extends BottomSheetDialogFragment {
     }
 
     private  void updateUIPlayer (){
-        Player player = SessionViewModel.getInstance().getPlayerLiveData().getValue();
+        Player player = PlayerViewModel.getInstance().getPlayerLiveData().getValue();
         player.setIntroduce(binding.txtIntroduce.getText().toString());
-        SessionViewModel.getInstance().setPlayerLiveData(player);
+        PlayerViewModel.getInstance().setPlayerLiveData(player);
     }
 
 }

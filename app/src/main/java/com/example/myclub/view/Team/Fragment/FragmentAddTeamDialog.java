@@ -23,13 +23,14 @@ import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.databinding.FragmentAddTeamBinding;
 import com.example.myclub.databinding.FragmentEditPlayerBasicBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
+import com.example.myclub.viewModel.ListMyTeamViewModel;
 import com.example.myclub.viewModel.TeamViewModel;
 
 public class FragmentAddTeamDialog extends DialogFragment {
 
 
     FragmentAddTeamBinding binding;
-    private TeamViewModel viewModel;
+    private ListMyTeamViewModel listMyTeamViewModel = ListMyTeamViewModel.getInstance();
     private Dialog loadingDialog;
     private LoadingLayoutBinding loadingLayoutBinding;
 
@@ -47,8 +48,6 @@ public class FragmentAddTeamDialog extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 //        binding = FragmentAddTeamBinding.inflate(inflater);
         binding.setLifecycleOwner(this);
-        viewModel = new ViewModelProvider(this).get(TeamViewModel.class);
-        binding.setViewModel(viewModel);
         initComponent(getContext());
         observeLiveData(getContext());
         View view = binding.getRoot();
@@ -62,19 +61,12 @@ public class FragmentAddTeamDialog extends DialogFragment {
     }
 
     private  void initComponent(final Context context){
-        binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_back_white_24);
-        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                detach();
-            }
-        });
         binding.btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 initLoadingDialog(context);
                 loadingDialog.show();
-                viewModel.createTeam(binding.txtName.getText().toString(),binding.txtPhone.getText().toString(),binding.txtEmail.getText().toString());
+                listMyTeamViewModel.createTeam(binding.txtName.getText().toString(),binding.txtPhone.getText().toString(),binding.txtEmail.getText().toString());
             }
         });
     }
@@ -89,19 +81,16 @@ public class FragmentAddTeamDialog extends DialogFragment {
     }
 
     private void observeLiveData(final Context context) {
-        viewModel.getResultLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
+        listMyTeamViewModel.getResultLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
             @Override
             public void onChanged(Result result) {
                 if (result == null) return;
-                Log.d("checkteam", "onSuccess: view.");
                 if (result == Result.SUCCESS) {
-
                     loadingDialog.dismiss();
-                    Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show();
                     detach();
                 } else if (result == Result.FAILURE) {
                     loadingDialog.dismiss();
-                    Toast.makeText(context, viewModel.getResultMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, listMyTeamViewModel.getResultMessage(), Toast.LENGTH_SHORT).show();
                     detach();
                 }
             }

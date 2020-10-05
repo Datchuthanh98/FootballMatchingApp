@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -18,14 +17,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.example.myclub.googlemap.constants.PlacesConstant;
-import com.example.myclub.googlemap.fragment.LocationFragment;
-import com.example.myclub.viewModel.SessionViewModel;
+import com.example.myclub.viewModel.PlayerViewModel;
+import com.example.myclub.viewModel.TeamViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
-
-import java.util.concurrent.Executor;
 
 public class MyApplication extends Application {
     public static final String alarm_channel_id = "FireBaseSync";
@@ -34,7 +31,8 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         //init Firebase for app
-        SessionViewModel.getInstance().setApplicationContext(getApplicationContext());
+        PlayerViewModel.getInstance().setApplication(this);
+        TeamViewModel.getInstance().setApplication(this);
         FirebaseApp.initializeApp(this);
         createNotificationChannel();
         locationService();

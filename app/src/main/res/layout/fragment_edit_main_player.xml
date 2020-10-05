@@ -3,10 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable
-            name="viewModel"
-            type="com.example.myclub.viewModel.SessionViewModel" />
+        <import type="com.example.myclub.viewModel.PlayerViewModel"></import>
     </data>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:background="@color/white"
@@ -78,7 +77,7 @@
                     </LinearLayout>
 
                     <ImageView
-                        android:id="@+id/imgAvatar"
+                        android:id="@+id/avatar"
                         android:layout_width="wrap_content"
                         android:layout_height="400dp"
                         android:background="@drawable/avatar_player"
@@ -114,12 +113,11 @@
                     </LinearLayout>
 
                     <ImageView
-                        android:id="@+id/imgCover"
+                        android:id="@+id/cover"
                         android:layout_width="wrap_content"
                         android:layout_height="400dp"
                         android:background="@drawable/cover_player"
                         android:scaleType="fitXY"></ImageView>
-
                 </LinearLayout>
 
 
@@ -155,7 +153,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
-                        android:text=" Chu Thanh Dat"
+                        android:text="@{PlayerViewModel.getInstance().playerLiveData.name}"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -163,7 +161,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
-                        android:text=" datchuthanh98@gmail.com"
+                        android:text="@{PlayerViewModel.getInstance().playerLiveData.email}"
                         android:textSize="16dp"
                         android:textStyle="bold" />
 
@@ -171,7 +169,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_baseline_phone_24_green"
-                        android:text=" 0984060798"
+                        android:text="@{PlayerViewModel.getInstance().playerLiveData.phone}"
                         android:textSize="16dp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -207,7 +205,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
-                        android:text=" 06/07/1998"
+                        android:text="@{PlayerViewModel.getInstance().playerLiveData.birthday}"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -215,7 +213,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
-                        android:text=" 170 cm"
+                        android:text="@{Integer.toString(PlayerViewModel.getInstance().playerLiveData.height) }"
                         android:textSize="16dp"
                         android:textStyle="bold" />
 
@@ -223,7 +221,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
-                        android:text=" 59 kg"
+                        android:text="@{Integer.toString(PlayerViewModel.getInstance().playerLiveData.weight)}"
                         android:textSize="16dp"
                         android:textStyle="bold" />
 
@@ -231,7 +229,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
-                        android:text=" 10"
+                        android:text="@{PlayerViewModel.getInstance().playerLiveData.level}"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -239,7 +237,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
-                        android:text=" ST"
+                        android:text="@{PlayerViewModel.getInstance().playerLiveData.position}"
                         android:textSize="16dp"
                         android:textStyle="bold" />
 
@@ -247,7 +245,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_baseline_phone_24_green"
-                        android:text=" Right"
+                        android:text="@{PlayerViewModel.getInstance().playerLiveData.foot}"
                         android:textSize="16dp"
                         android:textStyle="bold" />
 
@@ -280,8 +278,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="
-Eden Michael Hazard là một cầu thủ bóng đá người Bỉ hiện đang chơi ở vị trí tiền đạo cho câu lạc bộ Real Madrid tại La Liga cũng như thi đấu cho đội tuyển Bỉ ở các giải đấu cấp độ đội tuyển. Anh là đội trưởng đội tuyển Bỉ."
+                    android:text="@{PlayerViewModel.getInstance().playerLiveData.birthday}"
                     android:textStyle="bold" />
             </LinearLayout>
         </ScrollView>

@@ -23,6 +23,8 @@ public class ActivityHome extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         super.onCreate(savedInstanceState);
 
+
+
         //Check Permission
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             checkPermission();

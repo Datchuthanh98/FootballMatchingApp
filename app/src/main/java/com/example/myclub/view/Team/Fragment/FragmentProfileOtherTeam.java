@@ -14,7 +14,7 @@ import com.example.myclub.R;
 import com.example.myclub.databinding.FragmentProfileOtherTeamBinding;
 
 
-public class FragmentProfileTeam extends Fragment {
+public class FragmentProfileOtherTeam extends Fragment {
     private FragmentProfileOtherTeamBinding binding;
     @Nullable
     @Override

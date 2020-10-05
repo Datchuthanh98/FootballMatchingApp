@@ -12,12 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myclub.auth.ActivityLogin;
 import com.example.myclub.data.enumeration.Result;
-import com.example.myclub.databinding.FragmentEditMainPlayerBinding;
-import com.example.myclub.viewModel.SessionViewModel;
+import com.example.myclub.viewModel.PlayerViewModel;
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.databinding.FragmentProfileMyselfBinding;
 import com.facebook.login.LoginManager;
@@ -29,15 +27,13 @@ import java.io.File;
 public class FragmentProfileMyself extends Fragment {
 
     private FragmentProfileMyselfBinding binding;
-    private SessionViewModel viewModel;
+    private PlayerViewModel session = PlayerViewModel.getInstance();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentProfileMyselfBinding.inflate(inflater);
         binding.setLifecycleOwner(this);
-        viewModel = new ViewModelProvider(this).get(SessionViewModel.class);
-        View view = binding.getRoot();
-        return  view;
+        return binding.getRoot();
     }
 
     @Override
@@ -62,38 +58,38 @@ public class FragmentProfileMyself extends Fragment {
         });
 
 
-        SessionViewModel.getInstance().getAvatarLiveData().observe(getViewLifecycleOwner(), new Observer<File>() {
+        observeLiveData(view.getContext());
+
+
+    }
+
+
+    private void observeLiveData(final Context context) {
+       // CreatePhoto
+        PlayerViewModel.getInstance().getAvatarLiveData().observe(getViewLifecycleOwner(), new Observer<File>() {
             @Override
             public void onChanged(File file) {
                 Picasso.get().load(file).into(binding.avatar);
             }
         });
 
-        SessionViewModel.getInstance().getCoverLiveData().observe(getViewLifecycleOwner(), new Observer<File>() {
+        PlayerViewModel.getInstance().getCoverLiveData().observe(getViewLifecycleOwner(), new Observer<File>() {
             @Override
             public void onChanged(File file) {
                 Picasso.get().load(file).into(binding.cover);
             }
         });
 
-        observeLiveData(view.getContext());
-
-
-    }
-
-    private void observeLiveData(final Context context) {
-        Toast.makeText(context,"update UI image",Toast.LENGTH_SHORT).show();
-        viewModel.getResultPhotoLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
+        session.getResultPhotoLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
             @Override
             public void onChanged(Result result) {
                 if (result == null) return;
                 if (result == Result.SUCCESS) {
-                    Picasso.get().load(viewModel.getAvatarLiveData().getValue()).into(binding.avatar);
-                    Picasso.get().load(viewModel.getCoverLiveData().getValue()).into(binding.cover);
-                    Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show();
+                    Picasso.get().load(session.getAvatarLiveData().getValue()).into(binding.avatar);
+                    Picasso.get().load(session.getCoverLiveData().getValue()).into(binding.cover);
 
                 } else if (result == Result.FAILURE) {
-                    Toast.makeText(context, viewModel.getResultMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, session.getResultMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

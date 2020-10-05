@@ -1,23 +1,28 @@
 package com.example.myclub.view.Team.Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.databinding.FragmentListMyTeamBinding;
 import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListTeamVertical;
+import com.example.myclub.viewModel.ListMyTeamViewModel;
 import com.example.myclub.viewModel.ViewModelTodo;
 
 public class FragmentListMyTeam extends Fragment {
-    private ViewModelTodo viewModel;
+    private ListMyTeamViewModel listMyTeamViewModel = ListMyTeamViewModel.getInstance();
     private FragmentListMyTeamBinding binding;
     public boolean isShow = true ;
 
@@ -32,8 +37,7 @@ public class FragmentListMyTeam extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        viewModel = new ViewModelProvider(this).get(ViewModelTodo.class);
-
+        listMyTeamViewModel = new ViewModelProvider(this).get(ListMyTeamViewModel.class);
         binding = FragmentListMyTeamBinding.inflate(inflater);
         return  binding.getRoot();
     }
@@ -41,16 +45,20 @@ public class FragmentListMyTeam extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initComponent();
+        observeLiveData(view.getContext());
 
-       binding.recycleViewListTeamVertical.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
+
+    private  void initComponent(){
+        binding.recycleViewListTeamVertical.setLayoutManager(new LinearLayoutManager(getContext()));
         //Khởi tạo màn hình ban đầu của fragment
-        RecycleViewAdapterListTeamVertical adapter = viewModel.getAdapterListTeam();
+        RecycleViewAdapterListTeamVertical adapter = listMyTeamViewModel.getAdapterListTeam();
         adapter.fragment = getTargetFragment();
         adapter.setFm(getParentFragmentManager());
         adapter.isMy = true ;
         adapter.isShow = this.isShow;
-        binding.recycleViewListTeamVertical.setAdapter(viewModel.getAdapterListTeam());
-
+        binding.recycleViewListTeamVertical.setAdapter(listMyTeamViewModel.getAdapterListTeam());
         binding.btnCreateTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,7 +67,21 @@ public class FragmentListMyTeam extends Fragment {
             }
         });
 
+    }
 
+    private void observeLiveData(final Context context) {
+        listMyTeamViewModel.getResultLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
+            @Override
+            public void onChanged(Result result) {
+                if (result == null) return;
+                if (result == Result.SUCCESS) {
+                    Toast.makeText(context, "List get new team", Toast.LENGTH_SHORT).show();
+                    listMyTeamViewModel.getListTeam();
 
+                } else if (result == Result.FAILURE) {
+                    Toast.makeText(context, listMyTeamViewModel.getResultMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

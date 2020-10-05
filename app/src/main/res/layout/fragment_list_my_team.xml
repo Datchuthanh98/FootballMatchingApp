@@ -4,10 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <import type="android.view.View" />
-        <variable
-            name="viewModel"
-            type="com.example.myclub.viewModel.ViewModelTodo" />
+
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:background="@color/white"

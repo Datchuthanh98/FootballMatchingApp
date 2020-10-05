@@ -4,9 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable
-            name="viewModel"
-            type="com.example.myclub.viewModel.SessionViewModel" />
+        <import type="com.example.myclub.viewModel.PlayerViewModel"></import>
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,8 +59,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></TextView>
             <EditText
+                android:text="@{PlayerViewModel.getInstance().playerLiveData.name}"
                 android:id="@+id/txtName"
-                android:text="Chu Thanh Dat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></EditText>
             <TextView
@@ -73,8 +71,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></TextView>
             <EditText
+                android:text="@{PlayerViewModel.getInstance().playerLiveData.phone}"
                 android:id="@+id/txtPhone"
-                android:text="0984060798"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></EditText>
             <TextView
@@ -85,20 +83,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></TextView>
             <EditText
+                android:text="@{PlayerViewModel.getInstance().playerLiveData.email}"
                 android:id="@+id/txtEmail"
-                android:text="datchuthanh98@gmail.com"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></EditText>
             <TextView
-                android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
+                android:drawableStart="@drawable/ic_baseline_home_24"
                 android:text="Address"
                 android:textStyle="bold"
                 android:textSize="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></TextView>
             <EditText
+                android:text="@{PlayerViewModel.getInstance().playerLiveData.address}"
                 android:id="@+id/txtAddress"
-                android:text="datchuthanh98@gmail.com"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></EditText>
 

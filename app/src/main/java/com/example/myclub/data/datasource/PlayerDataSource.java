@@ -9,10 +9,9 @@ import com.example.myclub.Interface.LoginCallBack;
 import com.example.myclub.Interface.RegisterPlayerCallBack;
 import com.example.myclub.Interface.UpdateImageCallBack;
 import com.example.myclub.Interface.UpdateProfileCallBack;
-import com.example.myclub.viewModel.SessionViewModel;
+import com.example.myclub.viewModel.PlayerViewModel;
 import com.example.myclub.model.Player;
 
-import com.google.android.gms.nearby.messages.internal.Update;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -95,7 +94,7 @@ public class PlayerDataSource {
     }
 
     public void updateProfile(Map<String, Object> updateData, final UpdateProfileCallBack callBack) {
-        String uid = SessionViewModel.getInstance().getPlayerLiveData().getValue().getId();
+        String uid = PlayerViewModel.getInstance().getPlayerLiveData().getValue().getId();
         db.collection("Player").document(uid).update(updateData).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -112,7 +111,7 @@ public class PlayerDataSource {
 
 
     public void updateImage(Uri uri, String path ,boolean isAvatar, final UpdateImageCallBack callBack){
-        final String uid = SessionViewModel.getInstance().getPlayerLiveData().getValue().getId();
+        final String uid = PlayerViewModel.getInstance().getPlayerLiveData().getValue().getId();
         Date date = new Date();
         String urlFile ="", key="";
         String[] parts = path.split("\\.");
@@ -136,7 +135,7 @@ public class PlayerDataSource {
                 db.collection("Player").document(uid).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        callBack.onSuccess();
+                        callBack.onSuccess(finalUrlFile);
                     }
                 });
             }

@@ -20,39 +20,34 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.example.myclub.Interface.UpdateProfileCallBack;
 import com.example.myclub.R;
 import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.databinding.FragmentEditMainPlayerBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
-import com.example.myclub.viewModel.SessionViewModel;
+import com.example.myclub.viewModel.PlayerViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
 
 public class FragmentMainEditPlayer extends Fragment {
-    private SessionViewModel viewModel;
     private Dialog loadingDialog;
     private LoadingLayoutBinding loadingLayoutBinding;
     private FragmentEditMainPlayerBinding binding;
     public static final int RESULT_LOAD_IMG_AVATAR = 1012;
     public static final int RESULT_LOAD_IMG_COVER = 1013;
     private  String urlAvatar , urlCover;
+    private PlayerViewModel session = PlayerViewModel.getInstance();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentEditMainPlayerBinding.inflate(inflater);
         binding.setLifecycleOwner(this);
-        viewModel = new ViewModelProvider(this).get(SessionViewModel.class);
-        binding.setViewModel(viewModel);
-        View view = binding.getRoot();
-        return  view;
+        return binding.getRoot();
     }
 
     @Override
@@ -96,8 +91,6 @@ public class FragmentMainEditPlayer extends Fragment {
         binding.btnEditBasic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 BottomSheetDialogFragment dialog = new FragmentEditPlayerBasic();
                 dialog.show(getParentFragmentManager(), null);
 
@@ -137,7 +130,38 @@ public class FragmentMainEditPlayer extends Fragment {
     }
 
     private void observeLiveData(final Context context) {
-        viewModel.getResultPhotoLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
+        //init Photo
+        PlayerViewModel.getInstance().getAvatarLiveData().observe(getViewLifecycleOwner(), new Observer<File>() {
+            @Override
+            public void onChanged(File file) {
+                Picasso.get().load(file).into(binding.avatar);
+            }
+        });
+
+        PlayerViewModel.getInstance().getCoverLiveData().observe(getViewLifecycleOwner(), new Observer<File>() {
+            @Override
+            public void onChanged(File file) {
+                Picasso.get().load(file).into(binding.cover);
+            }
+        });
+
+        //update Photo
+        session.getResultPhotoLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
+            @Override
+            public void onChanged(Result result) {
+                if (result == null) return;
+                if (result == Result.SUCCESS) {
+                    Picasso.get().load(session.getAvatarLiveData().getValue()).into(binding.avatar);
+                    Picasso.get().load(session.getCoverLiveData().getValue()).into(binding.cover);
+
+                } else if (result == Result.FAILURE) {
+                    Toast.makeText(context, session.getResultMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+        session.getResultPhotoLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
             @Override
             public void onChanged(Result result) {
                 if (result == null) return;
@@ -147,7 +171,7 @@ public class FragmentMainEditPlayer extends Fragment {
 
                 } else if (result == Result.FAILURE) {
                     loadingDialog.dismiss();
-                    Toast.makeText(context, viewModel.getResultMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, session.getResultMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -170,12 +194,11 @@ public class FragmentMainEditPlayer extends Fragment {
                 returnCursor.moveToFirst();
 
                 if(requestCode == RESULT_LOAD_IMG_AVATAR){
-                    binding.imgAvatar.setImageBitmap(selectedImage);
+                    binding.avatar.setImageBitmap(selectedImage);
                     urlAvatar = returnCursor.getString(nameIndex);
-                    Toast.makeText(getContext(), "urlAvatar"+urlAvatar, Toast.LENGTH_LONG).show();
                     updateImage(imageUri,urlAvatar,true);
                 }else if(requestCode == RESULT_LOAD_IMG_COVER){
-                    binding.imgCover.setImageBitmap(selectedImage) ;
+                    binding.cover.setImageBitmap(selectedImage) ;
                     urlCover =  returnCursor.getString(nameIndex);
                     updateImage(imageUri,urlCover,false);
                 }
@@ -191,8 +214,10 @@ public class FragmentMainEditPlayer extends Fragment {
 
     private void updateImage(Uri uri, String path , boolean isAvatar) {
         loadingDialog.show();
-        viewModel.updateImage(uri, path,isAvatar);
+        session.updateImage(uri, path,isAvatar);
     }
+
+
 
 
 }

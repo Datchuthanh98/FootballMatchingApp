@@ -11,9 +11,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myclub.main.ActivityHome;
+import com.example.myclub.model.Team;
+import com.example.myclub.view.Player.Fragment.FragmentEditPlayerPlayer;
 import com.example.myclub.view.Team.Fragment.FragmentMainProfileTeam;
 import com.example.myclub.databinding.ItemTeamVerticalBinding;
 import com.example.myclub.model.Todo;
+import com.example.myclub.viewModel.ListMyTeamViewModel;
+import com.example.myclub.viewModel.TeamViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +26,7 @@ import java.util.List;
 public class RecycleViewAdapterListTeamVertical extends RecyclerView.Adapter<RecycleViewAdapterListTeamVertical.MyViewHolder> {
 
     private FragmentManager fm;
-    private List<Todo> todos = new ArrayList<>();
+    private List<Team> listTeam = new ArrayList<>();
     public Boolean isMy = false;
     public Boolean isShow = true;
     public Fragment fragment;
@@ -31,16 +35,12 @@ public class RecycleViewAdapterListTeamVertical extends RecyclerView.Adapter<Rec
     }
 
 
-    public RecycleViewAdapterListTeamVertical(FragmentManager fm) {
-        this.fm = fm;
-    }
-
     public void setFm(FragmentManager fm) {
         this.fm = fm;
     }
 
-    public  void  setListTodo(List<Todo> todos){
-        this.todos = todos;
+    public  void  setListTeam(List<Team> listTeam){
+        this.listTeam = listTeam;
     }
 
     @NonNull
@@ -56,8 +56,6 @@ public class RecycleViewAdapterListTeamVertical extends RecyclerView.Adapter<Rec
             super(binding.getRoot());
             this.binding = binding;
         }
-
-
     }
 
     @Override
@@ -66,33 +64,28 @@ public class RecycleViewAdapterListTeamVertical extends RecyclerView.Adapter<Rec
             @Override
             public void onClick(View v) {
                 ActivityHome activityHome = (ActivityHome) holder.itemView.getContext();
-
                 if(isMy){
                     if(isShow){
+                        TeamViewModel.getInstance().loadTeam(listTeam.get(position).getId());
                         activityHome.addFragment(new FragmentMainProfileTeam());
                     }else {
-                        //select Team
-                      Log.d("SelectItem ",""+position);
+                        //Select Team
                       detach();
-
                     }
                 }else{
                     activityHome.addFragment(new FragmentMainProfileTeam());}
-
             }
         });
-        holder.binding.setTodo(todos.get(position));
+        holder.binding.setTeam(listTeam.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return todos.size();
+        return listTeam.size();
     }
 
     private void detach() {
         fm.popBackStack();
-//        fm.beginTransaction().detach(fragment).commit();
-
     }
 }
 

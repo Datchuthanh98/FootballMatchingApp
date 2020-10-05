@@ -4,9 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable
-            name="viewModel"
-            type="com.example.myclub.viewModel.SessionViewModel" />
+        <import type="com.example.myclub.viewModel.PlayerViewModel"></import>
     </data>
 
 
@@ -64,10 +62,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></TextView>
             <EditText
+                android:text="@{PlayerViewModel.getInstance().playerLiveData.introduce}"
                 android:id="@+id/txtIntroduce"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Eden Michael Hazard là một cầu thủ bóng đá người Bỉ hiện đang chơi ở vị trí tiền đạo cho câu lạc bộ Real Madrid"
+                android:layout_height="100dp"
+
                 ></EditText>
         </LinearLayout>
     </LinearLayout>

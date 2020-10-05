@@ -4,69 +4,70 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <import type="android.view.View" />
-
+        <import type="com.example.myclub.viewModel.TeamViewModel"></import>
     </data>
-
-<LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:background="@color/colorPrimary"
-        android:layout_height="?attr/actionBarSize"
-        app:layout_constraintTop_toTopOf="parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:textColor="@color/white"
-                android:id="@+id/title"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:text="Edit information basic"
-                android:gravity="center_vertical"
-                android:textSize="20dp"
-                android:layout_weight="1"/>
-            <ImageButton
-                android:id="@+id/image_btn_1"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingHorizontal="15dp"
-                android:background="?android:attr/selectableItemBackground"
-                android:src="@drawable/ic_baseline_replay_white_24"/>
-            <ImageButton
-                android:id="@+id/image_btn_2"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingHorizontal="15dp"
-                android:background="?android:attr/selectableItemBackground"
-                android:src="@drawable/ic_baseline_check_white_24"/>
-        </LinearLayout>
-    </androidx.appcompat.widget.Toolbar>
 
 
     <LinearLayout
-        android:layout_margin="10dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
- <TextView
-     android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
-     android:text=" Introduce"
-     android:textStyle="bold"
-     android:textSize="15dp"
-     android:layout_width="match_parent"
-     android:layout_height="wrap_content"></TextView>
-        <EditText
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Câu lạc bộ bóng đá Chelsea là một câu lạc bộ bóng đá chuyên nghiệp có trụ sở tại Fulham, London, hiện đang thi đấu tại Giải bóng đá Ngoại hạng Anh"
-            ></EditText>
+            android:background="@color/colorPrimary"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintTop_toTopOf="parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:textColor="@color/white"
+                    android:id="@+id/title"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:text="Edit information basic"
+                    android:gravity="center_vertical"
+                    android:textSize="20dp"
+                    android:layout_weight="1"/>
+                <ImageButton
+                    android:id="@+id/image_btn_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="15dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:src="@drawable/ic_baseline_replay_white_24"/>
+                <ImageButton
+                    android:id="@+id/image_btn_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="15dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:src="@drawable/ic_baseline_check_white_24"/>
+            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <LinearLayout
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
+                android:text=" Introduce"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></TextView>
+            <EditText
+                android:text="@{TeamViewModel.getInstance().teamLiveData.introduce}"
+                android:id="@+id/txtIntroduce"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+
+                ></EditText>
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
 </layout>

@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myclub.Interface.LoginCallBack;
 import com.example.myclub.data.datasource.PlayerDataSource;
-import com.example.myclub.viewModel.SessionViewModel;
+import com.example.myclub.viewModel.PlayerViewModel;
 import com.example.myclub.databinding.ActivityLoginBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
 import com.example.myclub.main.ActivityHome;
@@ -67,9 +67,12 @@ public class ActivityLogin extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         initLoadingDialog(ActivityLogin.this);
+//        loginWithEmail();
+
 
 
 //        if (FirebaseAuth.getInstance().getCurrentUser() != null){
+//
 //            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 //            startActivity(intent);
 //        }
@@ -82,22 +85,7 @@ public class ActivityLogin extends AppCompatActivity {
         binding.btnLoginEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadingDialog.show();
-               playerDataSource.login(binding.txtEmail.getText().toString(), binding.txtPassword.getText().toString(), new LoginCallBack() {
-                   @Override
-                   public void onSuccess(Player player) {
-                       SessionViewModel.getInstance().onUserChange(player);
-                       loadingDialog.dismiss();
-                       Intent intent = new Intent(ActivityLogin.this,ActivityHome.class);
-                       startActivity(intent);
-                   }
-
-                   @Override
-                   public void onFailure(String message) {
-                       loadingDialog.dismiss();
-                       Toast.makeText(getApplicationContext(),"Error "+message,Toast.LENGTH_SHORT).show();
-                   }
-               });
+                     loginWithEmail();
 
             }
         });
@@ -170,6 +158,25 @@ public class ActivityLogin extends AppCompatActivity {
             }
         });
 
+    }
+
+    private  void loginWithEmail(){
+        loadingDialog.show();
+        playerDataSource.login(binding.txtEmail.getText().toString(), binding.txtPassword.getText().toString(), new LoginCallBack() {
+            @Override
+            public void onSuccess(Player player) {
+                PlayerViewModel.getInstance().onUserChange(player);
+                loadingDialog.dismiss();
+                Intent intent = new Intent(ActivityLogin.this,ActivityHome.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(String message) {
+                loadingDialog.dismiss();
+                Toast.makeText(getApplicationContext(),"Error "+message,Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void signIn() {

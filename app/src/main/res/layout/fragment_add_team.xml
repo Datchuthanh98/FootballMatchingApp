@@ -4,9 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable
-            name="viewModel"
-            type="com.example.myclub.viewModel.TeamViewModel" />
+
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -63,7 +61,6 @@
                 android:layout_height="wrap_content"></TextView>
             <EditText
                 android:id="@+id/txtName"
-                android:text="Chu Thanh Dat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></EditText>
             <TextView
@@ -75,7 +72,6 @@
                 android:layout_height="wrap_content"></TextView>
             <EditText
                 android:id="@+id/txtPhone"
-                android:text="123456789"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></EditText>
             <TextView
@@ -87,7 +83,6 @@
                 android:layout_height="wrap_content"></TextView>
             <EditText
                 android:id="@+id/txtEmail"
-                android:text="chelsea@gmail.com"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></EditText>
 

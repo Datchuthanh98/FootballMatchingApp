@@ -37,15 +37,14 @@ public class ViewModelTodo extends ViewModel {
                 Log.d("getalltodo", "FirebaseLoadListTodo: ");
                 if (todos == null) {
                     adapterListPlayer.setListTodo(new ArrayList<Todo>());
-                    adapterListTeam.setListTodo(new ArrayList<Todo>());
+
                 } else {
                     listTodoLiveData.setValue(todos);
 
                     adapterListPlayer.setListTodo(todos);
                     adapterListPlayer.notifyDataSetChanged();
 
-                    adapterListTeam.setListTodo(todos);
-                    adapterListTeam.notifyDataSetChanged();
+
 
                     adapterListField.setListTodo(todos);
                     adapterListField.notifyDataSetChanged();

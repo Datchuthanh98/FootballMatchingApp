@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable
-            name="viewModel"
-            type="com.example.myclub.viewModel.SessionViewModel" />
+        <import type="com.example.myclub.viewModel.PlayerViewModel"></import>
     </data>
-<LinearLayout
+
+
+    <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -61,8 +61,8 @@
      android:layout_width="match_parent"
      android:layout_height="wrap_content"></TextView>
         <EditText
+            android:text="@{PlayerViewModel.getInstance().playerLiveData.birthday}"
             android:id="@+id/txtBrith"
-            android:text="06/07/1998"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></EditText>
         <TextView
@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"></TextView>
         <EditText
             android:id="@+id/txtHeight"
-            android:text="170"
+            android:text="@{Integer.toString(PlayerViewModel.getInstance().playerLiveData.height)}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></EditText>
         <TextView
@@ -85,8 +85,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></TextView>
         <EditText
+            android:text="@{Integer.toString(PlayerViewModel.getInstance().playerLiveData.weight)}"
             android:id="@+id/txtWeight"
-            android:text="55"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></EditText>
 
@@ -98,8 +98,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></TextView>
         <EditText
+            android:text="@{PlayerViewModel.getInstance().playerLiveData.level}"
             android:id="@+id/txtLevel"
-            android:text="Pro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></EditText>
         <TextView
@@ -110,8 +110,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></TextView>
         <EditText
+            android:text="@{PlayerViewModel.getInstance().playerLiveData.position}"
             android:id="@+id/txtPosition"
-            android:text="ST,LW"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></EditText>
         <TextView
@@ -122,8 +122,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></TextView>
         <EditText
+            android:text="@{PlayerViewModel.getInstance().playerLiveData.foot}"
             android:id="@+id/txtNiceFoot"
-            android:text="Right"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></EditText>
 

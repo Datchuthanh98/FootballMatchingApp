@@ -15,18 +15,18 @@ import com.example.myclub.Interface.UpdateImageCallBack;
 import com.example.myclub.Interface.UpdateProfileCallBack;
 import com.example.myclub.Interface.UserChangeCallBack;
 import com.example.myclub.data.enumeration.Result;
-import com.example.myclub.data.repository.SessionRepository;
+import com.example.myclub.data.repository.PlayerRepository;
 import com.example.myclub.model.Player;
 
 import java.io.File;
 import java.util.Calendar;
 import java.util.Map;
 
-public class SessionViewModel extends ViewModel implements  UserChangeCallBack {
+public class PlayerViewModel extends ViewModel implements  UserChangeCallBack {
     private final String TAG = "Session";
-    private static SessionViewModel instance;
-    private Context applicationContext;
-    private SessionRepository sessionRepository = SessionRepository.getInstance();
+    private static PlayerViewModel instance;
+    private Application application;
+    private PlayerRepository playerRepository = PlayerRepository.getInstance();
     private MutableLiveData<Player> playerLiveData = new MutableLiveData<>();
     private MutableLiveData<File> playerAvatarLiveData= new MutableLiveData<>();
     private MutableLiveData<File> playerCoverLiveData = new MutableLiveData<>();
@@ -34,15 +34,19 @@ public class SessionViewModel extends ViewModel implements  UserChangeCallBack {
     private MutableLiveData<Result> resultPhotoLiveData = new MutableLiveData<>(null);
     private String resultMessage = null;
 
-    public static SessionViewModel getInstance() {
+    public static PlayerViewModel getInstance() {
         if (instance == null) {
-            instance = new SessionViewModel();
+            instance = new PlayerViewModel();
         }
         return instance;
     }
 
-    public void setApplicationContext(Context applicationContext) {
-        this.applicationContext = applicationContext;
+    public Context getApplicationContext(){
+        return application.getApplicationContext();
+    }
+
+    public void setApplication(Application application) {
+        this.application = application;
     }
 
     public LiveData<Player> getPlayerLiveData() {
@@ -65,34 +69,34 @@ public class SessionViewModel extends ViewModel implements  UserChangeCallBack {
             if (!player.getUrlAvatar().isEmpty()) {
                 String[] files = player.getUrlAvatar().split("/");
                 String fileName = files[files.length-1];
-                File photo = new File(applicationContext.getCacheDir(), fileName);
+                File photo = new File(getApplicationContext().getCacheDir(), fileName);
                 // 24 hours
                 if (photo.exists() && photo.lastModified() < Calendar.getInstance().getTimeInMillis() - 86400000){
                     playerAvatarLiveData.setValue(photo);
                 } else {
-                    sessionRepository.getUserPhoto(new GetUserPhotoCallBack() {
+                    playerRepository.getUserPhoto(new GetUserPhotoCallBack() {
                         @Override
                         public void onGetUserPhotoCallBack(File photo) {
                             playerAvatarLiveData.setValue(photo);
                         }
-                    }, player.getUrlAvatar(), applicationContext);
+                    }, player.getUrlAvatar(), getApplicationContext());
                 }
             }
 
             if (!player.getUrlCover().isEmpty()) {
                 String[] files = player.getUrlCover().split("/");
                 String fileName = files[files.length-1];
-                File photo = new File(applicationContext.getCacheDir(), fileName);
+                File photo = new File(getApplicationContext().getCacheDir(), fileName);
                 // 24 hours
                 if (photo.exists() && photo.lastModified() < Calendar.getInstance().getTimeInMillis() - 86400000){
                     playerCoverLiveData.setValue(photo);
                 } else {
-                    sessionRepository.getCoverPhoto(new GetUserCoverCallBack() {
+                    playerRepository.getCoverPhoto(new GetUserCoverCallBack() {
                         @Override
                         public void onGetUserCoverCallBack(File photo) {
                             playerCoverLiveData.setValue(photo);
                         }
-                    }, player.getUrlCover(), applicationContext);
+                    }, player.getUrlCover(), getApplicationContext());
                 }
             }
 
@@ -114,7 +118,7 @@ public class SessionViewModel extends ViewModel implements  UserChangeCallBack {
     }
 
     public void updateProfile(Map<String, Object> updateBasic) {
-        sessionRepository.updateProfile(updateBasic, new UpdateProfileCallBack() {
+        playerRepository.updateProfile(updateBasic, new UpdateProfileCallBack() {
             @Override
             public void onSuccess() {
                 resultLiveData.setValue(Result.SUCCESS);
@@ -130,18 +134,18 @@ public class SessionViewModel extends ViewModel implements  UserChangeCallBack {
 
     public  void updateImage(Uri uri, final String path , final boolean isAvatar){
 
-        sessionRepository.updateImage(uri, path, isAvatar, new UpdateImageCallBack() {
+        playerRepository.updateImage(uri, path, isAvatar, new UpdateImageCallBack() {
             @Override
-            public void onSuccess() {
+            public void onSuccess(String url) {
                 Log.d("check updateUI", "onSuccess: VAO DAY R NE");
                 resultPhotoLiveData.setValue(Result.SUCCESS);
                 Player player = getInstance().playerLiveData.getValue();
                 if (isAvatar){
-                    player.setUrlAvatar(path);
+                    player.setUrlAvatar(url);
                 } else {
-                    player.setUrlCover(path);
+                    player.setUrlCover(url);
                 }
-                onUserChange(player);
+                getInstance().onUserChange(player);
             }
 
             @Override
@@ -153,5 +157,7 @@ public class SessionViewModel extends ViewModel implements  UserChangeCallBack {
     }
 
 
-
+    public void resetResult() {
+        getInstance().resultLiveData.setValue(null);
+    }
 }
