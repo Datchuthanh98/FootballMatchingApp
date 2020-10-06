@@ -67,7 +67,7 @@ public class ActivityLogin extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         initLoadingDialog(ActivityLogin.this);
-//        loginWithEmail();
+        loginWithEmail();
 
 
 

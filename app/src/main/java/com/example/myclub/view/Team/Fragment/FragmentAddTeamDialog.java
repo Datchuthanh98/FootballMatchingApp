@@ -86,6 +86,7 @@ public class FragmentAddTeamDialog extends DialogFragment {
             public void onChanged(Result result) {
                 if (result == null) return;
                 if (result == Result.SUCCESS) {
+                    Log.d("addd", "in add dialog ");
                     loadingDialog.dismiss();
                     detach();
                 } else if (result == Result.FAILURE) {

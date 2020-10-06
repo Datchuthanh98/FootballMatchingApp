@@ -1,6 +1,6 @@
 package com.example.myclub.view.Team.Adapter;
 
-import android.util.Log;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,19 +12,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.model.Team;
-import com.example.myclub.view.Player.Fragment.FragmentEditPlayerPlayer;
-import com.example.myclub.view.Team.Fragment.FragmentMainProfileTeam;
+import com.example.myclub.view.Team.Fragment.FragmentProfileMainTeam;
 import com.example.myclub.databinding.ItemTeamVerticalBinding;
-import com.example.myclub.model.Todo;
-import com.example.myclub.viewModel.ListMyTeamViewModel;
+import com.example.myclub.view.Team.Fragment.FragmentProfileOtherTeam;
 import com.example.myclub.viewModel.TeamViewModel;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class RecycleViewAdapterListTeamVertical extends RecyclerView.Adapter<RecycleViewAdapterListTeamVertical.MyViewHolder> {
-
+    private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private StorageReference storageRef = storage.getReference();
     private FragmentManager fm;
     private List<Team> listTeam = new ArrayList<>();
     public Boolean isMy = false;
@@ -66,17 +72,33 @@ public class RecycleViewAdapterListTeamVertical extends RecyclerView.Adapter<Rec
                 ActivityHome activityHome = (ActivityHome) holder.itemView.getContext();
                 if(isMy){
                     if(isShow){
-                        TeamViewModel.getInstance().loadTeam(listTeam.get(position).getId());
-                        activityHome.addFragment(new FragmentMainProfileTeam());
+                        activityHome.addFragment(new FragmentProfileMainTeam(listTeam.get(position).getId()));
                     }else {
                         //Select Team
                       detach();
                     }
                 }else{
-                    activityHome.addFragment(new FragmentMainProfileTeam());}
+                    activityHome.addFragment(new FragmentProfileOtherTeam(listTeam.get(position)));}
             }
         });
         holder.binding.setTeam(listTeam.get(position));
+
+         //Set image
+        storageRef.child(listTeam.get(position).getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Picasso.get().load(uri).into(holder.binding.avatarTeam);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+
+            }
+        });
+
+
+
+
     }
 
     @Override

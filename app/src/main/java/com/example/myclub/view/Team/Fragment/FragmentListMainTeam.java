@@ -19,7 +19,7 @@ import com.example.myclub.view.Player.Adapter.AdapterFragmentProfile;
 import com.example.myclub.view.Team.Adapter.AdapterFragmentListTeam;
 import com.google.android.material.tabs.TabLayout;
 
-public class FragmentMainListTeam extends Fragment {
+public class FragmentListMainTeam extends Fragment {
 
 
     FragmentMainFieldBinding binding;

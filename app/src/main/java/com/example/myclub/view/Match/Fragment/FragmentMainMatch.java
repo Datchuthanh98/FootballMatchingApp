@@ -13,12 +13,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.myclub.R;
-import com.example.myclub.animation.HorizontalFlipTransformation;
 import com.example.myclub.databinding.FragmentMainMatchBinding;
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.view.Match.Adapter.AdapterFragmentMatch;
 import com.example.myclub.view.Player.Adapter.AdapterFragmentProfile;
-import com.example.myclub.view.Team.Fragment.FragmentMainEditTeam;
 import com.google.android.material.tabs.TabLayout;
 
 public class FragmentMainMatch extends Fragment {

@@ -28,7 +28,7 @@
             android:id="@+id/avatar"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:srcCompat="@drawable/avatar_team"
+            app:srcCompat="@drawable/avatar_team_default"
             />
         <TextView
             android:gravity="center"

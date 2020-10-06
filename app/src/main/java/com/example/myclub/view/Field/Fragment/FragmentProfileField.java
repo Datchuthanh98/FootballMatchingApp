@@ -8,14 +8,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.example.myclub.R;
 import com.example.myclub.databinding.FragmentProfileFieldBinding;
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.view.Match.Fragment.FragmentAddMatch;
-import com.example.myclub.view.Team.Fragment.FragmentMainEditTeam;
 
 public class FragmentProfileField extends Fragment {
 

@@ -15,7 +15,7 @@ import com.example.myclub.databinding.FragmentMatchInformationBinding;
 import com.example.myclub.databinding.FragmentProfileTeamBasicBinding;
 
 
-public class FragmentInformationTeam extends Fragment {
+public class FragmentProfileBasicTeam extends Fragment {
 
 
     FragmentProfileTeamBasicBinding binding;

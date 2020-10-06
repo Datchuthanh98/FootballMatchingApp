@@ -7,16 +7,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.myclub.view.Match.Fragment.FragmentComment;
-import com.example.myclub.view.Team.Fragment.FragmentInformationTeam;
-import com.example.myclub.view.Team.Fragment.FragmentListMyTeam;
-import com.example.myclub.view.Team.Fragment.FragmentListOtherTeam;
+import com.example.myclub.view.Team.Fragment.FragmentProfileListPlayer;
+import com.example.myclub.view.Team.Fragment.FragmentProfileBasicTeam;
 
 public class AdapterFragmentProfileTeam extends FragmentPagerAdapter {
     int numTab = 3;
+    String  idTeam;
 
-    public AdapterFragmentProfileTeam(@NonNull FragmentManager fm, int behavior) {
+    public AdapterFragmentProfileTeam(@NonNull FragmentManager fm, int behavior,String idTeam) {
         super(fm, behavior);
-
+        this.idTeam = idTeam;
     }
 
     @NonNull
@@ -24,9 +24,9 @@ public class AdapterFragmentProfileTeam extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new FragmentInformationTeam();
+                return new FragmentProfileBasicTeam();
             case 1:
-                return new FragmentListOtherTeam();
+                return new FragmentProfileListPlayer(idTeam);
             case 2:
                 return new FragmentComment();
         }

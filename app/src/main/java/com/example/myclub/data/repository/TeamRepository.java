@@ -105,7 +105,7 @@ public class TeamRepository {
         teamDataSource.loadListTeam(id,listTeamCallBack);
     }
 
-    public void getListOtherTeam(LoadListOtherTeamCallBack listTeamCallBack){
-        teamDataSource.loadListOtherTeam(listTeamCallBack);
+    public void getListOtherTeam(String id,LoadListOtherTeamCallBack listTeamCallBack){
+        teamDataSource.loadListOtherTeam(id,listTeamCallBack);
     }
 }

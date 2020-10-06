@@ -19,22 +19,29 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.myclub.R;
 import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.databinding.FragmentListMyTeamBinding;
-import com.example.myclub.databinding.FragmentListOtherTeamBinding;;
+import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListPlayerVertical;
+import com.example.myclub.databinding.FragmentListPlayerBinding;
 import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListTeamVertical;
 import com.example.myclub.viewModel.ListMyTeamViewModel;
-import com.example.myclub.viewModel.PlayerViewModel;
+import com.example.myclub.viewModel.ListPlayerViewModel;
+import com.example.myclub.viewModel.TeamViewModel;
 import com.example.myclub.viewModel.ViewModelTodo;
 
-public class FragmentListOtherTeam extends Fragment {
-    private ListMyTeamViewModel listMyTeamViewModel = ListMyTeamViewModel.getInstance();
-    private PlayerViewModel playerViewModel = PlayerViewModel.getInstance();
-    private FragmentListOtherTeamBinding binding;
+public class FragmentProfileListPlayer extends Fragment {
+    private ListPlayerViewModel listPlayerViewModel = ListPlayerViewModel.getInstance();
+    private TeamViewModel teamViewModel = TeamViewModel.getInstance();
+    private FragmentListPlayerBinding binding;
+    private String idTeam;
+
+    public FragmentProfileListPlayer(String idTeam) {
+        this.idTeam = idTeam;
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        listMyTeamViewModel = new ViewModelProvider(this).get(ListMyTeamViewModel.class);
-        binding = FragmentListOtherTeamBinding.inflate(inflater);
+        listPlayerViewModel = new ViewModelProvider(this).get(ListPlayerViewModel.class);
+        binding = FragmentListPlayerBinding.inflate(inflater);
         return  binding.getRoot();
     }
 
@@ -44,28 +51,24 @@ public class FragmentListOtherTeam extends Fragment {
         initComponent();
         observeLiveData(view.getContext());
     }
-
     private  void initComponent(){
-        listMyTeamViewModel.getListOtherTeam(playerViewModel.getPlayerLiveData().getValue().getId());
-        binding.recycleViewListTeamVertical.setLayoutManager(new LinearLayoutManager(getContext()));
-        //Khởi tạo màn hình ban đầu của fragment
-        RecycleViewAdapterListTeamVertical adapter = listMyTeamViewModel.getAdapterListOtherTeam();
-        adapter.fragment = getTargetFragment();
+        listPlayerViewModel.getListPlayer(idTeam);
+        binding.recycleViewListPlayerVertical.setLayoutManager(new LinearLayoutManager(getContext()));
+        RecycleViewAdapterListPlayerVertical adapter = listPlayerViewModel.getAdapterListPlayer();
         adapter.setFm(getParentFragmentManager());
-        binding.recycleViewListTeamVertical.setAdapter(listMyTeamViewModel.getAdapterListOtherTeam());
+        binding.recycleViewListPlayerVertical.setAdapter(listPlayerViewModel.getAdapterListPlayer());
     }
 
     private void observeLiveData(final Context context) {
-        listMyTeamViewModel.getResultLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
+        listPlayerViewModel.getResultLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
             @Override
             public void onChanged(Result result) {
                 if (result == null) return;
                 if (result == Result.SUCCESS) {
-                    Toast.makeText(context, "List get new team", Toast.LENGTH_SHORT).show();
-                    listMyTeamViewModel.getAdapterListOtherTeam();
+                    listPlayerViewModel.getAdapterListPlayer();
 
                 } else if (result == Result.FAILURE) {
-                    Toast.makeText(context, listMyTeamViewModel.getResultMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, listPlayerViewModel.getResultMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

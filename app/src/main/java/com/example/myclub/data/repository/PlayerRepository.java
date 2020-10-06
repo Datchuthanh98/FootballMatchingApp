@@ -7,6 +7,10 @@ import androidx.annotation.NonNull;
 
 import com.example.myclub.Interface.GetUserCoverCallBack;
 import com.example.myclub.Interface.GetUserPhotoCallBack;
+import com.example.myclub.Interface.LoadListOtherPlayerCallBack;
+import com.example.myclub.Interface.LoadListOtherTeamCallBack;
+import com.example.myclub.Interface.LoadListPlayerCallBack;
+import com.example.myclub.Interface.LoadListTeamCallBack;
 import com.example.myclub.Interface.UpdateImageCallBack;
 import com.example.myclub.Interface.UpdateProfileCallBack;
 import com.example.myclub.data.datasource.PlayerDataSource;
@@ -86,6 +90,13 @@ public class PlayerRepository {
         });
     }
 
+    public void getListPlayer(String id, LoadListPlayerCallBack loadListPlayerCallBack){
+        userDataSource.loadListPlayer(id,loadListPlayerCallBack);
+    }
+
+    public void getListOtherPlayer(String id ,LoadListOtherPlayerCallBack loadListOtherPlayerCallBack){
+        userDataSource.loadListOtherPlayer(id,loadListOtherPlayerCallBack);
+    }
 
 
 

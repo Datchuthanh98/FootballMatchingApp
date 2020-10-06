@@ -16,7 +16,8 @@
         android:id="@+id/tab_appbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        tools:ignore="MissingConstraints">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"

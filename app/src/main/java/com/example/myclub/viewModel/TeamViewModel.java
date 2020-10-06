@@ -17,6 +17,7 @@ import com.example.myclub.Interface.TeamChangeCallBack;
 import com.example.myclub.Interface.UpdateImageCallBack;
 import com.example.myclub.Interface.UpdateProfileCallBack;
 import com.example.myclub.Interface.UserChangeCallBack;
+import com.example.myclub.data.enumeration.LoadDataState;
 import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.data.repository.PlayerRepository;
 import com.example.myclub.data.repository.TeamRepository;
@@ -37,6 +38,7 @@ public class TeamViewModel extends ViewModel implements TeamChangeCallBack {
     private MutableLiveData<File> teamCoverLiveData = new MutableLiveData<>();
     private MutableLiveData<Result> resultLiveData = new MutableLiveData<>(null);
     private MutableLiveData<Result> resultPhotoLiveData = new MutableLiveData<>(null);
+    private MutableLiveData<LoadDataState> teamLoadState = new MutableLiveData<>(LoadDataState.INIT);
     private String resultMessage = null;
 
     public static TeamViewModel getInstance() {
@@ -79,13 +81,16 @@ public class TeamViewModel extends ViewModel implements TeamChangeCallBack {
         return resultMessage;
     }
 
+    public LiveData<LoadDataState> getTeamLoadState() {
+        return teamLoadState;
+    }
 
 
     @Override
     public void onTeamChange(Team team) {
         teamLiveData.setValue(team);
         if (team != null) {
-            if (!team.getUrlAvatar().isEmpty()) {
+            if (team.getUrlAvatar() != null) {
                 String[] files = team.getUrlAvatar().split("/");
                 String fileName = files[files.length-1];
                 File photo = new File(getApplicationContext().getCacheDir(), fileName);
@@ -97,12 +102,13 @@ public class TeamViewModel extends ViewModel implements TeamChangeCallBack {
                         @Override
                         public void onGetTeamPhotoCallBack(File photo) {
                             teamAvatarLiveData.setValue(photo);
+                            teamLoadState.setValue(LoadDataState.LOADED);
                         }
                     }, team.getUrlAvatar(), getApplicationContext());
                 }
             }
 
-            if (!team.getUrlCover().isEmpty()) {
+            if (team.getUrlCover() != null) {
                 String[] files = team.getUrlCover().split("/");
                 String fileName = files[files.length-1];
                 File photo = new File(getApplicationContext().getCacheDir(), fileName);
@@ -114,6 +120,7 @@ public class TeamViewModel extends ViewModel implements TeamChangeCallBack {
                         @Override
                         public void onGetTeamPhotoCallBack(File photo) {
                             teamCoverLiveData.setValue(photo);
+                            teamLoadState.setValue(LoadDataState.LOADED);
                         }
                     }, team.getUrlCover(), getApplicationContext());
                 }
@@ -123,6 +130,7 @@ public class TeamViewModel extends ViewModel implements TeamChangeCallBack {
 
 
     public void loadTeam(String id){
+        teamLoadState.setValue(LoadDataState.LOADING);
         teamRepository.loadTeam(id, new LoadTeamCallBack() {
             @Override
             public void onSuccess(Team team) {

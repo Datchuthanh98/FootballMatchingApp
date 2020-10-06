@@ -1,4 +1,4 @@
-package com.example.myclub.view.Team.Fragment;
+package com.example.myclub.view.Player.Fragment;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -18,17 +18,14 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
 import com.example.myclub.R;
 import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.databinding.FragmentEditMainPlayerBinding;
-import com.example.myclub.databinding.FragmentEditMainTeamBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
 import com.example.myclub.viewModel.PlayerViewModel;
-import com.example.myclub.viewModel.TeamViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.squareup.picasso.Picasso;
 
@@ -36,33 +33,32 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-public class FragmentMainEditTeam extends Fragment {
+public class FragmentEditMainPlayer extends Fragment {
     private Dialog loadingDialog;
     private LoadingLayoutBinding loadingLayoutBinding;
-    private FragmentEditMainTeamBinding binding;
-    public static final int RESULT_LOAD_IMG_AVATAR = 1001;
-    public static final int RESULT_LOAD_IMG_COVER = 1002;
+    private FragmentEditMainPlayerBinding binding;
+    public static final int RESULT_LOAD_IMG_AVATAR = 1012;
+    public static final int RESULT_LOAD_IMG_COVER = 1013;
     private  String urlAvatar , urlCover;
-    private TeamViewModel teamViewModel = TeamViewModel.getInstance();
+    private PlayerViewModel session = PlayerViewModel.getInstance();
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_edit_main_team,container,false);
-        View view = binding.getRoot();
-        return  view;
+        binding = FragmentEditMainPlayerBinding.inflate(inflater);
+        binding.setLifecycleOwner(this);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initComponent(view.getContext());
+         initComponent(view.getContext());
         observeLiveData(view.getContext());
         initLoadingDialog(view.getContext());
-
     }
 
     private  void initComponent(final Context context){
-
         binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_back_white_24);
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,13 +67,14 @@ public class FragmentMainEditTeam extends Fragment {
             }
         });
 
-
         binding.btnEditAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
                 photoPickerIntent.setType("image/*");
                 startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG_AVATAR);
+
+
             }
         });
 
@@ -87,14 +84,25 @@ public class FragmentMainEditTeam extends Fragment {
                 Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
                 photoPickerIntent.setType("image/*");
                 startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG_COVER);
+
             }
         });
 
         binding.btnEditBasic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BottomSheetDialogFragment dialog = new FragmentEditTeamBasic();
+                BottomSheetDialogFragment dialog = new FragmentEditPlayerBasic();
                 dialog.show(getParentFragmentManager(), null);
+
+            }
+        });
+
+        binding.btnEditPlayer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomSheetDialogFragment dialog = new FragmentEditPlayerPlayer();
+                dialog.show(getParentFragmentManager(), null);
+
             }
         });
 
@@ -103,11 +111,10 @@ public class FragmentMainEditTeam extends Fragment {
         binding.btnEditIntroduce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BottomSheetDialogFragment dialog = new FragmentEditTeamIntroduce();
+                BottomSheetDialogFragment dialog = new FragmentEditPlayerIntroduce();
                 dialog.show(getParentFragmentManager(), null);
             }
         });
-
     }
 
     private void detach(){
@@ -124,14 +131,14 @@ public class FragmentMainEditTeam extends Fragment {
 
     private void observeLiveData(final Context context) {
         //init Photo
-        TeamViewModel.getInstance().getAvatarLiveData().observe(getViewLifecycleOwner(), new Observer<File>() {
+        PlayerViewModel.getInstance().getAvatarLiveData().observe(getViewLifecycleOwner(), new Observer<File>() {
             @Override
             public void onChanged(File file) {
                 Picasso.get().load(file).into(binding.avatar);
             }
         });
 
-        TeamViewModel.getInstance().getCoverLiveData().observe(getViewLifecycleOwner(), new Observer<File>() {
+        PlayerViewModel.getInstance().getCoverLiveData().observe(getViewLifecycleOwner(), new Observer<File>() {
             @Override
             public void onChanged(File file) {
                 Picasso.get().load(file).into(binding.cover);
@@ -139,24 +146,22 @@ public class FragmentMainEditTeam extends Fragment {
         });
 
         //update Photo
-        teamViewModel.getResultPhotoLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
+        session.getResultPhotoLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
             @Override
             public void onChanged(Result result) {
                 if (result == null) return;
                 if (result == Result.SUCCESS) {
-                    loadingDialog.dismiss();
-                    Picasso.get().load(teamViewModel.getAvatarLiveData().getValue()).into(binding.avatar);
-                    Picasso.get().load(teamViewModel.getCoverLiveData().getValue()).into(binding.cover);
+                    Picasso.get().load(session.getAvatarLiveData().getValue()).into(binding.avatar);
+                    Picasso.get().load(session.getCoverLiveData().getValue()).into(binding.cover);
 
                 } else if (result == Result.FAILURE) {
-                    loadingDialog.dismiss();
-                    Toast.makeText(context, teamViewModel.getResultMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, session.getResultMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
 
-        teamViewModel.getResultPhotoLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
+        session.getResultPhotoLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
             @Override
             public void onChanged(Result result) {
                 if (result == null) return;
@@ -166,7 +171,7 @@ public class FragmentMainEditTeam extends Fragment {
 
                 } else if (result == Result.FAILURE) {
                     loadingDialog.dismiss();
-                    Toast.makeText(context, teamViewModel.getResultMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, session.getResultMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -209,8 +214,10 @@ public class FragmentMainEditTeam extends Fragment {
 
     private void updateImage(Uri uri, String path , boolean isAvatar) {
         loadingDialog.show();
-        teamViewModel.updateImage(uri, path,isAvatar);
+        session.updateImage(uri, path,isAvatar);
     }
+
+
 
 
 }

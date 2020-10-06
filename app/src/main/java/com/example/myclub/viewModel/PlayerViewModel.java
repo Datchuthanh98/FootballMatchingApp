@@ -23,7 +23,6 @@ import java.util.Calendar;
 import java.util.Map;
 
 public class PlayerViewModel extends ViewModel implements  UserChangeCallBack {
-    private final String TAG = "Session";
     private static PlayerViewModel instance;
     private Application application;
     private PlayerRepository playerRepository = PlayerRepository.getInstance();

@@ -22,10 +22,10 @@
             <ImageView
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:id="@+id/avatarPlayer"
+                android:id="@+id/avatarTeam"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                app:srcCompat="@drawable/avatar_team"
+                app:srcCompat="@drawable/avatar_team_default"
                 />
             <TextView
                 android:textStyle="bold"
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:text="123"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/avatarPlayer"
+                app:layout_constraintLeft_toRightOf="@id/avatarTeam"
                 app:layout_constraintBottom_toTopOf="@+id/position"
                 />
             <TextView
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:text="123"
                 app:layout_constraintTop_toBottomOf="@+id/namePlayer"
-                app:layout_constraintLeft_toRightOf="@id/avatarPlayer"
+                app:layout_constraintLeft_toRightOf="@id/avatarTeam"
                 app:layout_constraintBottom_toBottomOf="parent"
                 />
             <TextView

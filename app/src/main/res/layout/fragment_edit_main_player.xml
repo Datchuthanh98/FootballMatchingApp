@@ -77,10 +77,11 @@
                     </LinearLayout>
 
                     <ImageView
+                        android:layout_gravity="center"
                         android:id="@+id/avatar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="400dp"
-                        android:background="@drawable/avatar_player"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:background="@drawable/avatar_player_default"
                         android:scaleType="fitXY"></ImageView>
                 </LinearLayout>
 
@@ -113,10 +114,11 @@
                     </LinearLayout>
 
                     <ImageView
+                        android:background="@drawable/cover_default"
+                        android:layout_gravity="center"
                         android:id="@+id/cover"
-                        android:layout_width="wrap_content"
-                        android:layout_height="400dp"
-                        android:background="@drawable/cover_player"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
                         android:scaleType="fitXY"></ImageView>
                 </LinearLayout>
 

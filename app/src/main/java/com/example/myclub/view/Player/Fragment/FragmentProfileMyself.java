@@ -43,7 +43,7 @@ public class FragmentProfileMyself extends Fragment {
             @Override
             public void onClick(View v) {
                 ActivityHome activityHome = (ActivityHome) getContext();
-                activityHome.addFragment(new FragmentMainEditPlayer());
+                activityHome.addFragment(new FragmentEditMainPlayer());
             }
         });
 

@@ -1,26 +1,15 @@
 package com.example.myclub.viewModel;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.myclub.Interface.FirebaseLoadListTodo;
 import com.example.myclub.Interface.LoadListOtherTeamCallBack;
 import com.example.myclub.Interface.LoadListTeamCallBack;
 import com.example.myclub.Interface.RegisterTeamCallBack;
 import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.data.repository.TeamRepository;
-import com.example.myclub.data.repository.TestRepository;
-import com.example.myclub.model.Player;
 import com.example.myclub.model.Team;
-import com.example.myclub.model.Todo;
-import com.example.myclub.view.Field.Adapter.RecycleViewAdapterListFieldVertical;
-import com.example.myclub.view.Match.Adapter.RecycleViewAdapterListMatchVertical;
-import com.example.myclub.view.Match.Adapter.RecycleViewAdapterListTimeVertical;
-import com.example.myclub.view.Player.Adapter.RecycleViewAdapterListPlayerVertical;
-import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListTeamHorizontal;
 import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListTeamVertical;
 
 import java.util.ArrayList;
@@ -46,13 +35,7 @@ public class ListMyTeamViewModel extends ViewModel {
         return instance;
     }
 
-    public ListMyTeamViewModel() {
-        getListTeam();
-        getListOtherTeam();
-    }
-
-    public void getListTeam(){
-        String idPlayer = playerViewModel.getPlayerLiveData().getValue().getId();
+    public void getListTeam(String idPlayer){
         teamRepository.getListTeam(idPlayer,new LoadListTeamCallBack() {
             @Override
             public void onSuccess(List<Team> listTeams) {
@@ -76,8 +59,8 @@ public class ListMyTeamViewModel extends ViewModel {
         });
     }
 
-    public void getListOtherTeam(){
-        teamRepository.getListOtherTeam(new LoadListOtherTeamCallBack() {
+    public void getListOtherTeam(String idPlayer){
+        teamRepository.getListOtherTeam(idPlayer,new LoadListOtherTeamCallBack() {
             @Override
             public void onSuccess(List<Team> listTeams) {
                 if(listTeams == null){

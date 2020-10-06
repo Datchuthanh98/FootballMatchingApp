@@ -49,46 +49,49 @@ public class TeamDataSource {
 
 
     public void createTeam(final String name, final String phone, final String email, final RegisterTeamCallBack callBack) {
-                Map<String,Object> map = new HashMap<>();
-                final String idPlayer = PlayerViewModel.getInstance().getPlayerLiveData().getValue().getId();
+        Map<String, Object> map = new HashMap<>();
+        final String idPlayer = PlayerViewModel.getInstance().getPlayerLiveData().getValue().getId();
 
-                map.put("name", name);
-                map.put("phone",phone);
-                map.put("email",email);
-                map.put("idCaption",idPlayer);
+        map.put("name", name);
+        map.put("phone", phone);
+        map.put("email", email);
+        map.put("level", "basic");
+        map.put("idCaption", idPlayer);
+        map.put("urlAvatar", "/Avatar/avatar_team_default.jpg");
+        map.put("urlCover", "/Cover/cover_default.jpg");
 
-                db.collection("Team").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        db.collection("Team").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(final DocumentReference documentReference) {
+                Map<String, Object> map = new HashMap<>();
+                map.put("id", documentReference.getId());
+                db.collection("Team").document(documentReference.getId()).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onSuccess(final DocumentReference documentReference) {
-                        Map<String,Object> map = new HashMap<>();
-                        map.put("id",  documentReference.getId());
-                        db.collection("Team").document(documentReference.getId()).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    public void onSuccess(Void aVoid) {
+                        final Map<String, Object> mapTeamMember = new HashMap<>();
+                        mapTeamMember.put("idPlayer", idPlayer);
+                        mapTeamMember.put("idTeam", documentReference.getId());
+                        db.collection("TeamMember").add(mapTeamMember).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
-                            public void onSuccess(Void aVoid) {
-                                final Map<String,Object> mapTeamMember = new HashMap<>();
-                                mapTeamMember.put("idPlayer",idPlayer);
-                                mapTeamMember.put("idTeam",documentReference.getId());
-                                db.collection("TeamMember").add(mapTeamMember).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                    @Override
-                                    public void onSuccess(DocumentReference documentReference) {
-                                        callBack.onSuccess();
-                                    }
-                                });
+                            public void onSuccess(DocumentReference documentReference) {
+                                callBack.onSuccess();
                             }
                         });
                     }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                          callBack.onFailure(e.getMessage());
-                    }
                 });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                callBack.onFailure(e.getMessage());
+            }
+        });
 
 
     }
 
 
-    public void loadListTeam( String id ,final LoadListTeamCallBack loadListTeamCallBack) {
+    public void loadListTeam(String id, final LoadListTeamCallBack loadListTeamCallBack) {
 
         db.collection("TeamMember").whereEqualTo("idPlayer", id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -99,7 +102,7 @@ public class TeamDataSource {
                         String idteam = (String) document.get("idTeam");
                         listIdTeam.add(idteam);
                     }
-                    db.collection("Team").whereIn("id",listIdTeam).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    db.collection("Team").whereIn("id", listIdTeam).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                         @Override
                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
@@ -121,7 +124,7 @@ public class TeamDataSource {
     }
 
 
-    public void loadListOtherTeam( final LoadListOtherTeamCallBack loadListOtherTeamCallBack) {
+    public void loadListOtherTeam(String id, final LoadListOtherTeamCallBack loadListOtherTeamCallBack) {
         db.collection("Team").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -145,27 +148,26 @@ public class TeamDataSource {
     }
 
 
-
     public void loadTeam(String idTeam, final LoadTeamCallBack callBack) {
-                       db.collection("Team").document(idTeam).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                           @Override
-                           public void onSuccess(DocumentSnapshot documentSnapshot) {
-                             Team team = documentSnapshot.toObject(Team.class);
-                               callBack.onSuccess(team);
-                           }
-                       }).addOnFailureListener(new OnFailureListener() {
-                           @Override
-                           public void onFailure(@NonNull Exception e) {
-                               callBack.onFailure(e.getMessage());
-                           }
-                       });
+        db.collection("Team").document(idTeam).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Team team = documentSnapshot.toObject(Team.class);
+                callBack.onSuccess(team);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                callBack.onFailure(e.getMessage());
+            }
+        });
     }
 
 
     public void updateProfile(Map<String, Object> updateData, final UpdateProfileCallBack callBack) {
 
         String uid = TeamViewModel.getInstance().getTeamLiveData().getValue().getId();
-        Log.d("meomeo", "updateProfile: "+uid);
+        Log.d("meomeo", "updateProfile: " + uid);
         db.collection("Team").document(uid).update(updateData).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -181,18 +183,18 @@ public class TeamDataSource {
     }
 
 
-    public void updateImage(Uri uri, String path , boolean isAvatar, final UpdateImageCallBack callBack){
+    public void updateImage(Uri uri, String path, boolean isAvatar, final UpdateImageCallBack callBack) {
         final String uid = TeamViewModel.getInstance().getTeamLiveData().getValue().getId();
         Date date = new Date();
-        String urlFile ="", key="";
+        String urlFile = "", key = "";
         String[] parts = path.split("\\.");
-        if(isAvatar) {
-            key="urlAvatar";
-            urlFile = "/Avatar/"+uid+"_"+date.getTime()+"."+parts[1];
+        if (isAvatar) {
+            key = "urlAvatar";
+            urlFile = "/Avatar/" + uid + "_" + date.getTime() + "." + parts[1];
 
-        }else{
-            key="urlCover";
-            urlFile = "/Cover/"+uid+"_"+date.getTime()+"."+parts[1];
+        } else {
+            key = "urlCover";
+            urlFile = "/Cover/" + uid + "_" + date.getTime() + "." + parts[1];
         }
 
         final String finalUrlFile = urlFile;
@@ -200,7 +202,7 @@ public class TeamDataSource {
         storage.getReference().child(urlFile).putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Map<String,Object> map = new HashMap<>();
+                Map<String, Object> map = new HashMap<>();
 
                 map.put(finalKey, finalUrlFile);// "avatar/dsa.jpg"
                 db.collection("Team").document(uid).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -222,10 +224,6 @@ public class TeamDataSource {
         StorageReference fileRef = storage.getReference().child(url);
         return fileRef.getFile(downloadLocation);
     }
-
-
-
-
 
 
 }

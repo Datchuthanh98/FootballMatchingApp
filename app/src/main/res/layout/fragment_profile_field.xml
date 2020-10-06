@@ -139,7 +139,7 @@
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="80dp"
                         android:layout_height="80dp"
-                        android:src="@drawable/avatar_team"
+                        android:src="@drawable/avatar_team_default"
                         app:border_color="@color/white"
                         app:border_width="5dp" />
                 </LinearLayout>

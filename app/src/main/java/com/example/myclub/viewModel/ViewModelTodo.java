@@ -12,7 +12,7 @@ import com.example.myclub.view.Match.Adapter.RecycleViewAdapterListMatchVertical
 import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListTeamHorizontal;
 import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListTeamVertical;
 import com.example.myclub.model.Todo;
-import com.example.myclub.view.Player.Adapter.RecycleViewAdapterListPlayerVertical;
+import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListPlayerVertical;
 import com.example.myclub.view.Match.Adapter.RecycleViewAdapterListTimeVertical;
 
 import java.util.ArrayList;
@@ -35,14 +35,10 @@ public class ViewModelTodo extends ViewModel {
             @Override
             public void FirebaseLoadListTodo(List<Todo> todos) {
                 Log.d("getalltodo", "FirebaseLoadListTodo: ");
-                if (todos == null) {
-                    adapterListPlayer.setListTodo(new ArrayList<Todo>());
 
-                } else {
                     listTodoLiveData.setValue(todos);
 
-                    adapterListPlayer.setListTodo(todos);
-                    adapterListPlayer.notifyDataSetChanged();
+
 
 
 
@@ -59,7 +55,6 @@ public class ViewModelTodo extends ViewModel {
                     adapterListTimeVertical.notifyDataSetChanged();
 
 
-                }
             }
         });
     }

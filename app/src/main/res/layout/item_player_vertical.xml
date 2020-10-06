@@ -6,8 +6,8 @@
     <data>
         <import type="android.view.View" />
         <variable
-            name="todo"
-            type="com.example.myclub.model.Todo" />
+            name="player"
+            type="com.example.myclub.model.Player" />
     </data>
 <androidx.cardview.widget.CardView
     android:id="@+id/cardView"
@@ -27,7 +27,7 @@
             android:id="@+id/avatarPlayer"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            app:srcCompat="@drawable/player_default"
+            app:srcCompat="@drawable/avatar_player_default"
             />
         <TextView
             android:textStyle="bold"
@@ -35,7 +35,7 @@
             android:id="@+id/namePlayer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{todo.name}"
+            android:text="@{player.name}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toRightOf="@id/avatarPlayer"
             app:layout_constraintBottom_toTopOf="@+id/position"
@@ -45,7 +45,7 @@
             android:id="@+id/position"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{todo.password}"
+            android:text="@{player.phone}"
             app:layout_constraintTop_toBottomOf="@+id/namePlayer"
             app:layout_constraintLeft_toRightOf="@id/avatarPlayer"
             app:layout_constraintBottom_toBottomOf="parent"

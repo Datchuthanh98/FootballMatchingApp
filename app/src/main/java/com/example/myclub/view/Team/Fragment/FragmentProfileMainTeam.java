@@ -9,18 +9,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.myclub.R;
-import com.example.myclub.animation.HorizontalFlipTransformation;
+import com.example.myclub.data.enumeration.LoadDataState;
 import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.databinding.FragmentProfileMyTeamBinding;
-import com.example.myclub.databinding.FragmentProfileMyselfBinding;
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.view.Player.Adapter.AdapterFragmentProfile;
 import com.example.myclub.view.Team.Adapter.AdapterFragmentProfileTeam;
@@ -31,8 +28,13 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
-public class FragmentMainProfileTeam extends Fragment {
+public class FragmentProfileMainTeam extends Fragment {
 
+   private  String idTeam;
+
+    public FragmentProfileMainTeam(String idTeam) {
+        this.idTeam = idTeam;
+    }
 
     FragmentProfileMyTeamBinding binding;
     private TeamViewModel teamViewModel = TeamViewModel.getInstance();
@@ -49,13 +51,10 @@ public class FragmentMainProfileTeam extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         TabLayout tabLayout = view.findViewById(R.id.tablayout);
         ViewPager viewPager = view.findViewById(R.id.viewpager);
-//        viewPager.setPageTransformer(true, new HorizontalFlipTransformation());
-        FragmentManager manager = getParentFragmentManager();
-        AdapterFragmentProfileTeam adapter = new AdapterFragmentProfileTeam(getChildFragmentManager(), AdapterFragmentProfile.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        AdapterFragmentProfileTeam adapter = new AdapterFragmentProfileTeam(getChildFragmentManager(), AdapterFragmentProfile.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,idTeam);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
-
-
+        TeamViewModel.getInstance().loadTeam(idTeam);
         observeLiveData(view.getContext());
         initComponent();
 
@@ -65,7 +64,6 @@ public class FragmentMainProfileTeam extends Fragment {
     }
 
     private  void initComponent(){
-
         binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_back_white_24);
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +75,7 @@ public class FragmentMainProfileTeam extends Fragment {
             @Override
             public void onClick(View v) {
                 ActivityHome activityHome = (ActivityHome) getContext();
-                activityHome.addFragment(new FragmentMainEditTeam());
+                activityHome.addFragment(new FragmentEditMainTeam());
             }
         });
     }
@@ -85,20 +83,23 @@ public class FragmentMainProfileTeam extends Fragment {
 
 
     private void observeLiveData(final Context context) {
-        // CreatePhoto
-        PlayerViewModel.getInstance().getAvatarLiveData().observe(getViewLifecycleOwner(), new Observer<File>() {
+        teamViewModel.getTeamLoadState().observe(getViewLifecycleOwner(), new Observer<LoadDataState>() {
             @Override
-            public void onChanged(File file) {
-                Picasso.get().load(file).into(binding.avatar);
+            public void onChanged(LoadDataState loadDataState) {
+                if (loadDataState == null) return;
+                if (loadDataState == LoadDataState.INIT) {
+                    binding.loadingLayout.setVisibility(View.VISIBLE);
+                } else if (loadDataState == LoadDataState.LOADING) {
+                    binding.loadingLayout.setVisibility(View.VISIBLE);
+                } else if (loadDataState == LoadDataState.LOADED) {
+                    binding.loadingLayout.setVisibility(View.GONE);
+                    Picasso.get().load(teamViewModel.getAvatarLiveData().getValue()).into(binding.avatar);
+                    Picasso.get().load(teamViewModel.getCoverLiveData().getValue()).into(binding.cover);
+                }
             }
         });
 
-        PlayerViewModel.getInstance().getCoverLiveData().observe(getViewLifecycleOwner(), new Observer<File>() {
-            @Override
-            public void onChanged(File file) {
-                Picasso.get().load(file).into(binding.cover);
-            }
-        });
+
 
         teamViewModel.getResultPhotoLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
             @Override
@@ -118,9 +119,5 @@ public class FragmentMainProfileTeam extends Fragment {
 
     private void detach() {
         getParentFragmentManager().popBackStack();
-        getParentFragmentManager()
-                .beginTransaction()
-                .detach(this)
-                .commit();
     }
 }
