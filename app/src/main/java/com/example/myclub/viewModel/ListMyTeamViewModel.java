@@ -46,6 +46,7 @@ public class ListMyTeamViewModel extends ViewModel {
                     listTeamLiveData.setValue(listTeams);
                     adapterListTeam.setListTeam(listTeams);
                     adapterListTeam.notifyDataSetChanged();
+                    resultLiveData.setValue(Result.SUCCESS);
                 }
             }
 

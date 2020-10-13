@@ -6,11 +6,13 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.example.myclub.Interface.LoadListOtherTeamCallBack;
+import com.example.myclub.Interface.LoadListPlayerCallBack;
 import com.example.myclub.Interface.LoadListTeamCallBack;
 import com.example.myclub.Interface.LoadTeamCallBack;
 import com.example.myclub.Interface.RegisterTeamCallBack;
 import com.example.myclub.Interface.UpdateImageCallBack;
 import com.example.myclub.Interface.UpdateProfileCallBack;
+import com.example.myclub.model.Player;
 import com.example.myclub.model.Team;
 import com.example.myclub.viewModel.PlayerViewModel;
 import com.example.myclub.viewModel.TeamViewModel;
@@ -86,13 +88,10 @@ public class TeamDataSource {
                 callBack.onFailure(e.getMessage());
             }
         });
-
-
     }
 
 
     public void loadListTeam(String id, final LoadListTeamCallBack loadListTeamCallBack) {
-
         db.collection("TeamMember").whereEqualTo("idPlayer", id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -105,7 +104,6 @@ public class TeamDataSource {
                     db.collection("Team").whereIn("id", listIdTeam).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                         @Override
                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-
                             List<Team> listTeam = new ArrayList<>();
                             if (!queryDocumentSnapshots.isEmpty()) {
                                 for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
@@ -125,27 +123,56 @@ public class TeamDataSource {
 
 
     public void loadListOtherTeam(String id, final LoadListOtherTeamCallBack loadListOtherTeamCallBack) {
-        db.collection("Team").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+
+        db.collection("TeamMember").whereEqualTo("idPlayer", id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                List<Team> listTeam = new ArrayList<>();
+                final List<String> listIdTeam = new ArrayList<>();
                 if (!queryDocumentSnapshots.isEmpty()) {
                     for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
-                        Team team = document.toObject(Team.class);
-                        listTeam.add(team);
+                        String idteam = (String) document.get("idTeam");
+                        listIdTeam.add(idteam);
                     }
-                    loadListOtherTeamCallBack.onSuccess(listTeam);
-                } else {
-                    loadListOtherTeamCallBack.onFailure("Null");
                 }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                loadListOtherTeamCallBack.onFailure(e.getMessage());
+
+                db.collection("Team").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        List<Team> listTeam = new ArrayList<>();
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
+                                Team team = document.toObject(Team.class);
+                                for(int i = 0 ; i < listIdTeam.size();i++){
+                                    if(listIdTeam.get(i).equals(team.getId())){
+                                        break;
+                                    }else if(i == (listIdTeam.size()-1)){
+                                       listTeam.add(team);
+                                    }
+
+                                }
+                            }
+                            loadListOtherTeamCallBack.onSuccess(listTeam);
+                        } else {
+                            loadListOtherTeamCallBack.onFailure("Null");
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        loadListOtherTeamCallBack.onFailure(e.getMessage());
+                    }
+                });
+
             }
         });
+
+
+
     }
+
+
+
+
 
 
     public void loadTeam(String idTeam, final LoadTeamCallBack callBack) {
@@ -165,9 +192,7 @@ public class TeamDataSource {
 
 
     public void updateProfile(Map<String, Object> updateData, final UpdateProfileCallBack callBack) {
-
         String uid = TeamViewModel.getInstance().getTeamLiveData().getValue().getId();
-        Log.d("meomeo", "updateProfile: " + uid);
         db.collection("Team").document(uid).update(updateData).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {

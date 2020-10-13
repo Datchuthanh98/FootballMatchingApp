@@ -54,9 +54,9 @@ public class FragmentListMyTeam extends Fragment {
         listMyTeamViewModel.getResultLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
             @Override
             public void onChanged(Result result) {
-                Log.d("addd", "in fragment listmyteam  in");
                 if (result == null) return;
                 if (result == Result.SUCCESS) {
+                    listMyTeamViewModel.getListTeam(playerViewModel.getPlayerLiveData().getValue().getId());
 //                    Toast.makeText(context, "List get new team", Toast.LENGTH_SHORT).show();
 
                 } else if (result == Result.FAILURE) {

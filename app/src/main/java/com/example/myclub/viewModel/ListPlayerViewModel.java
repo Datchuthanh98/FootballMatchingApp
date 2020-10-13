@@ -7,12 +7,14 @@ import androidx.lifecycle.ViewModel;
 import com.example.myclub.Interface.LoadListOtherPlayerCallBack;
 import com.example.myclub.Interface.LoadListOtherTeamCallBack;
 import com.example.myclub.Interface.LoadListPlayerCallBack;
+import com.example.myclub.Interface.LoadListPlayerRequestCallBack;
 import com.example.myclub.Interface.LoadListTeamCallBack;
 import com.example.myclub.Interface.RegisterTeamCallBack;
 import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.data.repository.PlayerRepository;
 import com.example.myclub.model.Player;
 import com.example.myclub.model.Team;
+import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListPlayerRequestVertical;
 import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListPlayerVertical;
 import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListTeamVertical;
 
@@ -25,9 +27,10 @@ public class ListPlayerViewModel extends ViewModel {
     private static ListPlayerViewModel instance;
     private RecycleViewAdapterListPlayerVertical adapterListPlayer = new RecycleViewAdapterListPlayerVertical();
     private RecycleViewAdapterListPlayerVertical adapterListOtherPlayer = new RecycleViewAdapterListPlayerVertical();
-
-    private MutableLiveData<List<Player>> listTeamLiveData = new MutableLiveData<>();
-    private MutableLiveData<List<Player>> listTeamOtherLiveData = new MutableLiveData<>();
+    private RecycleViewAdapterListPlayerRequestVertical adapterListPlayerRequest = new RecycleViewAdapterListPlayerRequestVertical();
+    private MutableLiveData<List<Player>> listPlayerLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<Player>> listOtherOtherLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<Player>> listPlayerRequestLiveData = new MutableLiveData<>();
     private MutableLiveData<Result> resultLiveData = new MutableLiveData<>(null);
     private String resultMessage = null;
 
@@ -46,7 +49,7 @@ public class ListPlayerViewModel extends ViewModel {
                 if (listPlayers == null) {
                     adapterListPlayer.setListPlayer(new ArrayList<Player>());
                 } else {
-                    listTeamLiveData.setValue(listPlayers);
+                    listPlayerLiveData.setValue(listPlayers);
                     adapterListPlayer.setListPlayer(listPlayers);
                     adapterListPlayer.notifyDataSetChanged();
                     resultLiveData.setValue(Result.SUCCESS);
@@ -59,8 +62,8 @@ public class ListPlayerViewModel extends ViewModel {
                 resultLiveData.setValue(Result.FAILURE);
             }
         });
-
     }
+
 
     public void getListOtherPlayer(String idTeam) {
         playerRepository.getListOtherPlayer(idTeam, new LoadListOtherPlayerCallBack() {
@@ -69,7 +72,7 @@ public class ListPlayerViewModel extends ViewModel {
                 if (listPlayers == null) {
                     adapterListOtherPlayer.setListPlayer(new ArrayList<Player>());
                 } else {
-                    listTeamOtherLiveData.setValue(listPlayers);
+                    listOtherOtherLiveData.setValue(listPlayers);
                     adapterListOtherPlayer.setListPlayer(listPlayers);
                     adapterListOtherPlayer.notifyDataSetChanged();
                     resultLiveData.setValue(Result.SUCCESS);
@@ -82,8 +85,28 @@ public class ListPlayerViewModel extends ViewModel {
                 resultLiveData.setValue(Result.FAILURE);
             }
         });
+    }
 
+    public void getListPlayerRequest(String idTeam) {
+        playerRepository.getListPlayerRequest(idTeam, new LoadListPlayerRequestCallBack() {
+            @Override
+            public void onSuccess(List<Player> listPlayers) {
+                if (listPlayers == null) {
+                    adapterListPlayerRequest.setListPlayer(new ArrayList<Player>());
+                } else {
+                    listPlayerRequestLiveData.setValue(listPlayers);
+                    adapterListPlayerRequest.setListPlayer(listPlayers);
+                    adapterListPlayerRequest.notifyDataSetChanged();
+                    resultLiveData.setValue(Result.SUCCESS);
+                }
+            }
 
+            @Override
+            public void onFailure(String message) {
+                resultMessage = message;
+                resultLiveData.setValue(Result.FAILURE);
+            }
+        });
     }
 
     public RecycleViewAdapterListPlayerVertical getAdapterListPlayer() {
@@ -92,6 +115,11 @@ public class ListPlayerViewModel extends ViewModel {
 
     public RecycleViewAdapterListPlayerVertical getAdapterListOtherTeam() {
         return adapterListOtherPlayer;
+    }
+
+
+    public RecycleViewAdapterListPlayerRequestVertical getAdapterListPlayerRequest() {
+        return adapterListPlayerRequest;
     }
 
 

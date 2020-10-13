@@ -83,15 +83,21 @@ public class FragmentProfileMainTeam extends Fragment {
 
 
     private void observeLiveData(final Context context) {
+
+
         teamViewModel.getTeamLoadState().observe(getViewLifecycleOwner(), new Observer<LoadDataState>() {
             @Override
             public void onChanged(LoadDataState loadDataState) {
+
                 if (loadDataState == null) return;
                 if (loadDataState == LoadDataState.INIT) {
+                    Toast.makeText(getContext(),"init ",Toast.LENGTH_SHORT).show();
                     binding.loadingLayout.setVisibility(View.VISIBLE);
                 } else if (loadDataState == LoadDataState.LOADING) {
+                    Toast.makeText(getContext(),"loading ",Toast.LENGTH_SHORT).show();
                     binding.loadingLayout.setVisibility(View.VISIBLE);
                 } else if (loadDataState == LoadDataState.LOADED) {
+                    Toast.makeText(getContext(),"loaded ",Toast.LENGTH_SHORT).show();
                     binding.loadingLayout.setVisibility(View.GONE);
                     Picasso.get().load(teamViewModel.getAvatarLiveData().getValue()).into(binding.avatar);
                     Picasso.get().load(teamViewModel.getCoverLiveData().getValue()).into(binding.cover);

@@ -88,6 +88,7 @@ public class TeamViewModel extends ViewModel implements TeamChangeCallBack {
 
     @Override
     public void onTeamChange(Team team) {
+
         teamLiveData.setValue(team);
         if (team != null) {
             if (team.getUrlAvatar() != null) {
@@ -97,6 +98,7 @@ public class TeamViewModel extends ViewModel implements TeamChangeCallBack {
                 // 24 hours
                 if (photo.exists() && photo.lastModified() < Calendar.getInstance().getTimeInMillis() - 86400000){
                     teamAvatarLiveData.setValue(photo);
+                    teamLoadState.setValue(LoadDataState.LOADED);
                 } else {
                     teamRepository.getAvatarPhoto(new GetTeamPhotoCallBack() {
                         @Override
@@ -115,6 +117,7 @@ public class TeamViewModel extends ViewModel implements TeamChangeCallBack {
                 // 24 hours
                 if (photo.exists() && photo.lastModified() < Calendar.getInstance().getTimeInMillis() - 86400000){
                     teamCoverLiveData.setValue(photo);
+                    teamLoadState.setValue(LoadDataState.LOADED);
                 } else {
                     teamRepository.getCoverPhoto(new GetTeamPhotoCallBack() {
                         @Override
@@ -161,11 +164,9 @@ public class TeamViewModel extends ViewModel implements TeamChangeCallBack {
     }
 
     public  void updateImage(Uri uri, final String path , final boolean isAvatar){
-
         teamRepository.updateImage(uri, path, isAvatar, new UpdateImageCallBack() {
             @Override
             public void onSuccess(String url) {
-                Log.d("check updateUI", "onSuccess: VAO DAY R NE");
                 resultPhotoLiveData.setValue(Result.SUCCESS);
                 Team team = getInstance().teamLiveData.getValue();
                 if (isAvatar){

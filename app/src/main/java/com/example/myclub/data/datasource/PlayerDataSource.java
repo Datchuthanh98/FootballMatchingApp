@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import com.example.myclub.Interface.LoadListOtherPlayerCallBack;
 import com.example.myclub.Interface.LoadListOtherTeamCallBack;
 import com.example.myclub.Interface.LoadListPlayerCallBack;
+import com.example.myclub.Interface.LoadListPlayerRequestCallBack;
 import com.example.myclub.Interface.LoadListTeamCallBack;
 import com.example.myclub.Interface.LoadPlayerCallBack;
 import com.example.myclub.Interface.LoadTeamCallBack;
@@ -232,6 +233,36 @@ public class PlayerDataSource {
             @Override
             public void onFailure(@NonNull Exception e) {
                 loadListOtherPlayerCallBack.onFailure(e.getMessage());
+            }
+        });
+    }
+
+    public void loadListPlayerRequest(String idTeam , final LoadListPlayerRequestCallBack loadListPlayerRequestCallBack) {
+        db.collection("RequestJoinTeam").whereEqualTo("idTeam", idTeam).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List<String> listIdPlayer = new ArrayList<>();
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
+                        String idteam = (String) document.get("idPlayer");
+                        listIdPlayer.add(idteam);
+                    }
+                    db.collection("Player").whereIn("id",listIdPlayer).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            List<Player> listPlayers = new ArrayList<>();
+                            if (!queryDocumentSnapshots.isEmpty()) {
+                                for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
+                                    Player player = document.toObject(Player.class);
+                                    listPlayers.add(player);
+                                }
+                                loadListPlayerRequestCallBack.onSuccess(listPlayers);
+                            } else {
+                                loadListPlayerRequestCallBack.onFailure("Null");
+                            }
+                        }
+                    });
+                }
             }
         });
     }

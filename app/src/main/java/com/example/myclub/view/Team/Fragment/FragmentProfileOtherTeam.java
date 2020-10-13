@@ -1,5 +1,6 @@
 package com.example.myclub.view.Team.Fragment;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,24 +12,37 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 
 import com.example.myclub.R;
+import com.example.myclub.data.repository.RequestJoinTeamRepository;
 import com.example.myclub.databinding.FragmentProfileOtherTeamBinding;
 import com.example.myclub.model.Team;
+import com.example.myclub.viewModel.PlayerViewModel;
+import com.example.myclub.viewModel.RequestJoinTeamViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class FragmentProfileOtherTeam extends Fragment {
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private StorageReference storageRef = storage.getReference();
     private  Team team ;
+    private  Map<String, Object> data = new HashMap<>();
+    private PlayerViewModel playerViewModel = PlayerViewModel.getInstance();
+    private RequestJoinTeamViewModel requestJoinTeamViewModel = RequestJoinTeamViewModel.getInstance();
+
     public FragmentProfileOtherTeam(Team team) {
         this.team = team;
     }
+
 
     private FragmentProfileOtherTeamBinding binding;
     @Nullable
@@ -44,6 +58,9 @@ public class FragmentProfileOtherTeam extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initComponent();
+        observeLiveData();
+        requestJoinTeamViewModel.getStateJoinTeam(requestJoinTeam());
+
     }
 
 
@@ -81,6 +98,43 @@ public class FragmentProfileOtherTeam extends Fragment {
             }
         });
 
+        binding.btnJoin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requestJoinTeamViewModel.addRequestJoinTeam(requestJoinTeam());
+            }
+        });
+
+        binding.btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requestJoinTeamViewModel.cancelRequestJoinTeam(requestJoinTeamViewModel.getKey());
+            }
+        });
+
+    }
+
+
+    private Map<String, Object> requestJoinTeam() {
+        data.put("idPlayer",playerViewModel.getPlayerLiveData().getValue().getId());
+        data.put("idTeam",team.getId());
+        data.put("isPlayerRequest",true);
+        return data;
+    }
+
+    private void observeLiveData() {
+        requestJoinTeamViewModel.getStateRequestJoinTeam().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean requestJoined) {
+              if(requestJoined == true){
+                  binding.btnJoin.setVisibility(View.GONE);
+                  binding.btnCancel.setVisibility(View.VISIBLE);
+              }else{
+                  binding.btnJoin.setVisibility(View.VISIBLE);
+                  binding.btnCancel.setVisibility(View.GONE);
+              }
+            }
+        });
     }
 
     private void detach() {

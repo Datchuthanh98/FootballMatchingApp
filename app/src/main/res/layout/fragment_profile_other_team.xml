@@ -101,6 +101,7 @@
                         android:layout_height="30dp"
                         android:layout_width="0dp"></TextView>
                     <LinearLayout
+                        android:id="@+id/overview"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         android:orientation="horizontal"
@@ -131,7 +132,27 @@
                             android:text="123"
                             android:textStyle="bold"></TextView>
                     </LinearLayout>
+                    <Button
+                        android:id="@+id/btnJoin"
+                        android:drawableStart="@drawable/ic_baseline_join_24_green"
+                        android:text="Join Team"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/overview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"></Button>
+                    <Button
+                        android:visibility="gone"
+                        android:id="@+id/btnCancel"
+                        android:drawableStart="@drawable/ic_baseline_join_24_green"
+                        android:text="Cancel Join Team"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/overview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"></Button>
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
             </androidx.cardview.widget.CardView>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -194,9 +215,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
-
-
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

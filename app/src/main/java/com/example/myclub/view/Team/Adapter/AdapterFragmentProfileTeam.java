@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.example.myclub.view.Match.Fragment.FragmentComment;
 import com.example.myclub.view.Team.Fragment.FragmentProfileListPlayer;
 import com.example.myclub.view.Team.Fragment.FragmentProfileBasicTeam;
+import com.example.myclub.view.Team.Fragment.FragmentProfileListPlayerRequest;
 
 public class AdapterFragmentProfileTeam extends FragmentPagerAdapter {
     int numTab = 3;
@@ -28,7 +29,7 @@ public class AdapterFragmentProfileTeam extends FragmentPagerAdapter {
             case 1:
                 return new FragmentProfileListPlayer(idTeam);
             case 2:
-                return new FragmentComment();
+                return new FragmentProfileListPlayerRequest(idTeam);
         }
         return  null;
     }
@@ -47,7 +48,7 @@ public class AdapterFragmentProfileTeam extends FragmentPagerAdapter {
             case 1:
                 return "List Player";
             case 2:
-                return "Comment";
+                return "List Request";
         }
         return null;
     }

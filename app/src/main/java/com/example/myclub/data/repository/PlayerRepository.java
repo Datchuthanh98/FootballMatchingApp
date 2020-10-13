@@ -10,6 +10,7 @@ import com.example.myclub.Interface.GetUserPhotoCallBack;
 import com.example.myclub.Interface.LoadListOtherPlayerCallBack;
 import com.example.myclub.Interface.LoadListOtherTeamCallBack;
 import com.example.myclub.Interface.LoadListPlayerCallBack;
+import com.example.myclub.Interface.LoadListPlayerRequestCallBack;
 import com.example.myclub.Interface.LoadListTeamCallBack;
 import com.example.myclub.Interface.UpdateImageCallBack;
 import com.example.myclub.Interface.UpdateProfileCallBack;
@@ -92,6 +93,10 @@ public class PlayerRepository {
 
     public void getListPlayer(String id, LoadListPlayerCallBack loadListPlayerCallBack){
         userDataSource.loadListPlayer(id,loadListPlayerCallBack);
+    }
+
+    public void getListPlayerRequest(String id, LoadListPlayerRequestCallBack loadListPlayerCallBack){
+        userDataSource.loadListPlayerRequest(id,loadListPlayerCallBack);
     }
 
     public void getListOtherPlayer(String id ,LoadListOtherPlayerCallBack loadListOtherPlayerCallBack){
