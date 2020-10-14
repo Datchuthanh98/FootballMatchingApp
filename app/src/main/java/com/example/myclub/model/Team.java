@@ -19,7 +19,7 @@ public class Team implements Serializable {
     private String level;
     private Float rating;
     private Float reputaion;
-    private Player caption;
+    private String idCaption;
     private List<Player> listPlayers = new ArrayList<>();
 
 
@@ -106,12 +106,12 @@ public class Team implements Serializable {
         this.reputaion = reputaion;
     }
 
-    public Player getCaption() {
-        return caption;
+    public String getIdCaption() {
+        return idCaption;
     }
 
-    public void setCaption(Player caption) {
-        this.caption = caption;
+    public void setIdCaption(String idCaption) {
+        this.idCaption = idCaption;
     }
 
     public List<Player> getListPlayers() {
@@ -129,6 +129,8 @@ public class Team implements Serializable {
     public void setAddress(String address) {
         this.address = address;
     }
+
+
 
     public  void setInforBasic(Map<String, Object> inforBasic){
         this.name = inforBasic.get("name").toString() ;

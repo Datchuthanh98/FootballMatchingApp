@@ -9,6 +9,7 @@ package com.example.myclub.view.Field.Adapter;
         import com.example.myclub.googlemap.fragment.LocationFragment;
         import com.example.myclub.googlemap.fragment.NearByFragment;
         import com.example.myclub.googlemap.fragment.ShowPlaceOnMapFragment;
+        import com.example.myclub.view.Field.Fragment.FragmentListField;
         import com.example.myclub.view.Field.Fragment.FragmentMap;
 
 public class AdapterFragmentField extends FragmentStatePagerAdapter {
@@ -27,8 +28,8 @@ public class AdapterFragmentField extends FragmentStatePagerAdapter {
 //                return  new FragmentListField();
                 return  new NearByFragment();
             case  2 :
-//                return  new FragmentListField();
-                return  new LocationFragment();
+                return  new FragmentListField();
+//                return  new LocationFragment();
         }
         return  null;
     }
@@ -43,11 +44,11 @@ public class AdapterFragmentField extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "Map";
+                return "List on Map";
             case 1:
-                return "List";
+                return "List by Map";
             case 2:
-                return "My location";
+                return "List by Database";
         }
         return null;
     }

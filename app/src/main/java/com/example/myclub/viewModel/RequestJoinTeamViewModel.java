@@ -17,8 +17,6 @@ public class RequestJoinTeamViewModel {
     private RequestJoinTeamRepository requestJoinTeamRepository = RequestJoinTeamRepository.getInstance();
     private static RequestJoinTeamViewModel instance;
     private MutableLiveData<Boolean> stateRequestJoinTeam = new MutableLiveData<>(false);
-
-
     private  String key ;
 
     private String resultMessage = null;

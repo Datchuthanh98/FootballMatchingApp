@@ -67,7 +67,7 @@ public class ShowPlaceOnMapFragment extends Fragment implements OnMapReadyCallba
         myMarkerOptions.title("You");
         googleMap.addMarker(myMarkerOptions);
 
-        //moveCametra
+        //moveCamera to my location
         LatLng MylatLng =new LatLng(PlacesConstant.latitude,PlacesConstant.longitude);
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(MylatLng));
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(MylatLng, 15.0f));

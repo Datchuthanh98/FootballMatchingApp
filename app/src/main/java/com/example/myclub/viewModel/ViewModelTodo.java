@@ -24,9 +24,8 @@ public class ViewModelTodo extends ViewModel {
     private RecycleViewAdapterListPlayerVertical adapterListPlayer = new RecycleViewAdapterListPlayerVertical();
     private RecycleViewAdapterListTeamVertical adapterListTeam = new RecycleViewAdapterListTeamVertical();
     private RecycleViewAdapterListTeamHorizontal adapterListTeamHorizontal = new RecycleViewAdapterListTeamHorizontal();
-    private RecycleViewAdapterListFieldVertical adapterListField = new RecycleViewAdapterListFieldVertical();
     private RecycleViewAdapterListMatchVertical adapterListMatch = new RecycleViewAdapterListMatchVertical();
-    private RecycleViewAdapterListTimeVertical adapterListTimeVertical = new RecycleViewAdapterListTimeVertical();
+
     private MutableLiveData<List<Todo>> listTodoLiveData = new MutableLiveData<>();
 
 
@@ -35,24 +34,14 @@ public class ViewModelTodo extends ViewModel {
             @Override
             public void FirebaseLoadListTodo(List<Todo> todos) {
                 Log.d("getalltodo", "FirebaseLoadListTodo: ");
-
                     listTodoLiveData.setValue(todos);
 
-
-
-
-
-                    adapterListField.setListTodo(todos);
-                    adapterListField.notifyDataSetChanged();
 
                     adapterListMatch.setListTodo(todos);
                     adapterListMatch.notifyDataSetChanged();
 
                     adapterListTeamHorizontal.setListTodo(todos);
                     adapterListTeamHorizontal.notifyDataSetChanged();
-
-                    adapterListTimeVertical.setListTodo(todos);
-                    adapterListTimeVertical.notifyDataSetChanged();
 
 
             }
@@ -67,11 +56,7 @@ public class ViewModelTodo extends ViewModel {
     public RecycleViewAdapterListTeamVertical getAdapterListTeam() {
         return adapterListTeam;
     }
-
-    public RecycleViewAdapterListFieldVertical getAdapterListField() {
-        return adapterListField;
-    }
-
+    
     public RecycleViewAdapterListMatchVertical getAdapterListMatch(){
         return  adapterListMatch;
     }
@@ -80,9 +65,7 @@ public class ViewModelTodo extends ViewModel {
         return  adapterListTeamHorizontal;
     }
 
-    public RecycleViewAdapterListTimeVertical getAdapterListTimeVertical(){
-        return  adapterListTimeVertical;
-    }
+
 
 
 }

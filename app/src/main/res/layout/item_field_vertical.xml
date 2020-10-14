@@ -6,8 +6,8 @@
     <data>
         <import type="android.view.View" />
         <variable
-            name="todo"
-            type="com.example.myclub.model.Todo" />
+            name="field"
+            type="com.example.myclub.model.Field" />
     </data>
 <androidx.cardview.widget.CardView
     android:id="@+id/cardView"
@@ -35,7 +35,7 @@
             android:id="@+id/namePlayer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{todo.name}"
+            android:text="@{field.name}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toRightOf="@id/avatarTeam"
             app:layout_constraintBottom_toTopOf="@+id/position"
@@ -45,7 +45,7 @@
             android:id="@+id/position"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{todo.password}"
+            android:text="@{field.address}"
             app:layout_constraintTop_toBottomOf="@+id/namePlayer"
             app:layout_constraintLeft_toRightOf="@id/avatarTeam"
             app:layout_constraintBottom_toBottomOf="parent"

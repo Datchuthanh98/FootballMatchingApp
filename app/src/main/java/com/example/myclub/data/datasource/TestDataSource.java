@@ -12,14 +12,14 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TodoDataSource {
-    static TodoDataSource instance;
+public class TestDataSource {
+    static TestDataSource instance;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
-    public static TodoDataSource getInstance() {
+    public static TestDataSource getInstance() {
         if (instance == null) {
-            instance = new TodoDataSource();
+            instance = new TestDataSource();
         }
         return instance;
     }

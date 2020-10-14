@@ -26,6 +26,9 @@ import com.example.myclub.databinding.LoadingLayoutBinding;
 import com.example.myclub.viewModel.ListMyTeamViewModel;
 import com.example.myclub.viewModel.TeamViewModel;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class FragmentAddTeamDialog extends DialogFragment {
 
 
@@ -96,4 +99,6 @@ public class FragmentAddTeamDialog extends DialogFragment {
             }
         });
     }
+
+
 }

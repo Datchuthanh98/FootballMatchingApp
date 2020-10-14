@@ -6,10 +6,12 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.myclub.Interface.LoadListOtherTeamCallBack;
 import com.example.myclub.Interface.LoadListTeamCallBack;
+import com.example.myclub.Interface.LoadListTimeCallBack;
 import com.example.myclub.Interface.RegisterTeamCallBack;
 import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.data.repository.TeamRepository;
 import com.example.myclub.model.Team;
+import com.example.myclub.model.TimeGame;
 import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListTeamVertical;
 
 import java.util.ArrayList;

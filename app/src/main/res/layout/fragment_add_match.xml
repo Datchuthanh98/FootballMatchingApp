@@ -33,14 +33,14 @@
                     android:textColor="@color/white"
                     android:textSize="20dp" />
                 <ImageButton
-                    android:id="@+id/btnCall"
+                    android:id="@+id/btnReset"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:paddingHorizontal="15dp"
                     android:background="?android:attr/selectableItemBackground"
                     android:src="@drawable/ic_baseline_replay_white_24"/>
                 <ImageButton
-                    android:id="@+id/btnEmail"
+                    android:id="@+id/btnSave"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:paddingHorizontal="15dp"
@@ -90,6 +90,7 @@
                         android:textStyle="bold"></ImageButton>
                 </LinearLayout>
                 <TextView
+                    android:id="@+id/team"
                     android:gravity="center"
                     android:text="Chelsea football Club"
                     android:layout_width="match_parent"
@@ -153,6 +154,7 @@
                         android:textStyle="bold"></ImageButton>
                 </LinearLayout>
                 <TextView
+                    android:id="@+id/field"
                     android:gravity="center"
                     android:text="Thanh Phuc Field"
                     android:layout_width="match_parent"
@@ -189,7 +191,7 @@
                             android:textStyle="bold"></ImageButton>
                     </LinearLayout>
                     <TextView
-                        android:id="@+id/lblDate"
+                        android:id="@+id/txtDate"
                         android:gravity="center"
                         android:text="30/10/2020"
                         android:layout_width="match_parent"
@@ -231,6 +233,7 @@
                         android:layout_height="match_parent" />
 
                     <TextView
+                        android:id="@+id/timeGame"
                         android:gravity="center"
                         android:text="11h30-22h30"
                         android:layout_width="match_parent"
@@ -258,6 +261,7 @@
                             android:textStyle="bold"></TextView>
                     </LinearLayout>
                     <EditText
+                        android:id="@+id/txtPhone"
                         android:gravity="center"
                         android:text="0984060798"
                         android:layout_width="match_parent"
@@ -276,6 +280,7 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/txtNote"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"

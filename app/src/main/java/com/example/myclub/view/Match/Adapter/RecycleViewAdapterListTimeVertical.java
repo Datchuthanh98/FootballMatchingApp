@@ -9,7 +9,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myclub.databinding.ItemTimeHorizontalBinding;
-import com.example.myclub.model.Todo;
+import com.example.myclub.model.TimeGame;
+import com.example.myclub.viewModel.BookingFieldSession;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,8 @@ import java.util.List;
 public class RecycleViewAdapterListTimeVertical extends RecyclerView.Adapter<RecycleViewAdapterListTimeVertical.MyViewHolder> {
 
     private FragmentManager fm;
-    private List<Todo> todos = new ArrayList<>();
+    private List<TimeGame> listTimes = new ArrayList<>();
+
     public RecycleViewAdapterListTimeVertical() {
 
     }
@@ -31,8 +33,8 @@ public class RecycleViewAdapterListTimeVertical extends RecyclerView.Adapter<Rec
         this.fm = fm;
     }
 
-    public  void  setListTodo(List<Todo> todos){
-        this.todos = todos;
+    public  void  setListTime(List<TimeGame> listTime){
+        this.listTimes = listTime;
     }
 
     @NonNull
@@ -57,19 +59,19 @@ public class RecycleViewAdapterListTimeVertical extends RecyclerView.Adapter<Rec
         holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                BookingFieldSession.getInstance().setTimeLiveData(listTimes.get(position));
                detach();
             }
-
-
         });
-//        holder.binding.setTodo(todos.get(position));
+        holder.binding.setTimeGame(listTimes.get(position));
+
+
+
     }
 
     @Override
     public int getItemCount() {
-
-//        return todos.size();
-        return 5;
+        return listTimes.size();
     }
 
     public void detach() {

@@ -15,15 +15,13 @@ import com.example.myclub.model.Team;
 import com.example.myclub.view.Team.Fragment.FragmentProfileMainTeam;
 import com.example.myclub.databinding.ItemTeamVerticalBinding;
 import com.example.myclub.view.Team.Fragment.FragmentProfileOtherTeam;
-import com.example.myclub.viewModel.TeamViewModel;
+import com.example.myclub.viewModel.BookingFieldSession;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +34,7 @@ public class RecycleViewAdapterListTeamVertical extends RecyclerView.Adapter<Rec
     public Boolean isMy = false;
     public Boolean isShow = true;
     public Fragment fragment;
+    public BookingFieldSession matchViewModel = BookingFieldSession.getInstance();
     public RecycleViewAdapterListTeamVertical() {
 
     }
@@ -74,7 +73,7 @@ public class RecycleViewAdapterListTeamVertical extends RecyclerView.Adapter<Rec
                     if(isShow){
                         activityHome.addFragment(new FragmentProfileMainTeam(listTeam.get(position).getId()));
                     }else {
-                        //Select Team
+                        matchViewModel.setTeamLiveData(listTeam.get(position));
                       detach();
                     }
                 }else{
@@ -95,10 +94,6 @@ public class RecycleViewAdapterListTeamVertical extends RecyclerView.Adapter<Rec
 
             }
         });
-
-
-
-
     }
 
     @Override

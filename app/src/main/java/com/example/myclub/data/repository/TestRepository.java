@@ -1,13 +1,13 @@
 package com.example.myclub.data.repository;
 
-import com.example.myclub.data.datasource.TodoDataSource;
+import com.example.myclub.data.datasource.TestDataSource;
 import com.example.myclub.Interface.FirebaseLoadListTodo;
 
 public class TestRepository {
 
     private static volatile TestRepository instance;
 
-    private TodoDataSource todoDataSource = new TodoDataSource();
+    private TestDataSource testDataSource = new TestDataSource();
 
     private TestRepository(){}
 
@@ -19,6 +19,6 @@ public class TestRepository {
     }
 
     public void getAllTodo(FirebaseLoadListTodo callback){
-        todoDataSource.loadListTodo(callback);
+        testDataSource.loadListTodo(callback);
     }
 }

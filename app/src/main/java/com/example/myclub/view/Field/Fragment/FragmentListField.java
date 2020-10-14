@@ -16,10 +16,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.myclub.R;
 import com.example.myclub.databinding.FragmentListFieldBinding;
 import com.example.myclub.view.Field.Adapter.RecycleViewAdapterListFieldVertical;
+import com.example.myclub.viewModel.ListFieldViewModel;
 import com.example.myclub.viewModel.ViewModelTodo;
 
 public class FragmentListField extends Fragment {
-    private ViewModelTodo viewModel;
+    private ListFieldViewModel viewModel;
     public boolean isShown = true;
 
     public FragmentListField() {
@@ -41,7 +42,7 @@ public class FragmentListField extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(ViewModelTodo.class);
+        viewModel = new ViewModelProvider(this).get(ListFieldViewModel.class);
         RecycleViewAdapterListFieldVertical adapter = viewModel.getAdapterListField();
         adapter.setFm(getParentFragmentManager());
         adapter.isShow = this.isShown;

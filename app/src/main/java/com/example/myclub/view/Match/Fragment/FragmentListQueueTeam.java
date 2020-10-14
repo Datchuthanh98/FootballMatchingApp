@@ -31,10 +31,10 @@ public class FragmentListQueueTeam extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(this).get(ViewModelTodo.class);
-        RecycleViewAdapterListFieldVertical adapter = viewModel.getAdapterListField();
-        adapter.setFm(getParentFragmentManager());
-        binding.recycleViewListTeamVertical.setAdapter(viewModel.getAdapterListField());
-        binding.recycleViewListTeamVertical.setLayoutManager(new LinearLayoutManager(getContext()));
+//        RecycleViewAdapterListFieldVertical adapter = viewModel.get();
+//        adapter.setFm(getParentFragmentManager());
+//        binding.recycleViewListTeamVertical.setAdapter(viewModel.getAdapterListField());
+//        binding.recycleViewListTeamVertical.setLayoutManager(new LinearLayoutManager(getContext()));
 
     }
 }

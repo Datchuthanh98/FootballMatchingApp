@@ -6,9 +6,10 @@
     <data>
         <import type="android.view.View" />
         <variable
-            name="todo"
-            type="com.example.myclub.model.Todo" />
+            name="timeGame"
+            type="com.example.myclub.model.TimeGame" />
     </data>
+
 <androidx.cardview.widget.CardView
     android:id="@+id/cardView"
     android:layout_width="match_parent"
@@ -24,12 +25,12 @@
       <TextView
           android:textSize="25dp"
           android:layout_weight="1"
-          android:text="19h30-20h30"
+          android:text="@{timeGame.startTime+'-'+timeGame.endTime}"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"></TextView>
       <TextView
           android:textSize="20dp"
-          android:text="600,000 VND"
+          android:text="@{timeGame.cost}"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"></TextView>
   </LinearLayout>
