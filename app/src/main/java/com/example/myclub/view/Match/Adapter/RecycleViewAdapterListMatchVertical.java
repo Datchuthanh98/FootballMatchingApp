@@ -1,6 +1,5 @@
 package com.example.myclub.view.Match.Adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,32 +9,36 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myclub.databinding.ItemMatchVerticalBinding;
-import com.example.myclub.main.ActivityHome;
-import com.example.myclub.view.Match.Fragment.FragmentMainProfileMatch;
-import com.example.myclub.model.Todo;
+import com.example.myclub.model.Match;
+import com.example.myclub.viewModel.ListMatchViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+//import com.example.managefield.view.Fragment.FragmentMainProfileMatch;
+
 
 public class RecycleViewAdapterListMatchVertical extends RecyclerView.Adapter<RecycleViewAdapterListMatchVertical.MyViewHolder> {
-
     private FragmentManager fm;
-    private List<Todo> todos = new ArrayList<>();
+    private List<Match> matches = new ArrayList<>();
+    private ListMatchViewModel listMatchViewModel;
     public RecycleViewAdapterListMatchVertical() {
-
     }
 
     public RecycleViewAdapterListMatchVertical(FragmentManager fm) {
         this.fm = fm;
     }
 
+    public void setListBookingViewModel(ListMatchViewModel listMatchViewModel) {
+        this.listMatchViewModel = listMatchViewModel;
+    }
+
     public void setFm(FragmentManager fm) {
         this.fm = fm;
     }
 
-    public  void  setListTodo(List<Todo> todos){
-        this.todos = todos;
+    public  void  setListMatch(List<Match> listMatch){
+        this.matches = listMatch;
     }
 
     @NonNull
@@ -55,20 +58,21 @@ public class RecycleViewAdapterListMatchVertical extends RecyclerView.Adapter<Re
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
-        Log.d("RV", "onBindViewHolder: "+position);
         holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityHome activityHome = (ActivityHome) holder.itemView.getContext();
-                activityHome.addFragment(new FragmentMainProfileMatch());
+//                ActivityMainField activityHome = (ActivityMainField) holder.itemView.getContext();
+//                activityHome.addFragment(new FragmentMainProfileMatch());
             }
         });
-        holder.binding.setTodo(todos.get(position));
+
+
+        holder.binding.setMatch(matches.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return todos.size();
+        return matches.size();
     }
 }
 

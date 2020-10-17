@@ -20,9 +20,9 @@ import com.example.myclub.main.ActivityHome;
 import com.example.myclub.model.Field;
 import com.example.myclub.model.Team;
 import com.example.myclub.model.TimeGame;
-import com.example.myclub.view.Field.Fragment.FragmentListField;
+import com.example.myclub.view.field.fragment.FragmentListField;
 import com.example.myclub.view.Team.Fragment.FragmentListMyTeam;
-import com.example.myclub.viewModel.BookingFieldSession;
+import com.example.myclub.viewModel.SessionBookingField;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -31,7 +31,7 @@ import java.util.Map;
 public class FragmentAddMatch extends Fragment {
 
     private int pYear, pMonth, pDay, pHour, pMinute;
-    private BookingFieldSession matchViewModel = BookingFieldSession.getInstance();
+    private SessionBookingField matchViewModel = SessionBookingField.getInstance();
     private  Map<String ,Object> data = new HashMap<>();
 
     FragmentAddMatchBinding binding;
@@ -150,7 +150,8 @@ public class FragmentAddMatch extends Fragment {
     }
 
     private Map<String, Object> getInforBooking() {
-        data.put("idTeam", matchViewModel.getTeamLiveData().getValue().getId());
+        data.put("idTeamHome", matchViewModel.getTeamLiveData().getValue().getId());
+        data.put("idTeamAway", null);
         data.put("idField", matchViewModel.getFieldLiveData().getValue().getId());
         data.put("date", binding.txtDate.getText().toString());
         data.put("time", matchViewModel.getTimeLiveData().getValue().getId());

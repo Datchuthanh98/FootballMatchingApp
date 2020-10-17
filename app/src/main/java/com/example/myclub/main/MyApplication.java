@@ -16,8 +16,8 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.example.myclub.googlemap.constants.PlacesConstant;
-import com.example.myclub.viewModel.PlayerViewModel;
+import com.example.myclub.googlemap2.PlacesConstant;
+import com.example.myclub.viewModel.SessionUser;
 import com.example.myclub.viewModel.TeamViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -31,7 +31,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         //init Firebase for app
-        PlayerViewModel.getInstance().setApplication(this);
+        SessionUser.getInstance().setApplication(this);
         TeamViewModel.getInstance().setApplication(this);
         FirebaseApp.initializeApp(this);
         createNotificationChannel();

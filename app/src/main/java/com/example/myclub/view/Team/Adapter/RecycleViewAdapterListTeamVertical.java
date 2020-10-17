@@ -15,7 +15,7 @@ import com.example.myclub.model.Team;
 import com.example.myclub.view.Team.Fragment.FragmentProfileMainTeam;
 import com.example.myclub.databinding.ItemTeamVerticalBinding;
 import com.example.myclub.view.Team.Fragment.FragmentProfileOtherTeam;
-import com.example.myclub.viewModel.BookingFieldSession;
+import com.example.myclub.viewModel.SessionBookingField;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -34,7 +34,7 @@ public class RecycleViewAdapterListTeamVertical extends RecyclerView.Adapter<Rec
     public Boolean isMy = false;
     public Boolean isShow = true;
     public Fragment fragment;
-    public BookingFieldSession matchViewModel = BookingFieldSession.getInstance();
+    public SessionBookingField matchViewModel = SessionBookingField.getInstance();
     public RecycleViewAdapterListTeamVertical() {
 
     }

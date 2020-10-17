@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <import type="com.example.myclub.viewModel.PlayerViewModel"></import>
+        <import type="com.example.myclub.viewModel.SessionUser"></import>
     </data>
 
 
@@ -155,7 +155,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
-                        android:text="@{PlayerViewModel.getInstance().playerLiveData.name}"
+                        android:text="@{SessionUser.getInstance().playerLiveData.name}"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -163,7 +163,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
-                        android:text="@{PlayerViewModel.getInstance().playerLiveData.email}"
+                        android:text="@{SessionUser.getInstance().playerLiveData.email}"
                         android:textSize="16dp"
                         android:textStyle="bold" />
 
@@ -171,7 +171,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_baseline_phone_24_green"
-                        android:text="@{PlayerViewModel.getInstance().playerLiveData.phone}"
+                        android:text="@{SessionUser.getInstance().playerLiveData.phone}"
                         android:textSize="16dp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -207,7 +207,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
-                        android:text="@{PlayerViewModel.getInstance().playerLiveData.birthday}"
+                        android:text="@{SessionUser.getInstance().playerLiveData.birthday}"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -215,7 +215,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
-                        android:text="@{Integer.toString(PlayerViewModel.getInstance().playerLiveData.height) }"
+                        android:text="@{Integer.toString(SessionUser.getInstance().playerLiveData.height) }"
                         android:textSize="16dp"
                         android:textStyle="bold" />
 
@@ -223,7 +223,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
-                        android:text="@{Integer.toString(PlayerViewModel.getInstance().playerLiveData.weight)}"
+                        android:text="@{Integer.toString(SessionUser.getInstance().playerLiveData.weight)}"
                         android:textSize="16dp"
                         android:textStyle="bold" />
 
@@ -231,7 +231,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
-                        android:text="@{PlayerViewModel.getInstance().playerLiveData.level}"
+                        android:text="@{SessionUser.getInstance().playerLiveData.level}"
                         android:textSize="20dp"
                         android:textStyle="bold" />
 
@@ -239,7 +239,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
-                        android:text="@{PlayerViewModel.getInstance().playerLiveData.position}"
+                        android:text="@{SessionUser.getInstance().playerLiveData.position}"
                         android:textSize="16dp"
                         android:textStyle="bold" />
 
@@ -247,7 +247,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_baseline_phone_24_green"
-                        android:text="@{PlayerViewModel.getInstance().playerLiveData.foot}"
+                        android:text="@{SessionUser.getInstance().playerLiveData.foot}"
                         android:textSize="16dp"
                         android:textStyle="bold" />
 
@@ -280,7 +280,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{PlayerViewModel.getInstance().playerLiveData.birthday}"
+                    android:text="@{SessionUser.getInstance().playerLiveData.birthday}"
                     android:textStyle="bold" />
             </LinearLayout>
         </ScrollView>

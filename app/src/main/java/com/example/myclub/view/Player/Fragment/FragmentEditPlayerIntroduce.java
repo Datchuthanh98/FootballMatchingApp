@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 
 import com.example.myclub.data.enumeration.Result;
-import com.example.myclub.viewModel.PlayerViewModel;
+import com.example.myclub.viewModel.SessionUser;
 import com.example.myclub.databinding.FragmentEditPlayerIntroduceBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
 import com.example.myclub.model.Player;
@@ -26,7 +26,7 @@ import java.util.Map;
 public class FragmentEditPlayerIntroduce extends BottomSheetDialogFragment {
 
      private FragmentEditPlayerIntroduceBinding binding;
-    private PlayerViewModel session = PlayerViewModel.getInstance();
+    private SessionUser session = SessionUser.getInstance();
     private Dialog loadingDialog;
     private LoadingLayoutBinding loadingLayoutBinding;
     private  Map<String, Object> data = new HashMap<>();
@@ -98,9 +98,9 @@ public class FragmentEditPlayerIntroduce extends BottomSheetDialogFragment {
     }
 
     private  void updateUIPlayer (){
-        Player player = PlayerViewModel.getInstance().getPlayerLiveData().getValue();
+        Player player = SessionUser.getInstance().getPlayerLiveData().getValue();
         player.setIntroduce(binding.txtIntroduce.getText().toString());
-        PlayerViewModel.getInstance().setPlayerLiveData(player);
+        SessionUser.getInstance().setPlayerLiveData(player);
     }
 
 }

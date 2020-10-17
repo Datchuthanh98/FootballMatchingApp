@@ -6,18 +6,14 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.example.myclub.Interface.LoadListOtherPlayerCallBack;
-import com.example.myclub.Interface.LoadListOtherTeamCallBack;
 import com.example.myclub.Interface.LoadListPlayerCallBack;
 import com.example.myclub.Interface.LoadListPlayerRequestCallBack;
-import com.example.myclub.Interface.LoadListTeamCallBack;
 import com.example.myclub.Interface.LoadPlayerCallBack;
-import com.example.myclub.Interface.LoadTeamCallBack;
 import com.example.myclub.Interface.LoginCallBack;
 import com.example.myclub.Interface.RegisterPlayerCallBack;
 import com.example.myclub.Interface.UpdateImageCallBack;
 import com.example.myclub.Interface.UpdateProfileCallBack;
-import com.example.myclub.model.Team;
-import com.example.myclub.viewModel.PlayerViewModel;
+import com.example.myclub.viewModel.SessionUser;
 import com.example.myclub.model.Player;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -105,24 +101,26 @@ public class PlayerDataSource {
     }
 
     public void updateProfile(Map<String, Object> updateData, final UpdateProfileCallBack callBack) {
-        String uid = PlayerViewModel.getInstance().getPlayerLiveData().getValue().getId();
-        db.collection("Player").document(uid).update(updateData).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                callBack.onSuccess();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
+        if (SessionUser.getInstance().getPlayerLiveData().getValue() != null) {
+            String uid = SessionUser.getInstance().getPlayerLiveData().getValue().getId();
+            db.collection("Player").document(uid).update(updateData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    callBack.onSuccess();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
 
-                callBack.onFailure(e.getMessage());
-            }
-        });
+                    callBack.onFailure(e.getMessage());
+                }
+            });
+        }
     }
 
 
     public void updateImage(Uri uri, String path ,boolean isAvatar, final UpdateImageCallBack callBack){
-        final String uid = PlayerViewModel.getInstance().getPlayerLiveData().getValue().getId();
+        final String uid = SessionUser.getInstance().getPlayerLiveData().getValue().getId();
         Date date = new Date();
         String urlFile ="", key="";
         String[] parts = path.split("\\.");
@@ -266,9 +264,4 @@ public class PlayerDataSource {
             }
         });
     }
-
-
-
-
-
 }

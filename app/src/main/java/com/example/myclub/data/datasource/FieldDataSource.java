@@ -86,36 +86,5 @@ public class FieldDataSource {
         });
     }
 
-    public void addBookingField(Map<String, Object> map, final AddBookingField addBookingField) {
-//        DocumentReference ref = db.collection("BookingField").document();
-//        ref.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
-//            @Override
-//            public void onSuccess(Void aVoid) {
-//                addBookingField.onSuccess();
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                addBookingField.onFailure();
-//            }
-//        });
-        db.collection("BookingField").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-            @Override
-            public void onSuccess(DocumentReference documentReference) {
-                  String id = documentReference.getId();
 
-                db.collection("BookingField").document(documentReference.getId()).update("id",id).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                     addBookingField.onSuccess();
-                    }
-                });
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                addBookingField.onFailure();
-            }
-        });
-    }
 }

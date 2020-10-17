@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myclub.databinding.FragmentListTimeBinding;
 import com.example.myclub.view.Match.Adapter.RecycleViewAdapterListTimeVertical;
-import com.example.myclub.viewModel.BookingFieldSession;
+import com.example.myclub.viewModel.SessionBookingField;
 
 public class FragmentListTime extends Fragment {
-    private BookingFieldSession viewModel = BookingFieldSession.getInstance();
+    private SessionBookingField viewModel = SessionBookingField.getInstance();
     private FragmentListTimeBinding binding;
 
     @Nullable

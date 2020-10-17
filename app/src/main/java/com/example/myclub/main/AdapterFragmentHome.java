@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.myclub.view.Field.Fragment.FragmentMainField;
+import com.example.myclub.view.field.fragment.FragmentMainField;
 import com.example.myclub.view.Match.Fragment.FragmentMainMatch;
 import com.example.myclub.view.Player.Fragment.FragmentProfileMyself;
 import com.example.myclub.view.Team.Fragment.FragmentListMainTeam;

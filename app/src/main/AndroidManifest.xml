@@ -26,6 +26,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service
+            android:name=".messagingService.MyFirebaseMessagingService"
+            android:exported="false"
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
         <uses-library android:name="org.apache.http.legacy" android:required="false" />
 
 
@@ -62,16 +70,6 @@
             android:theme="@style/AppTheme"></activity>
 
 
-
-
-<!--        <activity-->
-<!--            android:name=".main.ActivityHome"-->
-<!--            android:label="@string/app_name"-->
-<!--            android:theme="@style/AppTheme"></activity>-->
-
-
- 
-
         <activity
             android:name=".googlemap.activity.PlaceDetailsActivity"
             android:label="@string/app_name"
@@ -90,16 +88,6 @@
 
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
-
-
-<!--        Firebase Cloud Message-->
-        <service
-            android:name=".view.Notification.MyFirebaseMessagingService"
-            tools:ignore="Instantiatable">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
 
 
 <!--        BroadCast Receiver-->

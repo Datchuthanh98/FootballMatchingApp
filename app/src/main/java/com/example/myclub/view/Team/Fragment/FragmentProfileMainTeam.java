@@ -10,23 +10,19 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.myclub.R;
-import com.example.myclub.data.enumeration.LoadDataState;
+import com.example.myclub.data.enumeration.LoadingState;
 import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.databinding.FragmentProfileMyTeamBinding;
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.view.Player.Adapter.AdapterFragmentProfile;
 import com.example.myclub.view.Team.Adapter.AdapterFragmentProfileTeam;
-import com.example.myclub.viewModel.PlayerViewModel;
 import com.example.myclub.viewModel.TeamViewModel;
 import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
-
-import java.io.File;
 
 public class FragmentProfileMainTeam extends Fragment {
 
@@ -85,18 +81,18 @@ public class FragmentProfileMainTeam extends Fragment {
     private void observeLiveData(final Context context) {
 
 
-        teamViewModel.getTeamLoadState().observe(getViewLifecycleOwner(), new Observer<LoadDataState>() {
+        teamViewModel.getTeamLoadState().observe(getViewLifecycleOwner(), new Observer<LoadingState>() {
             @Override
-            public void onChanged(LoadDataState loadDataState) {
+            public void onChanged(LoadingState loadingState) {
 
-                if (loadDataState == null) return;
-                if (loadDataState == LoadDataState.INIT) {
+                if (loadingState == null) return;
+                if (loadingState == LoadingState.INIT) {
                     Toast.makeText(getContext(),"init ",Toast.LENGTH_SHORT).show();
                     binding.loadingLayout.setVisibility(View.VISIBLE);
-                } else if (loadDataState == LoadDataState.LOADING) {
+                } else if (loadingState == LoadingState.LOADING) {
                     Toast.makeText(getContext(),"loading ",Toast.LENGTH_SHORT).show();
                     binding.loadingLayout.setVisibility(View.VISIBLE);
-                } else if (loadDataState == LoadDataState.LOADED) {
+                } else if (loadingState == LoadingState.LOADED) {
                     Toast.makeText(getContext(),"loaded ",Toast.LENGTH_SHORT).show();
                     binding.loadingLayout.setVisibility(View.GONE);
                     Picasso.get().load(teamViewModel.getAvatarLiveData().getValue()).into(binding.avatar);

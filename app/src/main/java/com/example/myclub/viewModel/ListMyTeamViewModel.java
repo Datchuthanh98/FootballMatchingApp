@@ -6,12 +6,10 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.myclub.Interface.LoadListOtherTeamCallBack;
 import com.example.myclub.Interface.LoadListTeamCallBack;
-import com.example.myclub.Interface.LoadListTimeCallBack;
 import com.example.myclub.Interface.RegisterTeamCallBack;
 import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.data.repository.TeamRepository;
 import com.example.myclub.model.Team;
-import com.example.myclub.model.TimeGame;
 import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListTeamVertical;
 
 import java.util.ArrayList;
@@ -20,7 +18,7 @@ import java.util.List;
 public class ListMyTeamViewModel extends ViewModel {
 
     private TeamRepository teamRepository = TeamRepository.getInstance();
-    private PlayerViewModel playerViewModel = PlayerViewModel.getInstance();
+    private SessionUser sessionUser = SessionUser.getInstance();
     private static ListMyTeamViewModel instance;
     private RecycleViewAdapterListTeamVertical adapterListTeam = new RecycleViewAdapterListTeamVertical();
     private RecycleViewAdapterListTeamVertical adapterListOtherTeam = new RecycleViewAdapterListTeamVertical();

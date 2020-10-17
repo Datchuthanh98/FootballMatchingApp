@@ -25,7 +25,7 @@ import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListTeamVertical;
 import com.example.myclub.viewModel.ListMyTeamViewModel;
 import com.example.myclub.viewModel.ListPlayerViewModel;
 import com.example.myclub.viewModel.TeamViewModel;
-import com.example.myclub.viewModel.ViewModelTodo;
+
 
 public class FragmentProfileListPlayer extends Fragment {
     private ListPlayerViewModel listPlayerViewModel = ListPlayerViewModel.getInstance();

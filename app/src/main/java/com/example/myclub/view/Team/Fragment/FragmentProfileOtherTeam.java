@@ -1,25 +1,21 @@
 package com.example.myclub.view.Team.Fragment;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 
 import com.example.myclub.R;
-import com.example.myclub.data.repository.RequestJoinTeamRepository;
 import com.example.myclub.databinding.FragmentProfileOtherTeamBinding;
 import com.example.myclub.model.Team;
-import com.example.myclub.viewModel.PlayerViewModel;
+import com.example.myclub.viewModel.SessionUser;
 import com.example.myclub.viewModel.RequestJoinTeamViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,7 +32,7 @@ public class FragmentProfileOtherTeam extends Fragment {
     private StorageReference storageRef = storage.getReference();
     private  Team team ;
     private  Map<String, Object> data = new HashMap<>();
-    private PlayerViewModel playerViewModel = PlayerViewModel.getInstance();
+    private SessionUser sessionUser = SessionUser.getInstance();
     private RequestJoinTeamViewModel requestJoinTeamViewModel = RequestJoinTeamViewModel.getInstance();
 
     public FragmentProfileOtherTeam(Team team) {
@@ -116,7 +112,7 @@ public class FragmentProfileOtherTeam extends Fragment {
 
 
     private Map<String, Object> requestJoinTeam() {
-        data.put("idPlayer",playerViewModel.getPlayerLiveData().getValue().getId());
+        data.put("idPlayer", sessionUser.getPlayerLiveData().getValue().getId());
         data.put("idTeam",team.getId());
         data.put("isPlayerRequest",true);
         return data;

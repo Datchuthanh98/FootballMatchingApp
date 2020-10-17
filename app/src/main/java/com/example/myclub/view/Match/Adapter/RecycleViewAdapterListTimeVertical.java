@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myclub.databinding.ItemTimeHorizontalBinding;
 import com.example.myclub.model.TimeGame;
-import com.example.myclub.viewModel.BookingFieldSession;
+import com.example.myclub.viewModel.SessionBookingField;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +59,7 @@ public class RecycleViewAdapterListTimeVertical extends RecyclerView.Adapter<Rec
         holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BookingFieldSession.getInstance().setTimeLiveData(listTimes.get(position));
+                SessionBookingField.getInstance().setTimeLiveData(listTimes.get(position));
                detach();
             }
         });

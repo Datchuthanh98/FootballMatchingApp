@@ -21,6 +21,7 @@ import com.google.firebase.storage.FileDownloadTask;
 
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
 public class PlayerRepository {
@@ -102,10 +103,5 @@ public class PlayerRepository {
     public void getListOtherPlayer(String id ,LoadListOtherPlayerCallBack loadListOtherPlayerCallBack){
         userDataSource.loadListOtherPlayer(id,loadListOtherPlayerCallBack);
     }
-
-
-
-
-
 
 }

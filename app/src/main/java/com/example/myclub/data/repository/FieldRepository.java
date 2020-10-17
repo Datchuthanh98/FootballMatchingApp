@@ -5,7 +5,7 @@ import com.example.myclub.Interface.FirebaseLoadListTodo;
 import com.example.myclub.Interface.LoadListField;
 import com.example.myclub.Interface.LoadListTimeCallBack;
 import com.example.myclub.data.datasource.FieldDataSource;
-import com.example.myclub.data.datasource.TestDataSource;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,9 +33,5 @@ public class FieldRepository {
         fieldDataSource.loadListTime(idTeam,loadListTimeCallBack);
     }
 
-    public  void addbookingField(Map<String,Object> map , AddBookingField addBookingField){
-        fieldDataSource.addBookingField(map,addBookingField );
 
-
-    }
 }

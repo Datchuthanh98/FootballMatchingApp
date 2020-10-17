@@ -3,25 +3,19 @@ package com.example.myclub.viewModel;
 import android.app.Application;
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.myclub.Interface.GetTeamPhotoCallBack;
-import com.example.myclub.Interface.GetUserCoverCallBack;
-import com.example.myclub.Interface.GetUserPhotoCallBack;
 import com.example.myclub.Interface.LoadTeamCallBack;
 import com.example.myclub.Interface.TeamChangeCallBack;
 import com.example.myclub.Interface.UpdateImageCallBack;
 import com.example.myclub.Interface.UpdateProfileCallBack;
-import com.example.myclub.Interface.UserChangeCallBack;
-import com.example.myclub.data.enumeration.LoadDataState;
+import com.example.myclub.data.enumeration.LoadingState;
 import com.example.myclub.data.enumeration.Result;
-import com.example.myclub.data.repository.PlayerRepository;
 import com.example.myclub.data.repository.TeamRepository;
-import com.example.myclub.model.Player;
 import com.example.myclub.model.Team;
 
 import java.io.File;
@@ -38,7 +32,7 @@ public class TeamViewModel extends ViewModel implements TeamChangeCallBack {
     private MutableLiveData<File> teamCoverLiveData = new MutableLiveData<>();
     private MutableLiveData<Result> resultLiveData = new MutableLiveData<>(null);
     private MutableLiveData<Result> resultPhotoLiveData = new MutableLiveData<>(null);
-    private MutableLiveData<LoadDataState> teamLoadState = new MutableLiveData<>(LoadDataState.INIT);
+    private MutableLiveData<LoadingState> teamLoadState = new MutableLiveData<>(LoadingState.INIT);
     private String resultMessage = null;
 
     public static TeamViewModel getInstance() {
@@ -81,7 +75,7 @@ public class TeamViewModel extends ViewModel implements TeamChangeCallBack {
         return resultMessage;
     }
 
-    public LiveData<LoadDataState> getTeamLoadState() {
+    public LiveData<LoadingState> getTeamLoadState() {
         return teamLoadState;
     }
 
@@ -98,13 +92,13 @@ public class TeamViewModel extends ViewModel implements TeamChangeCallBack {
                 // 24 hours
                 if (photo.exists() && photo.lastModified() < Calendar.getInstance().getTimeInMillis() - 86400000){
                     teamAvatarLiveData.setValue(photo);
-                    teamLoadState.setValue(LoadDataState.LOADED);
+                    teamLoadState.setValue(LoadingState.LOADED);
                 } else {
                     teamRepository.getAvatarPhoto(new GetTeamPhotoCallBack() {
                         @Override
                         public void onGetTeamPhotoCallBack(File photo) {
                             teamAvatarLiveData.setValue(photo);
-                            teamLoadState.setValue(LoadDataState.LOADED);
+                            teamLoadState.setValue(LoadingState.LOADED);
                         }
                     }, team.getUrlAvatar(), getApplicationContext());
                 }
@@ -117,13 +111,13 @@ public class TeamViewModel extends ViewModel implements TeamChangeCallBack {
                 // 24 hours
                 if (photo.exists() && photo.lastModified() < Calendar.getInstance().getTimeInMillis() - 86400000){
                     teamCoverLiveData.setValue(photo);
-                    teamLoadState.setValue(LoadDataState.LOADED);
+                    teamLoadState.setValue(LoadingState.LOADED);
                 } else {
                     teamRepository.getCoverPhoto(new GetTeamPhotoCallBack() {
                         @Override
                         public void onGetTeamPhotoCallBack(File photo) {
                             teamCoverLiveData.setValue(photo);
-                            teamLoadState.setValue(LoadDataState.LOADED);
+                            teamLoadState.setValue(LoadingState.LOADED);
                         }
                     }, team.getUrlCover(), getApplicationContext());
                 }
@@ -133,7 +127,7 @@ public class TeamViewModel extends ViewModel implements TeamChangeCallBack {
 
 
     public void loadTeam(String id){
-        teamLoadState.setValue(LoadDataState.LOADING);
+        teamLoadState.setValue(LoadingState.LOADING);
         teamRepository.loadTeam(id, new LoadTeamCallBack() {
             @Override
             public void onSuccess(Team team) {

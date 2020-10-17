@@ -6,8 +6,8 @@
     <data>
         <import type="android.view.View" />
         <variable
-            name="todo"
-            type="com.example.myclub.model.Todo" />
+            name="match"
+            type="com.example.myclub.model.Match" />
     </data>
 
 <androidx.cardview.widget.CardView
@@ -55,8 +55,8 @@
                 android:id="@+id/score1"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-
-                android:text="0" />
+                android:text="@{match.scoreHome}"
+                />
 
             <TextView
                 android:gravity="center"
@@ -76,7 +76,7 @@
                 android:id="@+id/score2"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:text="0" />
+                android:text="@{match.scoreAway}" />
 
 
 
@@ -127,7 +127,7 @@
                 android:id="@+id/status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sắp diễn ra" />
+                android:text="@{match.active ?  `done`  :`comming soon`}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,8 +1,6 @@
 package com.example.myclub.view.Team.Fragment;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,15 +16,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.databinding.FragmentListMyTeamBinding;
-import com.example.myclub.model.Player;
 import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListTeamVertical;
 import com.example.myclub.viewModel.ListMyTeamViewModel;
-import com.example.myclub.viewModel.PlayerViewModel;
-import com.example.myclub.viewModel.ViewModelTodo;
+import com.example.myclub.viewModel.SessionUser;
 
 public class FragmentListMyTeam extends Fragment {
     private ListMyTeamViewModel listMyTeamViewModel = ListMyTeamViewModel.getInstance();
-    private PlayerViewModel playerViewModel = PlayerViewModel.getInstance();
+    private SessionUser sessionUser = SessionUser.getInstance();
     private FragmentListMyTeamBinding binding;
     public boolean isShow = true ;
 
@@ -50,13 +46,16 @@ public class FragmentListMyTeam extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initComponent();
+        observerLiveDate();
+    }
 
+    private void observerLiveDate() {
         listMyTeamViewModel.getResultLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
             @Override
             public void onChanged(Result result) {
                 if (result == null) return;
                 if (result == Result.SUCCESS) {
-                    listMyTeamViewModel.getListTeam(playerViewModel.getPlayerLiveData().getValue().getId());
+                    listMyTeamViewModel.getListTeam(sessionUser.getPlayerLiveData().getValue().getId());
 //                    Toast.makeText(context, "List get new team", Toast.LENGTH_SHORT).show();
 
                 } else if (result == Result.FAILURE) {
@@ -67,7 +66,7 @@ public class FragmentListMyTeam extends Fragment {
     }
 
     private  void initComponent(){
-        listMyTeamViewModel.getListTeam(playerViewModel.getPlayerLiveData().getValue().getId());
+        listMyTeamViewModel.getListTeam(sessionUser.getPlayerLiveData().getValue().getId());
         binding.recycleViewListTeamVertical.setLayoutManager(new LinearLayoutManager(getContext()));
         //Khởi tạo màn hình ban đầu của fragment
         RecycleViewAdapterListTeamVertical adapter = listMyTeamViewModel.getAdapterListTeam();

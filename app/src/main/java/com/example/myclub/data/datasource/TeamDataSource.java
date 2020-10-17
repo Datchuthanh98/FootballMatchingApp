@@ -1,20 +1,17 @@
 package com.example.myclub.data.datasource;
 
 import android.net.Uri;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import com.example.myclub.Interface.LoadListOtherTeamCallBack;
-import com.example.myclub.Interface.LoadListPlayerCallBack;
 import com.example.myclub.Interface.LoadListTeamCallBack;
 import com.example.myclub.Interface.LoadTeamCallBack;
 import com.example.myclub.Interface.RegisterTeamCallBack;
 import com.example.myclub.Interface.UpdateImageCallBack;
 import com.example.myclub.Interface.UpdateProfileCallBack;
-import com.example.myclub.model.Player;
 import com.example.myclub.model.Team;
-import com.example.myclub.viewModel.PlayerViewModel;
+import com.example.myclub.viewModel.SessionUser;
 import com.example.myclub.viewModel.TeamViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -52,7 +49,7 @@ public class TeamDataSource {
 
     public void createTeam(final String name, final String phone, final String email, final RegisterTeamCallBack callBack) {
         Map<String, Object> map = new HashMap<>();
-        final String idPlayer = PlayerViewModel.getInstance().getPlayerLiveData().getValue().getId();
+        final String idPlayer = SessionUser.getInstance().getPlayerLiveData().getValue().getId();
 
         map.put("name", name);
         map.put("phone", phone);

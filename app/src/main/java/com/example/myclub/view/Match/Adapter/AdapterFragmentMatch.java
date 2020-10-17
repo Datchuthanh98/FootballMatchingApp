@@ -6,12 +6,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.myclub.view.Field.Fragment.FragmentListField;
-import com.example.myclub.view.Field.Fragment.FragmentMap;
+import com.example.myclub.view.Match.Fragment.FragmentListBooking;
 import com.example.myclub.view.Match.Fragment.FragmentListMatch;
+import com.example.myclub.view.Match.Fragment.FragmentListMyMatch;
 
 public class AdapterFragmentMatch extends FragmentStatePagerAdapter {
-    int numTab = 2;
+    int numTab = 3;
     public AdapterFragmentMatch(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
     }
@@ -23,7 +23,9 @@ public class AdapterFragmentMatch extends FragmentStatePagerAdapter {
             case 0:
                 return new FragmentListMatch();
             case 1 :
-                return  new FragmentListMatch();
+                return  new FragmentListMyMatch();
+            case 2 :
+                return  new FragmentListBooking();
         }
         return  null;
     }
@@ -41,6 +43,8 @@ public class AdapterFragmentMatch extends FragmentStatePagerAdapter {
                 return "Macthes";
             case 1:
                 return "My Match";
+            case 2:
+                return "My Booking";
         }
         return null;
     }

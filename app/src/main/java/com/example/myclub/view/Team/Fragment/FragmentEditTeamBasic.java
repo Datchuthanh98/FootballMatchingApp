@@ -7,27 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.example.myclub.R;
 import com.example.myclub.data.enumeration.Result;
-import com.example.myclub.databinding.FragmentEditPlayerBasicBinding;
 import com.example.myclub.databinding.FragmentEditTeamBasicBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
-import com.example.myclub.model.Player;
 import com.example.myclub.model.Team;
-import com.example.myclub.viewModel.PlayerViewModel;
 import com.example.myclub.viewModel.TeamViewModel;
-import com.example.myclub.viewModel.ViewModelTodo;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.HashMap;

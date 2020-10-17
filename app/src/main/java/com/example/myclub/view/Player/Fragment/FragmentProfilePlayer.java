@@ -2,7 +2,6 @@ package com.example.myclub.view.Player.Fragment;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import androidx.lifecycle.Observer;
 import com.example.myclub.R;
 import com.example.myclub.databinding.FragmentProfilePlayerBinding;
 import com.example.myclub.model.Player;
-import com.example.myclub.viewModel.PlayerViewModel;
 import com.example.myclub.viewModel.RequestJoinTeamViewModel;
 import com.example.myclub.viewModel.TeamViewModel;
 import com.google.android.gms.tasks.OnFailureListener;

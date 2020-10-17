@@ -24,10 +24,8 @@ import androidx.lifecycle.Observer;
 
 import com.example.myclub.R;
 import com.example.myclub.data.enumeration.Result;
-import com.example.myclub.databinding.FragmentEditMainPlayerBinding;
 import com.example.myclub.databinding.FragmentEditMainTeamBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
-import com.example.myclub.viewModel.PlayerViewModel;
 import com.example.myclub.viewModel.TeamViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.squareup.picasso.Picasso;
