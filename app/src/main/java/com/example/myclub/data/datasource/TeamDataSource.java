@@ -1,17 +1,14 @@
 package com.example.myclub.data.datasource;
 
 import android.net.Uri;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.example.myclub.Interface.LoadListOtherTeamCallBack;
-import com.example.myclub.Interface.LoadListTeamCallBack;
-import com.example.myclub.Interface.LoadTeamCallBack;
-import com.example.myclub.Interface.RegisterTeamCallBack;
-import com.example.myclub.Interface.UpdateImageCallBack;
-import com.example.myclub.Interface.UpdateProfileCallBack;
+import com.example.myclub.Interface.CallBack;
+import com.example.myclub.model.Player;
 import com.example.myclub.model.Team;
-import com.example.myclub.viewModel.SessionUser;
+import com.example.myclub.data.session.SessionUser;
 import com.example.myclub.viewModel.TeamViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -20,10 +17,13 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.functions.HttpsCallableResult;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -33,11 +33,12 @@ import java.util.List;
 import java.util.Map;
 
 public class TeamDataSource {
-    private final String TAG = "TeamDataSource";
     static TeamDataSource instance;
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseStorage storage = FirebaseStorage.getInstance();
+    private FirebaseFunctions functions = FirebaseFunctions.getInstance();
+    private Gson convert = new Gson();
 
     public static TeamDataSource getInstance() {
         if (instance == null) {
@@ -47,37 +48,19 @@ public class TeamDataSource {
     }
 
 
-    public void createTeam(final String name, final String phone, final String email, final RegisterTeamCallBack callBack) {
+    public void createTeam(final String name, final String phone, final String email, final CallBack<Team,String> callBack) {
         Map<String, Object> map = new HashMap<>();
         final String idPlayer = SessionUser.getInstance().getPlayerLiveData().getValue().getId();
-
         map.put("name", name);
         map.put("phone", phone);
         map.put("email", email);
         map.put("level", "basic");
-        map.put("idCaption", idPlayer);
-        map.put("urlAvatar", "/Avatar/avatar_team_default.jpg");
-        map.put("urlCover", "/Cover/cover_default.jpg");
-
-        db.collection("Team").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        map.put("idPlayer", idPlayer);
+        functions.getHttpsCallable("createTeam").call(map).addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
             @Override
-            public void onSuccess(final DocumentReference documentReference) {
-                Map<String, Object> map = new HashMap<>();
-                map.put("id", documentReference.getId());
-                db.collection("Team").document(documentReference.getId()).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        final Map<String, Object> mapTeamMember = new HashMap<>();
-                        mapTeamMember.put("idPlayer", idPlayer);
-                        mapTeamMember.put("idTeam", documentReference.getId());
-                        db.collection("TeamMember").add(mapTeamMember).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                callBack.onSuccess();
-                            }
-                        });
-                    }
-                });
+            public void onSuccess(HttpsCallableResult httpsCallableResult) {
+                callBack.onSuccess(null);
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -88,91 +71,102 @@ public class TeamDataSource {
     }
 
 
-    public void loadListTeam(String id, final LoadListTeamCallBack loadListTeamCallBack) {
-        db.collection("TeamMember").whereEqualTo("idPlayer", id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                List<String> listIdTeam = new ArrayList<>();
-                if (!queryDocumentSnapshots.isEmpty()) {
-                    for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
-                        String idteam = (String) document.get("idTeam");
-                        listIdTeam.add(idteam);
-                    }
-                    db.collection("Team").whereIn("id", listIdTeam).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            List<Team> listTeam = new ArrayList<>();
-                            if (!queryDocumentSnapshots.isEmpty()) {
-                                for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
-                                    Team team = document.toObject(Team.class);
-                                    listTeam.add(team);
-                                }
-                                loadListTeamCallBack.onSuccess(listTeam);
-                            } else {
-                                loadListTeamCallBack.onFailure("Null");
-                            }
-                        }
-                    });
-                }
-            }
-        });
+    public void loadListTeam(String idPlayer, final CallBack<List<Team>,String> loadListTeamCallBack) {
+         functions.getHttpsCallable("getListTeam").call(idPlayer).addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
+             @Override
+             public void onSuccess(HttpsCallableResult httpsCallableResult) {
+                 Gson gson= new Gson();
+                 List<Map> listTeamMaps = (List<Map>) httpsCallableResult.getData();
+                 List<Team> listTeam = new ArrayList<>();
+                 if(listTeamMaps == null){
+                     loadListTeamCallBack.onSuccess(new ArrayList<Team>());
+                 }else{
+                     for (Map teamMap : listTeamMaps){
+                         Team team = gson.fromJson(gson.toJson(teamMap), Team.class);
+                         listTeam.add(team);
+                     }
+                     loadListTeamCallBack.onSuccess(listTeam);
+                 }
+             }
+         }).addOnFailureListener(new OnFailureListener() {
+             @Override
+             public void onFailure(@NonNull Exception e) {
+                 loadListTeamCallBack.onFailure(e.getMessage());
+             }
+         });
     }
 
 
-    public void loadListOtherTeam(String id, final LoadListOtherTeamCallBack loadListOtherTeamCallBack) {
-
-        db.collection("TeamMember").whereEqualTo("idPlayer", id).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+    public void loadListOtherTeam(String idPlayer, final CallBack<List<Team>,String> loadListOtherTeamCallBack) {
+       functions.getHttpsCallable("getListTeamOther").call(idPlayer).addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
             @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                final List<String> listIdTeam = new ArrayList<>();
-                if (!queryDocumentSnapshots.isEmpty()) {
-                    for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
-                        String idteam = (String) document.get("idTeam");
-                        listIdTeam.add(idteam);
+            public void onSuccess(HttpsCallableResult httpsCallableResult) {
+                Gson gson= new Gson();
+                List<Map> listTeamMaps = (List<Map>) httpsCallableResult.getData();
+                List<Team> listTeam = new ArrayList<>();
+                if(listTeamMaps == null){
+                    loadListOtherTeamCallBack.onSuccess(new ArrayList<Team>());
+                }else{
+                    Log.d("uchiha", "vao day la null r "+listTeamMaps.size());
+                    for (Map teamMap : listTeamMaps){
+                        Team team = gson.fromJson(gson.toJson(teamMap), Team.class);
+                        listTeam.add(team);
                     }
+                    loadListOtherTeamCallBack.onSuccess(listTeam);
                 }
-
-                db.collection("Team").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        List<Team> listTeam = new ArrayList<>();
-                        if (!queryDocumentSnapshots.isEmpty()) {
-                            for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
-                                Team team = document.toObject(Team.class);
-                                for(int i = 0 ; i < listIdTeam.size();i++){
-                                    if(listIdTeam.get(i).equals(team.getId())){
-                                        break;
-                                    }else if(i == (listIdTeam.size()-1)){
-                                       listTeam.add(team);
-                                    }
-
-                                }
-                            }
-                            loadListOtherTeamCallBack.onSuccess(listTeam);
-                        } else {
-                            loadListOtherTeamCallBack.onFailure("Null");
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        loadListOtherTeamCallBack.onFailure(e.getMessage());
-                    }
-                });
-
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                loadListOtherTeamCallBack.onFailure(e.getMessage());
             }
         });
 
-
-
+//        db.collection("TeamMember").whereEqualTo("idPlayer", idPlayer).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//            @Override
+//            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                final List<String> listIdTeam = new ArrayList<>();
+//                if (!queryDocumentSnapshots.isEmpty()) {
+//                    for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
+//                        String idteam = (String) document.get("idTeam");
+//                        listIdTeam.add(idteam);
+//                    }
+//                }
+//
+//                db.collection("Team").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                        List<Team> listTeam = new ArrayList<>();
+//                        if (!queryDocumentSnapshots.isEmpty()) {
+//                            for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
+//                                Team team = document.toObject(Team.class);
+//                                for(int i = 0 ; i < listIdTeam.size();i++){
+//                                    if(listIdTeam.get(i).equals(team.getId())){
+//                                        break;
+//                                    }else if(i == (listIdTeam.size()-1)){
+//                                       listTeam.add(team);
+//                                    }
+//
+//                                }
+//                            }
+//                            loadListOtherTeamCallBack.onSuccess(listTeam);
+//                        } else {
+//                            loadListOtherTeamCallBack.onFailure("Null");
+//                        }
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        loadListOtherTeamCallBack.onFailure(e.getMessage());
+//                    }
+//                });
+//
+//            }
+//        });
     }
 
 
-
-
-
-
-    public void loadTeam(String idTeam, final LoadTeamCallBack callBack) {
+    public void loadTeam(String idTeam, final CallBack<Team,String> callBack) {
         db.collection("Team").document(idTeam).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -188,12 +182,12 @@ public class TeamDataSource {
     }
 
 
-    public void updateProfile(Map<String, Object> updateData, final UpdateProfileCallBack callBack) {
+    public void updateProfile(Map<String, Object> updateData, final CallBack<String,String> callBack) {
         String uid = TeamViewModel.getInstance().getTeamLiveData().getValue().getId();
         db.collection("Team").document(uid).update(updateData).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                callBack.onSuccess();
+                callBack.onSuccess("");
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -205,7 +199,7 @@ public class TeamDataSource {
     }
 
 
-    public void updateImage(Uri uri, String path, boolean isAvatar, final UpdateImageCallBack callBack) {
+    public void updateImage(Uri uri, String path, boolean isAvatar, final CallBack<String ,String> callBack) {
         final String uid = TeamViewModel.getInstance().getTeamLiveData().getValue().getId();
         Date date = new Date();
         String urlFile = "", key = "";

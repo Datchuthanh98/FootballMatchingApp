@@ -2,6 +2,7 @@ const functions = require('firebase-functions');
 
 const admin = require('firebase-admin');
 const db = admin.firestore();
+const auth = admin.auth();
 
 
 exports.triggerJoinTeam = functions.firestore.document('RequestJoinTeam/{requestId}').onCreate(async (snap, context) => {

@@ -4,13 +4,9 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.example.myclub.Interface.AddBookingField;
-import com.example.myclub.Interface.FirebaseLoadListTodo;
-import com.example.myclub.Interface.LoadListField;
-import com.example.myclub.Interface.LoadListTimeCallBack;
+import com.example.myclub.Interface.CallBack;
 import com.example.myclub.model.Field;
 import com.example.myclub.model.TimeGame;
-import com.example.myclub.model.Todo;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
@@ -36,7 +32,7 @@ public class FieldDataSource {
     }
 
     //Firestore realtime
-    public void loadListField(final LoadListField loadListField) {
+    public void loadListField(final CallBack<List<Field>,String> loadListField) {
             db.collection("Field").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -47,7 +43,7 @@ public class FieldDataSource {
 
                             fieldList.add(field);
                         }
-                        loadListField.FirebaseLoadListTodo(fieldList);
+                        loadListField.onSuccess(fieldList);
                     } else {
                         Log.d("meomeo", "failed");
                         
@@ -62,7 +58,7 @@ public class FieldDataSource {
 
     }
 
-    public void loadListTime(String idTeam, final LoadListTimeCallBack loadListTimeCallBack) {
+    public void loadListTime(String idTeam, final CallBack<List<TimeGame>,String> loadListTimeCallBack) {
 
         db.collection("TimeGame").whereEqualTo("idField", idTeam).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override

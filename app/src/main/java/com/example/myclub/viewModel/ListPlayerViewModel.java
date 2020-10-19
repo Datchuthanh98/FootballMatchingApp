@@ -4,19 +4,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.myclub.Interface.LoadListOtherPlayerCallBack;
-import com.example.myclub.Interface.LoadListOtherTeamCallBack;
-import com.example.myclub.Interface.LoadListPlayerCallBack;
-import com.example.myclub.Interface.LoadListPlayerRequestCallBack;
-import com.example.myclub.Interface.LoadListTeamCallBack;
-import com.example.myclub.Interface.RegisterTeamCallBack;
+import com.example.myclub.Interface.CallBack;
 import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.data.repository.PlayerRepository;
 import com.example.myclub.model.Player;
-import com.example.myclub.model.Team;
-import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListPlayerRequestVertical;
-import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListPlayerVertical;
-import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListTeamVertical;
+import com.example.myclub.view.team.adapter.RecycleViewAdapterListPlayerRequestVertical;
+import com.example.myclub.view.team.adapter.RecycleViewAdapterListPlayerVertical;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +36,7 @@ public class ListPlayerViewModel extends ViewModel {
     }
 
     public void getListPlayer(String idTeam) {
-        playerRepository.getListPlayer(idTeam, new LoadListPlayerCallBack() {
+        playerRepository.getListPlayer(idTeam, new CallBack<List<Player>, String>() {
             @Override
             public void onSuccess(List<Player> listPlayers) {
                 if (listPlayers == null) {
@@ -65,30 +58,30 @@ public class ListPlayerViewModel extends ViewModel {
     }
 
 
-    public void getListOtherPlayer(String idTeam) {
-        playerRepository.getListOtherPlayer(idTeam, new LoadListOtherPlayerCallBack() {
-            @Override
-            public void onSuccess(List<Player> listPlayers) {
-                if (listPlayers == null) {
-                    adapterListOtherPlayer.setListPlayer(new ArrayList<Player>());
-                } else {
-                    listOtherOtherLiveData.setValue(listPlayers);
-                    adapterListOtherPlayer.setListPlayer(listPlayers);
-                    adapterListOtherPlayer.notifyDataSetChanged();
-                    resultLiveData.setValue(Result.SUCCESS);
-                }
-            }
-
-            @Override
-            public void onFailure(String message) {
-                resultMessage = message;
-                resultLiveData.setValue(Result.FAILURE);
-            }
-        });
-    }
+//    public void getListOtherPlayer(String idTeam) {
+//        playerRepository.getListOtherPlayer(idTeam, new CallBack<List<Player>, String>() {
+//            @Override
+//            public void onSuccess(List<Player> listPlayers) {
+//                if (listPlayers == null) {
+//                    adapterListOtherPlayer.setListPlayer(new ArrayList<Player>());
+//                } else {
+//                    listOtherOtherLiveData.setValue(listPlayers);
+//                    adapterListOtherPlayer.setListPlayer(listPlayers);
+//                    adapterListOtherPlayer.notifyDataSetChanged();
+//                    resultLiveData.setValue(Result.SUCCESS);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(String message) {
+//                resultMessage = message;
+//                resultLiveData.setValue(Result.FAILURE);
+//            }
+//        });
+//    }
 
     public void getListPlayerRequest(String idTeam) {
-        playerRepository.getListPlayerRequest(idTeam, new LoadListPlayerRequestCallBack() {
+        playerRepository.getListPlayerRequest(idTeam, new CallBack<List<Player>, String>() {
             @Override
             public void onSuccess(List<Player> listPlayers) {
                 if (listPlayers == null) {

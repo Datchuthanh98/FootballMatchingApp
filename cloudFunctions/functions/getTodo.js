@@ -6,7 +6,11 @@ const db = admin.firestore();
 exports.getTodo = functions.https.onCall(async (id)=>{
     const record = await db.collection('Todo').doc(id).get();
     const data = record.data();
-    return data;
+    const result = {
+        key : "dat123",
+        data : data
+    }
+    return  result;
 });
 
 exports.getTodo2 = functions.https.onCall(async (request)=>{

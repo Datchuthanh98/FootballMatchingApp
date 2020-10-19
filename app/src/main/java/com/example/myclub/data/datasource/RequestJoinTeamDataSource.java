@@ -2,11 +2,8 @@ package com.example.myclub.data.datasource;
 
 import androidx.annotation.NonNull;
 
-import com.example.myclub.Interface.AcceptJoinTeam;
-import com.example.myclub.Interface.AddRequestJoinTeam;
-import com.example.myclub.Interface.CancelRequestJoinTeam;
-import com.example.myclub.Interface.DeclineJoinTeam;
-import com.example.myclub.Interface.GetStateJoinTeam;
+
+import com.example.myclub.Interface.CallBack;
 import com.example.myclub.model.RequestJoinTeam;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -35,7 +32,7 @@ public class RequestJoinTeamDataSource {
         return instance;
     }
 
-    public void addRequest(Map<String, Object> requestJoin, final AddRequestJoinTeam addRequestJoinTeam) {
+        public void addRequest(Map<String, Object> requestJoin, final CallBack<String ,String> addRequestJoinTeam) {
         db.collection("RequestJoinTeam").add(requestJoin).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(final DocumentReference documentReference) {
@@ -52,30 +49,30 @@ public class RequestJoinTeamDataSource {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                addRequestJoinTeam.onFailure();
+                addRequestJoinTeam.onFailure(e.getMessage());
             }
         });
 
     }
 
 
-    public void cancelRequest(String key, final CancelRequestJoinTeam cancelRequestJoinTeam) {
+    public void cancelRequest(String key, final CallBack<String,String> cancelRequestJoinTeam) {
         db.collection("RequestJoinTeam").document(key).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                cancelRequestJoinTeam.onSuccess();
+                cancelRequestJoinTeam.onSuccess("Success");
 
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                cancelRequestJoinTeam.onFailure();
+                cancelRequestJoinTeam.onFailure(e.getMessage());
             }
         });
     }
 
 
-    public void getStateJoinTeamByTeam(Map<String, Object> requestJoin, final GetStateJoinTeam getStateJoinTeam) {
+    public void getStateJoinTeamByTeam(Map<String, Object> requestJoin, final CallBack<RequestJoinTeam,String> getStateJoinTeam) {
         db.collection("RequestJoinTeam").whereEqualTo("idPlayer", requestJoin.get("idPlayer")).whereEqualTo("idTeam", requestJoin.get("idTeam")).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -95,42 +92,42 @@ public class RequestJoinTeamDataSource {
         });
     }
 
-    public void acceptJoinTeam(final Map<String, Object> acceptJoin, final AcceptJoinTeam acceptJoinTeam) {
+    public void acceptJoinTeam(final Map<String, Object> acceptJoin, final CallBack< String,String > acceptJoinTeam) {
         db.collection("TeamMember").add(acceptJoin).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 db.collection("RequestJoinTeam").document((String) acceptJoin.get("key")).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        acceptJoinTeam.onSuccess();
+                        acceptJoinTeam.onSuccess("Success");
 
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        acceptJoinTeam.onFailure();
+                        acceptJoinTeam.onFailure(e.getMessage());
                     }
                 });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                acceptJoinTeam.onFailure();
+                acceptJoinTeam.onFailure(e.getMessage());
             }
         });
     }
 
-    public void declineJoinTeam(final Map<String, Object> acceptJoin, final DeclineJoinTeam declineJoinTeam) {
+    public void declineJoinTeam(final Map<String, Object> acceptJoin, final CallBack<String,String> declineJoinTeam) {
         db.collection("RequestJoinTeam").document((String) acceptJoin.get("key")).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                declineJoinTeam.onSuccess();
+                declineJoinTeam.onSuccess("sucess");
 
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                declineJoinTeam.onFailure();
+                declineJoinTeam.onFailure(e.getMessage());
             }
         });
 

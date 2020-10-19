@@ -12,7 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
-import com.example.myclub.Interface.UpdateProfileCallBack;
+import com.example.myclub.Interface.CallBack;
 import com.example.myclub.R;
 import com.example.myclub.data.repository.PlayerRepository;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,9 +45,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Log.d("NewToken", "sendRegistrationTokenToServer: "+token);
         Map<String, Object> updateProfileMap = new HashMap<>();
         updateProfileMap.put("registrationToken", token);
-        playerRepository.updateProfile(updateProfileMap, new UpdateProfileCallBack() {
+        playerRepository.updateProfile(updateProfileMap, new CallBack<String, String>() {
             @Override
-            public void onSuccess() {
+            public void onSuccess(String sucess) {
                 Toast.makeText(getApplicationContext(), "Updated registration token", Toast.LENGTH_SHORT).show();
             }
 

@@ -7,9 +7,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.myclub.view.field.fragment.FragmentMainField;
-import com.example.myclub.view.Match.Fragment.FragmentMainMatch;
-import com.example.myclub.view.Player.Fragment.FragmentProfileMyself;
-import com.example.myclub.view.Team.Fragment.FragmentListMainTeam;
+import com.example.myclub.view.match.fragment.FragmentMainMatch;
+import com.example.myclub.view.player.Fragment.FragmentProfileMyself;
+import com.example.myclub.view.team.fragment.FragmentListMainTeam;
 
 public class AdapterFragmentHome extends FragmentStatePagerAdapter {
     int numTab = 4;

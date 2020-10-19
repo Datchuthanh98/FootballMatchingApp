@@ -14,7 +14,8 @@ import com.example.myclub.R;
 import com.example.myclub.databinding.FragmentProfileFieldBinding;
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.model.Field;
-import com.example.myclub.view.Match.Fragment.FragmentAddMatch;
+import com.example.myclub.view.match.fragment.FragmentAddMatch;
+import com.example.myclub.viewModel.ProfileFieldViewModel;
 
 public class FragmentProfileField extends Fragment {
     private ProfileFieldViewModel viewModel;

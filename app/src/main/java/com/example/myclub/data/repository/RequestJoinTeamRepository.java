@@ -1,11 +1,9 @@
 package com.example.myclub.data.repository;
 
-import com.example.myclub.Interface.AcceptJoinTeam;
-import com.example.myclub.Interface.AddRequestJoinTeam;
-import com.example.myclub.Interface.CancelRequestJoinTeam;
-import com.example.myclub.Interface.DeclineJoinTeam;
-import com.example.myclub.Interface.GetStateJoinTeam;
+
+import com.example.myclub.Interface.CallBack;
 import com.example.myclub.data.datasource.RequestJoinTeamDataSource;
+import com.example.myclub.model.RequestJoinTeam;
 
 import java.util.Map;
 
@@ -24,23 +22,23 @@ public class RequestJoinTeamRepository {
         return instance;
     }
 
-    public void addRequestJoinTeam(Map<String, Object> requestJoin, AddRequestJoinTeam addRequestJoinTeam){
+    public void addRequestJoinTeam(Map<String, Object> requestJoin, CallBack<String,String> addRequestJoinTeam){
         requestJoinTeamDataSource.addRequest(requestJoin, addRequestJoinTeam);
     }
 
-    public void cancelRequestJoinTeam(String key, CancelRequestJoinTeam cancelRequestJoinTeam){
+    public void cancelRequestJoinTeam(String key, CallBack<String,String> cancelRequestJoinTeam){
         requestJoinTeamDataSource.cancelRequest(key, cancelRequestJoinTeam);
     }
 
-    public void getStateJoinTeam(Map<String, Object> requestJoin, GetStateJoinTeam getStateJoinTeam){
+    public void getStateJoinTeam(Map<String, Object> requestJoin, CallBack<RequestJoinTeam,String> getStateJoinTeam){
         requestJoinTeamDataSource.getStateJoinTeamByTeam(requestJoin, getStateJoinTeam);
     }
 
-    public void acceptJoinTeam(Map<String, Object> requestJoin, AcceptJoinTeam acceptJoinTeam){
+    public void acceptJoinTeam(Map<String, Object> requestJoin,  CallBack< String,String > acceptJoinTeam){
         requestJoinTeamDataSource.acceptJoinTeam(requestJoin, acceptJoinTeam);
     }
 
-    public void declineJoinTeam(Map<String, Object> requestJoin, DeclineJoinTeam declineJoinTeam){
+    public void declineJoinTeam(Map<String, Object> requestJoin, CallBack<String,String> declineJoinTeam){
         requestJoinTeamDataSource.declineJoinTeam(requestJoin, declineJoinTeam);
     }
 

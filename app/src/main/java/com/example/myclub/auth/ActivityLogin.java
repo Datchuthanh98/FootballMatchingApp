@@ -13,9 +13,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.myclub.Interface.LoginCallBack;
+import com.example.myclub.Interface.CallBack;
 import com.example.myclub.data.datasource.PlayerDataSource;
-import com.example.myclub.viewModel.SessionUser;
+import com.example.myclub.data.session.SessionUser;
 import com.example.myclub.databinding.ActivityLoginBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
 import com.example.myclub.main.ActivityHome;
@@ -33,6 +33,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -40,6 +41,9 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.functions.HttpsCallableResult;
+import com.google.gson.Gson;
 import com.tuyenmonkey.mkloader.MKLoader;
 
 import java.util.Arrays;
@@ -67,25 +71,11 @@ public class ActivityLogin extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         initLoadingDialog(ActivityLogin.this);
-//        loginWithEmail();
+//                loginWithEmail();
 
-//        FirebaseFunctions functions = FirebaseFunctions.getInstance();
-//        functions.getHttpsCallable("getTodo").call("NXBIh3z62AbPpE3Bg1qZ").addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
-//            @Override
-//            public void onSuccess(HttpsCallableResult httpsCallableResult) {
-//                System.out.println(httpsCallableResult.getData().getClass());
-//                System.out.println(httpsCallableResult.getData().toString());
-//            }
-//        });
-//
-//        Map<String, Object> request = new HashMap<>();
-//        request.put("id", "NXBIh3z62AbPpE3Bg1qZ");
-//        functions.getHttpsCallable("getTodo2").call(request).addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
-//            @Override
-//            public void onSuccess(HttpsCallableResult httpsCallableResult) {
-//                System.out.println(httpsCallableResult.getData());
-//            }
-//        });
+
+
+
 
 //        if (FirebaseAuth.getInstance().getCurrentUser() != null){
 //
@@ -178,7 +168,7 @@ public class ActivityLogin extends AppCompatActivity {
 
     private  void loginWithEmail(){
         loadingDialog.show();
-        playerDataSource.login(binding.txtEmail.getText().toString(), binding.txtPassword.getText().toString(), new LoginCallBack() {
+        playerDataSource.login(binding.txtEmail.getText().toString(), binding.txtPassword.getText().toString(), new CallBack<Player,String>() {
             @Override
             public void onSuccess(Player player) {
                 SessionUser.getInstance().onUserChange(player);

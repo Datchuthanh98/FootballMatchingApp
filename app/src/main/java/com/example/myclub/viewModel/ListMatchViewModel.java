@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.myclub.Interface.LoadListMatchCallBack;
+import com.example.myclub.Interface.CallBack;
 import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.data.repository.MatchRepository;
 import com.example.myclub.model.Match;
-import com.example.myclub.view.Match.Adapter.RecycleViewAdapterListMatchVertical;
+import com.example.myclub.view.match.adapter.RecycleViewAdapterListMatchVertical;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ public class ListMatchViewModel extends ViewModel{
     }
 
     public void  getListMatch(){
-        matchRepository.getListMatch(new LoadListMatchCallBack() {
+        matchRepository.getListMatch(new CallBack<List<Match>, String>() {
             @Override
             public void onSuccess(List<Match> matchList) {
                 if(matchList == null){

@@ -8,9 +8,10 @@ import android.view.View;
 import android.widget.Toast;
 
 
-import com.example.myclub.Interface.RegisterPlayerCallBack;
+import com.example.myclub.Interface.CallBack;
 import com.example.myclub.data.datasource.PlayerDataSource;
 import com.example.myclub.databinding.ActivityEmailRegistrationBinding;
+import com.example.myclub.model.Player;
 
 public class EmailRegistrationActivity extends AppCompatActivity {
 
@@ -36,9 +37,9 @@ public class EmailRegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                playerDataSource.register(binding.txtEmail.getText().toString(), binding.txtPassword.getText().toString(), new RegisterPlayerCallBack() {
+                playerDataSource.register(binding.txtEmail.getText().toString(), binding.txtPassword.getText().toString(), new CallBack<Player, String>() {
                     @Override
-                    public void onSuccess() {
+                    public void onSuccess(Player player) {
                         startActivity(new Intent(EmailRegistrationActivity.this,ActivityLogin.class));
                         finish();
                     }

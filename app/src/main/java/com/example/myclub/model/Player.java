@@ -1,12 +1,15 @@
 package com.example.myclub.model;
 
+import com.google.firebase.Timestamp;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class Player {
     private String id;
     private String email;
     private String phone;
-    private String password;
     private String address;
     private String name;
     private String urlCover;
@@ -18,7 +21,15 @@ public class Player {
     private String position;
     private String level;
     private String foot;
+    private List<Team> teams = new ArrayList<>();
 
+    public List<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(List<Team> teams) {
+        this.teams = teams;
+    }
 
     public Player() {
     }
@@ -45,14 +56,6 @@ public class Player {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getAddress() {

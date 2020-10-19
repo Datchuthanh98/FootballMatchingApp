@@ -5,16 +5,9 @@ import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
-import com.example.myclub.Interface.GetUserCoverCallBack;
-import com.example.myclub.Interface.GetUserPhotoCallBack;
-import com.example.myclub.Interface.LoadListOtherPlayerCallBack;
-import com.example.myclub.Interface.LoadListOtherTeamCallBack;
-import com.example.myclub.Interface.LoadListPlayerCallBack;
-import com.example.myclub.Interface.LoadListPlayerRequestCallBack;
-import com.example.myclub.Interface.LoadListTeamCallBack;
-import com.example.myclub.Interface.UpdateImageCallBack;
-import com.example.myclub.Interface.UpdateProfileCallBack;
+import com.example.myclub.Interface.CallBack;
 import com.example.myclub.data.datasource.PlayerDataSource;
+import com.example.myclub.model.Player;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
@@ -22,6 +15,7 @@ import com.google.firebase.storage.FileDownloadTask;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PlayerRepository {
@@ -38,18 +32,18 @@ public class PlayerRepository {
         return instance;
     }
 
-    public void updateProfile(Map<String, Object> updateInformation, UpdateProfileCallBack callBack) {
+    public void updateProfile(Map<String, Object> updateInformation, CallBack<String,String> callBack) {
         userDataSource.updateProfile(updateInformation, callBack);
     }
 
-    public void updateImage(Uri uri, String path ,boolean isAvatar, final UpdateImageCallBack callBack){
+    public void updateImage(Uri uri, String path ,boolean isAvatar, final CallBack<String,String> callBack){
         userDataSource.updateImage(uri,path,isAvatar,callBack);
     }
 
 
-    public void getUserPhoto(final GetUserPhotoCallBack callBack, String url, Context context) {
+    public void getUserPhoto(final CallBack<File,String> callBack, String url, Context context) {
         if (url.isEmpty()) {
-            callBack.onGetUserPhotoCallBack(null);
+            callBack.onSuccess(null);
             return;
         }
         String[] files = url.split("/");
@@ -59,20 +53,20 @@ public class PlayerRepository {
         downloadTask.addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                callBack.onGetUserPhotoCallBack(cachePhoto);
+                callBack.onSuccess(cachePhoto);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                callBack.onGetUserPhotoCallBack(null);
+                callBack.onSuccess(null);
             }
         });
     }
 
 
-    public void getCoverPhoto(final GetUserCoverCallBack callBack, String url, Context context) {
+    public void getCoverPhoto(final CallBack<File,String> callBack, String url, Context context) {
         if (url.isEmpty()) {
-            callBack.onGetUserCoverCallBack(null);
+            callBack.onSuccess(null);
             return;
         }
         String[] files = url.split("/");
@@ -82,26 +76,26 @@ public class PlayerRepository {
         downloadTask.addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                callBack.onGetUserCoverCallBack(cachePhoto);
+                callBack.onSuccess(cachePhoto);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                callBack.onGetUserCoverCallBack(null);
+                callBack.onSuccess(null);
             }
         });
     }
 
-    public void getListPlayer(String id, LoadListPlayerCallBack loadListPlayerCallBack){
+    public void getListPlayer(String id, CallBack<List<Player>,String> loadListPlayerCallBack){
         userDataSource.loadListPlayer(id,loadListPlayerCallBack);
     }
 
-    public void getListPlayerRequest(String id, LoadListPlayerRequestCallBack loadListPlayerCallBack){
+    public void getListPlayerRequest(String id, CallBack<List<Player>,String> loadListPlayerCallBack){
         userDataSource.loadListPlayerRequest(id,loadListPlayerCallBack);
     }
 
-    public void getListOtherPlayer(String id ,LoadListOtherPlayerCallBack loadListOtherPlayerCallBack){
-        userDataSource.loadListOtherPlayer(id,loadListOtherPlayerCallBack);
-    }
+//    public void getListOtherPlayer(String id ,CallBack<List<Player>,String> loadListOtherPlayerCallBack){
+//        userDataSource.loadListOtherPlayer(id,loadListOtherPlayerCallBack);
+//    }
 
 }

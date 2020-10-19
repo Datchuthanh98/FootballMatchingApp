@@ -8,11 +8,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.myclub.Interface.GetTeamPhotoCallBack;
-import com.example.myclub.Interface.LoadTeamCallBack;
+import com.example.myclub.Interface.CallBack;
 import com.example.myclub.Interface.TeamChangeCallBack;
-import com.example.myclub.Interface.UpdateImageCallBack;
-import com.example.myclub.Interface.UpdateProfileCallBack;
 import com.example.myclub.data.enumeration.LoadingState;
 import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.data.repository.TeamRepository;
@@ -94,12 +91,18 @@ public class TeamViewModel extends ViewModel implements TeamChangeCallBack {
                     teamAvatarLiveData.setValue(photo);
                     teamLoadState.setValue(LoadingState.LOADED);
                 } else {
-                    teamRepository.getAvatarPhoto(new GetTeamPhotoCallBack() {
+                    teamRepository.getAvatarPhoto(new CallBack<File, String>() {
                         @Override
-                        public void onGetTeamPhotoCallBack(File photo) {
-                            teamAvatarLiveData.setValue(photo);
+                        public void onSuccess(File file) {
+                            teamAvatarLiveData.setValue(file);
                             teamLoadState.setValue(LoadingState.LOADED);
                         }
+
+                        @Override
+                        public void onFailure(String s) {
+
+                        }
+
                     }, team.getUrlAvatar(), getApplicationContext());
                 }
             }
@@ -113,11 +116,16 @@ public class TeamViewModel extends ViewModel implements TeamChangeCallBack {
                     teamCoverLiveData.setValue(photo);
                     teamLoadState.setValue(LoadingState.LOADED);
                 } else {
-                    teamRepository.getCoverPhoto(new GetTeamPhotoCallBack() {
+                    teamRepository.getCoverPhoto(new CallBack<File, String>() {
                         @Override
-                        public void onGetTeamPhotoCallBack(File photo) {
-                            teamCoverLiveData.setValue(photo);
+                        public void onSuccess(File file) {
+                            teamCoverLiveData.setValue(file);
                             teamLoadState.setValue(LoadingState.LOADED);
+                        }
+
+                        @Override
+                        public void onFailure(String s) {
+
                         }
                     }, team.getUrlCover(), getApplicationContext());
                 }
@@ -128,7 +136,7 @@ public class TeamViewModel extends ViewModel implements TeamChangeCallBack {
 
     public void loadTeam(String id){
         teamLoadState.setValue(LoadingState.LOADING);
-        teamRepository.loadTeam(id, new LoadTeamCallBack() {
+        teamRepository.loadTeam(id, new CallBack<Team, String>() {
             @Override
             public void onSuccess(Team team) {
                 getInstance().onTeamChange(team);
@@ -143,9 +151,9 @@ public class TeamViewModel extends ViewModel implements TeamChangeCallBack {
     }
 
     public void updateProfile(Map<String, Object> updateBasic) {
-        teamRepository.updateProfile(updateBasic, new UpdateProfileCallBack() {
+        teamRepository.updateProfile(updateBasic, new CallBack<String, String>() {
             @Override
-            public void onSuccess() {
+            public void onSuccess(String s) {
                 resultLiveData.setValue(Result.SUCCESS);
             }
 
@@ -158,7 +166,7 @@ public class TeamViewModel extends ViewModel implements TeamChangeCallBack {
     }
 
     public  void updateImage(Uri uri, final String path , final boolean isAvatar){
-        teamRepository.updateImage(uri, path, isAvatar, new UpdateImageCallBack() {
+        teamRepository.updateImage(uri, path, isAvatar, new CallBack<String,String>() {
             @Override
             public void onSuccess(String url) {
                 resultPhotoLiveData.setValue(Result.SUCCESS);

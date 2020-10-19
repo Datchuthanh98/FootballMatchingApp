@@ -14,8 +14,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.myclub.R;
 import com.example.myclub.databinding.FragmentMainFieldBinding;
-import com.example.myclub.view.field.Adapter.AdapterFragmentField;
-import com.example.myclub.view.Player.Adapter.AdapterFragmentProfile;
+import com.example.myclub.view.field.adapter.AdapterFragmentField;
+import com.example.myclub.view.player.Adapter.AdapterFragmentProfile;
 import com.google.android.material.tabs.TabLayout;
 
 public class FragmentMainField extends Fragment {

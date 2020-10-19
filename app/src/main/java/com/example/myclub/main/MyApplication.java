@@ -16,8 +16,8 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.example.myclub.googlemap2.PlacesConstant;
-import com.example.myclub.viewModel.SessionUser;
+import com.example.myclub.model.PlacesConstant;
+import com.example.myclub.data.session.SessionUser;
 import com.example.myclub.viewModel.TeamViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;

@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myclub.databinding.FragmentListFieldBinding;
-import com.example.myclub.view.field.Adapter.RecycleViewAdapterListFieldVertical;
+import com.example.myclub.view.field.adapter.RecycleViewAdapterListFieldVertical;
 import com.example.myclub.viewModel.ListFieldViewModel;
 
 

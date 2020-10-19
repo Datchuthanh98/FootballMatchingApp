@@ -1,14 +1,10 @@
 package com.example.myclub.data.repository;
 
-import com.example.myclub.Interface.AddBookingField;
-import com.example.myclub.Interface.LoadCallBack;
-import com.example.myclub.Interface.LoadListBookingCallBack;
-import com.example.myclub.Interface.LoadListField;
-import com.example.myclub.Interface.LoadListMatchCallBack;
-import com.example.myclub.Interface.LoadListTimeCallBack;
-import com.example.myclub.data.datasource.FieldDataSource;
+
+import com.example.myclub.Interface.CallBack;
 import com.example.myclub.data.datasource.MatchDataSource;
 import com.example.myclub.model.Booking;
+import com.example.myclub.model.Match;
 
 import java.util.List;
 import java.util.Map;
@@ -28,16 +24,16 @@ public class MatchRepository {
         return instance;
     }
 
-    public void getListBooking(LoadCallBack<List<Booking>, String> callBack){
+    public void getListBooking(CallBack<List<Booking>, String> callBack){
         matchDataSource.loadListBooking(callBack);
     }
 
 
-    public  void addbookingField(Map<String,Object> map , AddBookingField addBookingField){
+    public  void addbookingField(Map<String,Object> map , CallBack<String,String> addBookingField){
         matchDataSource.addBooking(map,addBookingField );
     }
 
-    public void getListMatch(LoadListMatchCallBack loadListMatchCallBack){
+    public void getListMatch(CallBack<List<Match>,String> loadListMatchCallBack){
         matchDataSource.loadListMatch(loadListMatchCallBack);
     }
 

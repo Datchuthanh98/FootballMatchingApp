@@ -1,19 +1,10 @@
 package com.example.myclub.data.datasource;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
-import com.example.myclub.Interface.AddBookingField;
-import com.example.myclub.Interface.LoadCallBack;
-import com.example.myclub.Interface.LoadListBookingCallBack;
-import com.example.myclub.Interface.LoadListField;
-import com.example.myclub.Interface.LoadListMatchCallBack;
-import com.example.myclub.Interface.LoadListTimeCallBack;
+import com.example.myclub.Interface.CallBack;
 import com.example.myclub.model.Booking;
-import com.example.myclub.model.Field;
 import com.example.myclub.model.Match;
-import com.example.myclub.model.TimeGame;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
@@ -26,10 +17,8 @@ import java.util.List;
 import java.util.Map;
 
 public class MatchDataSource {
-    private static final String TAG ="matchdata" ;
     static MatchDataSource instance;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
 
     public static MatchDataSource getInstance() {
         if (instance == null) {
@@ -39,7 +28,7 @@ public class MatchDataSource {
     }
 
     //Firestore realtime
-    public void loadListBooking(final LoadCallBack<List<Booking>, String> callBack) {
+    public void loadListBooking(final CallBack<List<Booking>, String> callBack) {
             db.collection("Booking").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
                 public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -52,38 +41,37 @@ public class MatchDataSource {
                         }
                         callBack.onSuccess(bookingList);
                     } else {
-
-                        
+                        callBack.onSuccess(null);
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-
+                        callBack.onFailure(e.getMessage());
                 }
             });
 
     }
 
 
-    public void addBooking(Map<String, Object> map, final AddBookingField addBookingField) {
+    public void addBooking(Map<String, Object> map, final CallBack<String,String> addBookingField) {
         DocumentReference ref = db.collection("Booking").document();
         map.put("id", ref.getId());
         map.put("approve",null);
         ref.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                addBookingField.onSuccess();
+                addBookingField.onSuccess("");
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                addBookingField.onFailure();
+                addBookingField.onFailure(e.getMessage());
             }
         });
     }
 
-    public void loadListMatch(final LoadListMatchCallBack loadListMatchCallBack) {
+    public void loadListMatch(final CallBack loadListMatchCallBack) {
         db.collection("Match").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {

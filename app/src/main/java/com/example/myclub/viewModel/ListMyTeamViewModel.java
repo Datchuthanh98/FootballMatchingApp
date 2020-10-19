@@ -4,13 +4,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.myclub.Interface.LoadListOtherTeamCallBack;
-import com.example.myclub.Interface.LoadListTeamCallBack;
-import com.example.myclub.Interface.RegisterTeamCallBack;
+import com.example.myclub.Interface.CallBack;
+import com.example.myclub.data.session.SessionUser;
 import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.data.repository.TeamRepository;
 import com.example.myclub.model.Team;
-import com.example.myclub.view.Team.Adapter.RecycleViewAdapterListTeamVertical;
+import com.example.myclub.view.team.adapter.RecycleViewAdapterListTeamVertical;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +35,7 @@ public class ListMyTeamViewModel extends ViewModel {
     }
 
     public void getListTeam(String idPlayer){
-        teamRepository.getListTeam(idPlayer,new LoadListTeamCallBack() {
+        teamRepository.getListTeam(idPlayer,new CallBack<List<Team>, String>() {
             @Override
             public void onSuccess(List<Team> listTeams) {
 
@@ -61,7 +60,7 @@ public class ListMyTeamViewModel extends ViewModel {
     }
 
     public void getListOtherTeam(String idPlayer){
-        teamRepository.getListOtherTeam(idPlayer,new LoadListOtherTeamCallBack() {
+        teamRepository.getListOtherTeam(idPlayer,new CallBack<List<Team>, String>() {
             @Override
             public void onSuccess(List<Team> listTeams) {
                 if(listTeams == null){
@@ -89,9 +88,9 @@ public class ListMyTeamViewModel extends ViewModel {
     }
 
     public void createTeam(String name , String phone , String email){
-        teamRepository.creatTeam(name, phone, email, new RegisterTeamCallBack() {
+        teamRepository.creatTeam(name, phone, email, new CallBack<Team, String>() {
             @Override
-            public void onSuccess() {
+            public void onSuccess(Team team) {
                 resultLiveData.setValue(Result.SUCCESS);
             }
 

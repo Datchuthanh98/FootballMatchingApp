@@ -2,12 +2,7 @@ package com.example.myclub.viewModel;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.myclub.Interface.AcceptJoinTeam;
-import com.example.myclub.Interface.AddRequestJoinTeam;
-import com.example.myclub.Interface.CancelRequestJoinTeam;
-import com.example.myclub.Interface.DeclineJoinTeam;
-import com.example.myclub.Interface.GetStateJoinTeam;
-import com.example.myclub.data.enumeration.Result;
+import com.example.myclub.Interface.CallBack;
 import com.example.myclub.data.repository.RequestJoinTeamRepository;
 import com.example.myclub.model.RequestJoinTeam;
 
@@ -39,7 +34,7 @@ public class RequestJoinTeamViewModel {
 
 
     public void addRequestJoinTeam(Map<String, Object> requestJoin){
-        requestJoinTeamRepository.addRequestJoinTeam(requestJoin, new AddRequestJoinTeam() {
+        requestJoinTeamRepository.addRequestJoinTeam(requestJoin, new CallBack<String, String>() {
             @Override
             public void onSuccess(String getKey) {
                 key = getKey;
@@ -47,28 +42,28 @@ public class RequestJoinTeamViewModel {
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String e) {
                 stateRequestJoinTeam.setValue(Boolean.FALSE);
             }
         });
     }
 
     public void cancelRequestJoinTeam(String key){
-        requestJoinTeamRepository.cancelRequestJoinTeam(key, new CancelRequestJoinTeam() {
+        requestJoinTeamRepository.cancelRequestJoinTeam(key, new CallBack<String, String>() {
             @Override
-            public void onSuccess() {
+            public void onSuccess(String sucess) {
                 stateRequestJoinTeam.setValue(Boolean.FALSE);
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String e) {
                 stateRequestJoinTeam.setValue(Boolean.TRUE);
             }
         });
     }
 
     public void getStateJoinTeam(final Map<String, Object> requestJoin){
-        requestJoinTeamRepository.getStateJoinTeam(requestJoin, new GetStateJoinTeam() {
+        requestJoinTeamRepository.getStateJoinTeam(requestJoin, new CallBack<RequestJoinTeam, String>() {
             @Override
             public void onSuccess(RequestJoinTeam requestJoinTeam) {
                 if(requestJoinTeam == null){
@@ -87,14 +82,14 @@ public class RequestJoinTeamViewModel {
     }
 
     public void acceptJoinTeam(Map<String, Object> decideJoin){
-        requestJoinTeamRepository.acceptJoinTeam(decideJoin, new AcceptJoinTeam() {
+        requestJoinTeamRepository.acceptJoinTeam(decideJoin, new CallBack<String, String>() {
             @Override
-            public void onSuccess() {
+            public void onSuccess(String s) {
                 stateRequestJoinTeam.setValue(Boolean.FALSE);
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String s) {
                 stateRequestJoinTeam.setValue(Boolean.TRUE);
             }
         });
@@ -102,14 +97,14 @@ public class RequestJoinTeamViewModel {
 
 
     public void declineJoinTeam(Map<String, Object> decideJoin){
-        requestJoinTeamRepository.declineJoinTeam(decideJoin, new DeclineJoinTeam() {
+        requestJoinTeamRepository.declineJoinTeam(decideJoin, new CallBack<String, String>() {
             @Override
-            public void onSuccess() {
+            public void onSuccess(String s) {
                 stateRequestJoinTeam.setValue(Boolean.FALSE);
             }
 
             @Override
-            public void onFailure() {
+            public void onFailure(String e) {
                 stateRequestJoinTeam.setValue(Boolean.TRUE);
             }
         });

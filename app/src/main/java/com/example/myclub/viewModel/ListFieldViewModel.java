@@ -3,10 +3,10 @@ package com.example.myclub.viewModel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.myclub.Interface.LoadListField;
+import com.example.myclub.Interface.CallBack;
 import com.example.myclub.data.repository.FieldRepository;
 import com.example.myclub.model.Field;
-import com.example.myclub.view.field.Adapter.RecycleViewAdapterListFieldVertical;
+import com.example.myclub.view.field.adapter.RecycleViewAdapterListFieldVertical;
 
 
 import java.util.List;
@@ -20,13 +20,19 @@ public class ListFieldViewModel extends ViewModel {
 
 
     public ListFieldViewModel() {
-        fieldRepository.getListField(new LoadListField() {
+        fieldRepository.getListField(new CallBack<List<Field>, String>() {
             @Override
-            public void FirebaseLoadListTodo(List<Field> fields) {
+            public void onSuccess(List<Field> fields) {
                 listFieldLiveData.setValue(fields);
                 adapterListField.setListField(fields);
                 adapterListField.notifyDataSetChanged();
             }
+
+            @Override
+            public void onFailure(String s) {
+
+            }
+
         });
     }
 

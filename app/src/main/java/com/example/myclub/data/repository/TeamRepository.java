@@ -5,23 +5,17 @@ import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
-import com.example.myclub.Interface.GetTeamPhotoCallBack;
-import com.example.myclub.Interface.GetUserCoverCallBack;
-import com.example.myclub.Interface.GetUserPhotoCallBack;
-import com.example.myclub.Interface.LoadListOtherTeamCallBack;
-import com.example.myclub.Interface.LoadListTeamCallBack;
-import com.example.myclub.Interface.LoadTeamCallBack;
-import com.example.myclub.Interface.RegisterTeamCallBack;
-import com.example.myclub.Interface.UpdateImageCallBack;
-import com.example.myclub.Interface.UpdateProfileCallBack;
-import com.example.myclub.data.datasource.PlayerDataSource;
+
+import com.example.myclub.Interface.CallBack;
 import com.example.myclub.data.datasource.TeamDataSource;
+import com.example.myclub.model.Field;
 import com.example.myclub.model.Team;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 public class TeamRepository {
@@ -39,22 +33,22 @@ public class TeamRepository {
     }
 
 
-    public void loadTeam(String id , LoadTeamCallBack loadTeamCallBack){
+    public void loadTeam(String id , CallBack<Team,String> loadTeamCallBack){
         teamDataSource.loadTeam(id,loadTeamCallBack);
     }
 
-    public void updateProfile(Map<String, Object> updateInformation, UpdateProfileCallBack callBack) {
+    public void updateProfile(Map<String, Object> updateInformation, CallBack<String,String> callBack) {
         teamDataSource.updateProfile(updateInformation, callBack);
     }
 
-    public void updateImage(Uri uri, String path ,boolean isAvatar, final UpdateImageCallBack callBack){
+    public void updateImage(Uri uri, String path ,boolean isAvatar, final CallBack<String,String> callBack){
         teamDataSource.updateImage(uri,path,isAvatar,callBack);
     }
 
 
-    public void getAvatarPhoto(final GetTeamPhotoCallBack callBack, String url, Context context) {
+    public void getAvatarPhoto(final CallBack<File,String> callBack, String url, Context context) {
         if (url.isEmpty()) {
-            callBack.onGetTeamPhotoCallBack(null);
+            callBack.onSuccess(null);
             return;
         }
         String[] files = url.split("/");
@@ -64,20 +58,20 @@ public class TeamRepository {
         downloadTask.addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                callBack.onGetTeamPhotoCallBack(cachePhoto);
+                callBack.onSuccess(cachePhoto);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                callBack.onGetTeamPhotoCallBack(null);
+                callBack.onSuccess(null);
             }
         });
     }
 
 
-    public void getCoverPhoto(final GetTeamPhotoCallBack callBack, String url, Context context) {
+    public void getCoverPhoto(final CallBack<File,String> callBack, String url, Context context) {
         if (url.isEmpty()) {
-            callBack.onGetTeamPhotoCallBack(null);
+            callBack.onSuccess(null);
             return;
         }
         String[] files = url.split("/");
@@ -87,26 +81,26 @@ public class TeamRepository {
         downloadTask.addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                callBack.onGetTeamPhotoCallBack(cachePhoto);
+                callBack.onSuccess(cachePhoto);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                callBack.onGetTeamPhotoCallBack(null);
+                callBack.onSuccess(null);
             }
         });
     }
 
 
-    public void creatTeam(String name, String phone, String email, RegisterTeamCallBack checkteam) {
+    public void creatTeam(String name, String phone, String email, CallBack<Team,String> checkteam) {
         teamDataSource.createTeam(name,phone,email,checkteam);
     }
 
-    public void getListTeam(String id,LoadListTeamCallBack listTeamCallBack){
+    public void getListTeam(String id,CallBack<List<Team>,String> listTeamCallBack){
         teamDataSource.loadListTeam(id,listTeamCallBack);
     }
 
-    public void getListOtherTeam(String id,LoadListOtherTeamCallBack listTeamCallBack){
+    public void getListOtherTeam(String id,CallBack<List<Team>,String> listTeamCallBack){
         teamDataSource.loadListOtherTeam(id,listTeamCallBack);
     }
 }
