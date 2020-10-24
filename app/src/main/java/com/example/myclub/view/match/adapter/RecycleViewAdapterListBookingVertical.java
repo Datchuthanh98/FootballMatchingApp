@@ -55,12 +55,11 @@ public class RecycleViewAdapterListBookingVertical extends RecyclerView.Adapter<
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
-        Log.d("RV", "onBindViewHolder: "+position);
         holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ActivityHome activityHome = (ActivityHome) holder.itemView.getContext();
-                activityHome.addFragment(new FragmentMainProfileMatch());
+                activityHome.addFragment(new FragmentMainProfileMatch(bookingList.get(position).getId()));
             }
         });
         holder.binding.setBooking(bookingList.get(position));

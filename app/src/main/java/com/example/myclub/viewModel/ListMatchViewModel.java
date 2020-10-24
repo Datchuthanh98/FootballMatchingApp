@@ -16,8 +16,10 @@ import java.util.List;
 public class ListMatchViewModel extends ViewModel{
     private MatchRepository matchRepository = MatchRepository.getInstance();
     private RecycleViewAdapterListMatchVertical adapterListMatchVertical = new RecycleViewAdapterListMatchVertical();
-    private MutableLiveData<List<Match>> listBookingFieldLiveData = new MutableLiveData<>();
-    private MutableLiveData<Result> resultLiveData = new MutableLiveData<>(null);
+    private RecycleViewAdapterListMatchVertical adapterListMyMatchVertical = new RecycleViewAdapterListMatchVertical();
+
+
+
 
     public ListMatchViewModel(){
         getListMatch();
@@ -29,11 +31,9 @@ public class ListMatchViewModel extends ViewModel{
             @Override
             public void onSuccess(List<Match> matchList) {
                 if(matchList == null){
-                    listBookingFieldLiveData.setValue(new ArrayList<Match>());
                     adapterListMatchVertical.setListMatch(new ArrayList<Match>());
                     adapterListMatchVertical.notifyDataSetChanged();
                 }else{
-                    listBookingFieldLiveData.setValue(matchList);
                     adapterListMatchVertical.setListMatch(matchList);
                     adapterListMatchVertical.notifyDataSetChanged();
                 }
@@ -45,14 +45,32 @@ public class ListMatchViewModel extends ViewModel{
         });
     }
 
+    public void  getListMyMatch(String idPlayer){
+        matchRepository.getListMyMatch(idPlayer,new CallBack<List<Match>, String>() {
+            @Override
+            public void onSuccess(List<Match> matchList) {
+                if(matchList == null){
+                    adapterListMyMatchVertical.setListMatch(new ArrayList<Match>());
+                    adapterListMyMatchVertical.notifyDataSetChanged();
+                }else{
+                    adapterListMyMatchVertical.setListMatch(matchList);
+                    adapterListMyMatchVertical.notifyDataSetChanged();
+                }
+            }
+            @Override
+            public void onFailure(String message) {
 
-
-    public LiveData<Result> getResultLiveData() {
-        return resultLiveData;
+            }
+        });
     }
 
     public RecycleViewAdapterListMatchVertical getAdapterListMatch() {
         return adapterListMatchVertical;
     }
+
+    public RecycleViewAdapterListMatchVertical getAdapterMyListMatch() {
+        return adapterListMyMatchVertical;
+    }
+
 
 }

@@ -20,7 +20,10 @@ import com.example.myclub.databinding.ActivityLoginBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.R;
+import com.example.myclub.model.Booking;
+import com.example.myclub.model.Match;
 import com.example.myclub.model.Player;
+import com.example.myclub.model.Team;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -33,6 +36,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -46,7 +50,11 @@ import com.google.firebase.functions.HttpsCallableResult;
 import com.google.gson.Gson;
 import com.tuyenmonkey.mkloader.MKLoader;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ActivityLogin extends AppCompatActivity {
 
@@ -63,7 +71,8 @@ public class ActivityLogin extends AppCompatActivity {
     private CallbackManager mCallbackManager;
     private Dialog loadingDialog;
     private LoadingLayoutBinding loadingLayoutBinding;
-
+    private FirebaseFunctions functions = FirebaseFunctions.getInstance();
+    private Gson convert = new Gson();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +80,35 @@ public class ActivityLogin extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         initLoadingDialog(ActivityLogin.this);
-//                loginWithEmail();
+
+//        functions.getHttpsCallable("getMatchDetail").call("V79Hd8ZStJo3wWVOiSoe").addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
+//            @Override
+//            public void onSuccess(HttpsCallableResult httpsCallableResult) {
+//                Match match = convert.fromJson(convert.toJson(httpsCallableResult.getData()), Match.class);
+//                Log.d("checkk", httpsCallableResult.getData().toString());
+//            }
+//
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//            ;
+//            }
+//        });
+
+
+
+
+
+
+
+
+
+
+
+        loginWithEmail();
+
+
+
 
 
 
@@ -118,13 +155,13 @@ public class ActivityLogin extends AppCompatActivity {
         //Login With Google
         mAuth = FirebaseAuth.getInstance();
         loader = binding.loader;
+//
+//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestIdToken(getString(R.string.default_web_client_id))
+//                .requestEmail()
+//                .build();
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+//        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         binding.btnGoogle.setOnClickListener(new View.OnClickListener() {
             @Override

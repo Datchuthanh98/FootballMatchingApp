@@ -10,11 +10,11 @@ exports.createTeam = functions.https.onCall(async (data) => {
         urlCover: "/Cover/default",
         email: data.email,
         phone: data.phone,
-        introduce: null,
-        level: null,
         rating : 10 ,
         reputaion : 1,
-        idCaptain : data.idPlayer
+        idCaptain : data.idPlayer,
+        // introduce: null,
+        // level: null
     }
 
     const newTeamRef = await db.collection('Team').doc();
@@ -44,9 +44,9 @@ exports.createTeam = functions.https.onCall(async (data) => {
 
 })
 
-exports.getTeamDetail = functions.https.onCall(async (uid) => {
+exports.getTeamDetail = functions.https.onCall(async (idTeam) => {
     let i;
-    const teamRef = db.collection('Team').doc(uid);
+    const teamRef = db.collection('Team').doc(idTeam);
     const teamRecord = await teamRef.get();
     if(teamRecord.exists){
         let result  = teamRecord.data();
@@ -95,23 +95,21 @@ exports.getListTeam = functions.https.onCall(async (idPlayer) => {
 })
 
 exports.getListTeamOther = functions.https.onCall(async (idPlayer) => {
-    let i ;
+    let i,j ;
     const listTeam = [];
     const members = await db.collection('TeamMember').where('idPlayer','==',idPlayer).get();
       const allTeam = await db.collection('Team').get();
-
-      allTeam.docs.forEach(team => {
-        for( i = 0 ;  i<members.docs.length ; i ++){
-            if(members.docs[i].data().idTeam === team.data().id){
+      for(i =0 ;i < allTeam.docs.length ; i++){
+        for( j = 0 ;  j<members.docs.length ; j ++){
+            if(members.docs[j].data().idTeam === allTeam.docs[i].data().id){
                break;
-            }else if(i === members.docs.length){
-                listTeam.push(team.data())
+            }else if(j === (members.docs.length-1)){
+                listTeam.push(allTeam.docs[i].data())
             }
         }
-
-      })
+      }
     
-      return allTeam.docs;
+      return listTeam;
  
 })
 

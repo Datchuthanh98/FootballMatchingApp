@@ -65,7 +65,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private void showNotification(Map<String, String> data) {
         String messageType = data.get("messageType");
-
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         String NOTIFICATION_CHANNEL_ID = "example.myapplication.service.test";
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){

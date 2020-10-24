@@ -4,12 +4,10 @@ import com.google.firebase.Timestamp;
 
 public class Comment {
     private String id ;
-    private Player player;
-    private  String comment ;
-    private Timestamp timeComment;
+    private Player idPlayer;
+    private String idMatch ;
+    private String comment ;
 
-    public Comment() {
-    }
 
     public String getId() {
         return id;
@@ -19,12 +17,20 @@ public class Comment {
         this.id = id;
     }
 
-    public Player getPlayer() {
-        return player;
+    public Player getIdPlayer() {
+        return idPlayer;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
+    public void setIdPlayer(Player idPlayer) {
+        this.idPlayer = idPlayer;
+    }
+
+    public String getIdMatch() {
+        return idMatch;
+    }
+
+    public void setIdMatch(String idMatch) {
+        this.idMatch = idMatch;
     }
 
     public String getComment() {
@@ -33,13 +39,5 @@ public class Comment {
 
     public void setComment(String comment) {
         this.comment = comment;
-    }
-
-    public Timestamp getTimeComment() {
-        return timeComment;
-    }
-
-    public void setTimeComment(Timestamp timeComment) {
-        this.timeComment = timeComment;
     }
 }

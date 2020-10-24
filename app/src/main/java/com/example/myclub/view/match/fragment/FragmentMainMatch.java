@@ -36,7 +36,6 @@ public class FragmentMainMatch extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         TabLayout tabLayout = view.findViewById(R.id.tablayout);
         ViewPager viewPager = view.findViewById(R.id.viewpager);
-//        viewPager.setPageTransformer(true, new HorizontalFlipTransformation());
         FragmentManager manager = getParentFragmentManager();
         AdapterFragmentMatch adapter = new AdapterFragmentMatch(getChildFragmentManager(), AdapterFragmentProfile.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(adapter);

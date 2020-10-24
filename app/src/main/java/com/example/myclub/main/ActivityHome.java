@@ -40,10 +40,12 @@ public class ActivityHome extends AppCompatActivity {
         AdapterFragmentHome adapter = new AdapterFragmentHome(manager, AdapterFragmentProfile.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.getTabAt(0).setIcon(R.drawable.ic_account_circle_black_24dp);
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_account_circle_black_24dp);
-        tabLayout.getTabAt(2).setIcon(R.drawable.ic_account_circle_black_24dp);
-        tabLayout.getTabAt(3).setIcon(R.drawable.ic_account_circle_black_24dp);
+        tabLayout.getTabAt(0).setIcon(R.drawable.tab_field);
+        tabLayout.getTabAt(1).setIcon(R.drawable.tab_match);
+        tabLayout.getTabAt(2).setIcon(R.drawable.tab_club);
+        tabLayout.getTabAt(3).setIcon(R.drawable.tab_profile);
+        viewPager.setOffscreenPageLimit(4);
+
 
 
 

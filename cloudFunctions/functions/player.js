@@ -14,18 +14,18 @@ exports.createUser = functions.https.onCall(async (data) => {
             id:userRecord.uid,
             email: data.email,
             name: data.name,
-            address: null,
-            birthday: null,
-            phone: null,
-            accountActive: true,
-            height: 0,
-            weight: 0,
-            introduce: null,
-            position :null,
-            level :null,
-            foot : null,
             urlAvatar: "/Avatar/default",
             urlCover: "/Cover/default"
+            // height: 0,
+            // weight: 0,
+            // address: null,
+            // birthday: null,
+            // phone: null,
+            // accountActive: true,
+            // introduce: null,
+            // position :null,
+            // level :null,
+            // foot : null
         };
         await db.collection('Player').doc(userRecord.uid).set(userInfo).catch((error) => {
             return {
@@ -101,5 +101,26 @@ exports.getListPlayer = functions.https.onCall(async (idTeam) => {
         return null;
     }
 
+})
+
+
+exports.getListPlayerRequest = functions.https.onCall(async (idTeam) =>{
+    const listRequestJoin = await db.collection('RequestJoinTeam').where('idTeam','==',idTeam).get();
+    if(!listRequestJoin.empty){
+        let listPlayer = [] ;
+        let listPlayerPromises = [];
+        for(i =0 ; i < listRequestJoin.docs.length ; i++){
+            listPlayerPromises.push(db.collection('Player').doc(listRequestJoin.docs[i].data().idPlayer).get());
+        }
+        await Promise.all(listPlayerPromises).then((playerRecords) => {
+            for( i = 0 ; i< playerRecords.length ; i++){
+                listPlayer.push(playerRecords[i].data());
+            }
+            return null;
+        });  
+      return listPlayer;
+    }else{
+        return null;
+    }
 })
 

@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.myclub.Interface.CallBack;
+import com.example.myclub.data.enumeration.DataState;
+import com.example.myclub.data.session.SessionStateData;
 import com.example.myclub.data.session.SessionUser;
 import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.data.repository.TeamRepository;
@@ -17,13 +19,10 @@ import java.util.List;
 public class ListMyTeamViewModel extends ViewModel {
 
     private TeamRepository teamRepository = TeamRepository.getInstance();
-    private SessionUser sessionUser = SessionUser.getInstance();
     private static ListMyTeamViewModel instance;
     private RecycleViewAdapterListTeamVertical adapterListTeam = new RecycleViewAdapterListTeamVertical();
     private RecycleViewAdapterListTeamVertical adapterListOtherTeam = new RecycleViewAdapterListTeamVertical();
-
     private MutableLiveData<List<Team>> listTeamLiveData = new MutableLiveData<>();
-    private MutableLiveData<Result> resultLiveData = new MutableLiveData<>(null);
     private String resultMessage = null;
 
 
@@ -38,21 +37,18 @@ public class ListMyTeamViewModel extends ViewModel {
         teamRepository.getListTeam(idPlayer,new CallBack<List<Team>, String>() {
             @Override
             public void onSuccess(List<Team> listTeams) {
-
                 if(listTeams == null){
                     adapterListTeam.setListTeam(new ArrayList<Team>());
                 }else {
                     listTeamLiveData.setValue(listTeams);
                     adapterListTeam.setListTeam(listTeams);
                     adapterListTeam.notifyDataSetChanged();
-                    resultLiveData.setValue(Result.SUCCESS);
                 }
             }
 
             @Override
             public void onFailure(String message) {
                 resultMessage = message;
-                resultLiveData.setValue(Result.FAILURE);
             }
 
 
@@ -65,6 +61,7 @@ public class ListMyTeamViewModel extends ViewModel {
             public void onSuccess(List<Team> listTeams) {
                 if(listTeams == null){
                     adapterListOtherTeam.setListTeam(new ArrayList<Team>());
+                    adapterListOtherTeam.notifyDataSetChanged();
                 }else {
                     adapterListOtherTeam.setListTeam(listTeams);
                     adapterListOtherTeam.notifyDataSetChanged();
@@ -74,7 +71,6 @@ public class ListMyTeamViewModel extends ViewModel {
             @Override
             public void onFailure(String message) {
                 resultMessage = message;
-                resultLiveData.setValue(Result.FAILURE);
             }
         });
     }
@@ -91,19 +87,17 @@ public class ListMyTeamViewModel extends ViewModel {
         teamRepository.creatTeam(name, phone, email, new CallBack<Team, String>() {
             @Override
             public void onSuccess(Team team) {
-                resultLiveData.setValue(Result.SUCCESS);
+                SessionStateData.getInstance().setDatalistMyTeam(DataState.NEW);
             }
 
             @Override
             public void onFailure(String message) {
-                resultLiveData.setValue(Result.FAILURE);
+                SessionStateData.getInstance().setDatalistMyTeam(DataState.NOW);
             }
         });
     }
 
-    public LiveData<Result> getResultLiveData() {
-        return resultLiveData;
-    }
+
     public String getResultMessage() {
         return resultMessage;
     }

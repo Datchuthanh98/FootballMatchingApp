@@ -52,7 +52,6 @@
             android:layout_width="match_parent"
             >
             <TextView
-
                 android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
                 android:text=" Name Team"
                 android:textStyle="bold"

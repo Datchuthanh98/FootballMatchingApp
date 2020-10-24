@@ -1,14 +1,17 @@
 package com.example.myclub.model;
 
+import java.sql.Timestamp;
+
 public class Booking {
     private String id;
-    private String idField;
-    private String idTeamHome;
-    private String idTeamAway;
+    private Field idField;
+    private Team idTeamHome;
+    private Team idTeamAway;
     private String date;
     private String phone;
-    private String time;
+    private TimeGame idTimeGame;
     private String note;
+
 
     public Booking() {
     }
@@ -21,27 +24,27 @@ public class Booking {
         this.id = id;
     }
 
-    public String getIdField() {
+    public Field getIdField() {
         return idField;
     }
 
-    public void setIdField(String idField) {
+    public void setIdField(Field idField) {
         this.idField = idField;
     }
 
-    public String getIdTeamHome() {
+    public Team getIdTeamHome() {
         return idTeamHome;
     }
 
-    public void setIdTeamHome(String idTeamHome) {
+    public void setIdTeamHome(Team idTeamHome) {
         this.idTeamHome = idTeamHome;
     }
 
-    public String getIdTeamAway() {
+    public Team getIdTeamAway() {
         return idTeamAway;
     }
 
-    public void setIdTeamAway(String idTeamAway) {
+    public void setIdTeamAway(Team idTeamAway) {
         this.idTeamAway = idTeamAway;
     }
 
@@ -61,12 +64,12 @@ public class Booking {
         this.phone = phone;
     }
 
-    public String getTime() {
-        return time;
+    public TimeGame getIdTimeGame() {
+        return idTimeGame;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setIdTimeGame(TimeGame idTimeGame) {
+        this.idTimeGame = idTimeGame;
     }
 
     public String getNote() {

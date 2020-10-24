@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View" />
+        <variable
+            name="match"
+            type="com.example.myclub.model.Match" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -70,8 +72,6 @@
                 android:src="@drawable/avatar_team_default"
                 app:border_color="@color/white"
                 app:border_width="5dp" />
-
-
 
             <TextView
                 android:gravity="center"
@@ -145,7 +145,7 @@
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="12h 30" />
+                android:text="@{match.idBooking.idTimeGame.endTime}"/>
 
             <TextView
                 app:layout_constraintTop_toTopOf="parent"
@@ -154,7 +154,7 @@
                 android:id="@+id/status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sắp diễn ra" />
+                android:text="@{match.active ?  `done`  :`comming soon`}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -181,5 +181,25 @@
       </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:visibility="gone"
+        android:id="@+id/layoutLoading"
+        android:layout_width="0dp"
+        android:background="@color/white"
+        android:layout_height="0dp">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

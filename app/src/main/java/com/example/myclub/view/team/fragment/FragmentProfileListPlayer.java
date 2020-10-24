@@ -14,7 +14,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.myclub.data.enumeration.DataState;
 import com.example.myclub.data.enumeration.Result;
+import com.example.myclub.data.session.SessionStateData;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterListPlayerVertical;
 import com.example.myclub.databinding.FragmentListPlayerBinding;
 import com.example.myclub.viewModel.ListPlayerViewModel;
@@ -54,16 +56,10 @@ public class FragmentProfileListPlayer extends Fragment {
     }
 
     private void observeLiveData(final Context context) {
-        listPlayerViewModel.getResultLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
+        SessionStateData.getInstance().getDatalistPlayerByTeam().observe(getViewLifecycleOwner(), new Observer<DataState>() {
             @Override
-            public void onChanged(Result result) {
-                if (result == null) return;
-                if (result == Result.SUCCESS) {
-                    listPlayerViewModel.getAdapterListPlayer();
-
-                } else if (result == Result.FAILURE) {
-                    Toast.makeText(context, listPlayerViewModel.getResultMessage(), Toast.LENGTH_SHORT).show();
-                }
+            public void onChanged(DataState dataState) {
+                listPlayerViewModel.getListPlayer(idTeam);
             }
         });
     }

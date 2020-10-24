@@ -37,25 +37,14 @@ public class FragmentListMatch extends Fragment {
         viewModel = new ViewModelProvider(this).get(ListMatchViewModel.class);
         RecycleViewAdapterListMatchVertical adapter = viewModel.getAdapterListMatch();
         adapter.setFm(getParentFragmentManager());
-        binding.recycleViewListBookingVertical.setAdapter(viewModel.getAdapterListMatch());
-        binding.recycleViewListBookingVertical.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recycleViewListMatchVertical.setAdapter(viewModel.getAdapterListMatch());
+        binding.recycleViewListMatchVertical.setLayoutManager(new LinearLayoutManager(getContext()));
         observerLiveDate();
     }
 
 
 
     private void observerLiveDate() {
-        viewModel.getResultLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
-            @Override
-            public void onChanged(Result result) {
-                if (result == null) return;
-                if (result == Result.SUCCESS) {
-                    viewModel.getListMatch();
-                } else if (result == Result.FAILURE) {
-                }
-            }
-        });
-
         SessionStateData.getInstance().getDatalistMatch().observe(getViewLifecycleOwner(), new Observer<DataState>() {
             @Override
             public void onChanged(DataState dataState) {

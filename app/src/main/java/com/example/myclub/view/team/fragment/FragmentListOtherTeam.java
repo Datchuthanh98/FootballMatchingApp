@@ -12,7 +12,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.databinding.FragmentListOtherTeamBinding;;
@@ -37,7 +39,6 @@ public class FragmentListOtherTeam extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initComponent();
-        observeLiveData(view.getContext());
     }
 
     private  void initComponent(){
@@ -47,22 +48,8 @@ public class FragmentListOtherTeam extends Fragment {
         RecycleViewAdapterListTeamVertical adapter = listMyTeamViewModel.getAdapterListOtherTeam();
         adapter.fragment = getTargetFragment();
         adapter.setFm(getParentFragmentManager());
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
+        binding.recycleViewListTeamVertical.setLayoutManager(mLayoutManager);
         binding.recycleViewListTeamVertical.setAdapter(listMyTeamViewModel.getAdapterListOtherTeam());
-    }
-
-    private void observeLiveData(final Context context) {
-        listMyTeamViewModel.getResultLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
-            @Override
-            public void onChanged(Result result) {
-                if (result == null) return;
-                if (result == Result.SUCCESS) {
-                    Toast.makeText(context, "List get new team", Toast.LENGTH_SHORT).show();
-                    listMyTeamViewModel.getAdapterListOtherTeam();
-
-                } else if (result == Result.FAILURE) {
-                    Toast.makeText(context, listMyTeamViewModel.getResultMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 }

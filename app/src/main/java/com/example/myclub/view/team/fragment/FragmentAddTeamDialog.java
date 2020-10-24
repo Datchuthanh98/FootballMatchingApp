@@ -21,8 +21,6 @@ import com.example.myclub.databinding.LoadingLayoutBinding;
 import com.example.myclub.viewModel.ListMyTeamViewModel;
 
 public class FragmentAddTeamDialog extends DialogFragment {
-
-
     FragmentAddTeamBinding binding;
     private ListMyTeamViewModel listMyTeamViewModel = ListMyTeamViewModel.getInstance();
     private Dialog loadingDialog;
@@ -43,7 +41,6 @@ public class FragmentAddTeamDialog extends DialogFragment {
 //        binding = FragmentAddTeamBinding.inflate(inflater);
         binding.setLifecycleOwner(this);
         initComponent(getContext());
-        observeLiveData(getContext());
         View view = binding.getRoot();
         return  view;
     }
@@ -59,10 +56,11 @@ public class FragmentAddTeamDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 initLoadingDialog(context);
-//                loadingDialog.show();
                 listMyTeamViewModel.createTeam(binding.txtName.getText().toString(),binding.txtPhone.getText().toString(),binding.txtEmail.getText().toString());
+                detach();
             }
         });
+
     }
 
     private void initLoadingDialog(Context context) {
@@ -74,22 +72,7 @@ public class FragmentAddTeamDialog extends DialogFragment {
         loadingDialog.setCancelable(false);
     }
 
-    private void observeLiveData(final Context context) {
-        listMyTeamViewModel.getResultLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
-            @Override
-            public void onChanged(Result result) {
-                if (result == null) return;
-                if (result == Result.SUCCESS) {
-//                    loadingDialog.dismiss();
-                    detach();
-                } else if (result == Result.FAILURE) {
-//                    loadingDialog.dismiss();
-                    Toast.makeText(context, listMyTeamViewModel.getResultMessage(), Toast.LENGTH_SHORT).show();
-                    detach();
-                }
-            }
-        });
-    }
+
 
 
 }

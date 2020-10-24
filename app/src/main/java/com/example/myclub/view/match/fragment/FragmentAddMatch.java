@@ -154,7 +154,7 @@ public class FragmentAddMatch extends Fragment {
         data.put("idTeamAway", null);
         data.put("idField", matchViewModel.getFieldLiveData().getValue().getId());
         data.put("date", binding.txtDate.getText().toString());
-        data.put("time", matchViewModel.getTimeLiveData().getValue().getId());
+        data.put("idTimeGame", matchViewModel.getTimeLiveData().getValue().getId());
         data.put("note",binding.txtNote.getText().toString());
         data.put("phone",binding.txtPhone.getText().toString());
         return data;

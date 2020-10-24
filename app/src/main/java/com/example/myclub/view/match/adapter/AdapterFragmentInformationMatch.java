@@ -6,14 +6,17 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.myclub.view.match.fragment.FragmentComment;
+
 import com.example.myclub.view.match.fragment.FragmentInformationMatch;
+import com.example.myclub.view.match.fragment.FragmentListComment;
 import com.example.myclub.view.match.fragment.FragmentListQueueTeam;
 
 public class AdapterFragmentInformationMatch extends FragmentStatePagerAdapter {
     int numTab = 3;
-    public AdapterFragmentInformationMatch(@NonNull FragmentManager fm, int behavior) {
+    String idMatch ;
+    public AdapterFragmentInformationMatch(@NonNull FragmentManager fm, int behavior ,String idMatch) {
         super(fm, behavior);
+        this.idMatch = idMatch ;
     }
 
     @NonNull
@@ -23,9 +26,9 @@ public class AdapterFragmentInformationMatch extends FragmentStatePagerAdapter {
             case 0:
                 return new FragmentInformationMatch();
             case 1 :
-                return  new FragmentListQueueTeam();
+                return  new FragmentListQueueTeam(idMatch);
             case 2 :
-                return  new FragmentComment();
+                return  new FragmentListComment(idMatch);
         }
         return  null;
     }

@@ -32,19 +32,13 @@ public class RequestJoinTeamDataSource {
         return instance;
     }
 
-        public void addRequest(Map<String, Object> requestJoin, final CallBack<String ,String> addRequestJoinTeam) {
-        db.collection("RequestJoinTeam").add(requestJoin).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+    public void addRequest(Map<String, Object> map, final CallBack<String, String> addRequestJoinTeam) {
+        final DocumentReference ref = db.collection("RequestJoinTeam").document();
+        map.put("id", ref.getId());
+        ref.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onSuccess(final DocumentReference documentReference) {
-                Map<String, Object> map = new HashMap<>();
-                map.put("id", documentReference.getId());
-                db.collection("RequestJoinTeam").document(documentReference.getId()).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        addRequestJoinTeam.onSuccess(documentReference.getId());
-                    }
-                });
-
+            public void onSuccess(Void aVoid) {
+                addRequestJoinTeam.onSuccess(ref.getId());
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -52,11 +46,10 @@ public class RequestJoinTeamDataSource {
                 addRequestJoinTeam.onFailure(e.getMessage());
             }
         });
-
     }
 
 
-    public void cancelRequest(String key, final CallBack<String,String> cancelRequestJoinTeam) {
+    public void cancelRequest(String key, final CallBack<String, String> cancelRequestJoinTeam) {
         db.collection("RequestJoinTeam").document(key).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -72,7 +65,7 @@ public class RequestJoinTeamDataSource {
     }
 
 
-    public void getStateJoinTeamByTeam(Map<String, Object> requestJoin, final CallBack<RequestJoinTeam,String> getStateJoinTeam) {
+    public void getStateJoinTeamByTeam(Map<String, Object> requestJoin, final CallBack<RequestJoinTeam, String> getStateJoinTeam) {
         db.collection("RequestJoinTeam").whereEqualTo("idPlayer", requestJoin.get("idPlayer")).whereEqualTo("idTeam", requestJoin.get("idTeam")).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -92,7 +85,7 @@ public class RequestJoinTeamDataSource {
         });
     }
 
-    public void acceptJoinTeam(final Map<String, Object> acceptJoin, final CallBack< String,String > acceptJoinTeam) {
+    public void acceptJoinTeam(final Map<String, Object> acceptJoin, final CallBack<String, String> acceptJoinTeam) {
         db.collection("TeamMember").add(acceptJoin).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
@@ -117,7 +110,7 @@ public class RequestJoinTeamDataSource {
         });
     }
 
-    public void declineJoinTeam(final Map<String, Object> acceptJoin, final CallBack<String,String> declineJoinTeam) {
+    public void declineJoinTeam(final Map<String, Object> acceptJoin, final CallBack<String, String> declineJoinTeam) {
         db.collection("RequestJoinTeam").document((String) acceptJoin.get("key")).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -130,7 +123,6 @@ public class RequestJoinTeamDataSource {
                 declineJoinTeam.onFailure(e.getMessage());
             }
         });
-
     }
 
 

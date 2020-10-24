@@ -51,21 +51,18 @@ public class PlayerDataSource {
         return instance;
     }
 
-
-
-
-    public void register(final String email, final String password, final CallBack<Player,String> callBack) {
-               Map<String,Object> map = new HashMap<>();
-                map.put("email", email);
-                map.put("password",password);
-                map.put("name","ronaldoo");
+    public void register(final String email, final String password, final CallBack<Player, String> callBack) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("email", email);
+        map.put("password", password);
+        map.put("name", "ronaldoo");
         functions.getHttpsCallable("createPlayer").call(map).addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
             @Override
             public void onSuccess(HttpsCallableResult httpsCallableResult) {
                 Map<String, Object> result = (Map<String, Object>) httpsCallableResult.getData();
                 String json = convert.toJson(result.get("data"));
-                Player player = convert.fromJson(json,Player.class);
-                         callBack.onSuccess(player);
+                Player player = convert.fromJson(json, Player.class);
+                callBack.onSuccess(player);
 
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -77,17 +74,17 @@ public class PlayerDataSource {
 
     }
 
-        public void login(String email, final String password, final CallBack<Player,String> callBack) {
+    public void login(String email, final String password, final CallBack<Player, String> callBack) {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         FirebaseUser user = authResult.getUser();
-                        functions.getHttpsCallable("getPlayer").call(user.getUid()).addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
+                        functions.getHttpsCallable("getPlayerDetail").call(user.getUid()).addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
                             @Override
                             public void onSuccess(HttpsCallableResult httpsCallableResult) {
-                           Player player = convert.fromJson(convert.toJson(httpsCallableResult.getData()),Player.class);
-                            callBack.onSuccess(player);
+                                Player player = convert.fromJson(convert.toJson(httpsCallableResult.getData()), Player.class);
+                                callBack.onSuccess(player);
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -97,14 +94,14 @@ public class PlayerDataSource {
                         });
                     }
                 }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                       callBack.onFailure(e.getMessage());
-                    }
-                });
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                callBack.onFailure(e.getMessage());
+            }
+        });
     }
 
-    public void updateProfile(Map<String, Object> updateData, final CallBack<String,String> callBack) {
+    public void updateProfile(Map<String, Object> updateData, final CallBack<String, String> callBack) {
         if (SessionUser.getInstance().getPlayerLiveData().getValue() != null) {
             String uid = SessionUser.getInstance().getPlayerLiveData().getValue().getId();
             db.collection("Player").document(uid).update(updateData).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -123,18 +120,18 @@ public class PlayerDataSource {
     }
 
 
-    public void updateImage(Uri uri, String path ,boolean isAvatar, final CallBack callBack){
+    public void updateImage(Uri uri, String path, boolean isAvatar, final CallBack callBack) {
         final String uid = SessionUser.getInstance().getPlayerLiveData().getValue().getId();
         Date date = new Date();
-        String urlFile ="", key="";
+        String urlFile = "", key = "";
         String[] parts = path.split("\\.");
-        if(isAvatar) {
-            key="urlAvatar";
-            urlFile = "/Avatar/"+uid+"_"+date.getTime()+"."+parts[1];
+        if (isAvatar) {
+            key = "urlAvatar";
+            urlFile = "/Avatar/" + uid + "_" + date.getTime() + "." + parts[1];
 
-        }else{
-            key="urlCover";
-            urlFile = "/Cover/"+uid+"_"+date.getTime()+"."+parts[1];
+        } else {
+            key = "urlCover";
+            urlFile = "/Cover/" + uid + "_" + date.getTime() + "." + parts[1];
         }
 
         final String finalUrlFile = urlFile;
@@ -142,12 +139,17 @@ public class PlayerDataSource {
         storage.getReference().child(urlFile).putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Map<String,Object> map = new HashMap<>();
+                Map<String, Object> map = new HashMap<>();
                 map.put(finalKey, finalUrlFile);// "avatar/dsa.jpg"
                 db.collection("Player").document(uid).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         callBack.onSuccess(finalUrlFile);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        callBack.onFailure(e.getMessage());
                     }
                 });
             }
@@ -164,17 +166,17 @@ public class PlayerDataSource {
         return fileRef.getFile(downloadLocation);
     }
 
-    public void loadListPlayer(String idTeam , final CallBack<List<Player>,String> loadListPlayerCallBack) {
+    public void loadListPlayer(String idTeam, final CallBack<List<Player>, String> loadListPlayerCallBack) {
         functions.getHttpsCallable("getListPlayer").call(idTeam).addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
             @Override
             public void onSuccess(HttpsCallableResult httpsCallableResult) {
-                Gson gson= new Gson();
+                Gson gson = new Gson();
                 List<Map> listPlayerMaps = (List<Map>) httpsCallableResult.getData();
                 List<Player> listPlayer = new ArrayList<>();
-                if(listPlayerMaps == null){
-                    loadListPlayerCallBack.onSuccess(new ArrayList<Player>());
-                }else{
-                    for (Map playerMap : listPlayerMaps){
+                if (listPlayerMaps == null) {
+                    loadListPlayerCallBack.onSuccess(null);
+                } else {
+                    for (Map playerMap : listPlayerMaps) {
                         Player player = gson.fromJson(gson.toJson(playerMap), Player.class);
                         listPlayer.add(player);
                     }
@@ -189,32 +191,27 @@ public class PlayerDataSource {
         });
     }
 
-    public void loadListPlayerRequest(String idTeam , final CallBack<List<Player>,String> loadListPlayerRequestCallBack) {
-        db.collection("RequestJoinTeam").whereEqualTo("idTeam", idTeam).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+    public void loadListPlayerRequest(String idTeam, final CallBack<List<Player>, String> loadListPlayerRequestCallBack) {
+        functions.getHttpsCallable("getListPlayerRequest").call(idTeam).addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
             @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                List<String> listIdPlayer = new ArrayList<>();
-                if (!queryDocumentSnapshots.isEmpty()) {
-                    for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
-                        String idteam = (String) document.get("idPlayer");
-                        listIdPlayer.add(idteam);
+            public void onSuccess(HttpsCallableResult httpsCallableResult) {
+                Gson gson = new Gson();
+                List<Map> listPlayerMaps = (List<Map>) httpsCallableResult.getData();
+                List<Player> listPlayer = new ArrayList<>();
+                if (listPlayerMaps == null) {
+                    loadListPlayerRequestCallBack.onSuccess(null);
+                } else {
+                    for (Map playerMap : listPlayerMaps) {
+                        Player player = gson.fromJson(gson.toJson(playerMap), Player.class);
+                        listPlayer.add(player);
                     }
-                    db.collection("Player").whereIn("id",listIdPlayer).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            List<Player> listPlayers = new ArrayList<>();
-                            if (!queryDocumentSnapshots.isEmpty()) {
-                                for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
-                                    Player player = document.toObject(Player.class);
-                                    listPlayers.add(player);
-                                }
-                                loadListPlayerRequestCallBack.onSuccess(listPlayers);
-                            } else {
-                                loadListPlayerRequestCallBack.onFailure("Null");
-                            }
-                        }
-                    });
+                    loadListPlayerRequestCallBack.onSuccess(listPlayer);
                 }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                loadListPlayerRequestCallBack.onFailure(e.getMessage());
             }
         });
     }

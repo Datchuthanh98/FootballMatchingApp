@@ -19,16 +19,10 @@ public class AdapterFragmentField extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position) {
-//            case 0:
-//                return new ShowPlaceOnMapFragment();
-//            case 1 :
-////                return  new FragmentListField();
-//                return  new NearByFragment();
             case  0 :
                 return  new FragmentListField();
             case 1:
                 return new FragmentMap();
-//                return  new LocationFragment();
         }
         return  null;
     }
@@ -42,14 +36,10 @@ public class AdapterFragmentField extends FragmentStatePagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position){
-//            case 0:
-//                return "List on Map";
-//            case 1:
-//                return "List by Map";
             case 0:
-                return "List by Database";
+                return "List Fields";
             case 1:
-                return "Fields";
+                return "Show on Map";
         }
         return null;
     }

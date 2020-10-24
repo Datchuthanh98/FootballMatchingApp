@@ -112,7 +112,6 @@ public class FragmentProfilePlayer extends Fragment {
                 requestJoinTeamViewModel.declineJoinTeam(approveJoinTeam());
             }
         });
-
     }
 
     private Map<String, Object> approveJoinTeam() {

@@ -74,6 +74,7 @@ public class SessionUser implements  UserChangeCallBack {
         });
         thread.start();
 
+
         playerLiveData.setValue(player);
         if (player != null) {
             if (!player.getUrlAvatar().isEmpty()) {
@@ -91,11 +92,10 @@ public class SessionUser implements  UserChangeCallBack {
                         }
 
                         @Override
-                        public void onFailure(String s) {
-
+                        public void onFailure(String message) {
+                            resultMessage = message;
+                            resultLiveData.setValue(Result.FAILURE);
                         }
-
-
                     }, player.getUrlAvatar(), getApplicationContext());
                 }
             }
@@ -115,8 +115,9 @@ public class SessionUser implements  UserChangeCallBack {
                         }
 
                         @Override
-                        public void onFailure(String s) {
-
+                        public void onFailure(String message) {
+                            resultMessage = message;
+                            resultLiveData.setValue(Result.FAILURE);
                         }
 
                     }, player.getUrlCover(), getApplicationContext());
@@ -130,12 +131,9 @@ public class SessionUser implements  UserChangeCallBack {
     public LiveData<Result> getResultLiveData() {
         return resultLiveData;
     }
-
-
     public LiveData<Result> getResultPhotoLiveData() {
         return resultPhotoLiveData;
     }
-
     public String getResultMessage() {
         return resultMessage;
     }

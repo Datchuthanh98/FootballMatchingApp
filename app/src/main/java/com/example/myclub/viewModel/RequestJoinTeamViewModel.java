@@ -3,7 +3,9 @@ package com.example.myclub.viewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.myclub.Interface.CallBack;
+import com.example.myclub.data.enumeration.DataState;
 import com.example.myclub.data.repository.RequestJoinTeamRepository;
+import com.example.myclub.data.session.SessionStateData;
 import com.example.myclub.model.RequestJoinTeam;
 
 import java.util.Map;
@@ -31,8 +33,6 @@ public class RequestJoinTeamViewModel {
        return stateRequestJoinTeam;
     }
 
-
-
     public void addRequestJoinTeam(Map<String, Object> requestJoin){
         requestJoinTeamRepository.addRequestJoinTeam(requestJoin, new CallBack<String, String>() {
             @Override
@@ -40,7 +40,6 @@ public class RequestJoinTeamViewModel {
                 key = getKey;
                 stateRequestJoinTeam.setValue(Boolean.TRUE);
             }
-
             @Override
             public void onFailure(String e) {
                 stateRequestJoinTeam.setValue(Boolean.FALSE);
@@ -86,6 +85,8 @@ public class RequestJoinTeamViewModel {
             @Override
             public void onSuccess(String s) {
                 stateRequestJoinTeam.setValue(Boolean.FALSE);
+                SessionStateData.getInstance().setDatalistPlayerByTeam(DataState.NEW);
+                SessionStateData.getInstance().setDatalistRequestByTeam(DataState.NEW);
             }
 
             @Override

@@ -31,7 +31,6 @@ public class FieldDataSource {
         return instance;
     }
 
-    //Firestore realtime
     public void loadListField(final CallBack<List<Field>,String> loadListField) {
             db.collection("Field").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
@@ -40,26 +39,26 @@ public class FieldDataSource {
                     if (!queryDocumentSnapshots.isEmpty()) {
                         for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
                             Field field =  document.toObject(Field.class);
-
                             fieldList.add(field);
                         }
                         loadListField.onSuccess(fieldList);
                     } else {
-                        Log.d("meomeo", "failed");
+                       loadListField.onSuccess(null);
                         
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-
+                        loadListField.onFailure(e.getMessage());
                 }
             });
+
+
 
     }
 
     public void loadListTime(String idTeam, final CallBack<List<TimeGame>,String> loadListTimeCallBack) {
-
         db.collection("TimeGame").whereEqualTo("idField", idTeam).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {

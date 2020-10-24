@@ -6,8 +6,10 @@ import androidx.lifecycle.ViewModel;
 import com.example.myclub.Interface.CallBack;
 import com.example.myclub.data.repository.MatchRepository;
 import com.example.myclub.model.Booking;
+import com.example.myclub.model.Match;
 import com.example.myclub.view.match.adapter.RecycleViewAdapterListBookingVertical;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListBookingViewModel extends ViewModel {
@@ -24,6 +26,15 @@ public class ListBookingViewModel extends ViewModel {
                 listBookingFieldLiveData.setValue(bookingList);
                 adapterListBooking.setListBooking(bookingList);
                 adapterListBooking.notifyDataSetChanged();
+                if(bookingList == null){
+                    listBookingFieldLiveData.setValue(new ArrayList<Booking>());
+                    adapterListBooking.setListBooking(new ArrayList<Booking>());
+                    adapterListBooking.notifyDataSetChanged();
+                }else{
+                    listBookingFieldLiveData.setValue(bookingList);
+                    adapterListBooking.setListBooking(bookingList);
+                    adapterListBooking.notifyDataSetChanged();
+                }
             }
 
             @Override

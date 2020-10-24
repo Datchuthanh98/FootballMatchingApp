@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myclub.data.enumeration.DataState;
 import com.example.myclub.data.enumeration.Result;
+import com.example.myclub.data.session.SessionUser;
 import com.example.myclub.databinding.FragmentListMatchBinding;
 import com.example.myclub.view.match.adapter.RecycleViewAdapterListMatchVertical;
 import com.example.myclub.viewModel.ListMatchViewModel;
@@ -35,31 +36,21 @@ public class FragmentListMyMatch extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(this).get(ListMatchViewModel.class);
-        RecycleViewAdapterListMatchVertical adapter = viewModel.getAdapterListMatch();
+        RecycleViewAdapterListMatchVertical adapter = viewModel.getAdapterMyListMatch();
         adapter.setFm(getParentFragmentManager());
-        binding.recycleViewListBookingVertical.setAdapter(viewModel.getAdapterListMatch());
-        binding.recycleViewListBookingVertical.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        binding.recycleViewListMatchVertical.setAdapter(viewModel.getAdapterMyListMatch());
+        binding.recycleViewListMatchVertical.setLayoutManager(new LinearLayoutManager(getContext()));
         observerLiveDate();
     }
 
 
 
     private void observerLiveDate() {
-        viewModel.getResultLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
-            @Override
-            public void onChanged(Result result) {
-                if (result == null) return;
-                if (result == Result.SUCCESS) {
-                    viewModel.getListMatch();
-                } else if (result == Result.FAILURE) {
-                }
-            }
-        });
-
         SessionStateData.getInstance().getDatalistMatch().observe(getViewLifecycleOwner(), new Observer<DataState>() {
             @Override
             public void onChanged(DataState dataState) {
-                viewModel.getListMatch();
+                viewModel.getListMyMatch(SessionUser.getInstance().getPlayerLiveData().getValue().getId());
             }
         });
     }

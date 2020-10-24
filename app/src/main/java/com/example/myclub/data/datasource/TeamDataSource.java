@@ -54,7 +54,6 @@ public class TeamDataSource {
         map.put("name", name);
         map.put("phone", phone);
         map.put("email", email);
-        map.put("level", "basic");
         map.put("idPlayer", idPlayer);
         functions.getHttpsCallable("createTeam").call(map).addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
             @Override
@@ -107,7 +106,6 @@ public class TeamDataSource {
                 if(listTeamMaps == null){
                     loadListOtherTeamCallBack.onSuccess(new ArrayList<Team>());
                 }else{
-                    Log.d("uchiha", "vao day la null r "+listTeamMaps.size());
                     for (Map teamMap : listTeamMaps){
                         Team team = gson.fromJson(gson.toJson(teamMap), Team.class);
                         listTeam.add(team);
@@ -121,48 +119,6 @@ public class TeamDataSource {
                 loadListOtherTeamCallBack.onFailure(e.getMessage());
             }
         });
-
-//        db.collection("TeamMember").whereEqualTo("idPlayer", idPlayer).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//            @Override
-//            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                final List<String> listIdTeam = new ArrayList<>();
-//                if (!queryDocumentSnapshots.isEmpty()) {
-//                    for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
-//                        String idteam = (String) document.get("idTeam");
-//                        listIdTeam.add(idteam);
-//                    }
-//                }
-//
-//                db.collection("Team").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                        List<Team> listTeam = new ArrayList<>();
-//                        if (!queryDocumentSnapshots.isEmpty()) {
-//                            for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
-//                                Team team = document.toObject(Team.class);
-//                                for(int i = 0 ; i < listIdTeam.size();i++){
-//                                    if(listIdTeam.get(i).equals(team.getId())){
-//                                        break;
-//                                    }else if(i == (listIdTeam.size()-1)){
-//                                       listTeam.add(team);
-//                                    }
-//
-//                                }
-//                            }
-//                            loadListOtherTeamCallBack.onSuccess(listTeam);
-//                        } else {
-//                            loadListOtherTeamCallBack.onFailure("Null");
-//                        }
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        loadListOtherTeamCallBack.onFailure(e.getMessage());
-//                    }
-//                });
-//
-//            }
-//        });
     }
 
 
