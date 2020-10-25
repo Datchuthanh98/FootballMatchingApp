@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <import type="com.example.myclub.data.session.SessionUser"></import>
+        <import type="com.example.myclub.session.SessionUser"></import>
     </data>
 
 
@@ -27,7 +27,7 @@
                     android:id="@+id/title"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="Edit information basic"
+                    android:text="Edit introduce"
                     android:gravity="center_vertical"
                     android:textSize="20dp"
                     android:layout_weight="1"/>
@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
-                android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
+                android:drawableStart="@drawable/introduce_icon"
                 android:text=" Introduce"
                 android:textStyle="bold"
                 android:textSize="15dp"
@@ -65,7 +65,7 @@
                 android:text="@{SessionUser.getInstance().playerLiveData.introduce}"
                 android:id="@+id/txtIntroduce"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="200dp"
 
                 ></EditText>
         </LinearLayout>

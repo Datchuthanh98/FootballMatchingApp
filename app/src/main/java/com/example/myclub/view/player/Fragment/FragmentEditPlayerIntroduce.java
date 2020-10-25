@@ -14,7 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 
 import com.example.myclub.data.enumeration.Result;
-import com.example.myclub.data.session.SessionUser;
+import com.example.myclub.session.SessionUser;
 import com.example.myclub.databinding.FragmentEditPlayerIntroduceBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
 import com.example.myclub.model.Player;

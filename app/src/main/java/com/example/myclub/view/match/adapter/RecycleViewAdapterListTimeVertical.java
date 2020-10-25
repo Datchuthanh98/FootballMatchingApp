@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myclub.databinding.ItemTimeHorizontalBinding;
 import com.example.myclub.model.TimeGame;
-import com.example.myclub.data.session.SessionBookingField;
+import com.example.myclub.session.SessionBookingField;
 
 import java.util.ArrayList;
 import java.util.List;

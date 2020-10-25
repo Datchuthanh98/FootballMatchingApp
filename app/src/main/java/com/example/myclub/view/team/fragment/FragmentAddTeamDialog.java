@@ -8,21 +8,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.databinding.FragmentAddTeamBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
-import com.example.myclub.viewModel.ListMyTeamViewModel;
+import com.example.myclub.viewModel.ListTeamViewModel;
 
 public class FragmentAddTeamDialog extends DialogFragment {
     FragmentAddTeamBinding binding;
-    private ListMyTeamViewModel listMyTeamViewModel = ListMyTeamViewModel.getInstance();
+    private ListTeamViewModel listTeamViewModel;
     private Dialog loadingDialog;
     private LoadingLayoutBinding loadingLayoutBinding;
 
@@ -38,7 +36,7 @@ public class FragmentAddTeamDialog extends DialogFragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        binding = FragmentAddTeamBinding.inflate(inflater);
+        listTeamViewModel = new ViewModelProvider(this).get(ListTeamViewModel.class);
         binding.setLifecycleOwner(this);
         initComponent(getContext());
         View view = binding.getRoot();
@@ -56,7 +54,7 @@ public class FragmentAddTeamDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 initLoadingDialog(context);
-                listMyTeamViewModel.createTeam(binding.txtName.getText().toString(),binding.txtPhone.getText().toString(),binding.txtEmail.getText().toString());
+                listTeamViewModel.createTeam(binding.txtName.getText().toString(),binding.txtPhone.getText().toString(),binding.txtEmail.getText().toString());
                 detach();
             }
         });
@@ -68,7 +66,6 @@ public class FragmentAddTeamDialog extends DialogFragment {
         loadingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         loadingLayoutBinding = LoadingLayoutBinding.inflate(getLayoutInflater());
         loadingDialog.setContentView(loadingLayoutBinding.getRoot());
-//        loadingLayoutBinding.title.setText(R.string.updating_information);
         loadingDialog.setCancelable(false);
     }
 

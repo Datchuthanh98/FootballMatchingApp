@@ -13,7 +13,7 @@ import com.example.myclub.main.ActivityHome;
 import com.example.myclub.model.Field;
 import com.example.myclub.view.field.fragment.FragmentProfileField;
 import com.example.myclub.databinding.ItemFieldVerticalBinding;
-import com.example.myclub.data.session.SessionBookingField;
+import com.example.myclub.session.SessionBookingField;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +76,7 @@ public class RecycleViewAdapterListFieldVertical extends RecyclerView.Adapter<Re
             }
         });
         holder.binding.setField(fieldList.get(position));
-        holder.binding.numberShirt.setSelected(true);
+
     }
 
     @Override

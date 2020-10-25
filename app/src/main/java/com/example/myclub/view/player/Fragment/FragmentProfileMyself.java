@@ -15,7 +15,7 @@ import androidx.lifecycle.Observer;
 
 import com.example.myclub.auth.ActivityLogin;
 import com.example.myclub.data.enumeration.Result;
-import com.example.myclub.data.session.SessionUser;
+import com.example.myclub.session.SessionUser;
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.databinding.FragmentProfileMyselfBinding;
 import com.facebook.login.LoginManager;

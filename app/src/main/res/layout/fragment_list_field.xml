@@ -8,7 +8,7 @@
 
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@color/white"
+        android:background="#d1e0e0"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -31,14 +31,14 @@
                             android:id="@+id/btnDetail"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Search"
+                            android:drawableStart="@drawable/seach_icon"
                             android:textSize="20dp"></TextView>
 
                         <EditText
                             android:id="@+id/txtName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Name player"/>
+                            android:hint="input name field"/>
                     </LinearLayout>
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycleViewListFieldVertical"

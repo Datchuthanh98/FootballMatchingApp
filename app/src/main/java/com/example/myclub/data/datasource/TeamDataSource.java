@@ -1,22 +1,18 @@
 package com.example.myclub.data.datasource;
 
 import android.net.Uri;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import com.example.myclub.Interface.CallBack;
-import com.example.myclub.model.Player;
 import com.example.myclub.model.Team;
-import com.example.myclub.data.session.SessionUser;
-import com.example.myclub.viewModel.TeamViewModel;
+import com.example.myclub.session.SessionUser;
+import com.example.myclub.session.SessionTeam;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
 import com.google.firebase.storage.FileDownloadTask;
@@ -139,7 +135,7 @@ public class TeamDataSource {
 
 
     public void updateProfile(Map<String, Object> updateData, final CallBack<String,String> callBack) {
-        String uid = TeamViewModel.getInstance().getTeamLiveData().getValue().getId();
+        String uid = SessionTeam.getInstance().getTeamLiveData().getValue().getId();
         db.collection("Team").document(uid).update(updateData).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -156,7 +152,7 @@ public class TeamDataSource {
 
 
     public void updateImage(Uri uri, String path, boolean isAvatar, final CallBack<String ,String> callBack) {
-        final String uid = TeamViewModel.getInstance().getTeamLiveData().getValue().getId();
+        final String uid = SessionTeam.getInstance().getTeamLiveData().getValue().getId();
         Date date = new Date();
         String urlFile = "", key = "";
         String[] parts = path.split("\\.");
@@ -196,6 +192,4 @@ public class TeamDataSource {
         StorageReference fileRef = storage.getReference().child(url);
         return fileRef.getFile(downloadLocation);
     }
-
-
 }

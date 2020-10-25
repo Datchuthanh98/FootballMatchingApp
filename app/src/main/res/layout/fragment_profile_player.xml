@@ -107,7 +107,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                             <Button
-
+                                android:paddingRight="20dp"
+                                android:paddingLeft="20dp"
+                                android:textColor="@color/white"
+                                android:background="@drawable/buttonstyle"
                                 android:id="@+id/btnInvite"
                                 android:text="Invite to Team"
                                 android:layout_width="wrap_content"
@@ -115,6 +118,11 @@
 
                             <Button
                                 android:visibility="gone"
+                                android:paddingRight="20dp"
+                                android:paddingLeft="20dp"
+                                android:textColor="@color/white"
+                                android:background="@drawable/buttonstyle"
+
                                 android:id="@+id/btnDecline"
                                 android:text="Decline Team"
                                 android:layout_width="wrap_content"
@@ -122,6 +130,10 @@
 
                             <Button
                                 android:visibility="gone"
+                                android:paddingRight="20dp"
+                                android:paddingLeft="20dp"
+                                android:textColor="@color/white"
+                                android:background="@drawable/buttonstyle"
                                 android:id="@+id/btnAccept"
                                 android:text="Accept to Team "
                                 app:layout_constraintLeft_toLeftOf="parent"
@@ -129,7 +141,6 @@
                                 app:layout_constraintTop_toBottomOf="@+id/lblName"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"></Button>
-
                         </LinearLayout>
 
 

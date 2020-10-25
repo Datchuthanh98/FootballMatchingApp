@@ -4,18 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <import type="android.view.View" />
+
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
+       android:background="#d1e0e0"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <FrameLayout
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-          >
             <androidx.constraintlayout.widget.ConstraintLayout
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -24,44 +22,37 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="List player"
-                        android:textSize="30dp"></TextView>
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <TextView
-                            android:id="@+id/btnDetail"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Tìm kiếm:"
-                            android:textSize="20dp"></TextView>
+                       <TextView
+                         android:drawableStart="@drawable/seach_icon"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"></TextView>
 
                         <EditText
                             android:id="@+id/txtName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="tên cầu thủ"/>
+                            android:hint="input name club"/>
                     </LinearLayout>
 
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycleViewListPlayerVertical"
+                        android:id="@+id/recycleViewListTeamVertical"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
 <!--                    android:adapter="@{viewModel.adapter}"-->
 
                 </LinearLayout>
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/btnCreateTeam"
+                    android:src="@drawable/ic_add_white_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </FrameLayout>
-        <FrameLayout
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <import type="com.example.myclub.data.session.SessionUser"></import>
+        <import type="com.example.myclub.session.SessionUser"></import>
     </data>
 
 
@@ -26,7 +26,7 @@
                 android:id="@+id/title"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="Edit information player"
+                android:text="Edit information "
                 android:gravity="center_vertical"
                 android:textSize="20dp"
                 android:layout_weight="1"/>
@@ -54,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
  <TextView
-     android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
+     android:drawableStart="@drawable/birthday"
      android:text=" Birhday"
      android:textStyle="bold"
      android:textSize="15dp"
@@ -66,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></EditText>
         <TextView
-            android:drawableStart="@drawable/ic_baseline_phone_24_green"
+            android:drawableStart="@drawable/height_icon"
             android:text=" Height (cm)"
             android:textStyle="bold"
             android:textSize="15dp"
@@ -78,7 +78,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></EditText>
         <TextView
-            android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
+            android:drawableStart="@drawable/weight_icon"
             android:text=" Weight (kg)"
             android:textStyle="bold"
             android:textSize="15dp"
@@ -91,7 +91,7 @@
             android:layout_height="wrap_content"></EditText>
 
         <TextView
-            android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
+            android:drawableStart="@drawable/level_icon"
             android:text=" Level"
             android:textStyle="bold"
             android:textSize="15dp"
@@ -103,7 +103,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></EditText>
         <TextView
-            android:drawableStart="@drawable/ic_baseline_phone_24_green"
+            android:drawableStart="@drawable/position"
             android:text=" Posstion"
             android:textStyle="bold"
             android:textSize="15dp"
@@ -115,7 +115,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></EditText>
         <TextView
-            android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
+            android:drawableStart="@drawable/foot"
             android:text=" Nice foot"
             android:textStyle="bold"
             android:textSize="15dp"

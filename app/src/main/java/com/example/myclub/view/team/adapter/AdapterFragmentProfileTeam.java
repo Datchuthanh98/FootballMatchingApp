@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.myclub.view.team.fragment.FragmentProfileListPlayer;
-import com.example.myclub.view.team.fragment.FragmentProfileBasicTeam;
+import com.example.myclub.view.team.fragment.FragmentProfileInforTeam;
 import com.example.myclub.view.team.fragment.FragmentProfileListPlayerRequest;
 
 public class AdapterFragmentProfileTeam extends FragmentPagerAdapter {
@@ -24,7 +24,7 @@ public class AdapterFragmentProfileTeam extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new FragmentProfileBasicTeam();
+                return new FragmentProfileInforTeam();
             case 1:
                 return new FragmentProfileListPlayer(idTeam);
             case 2:

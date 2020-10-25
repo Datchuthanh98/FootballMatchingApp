@@ -52,7 +52,7 @@
             android:layout_width="match_parent"
             >
             <TextView
-                android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
+                android:drawableStart="@drawable/name_icon"
                 android:text=" Name Team"
                 android:textStyle="bold"
                 android:textSize="15dp"
@@ -74,7 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></EditText>
             <TextView
-                android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
+                android:drawableStart="@drawable/email_icon"
                 android:text=" Email"
                 android:textStyle="bold"
                 android:textSize="15dp"

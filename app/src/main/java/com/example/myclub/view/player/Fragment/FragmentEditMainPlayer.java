@@ -25,7 +25,7 @@ import com.example.myclub.R;
 import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.databinding.FragmentEditMainPlayerBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
-import com.example.myclub.data.session.SessionUser;
+import com.example.myclub.session.SessionUser;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.squareup.picasso.Picasso;
 

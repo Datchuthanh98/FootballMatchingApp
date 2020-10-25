@@ -13,11 +13,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myclub.data.enumeration.DataState;
-import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.databinding.FragmentListMatchBinding;
 import com.example.myclub.view.match.adapter.RecycleViewAdapterListMatchVertical;
 import com.example.myclub.viewModel.ListMatchViewModel;
-import com.example.myclub.data.session.SessionStateData;
+import com.example.myclub.session.SessionStateData;
 
 public class FragmentListMatch extends Fragment {
     private ListMatchViewModel viewModel ;

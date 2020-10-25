@@ -14,8 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 
 import com.example.myclub.data.enumeration.Result;
-import com.example.myclub.data.session.SessionUser;
-import com.example.myclub.databinding.FragmentEditPlayerPlayerBinding;
+import com.example.myclub.session.SessionUser;
+import com.example.myclub.databinding.FragmentEditPlayerInforBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
 import com.example.myclub.model.Player;
 
@@ -26,7 +26,7 @@ import java.util.Map;
 
 public class FragmentEditPlayerPlayer extends BottomSheetDialogFragment {
 
-    private FragmentEditPlayerPlayerBinding binding;
+    private FragmentEditPlayerInforBinding binding;
     private SessionUser session = SessionUser.getInstance();
     private Dialog loadingDialog;
     private LoadingLayoutBinding loadingLayoutBinding;
@@ -34,7 +34,7 @@ public class FragmentEditPlayerPlayer extends BottomSheetDialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentEditPlayerPlayerBinding.inflate(inflater);
+        binding = FragmentEditPlayerInforBinding.inflate(inflater);
         binding.setLifecycleOwner(this);
         return binding.getRoot();
 

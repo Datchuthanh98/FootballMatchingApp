@@ -1,9 +1,8 @@
-package com.example.myclub.data.session;
+package com.example.myclub.session;
 
 import android.app.Application;
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -158,7 +157,6 @@ public class SessionUser implements  UserChangeCallBack {
         playerRepository.updateImage(uri, path, isAvatar, new CallBack<String, String>() {
             @Override
             public void onSuccess(String url) {
-                Log.d("check updateUI", "onSuccess: VAO DAY R NE");
                 resultPhotoLiveData.setValue(Result.SUCCESS);
                 Player player = getInstance().playerLiveData.getValue();
                 if (isAvatar){

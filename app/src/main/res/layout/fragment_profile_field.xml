@@ -4,11 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
-            name="viewModel"
-            type="com.example.myclub.viewModel.ProfileFieldViewModel" />
-
+            name="field"
+            type="com.example.myclub.model.Field" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -91,205 +89,96 @@
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/cover" />
 
-                    <LinearLayout
-                        android:id="@+id/inforBasic"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp"
+                    <TextView
+                        android:id="@+id/lblName"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/avatar">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity=""
-                            android:layout_weight="1"
-                            android:gravity="center_vertical"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
-                                android:text="@{` ` + viewModel.fieldLiveData.name}"
-                                android:textSize="20dp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
-                                android:text=" Thanhphuc@gmail.com"
-                                android:textSize="16dp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:drawableStart="@drawable/ic_baseline_phone_24_green"
-                                android:text=" 0984060798"
-                                android:textSize="16dp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:text="Team"
-                                android:textColor="@color/colorTittle"
-                                android:textStyle="bold"></TextView>
-
-                            <de.hdodenhof.circleimageview.CircleImageView
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
-                                android:src="@drawable/avatar_team_default"
-                                app:border_color="@color/white"
-                                app:border_width="5dp" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
+                        app:layout_constraintTop_toBottomOf="@id/avatar"
+                        android:text="Name"
+                        android:textSize="30dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"></TextView>
                     <LinearLayout
-                        android:id="@+id/lblInfor"
+                        app:layout_constraintTop_toBottomOf="@+id/lblName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/inforBasic">
+                        android:orientation="vertical"
+                        android:paddingHorizontal="20dp"
+                 >
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text="Basic information"
-                            android:textColor="@color/colorTittle"
-                            android:textSize="20dp"
-                            android:textStyle="bold"></TextView>
-                    </LinearLayout>
+                            android:text="Contact"
+                            android:textSize="24dp"
+                            android:textStyle="bold" />
 
-                    <LinearLayout
-                        android:id="@+id/listGridData"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/lblInfor">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_baseline_phone_24_green"
+                            android:padding="5dp"
+                            android:text="@{field.phone}"
+                            android:textSize="16dp" />
 
-                        <LinearLayout
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/email_icon"
+                            android:padding="5dp"
+                            android:text="@{field.email}"
+                            android:textSize="16dp" />
 
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/address_icon"
+                            android:padding="5dp"
+                            android:text="@{field.address}"
+                            android:textSize="16dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Introduce"
+                            android:textSize="24dp"
+                            android:textStyle="bold" />
+
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
+                            android:layout_height="50dp"
+                            android:padding="5dp"
+                            android:text="@{field.introduce}"
+                            android:textSize="16dp" />
+                        <TextView
+                            android:textStyle="bold"
+                            android:textSize="22dp"
+                            android:text="List Time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"></TextView>
 
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="100dp"
-                                android:layout_height="100dp"
-                                android:layout_margin="10dp"
-                                app:cardCornerRadius="10dp">
 
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:orientation="vertical">
 
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="30dp"
-                                        android:layout_margin="10dp"
-                                        android:gravity="center"
-                                        android:text="Fỉelds"></TextView>
 
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="30dp"
-                                        android:layout_margin="10dp"
-                                        android:gravity="center"
-                                        android:text="20"
-                                        android:textStyle="bold"></TextView>
-                                </LinearLayout>
-                            </androidx.cardview.widget.CardView>
 
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="100dp"
-                                android:layout_height="100dp"
-                                android:layout_margin="10dp"
-                                app:cardCornerRadius="10dp">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:orientation="vertical">
-
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="30dp"
-                                        android:layout_margin="10dp"
-                                        android:gravity="center"
-                                        android:text="Cost"></TextView>
-
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="30dp"
-                                        android:layout_margin="10dp"
-                                        android:gravity="center"
-                                        android:text="400,000"
-                                        android:textStyle="bold"></TextView>
-                                </LinearLayout>
-                            </androidx.cardview.widget.CardView>
-
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="100dp"
-                                android:layout_height="100dp"
-                                android:layout_margin="10dp"
-                                app:cardCornerRadius="10dp">
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:orientation="vertical">
-
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="30dp"
-                                        android:layout_margin="10dp"
-                                        android:gravity="center"
-                                        android:text="Time"></TextView>
-
-                                    <TextView
-                                        android:layout_width="match_parent"
-                                        android:layout_height="30dp"
-                                        android:layout_margin="10dp"
-                                        android:gravity="center"
-                                        android:text="7h-22h"
-                                        android:textStyle="bold"></TextView>
-                                </LinearLayout>
-                            </androidx.cardview.widget.CardView>
-                        </LinearLayout>
-
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycleViewListTimeVertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"/>
+                        <!--                    android:adapter="@{viewModel.adapter}"-->
+                        <Button
+                            android:layout_gravity="center"
+                            android:paddingRight="20dp"
+                            android:paddingLeft="20dp"
+                            android:textColor="@color/white"
+                            android:background="@drawable/buttonstyle"
+                            android:id="@+id/btnBooking"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_baseline_join_24_green"
+                            android:text="Booking"
+                            ></Button>
                     </LinearLayout>
-
-                    <Button
-                        android:id="@+id/btnBooking"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_baseline_join_24_green"
-                        android:text="Booking"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/listGridData"></Button>
-
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
         </androidx.constraintlayout.widget.ConstraintLayout>

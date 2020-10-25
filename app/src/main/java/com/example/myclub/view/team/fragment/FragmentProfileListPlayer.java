@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,17 +14,15 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myclub.data.enumeration.DataState;
-import com.example.myclub.data.enumeration.Result;
-import com.example.myclub.data.session.SessionStateData;
+import com.example.myclub.session.SessionStateData;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterListPlayerVertical;
 import com.example.myclub.databinding.FragmentListPlayerBinding;
 import com.example.myclub.viewModel.ListPlayerViewModel;
-import com.example.myclub.viewModel.TeamViewModel;
+import com.example.myclub.session.SessionTeam;
 
 
 public class FragmentProfileListPlayer extends Fragment {
     private ListPlayerViewModel listPlayerViewModel = ListPlayerViewModel.getInstance();
-    private TeamViewModel teamViewModel = TeamViewModel.getInstance();
     private FragmentListPlayerBinding binding;
     private String idTeam;
 

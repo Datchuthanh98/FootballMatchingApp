@@ -15,15 +15,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myclub.Interface.CallBack;
 import com.example.myclub.data.datasource.PlayerDataSource;
-import com.example.myclub.data.session.SessionUser;
+import com.example.myclub.session.SessionUser;
 import com.example.myclub.databinding.ActivityLoginBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
 import com.example.myclub.main.ActivityHome;
-import com.example.myclub.R;
-import com.example.myclub.model.Booking;
-import com.example.myclub.model.Match;
 import com.example.myclub.model.Player;
-import com.example.myclub.model.Team;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -33,11 +29,8 @@ import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -46,15 +39,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.functions.FirebaseFunctions;
-import com.google.firebase.functions.HttpsCallableResult;
 import com.google.gson.Gson;
 import com.tuyenmonkey.mkloader.MKLoader;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class ActivityLogin extends AppCompatActivity {
 
@@ -80,39 +68,7 @@ public class ActivityLogin extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         initLoadingDialog(ActivityLogin.this);
-
-//        functions.getHttpsCallable("getMatchDetail").call("V79Hd8ZStJo3wWVOiSoe").addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
-//            @Override
-//            public void onSuccess(HttpsCallableResult httpsCallableResult) {
-//                Match match = convert.fromJson(convert.toJson(httpsCallableResult.getData()), Match.class);
-//                Log.d("checkk", httpsCallableResult.getData().toString());
-//            }
-//
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//            ;
-//            }
-//        });
-
-
-
-
-
-
-
-
-
-
-
-        loginWithEmail();
-
-
-
-
-
-
-
+//        loginWithEmail();
 
 //        if (FirebaseAuth.getInstance().getCurrentUser() != null){
 //

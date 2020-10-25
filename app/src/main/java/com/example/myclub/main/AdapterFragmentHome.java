@@ -23,7 +23,6 @@ public class AdapterFragmentHome extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
                 return new FragmentMainField();
-
             case 1:
                 return new FragmentMainMatch();
             case 2:

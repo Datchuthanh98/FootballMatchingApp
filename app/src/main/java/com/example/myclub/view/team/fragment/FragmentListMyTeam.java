@@ -12,25 +12,22 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myclub.data.enumeration.DataState;
-import com.example.myclub.data.enumeration.Result;
-import com.example.myclub.data.session.SessionStateData;
-import com.example.myclub.databinding.FragmentListMyTeamBinding;
-import com.example.myclub.model.Team;
+import com.example.myclub.databinding.FragmentListTeamBinding;
+import com.example.myclub.session.SessionStateData;
+
 import com.example.myclub.view.team.adapter.RecycleViewAdapterListTeamVertical;
-import com.example.myclub.viewModel.ListMyTeamViewModel;
-import com.example.myclub.data.session.SessionUser;
+import com.example.myclub.viewModel.ListTeamViewModel;
+import com.example.myclub.session.SessionUser;
 import com.example.myclub.viewModel.ShareSelectTeamViewModel;
 
 public class FragmentListMyTeam extends Fragment {
-    private ListMyTeamViewModel listMyTeamViewModel = ListMyTeamViewModel.getInstance();
+    private ListTeamViewModel listTeamViewModel;
     private ShareSelectTeamViewModel selectTeamViewModel ;
     private SessionUser sessionUser = SessionUser.getInstance();
-    private FragmentListMyTeamBinding binding;
+    private FragmentListTeamBinding binding;
     public boolean isShow = true ;
 
 
@@ -45,9 +42,8 @@ public class FragmentListMyTeam extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        listMyTeamViewModel = new ViewModelProvider(this).get(ListMyTeamViewModel.class);
-
-        binding = FragmentListMyTeamBinding.inflate(inflater);
+        listTeamViewModel = new ViewModelProvider(this).get(ListTeamViewModel.class);
+        binding = FragmentListTeamBinding.inflate(inflater);
         return  binding.getRoot();
     }
 
@@ -63,23 +59,21 @@ public class FragmentListMyTeam extends Fragment {
         SessionStateData.getInstance().getDatalistMyTeam().observe(getViewLifecycleOwner(), new Observer<DataState>() {
             @Override
             public void onChanged(DataState dataState) {
-                listMyTeamViewModel.getListTeam(sessionUser.getPlayerLiveData().getValue().getId());
+                listTeamViewModel.getListTeam(sessionUser.getPlayerLiveData().getValue().getId());
             }
         });
     }
 
     private  void initComponent(){
-        listMyTeamViewModel.getListTeam(sessionUser.getPlayerLiveData().getValue().getId());
+        listTeamViewModel.getListTeam(sessionUser.getPlayerLiveData().getValue().getId());
         binding.recycleViewListTeamVertical.setLayoutManager(new LinearLayoutManager(getContext()));
-        RecycleViewAdapterListTeamVertical adapter = listMyTeamViewModel.getAdapterListTeam();
+        RecycleViewAdapterListTeamVertical adapter = listTeamViewModel.getAdapterListTeam();
         adapter.fragment = getTargetFragment();
         adapter.setFm(getParentFragmentManager());
         adapter.setShareSelectTeamViewModel(selectTeamViewModel);
         adapter.isMy = true ;
         adapter.isShow = this.isShow;
-        binding.recycleViewListTeamVertical.setAdapter(listMyTeamViewModel.getAdapterListTeam());
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
-        binding.recycleViewListTeamVertical.setLayoutManager(mLayoutManager);
+        binding.recycleViewListTeamVertical.setAdapter(listTeamViewModel.getAdapterListTeam());
         binding.btnCreateTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

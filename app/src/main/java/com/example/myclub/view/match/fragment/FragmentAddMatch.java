@@ -22,7 +22,7 @@ import com.example.myclub.model.Team;
 import com.example.myclub.model.TimeGame;
 import com.example.myclub.view.field.fragment.FragmentListField;
 import com.example.myclub.view.team.fragment.FragmentListMyTeam;
-import com.example.myclub.data.session.SessionBookingField;
+import com.example.myclub.session.SessionBookingField;
 
 import java.util.Calendar;
 import java.util.HashMap;

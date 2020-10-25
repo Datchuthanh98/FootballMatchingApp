@@ -9,41 +9,73 @@
             name="team"
             type="com.example.myclub.model.Team" />
     </data>
-<androidx.cardview.widget.CardView
+    <androidx.cardview.widget.CardView
 
-    android:id="@+id/cardView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:contentPadding="10dp"
-    android:layout_margin="5dp"
-    app:cardCornerRadius="10dp"
-    app:cardBackgroundColor="#e6ffee"
-   >
-    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:contentPadding="10dp"
+        android:layout_margin="5dp"
+        app:cardCornerRadius="10dp"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:id="@+id/avatarTeam"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-           android:background="@drawable/avatar_team_default"
-            app:layout_constraintRight_toRightOf="parent"
-            />
-        <TextView
-            android:textStyle="bold"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/namePlayer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{team.name}"
-            android:textSize="20dp"
-           app:layout_constraintTop_toBottomOf="@+id/avatarTeam"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+            <de.hdodenhof.circleimageview.CircleImageView
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:id="@+id/avatarTeam"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/avatar_team_default"
+                />
+            <TextView
+                android:drawableStart="@drawable/name_icon"
+                android:drawablePadding="5dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/namePlayer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{team.name}"
+                android:hint="Name Team"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/avatarTeam"
+                app:layout_constraintBottom_toTopOf="@+id/position"
+                />
+            <TextView
+                android:drawableStart="@drawable/address_icon"
+                android:drawablePadding="5dp"
+                android:layout_marginLeft="10dp"
+                android:id="@+id/position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Adress Team"
+                android:text="@{team.address}"
+                app:layout_constraintTop_toBottomOf="@+id/namePlayer"
+                app:layout_constraintLeft_toRightOf="@id/avatarTeam"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:singleLine="true"
+                android:scrollHorizontally="true"
+                android:ellipsize="marquee"
+                android:marqueeRepeatLimit="marquee_forever"
+                />
+            <TextView
+                android:id="@+id/numberShirt"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="@{Float.toString(team.rating)}"
+                android:hint="0.0"
+                android:textSize="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </TextView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </layout>

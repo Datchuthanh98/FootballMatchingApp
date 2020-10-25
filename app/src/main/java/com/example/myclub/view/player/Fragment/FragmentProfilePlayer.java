@@ -12,12 +12,13 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myclub.R;
 import com.example.myclub.databinding.FragmentProfilePlayerBinding;
 import com.example.myclub.model.Player;
-import com.example.myclub.viewModel.RequestJoinTeamViewModel;
-import com.example.myclub.viewModel.TeamViewModel;
+import com.example.myclub.viewModel.ProfilePlayerViewModel;
+import com.example.myclub.session.SessionTeam;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -32,9 +33,8 @@ public class FragmentProfilePlayer extends Fragment {
     private StorageReference storageRef = storage.getReference();
     private Player player;
     private  Map<String, Object> data = new HashMap<>();
-    private RequestJoinTeamViewModel requestJoinTeamViewModel = RequestJoinTeamViewModel.getInstance();
-    private TeamViewModel teamViewModel = TeamViewModel.getInstance();
-
+    private ProfilePlayerViewModel profilePlayerViewModel;
+    private SessionTeam sessionTeam = SessionTeam.getInstance();
     public FragmentProfilePlayer(Player player) {
         this.player =player;
     }
@@ -44,6 +44,7 @@ public class FragmentProfilePlayer extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        profilePlayerViewModel = new ViewModelProvider(this).get(ProfilePlayerViewModel.class);
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile_player, container, false);
         binding.setPlayer(player);
         View view = binding.getRoot();
@@ -55,7 +56,7 @@ public class FragmentProfilePlayer extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initComponent();
         observeLiveData();
-        requestJoinTeamViewModel.getStateJoinTeam(approveJoinTeam());
+        profilePlayerViewModel.getStateJoinTeam(approveJoinTeam());
     }
 
     private void initComponent(){
@@ -95,34 +96,34 @@ public class FragmentProfilePlayer extends Fragment {
         binding.btnInvite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"Invited Player "+requestJoinTeamViewModel.getKey(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"Invited Player "+ profilePlayerViewModel.getKey(),Toast.LENGTH_SHORT).show();
             }
         });
 
         binding.btnAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 requestJoinTeamViewModel.acceptJoinTeam(approveJoinTeam());
+                 profilePlayerViewModel.acceptJoinTeam(approveJoinTeam());
             }
         });
 
         binding.btnDecline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requestJoinTeamViewModel.declineJoinTeam(approveJoinTeam());
+                profilePlayerViewModel.declineJoinTeam(approveJoinTeam());
             }
         });
     }
 
     private Map<String, Object> approveJoinTeam() {
-        data.put("idTeam",teamViewModel.getTeamLiveData().getValue().getId());
+        data.put("idTeam", sessionTeam.getTeamLiveData().getValue().getId());
         data.put("idPlayer",player.getId());
-        data.put("key",requestJoinTeamViewModel.getKey());
+        data.put("key", profilePlayerViewModel.getKey());
         return data;
     }
 
     private void observeLiveData() {
-        requestJoinTeamViewModel.getStateRequestJoinTeam().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+        profilePlayerViewModel.getStateRequestJoinTeam().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean stateApprovalJoinTeam) {
                 if(stateApprovalJoinTeam == true){

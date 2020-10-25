@@ -26,7 +26,7 @@ import com.example.myclub.R;
 import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.databinding.FragmentEditMainTeamBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
-import com.example.myclub.viewModel.TeamViewModel;
+import com.example.myclub.session.SessionTeam;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.squareup.picasso.Picasso;
 
@@ -41,7 +41,7 @@ public class FragmentEditMainTeam extends Fragment {
     public static final int RESULT_LOAD_IMG_AVATAR = 1001;
     public static final int RESULT_LOAD_IMG_COVER = 1002;
     private  String urlAvatar , urlCover;
-    private TeamViewModel teamViewModel = TeamViewModel.getInstance();
+    private SessionTeam sessionTeam = SessionTeam.getInstance();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -122,14 +122,14 @@ public class FragmentEditMainTeam extends Fragment {
 
     private void observeLiveData(final Context context) {
         //init Photo
-        TeamViewModel.getInstance().getAvatarLiveData().observe(getViewLifecycleOwner(), new Observer<File>() {
+        SessionTeam.getInstance().getAvatarLiveData().observe(getViewLifecycleOwner(), new Observer<File>() {
             @Override
             public void onChanged(File file) {
                 Picasso.get().load(file).into(binding.avatar);
             }
         });
 
-        TeamViewModel.getInstance().getCoverLiveData().observe(getViewLifecycleOwner(), new Observer<File>() {
+        SessionTeam.getInstance().getCoverLiveData().observe(getViewLifecycleOwner(), new Observer<File>() {
             @Override
             public void onChanged(File file) {
                 Picasso.get().load(file).into(binding.cover);
@@ -137,24 +137,24 @@ public class FragmentEditMainTeam extends Fragment {
         });
 
         //update Photo
-        teamViewModel.getResultPhotoLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
+        sessionTeam.getResultPhotoLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
             @Override
             public void onChanged(Result result) {
                 if (result == null) return;
                 if (result == Result.SUCCESS) {
                     loadingDialog.dismiss();
-                    Picasso.get().load(teamViewModel.getAvatarLiveData().getValue()).into(binding.avatar);
-                    Picasso.get().load(teamViewModel.getCoverLiveData().getValue()).into(binding.cover);
+                    Picasso.get().load(sessionTeam.getAvatarLiveData().getValue()).into(binding.avatar);
+                    Picasso.get().load(sessionTeam.getCoverLiveData().getValue()).into(binding.cover);
 
                 } else if (result == Result.FAILURE) {
                     loadingDialog.dismiss();
-                    Toast.makeText(context, teamViewModel.getResultMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, sessionTeam.getResultMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
 
-        teamViewModel.getResultPhotoLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
+        sessionTeam.getResultPhotoLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
             @Override
             public void onChanged(Result result) {
                 if (result == null) return;
@@ -164,7 +164,7 @@ public class FragmentEditMainTeam extends Fragment {
 
                 } else if (result == Result.FAILURE) {
                     loadingDialog.dismiss();
-                    Toast.makeText(context, teamViewModel.getResultMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, sessionTeam.getResultMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -207,7 +207,7 @@ public class FragmentEditMainTeam extends Fragment {
 
     private void updateImage(Uri uri, String path , boolean isAvatar) {
         loadingDialog.show();
-        teamViewModel.updateImage(uri, path,isAvatar);
+        sessionTeam.updateImage(uri, path,isAvatar);
     }
 
 

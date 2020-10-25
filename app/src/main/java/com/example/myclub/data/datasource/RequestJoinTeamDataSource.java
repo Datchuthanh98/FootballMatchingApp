@@ -17,8 +17,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RequestJoinTeamDataSource {
-
-    private final String TAG = "UserDataSource";
     static RequestJoinTeamDataSource instance;
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();

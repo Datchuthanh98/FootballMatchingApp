@@ -15,15 +15,13 @@ import com.example.myclub.model.Team;
 import com.example.myclub.view.team.fragment.FragmentProfileMainTeam;
 import com.example.myclub.databinding.ItemTeamVerticalBinding;
 import com.example.myclub.view.team.fragment.FragmentProfileOtherTeam;
-import com.example.myclub.data.session.SessionBookingField;
+import com.example.myclub.session.SessionBookingField;
 import com.example.myclub.viewModel.ShareSelectTeamViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
-
-import org.apache.tools.ant.taskdefs.Sleep;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,18 +92,22 @@ public class RecycleViewAdapterListTeamVertical extends RecyclerView.Adapter<Rec
         });
         holder.binding.setTeam(listTeam.get(position));
 
-         //Set image
-//        storageRef.child(listTeam.get(position).getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//            @Override
-//            public void onSuccess(Uri uri) {
-//                Picasso.get().load(uri).into(holder.binding.avatarTeam);
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception exception) {
-//
-//            }
-//        });
+        if(listTeam.get(position).getUrlAvatar() !=null) {
+            storageRef.child(listTeam.get(position).getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    if (uri != null) {
+                        Picasso.get().load(uri).into(holder.binding.avatarTeam);
+                    }
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+
+                }
+            });
+        }
     }
 
     @Override

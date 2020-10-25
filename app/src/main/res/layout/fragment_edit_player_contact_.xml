@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <import type="com.example.myclub.data.session.SessionUser"></import>
+        <import type="com.example.myclub.session.SessionUser"></import>
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
                     android:id="@+id/title"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="Edit information basic"
+                    android:text="Edit contact"
                     android:gravity="center_vertical"
                     android:textSize="20dp"
                     android:layout_weight="1"/>
@@ -52,8 +52,8 @@
             android:layout_width="match_parent"
             >
             <TextView
-                android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
-                android:text=" Name Player"
+                android:drawableStart="@drawable/name_icon"
+                android:text=" Name "
                 android:textStyle="bold"
                 android:textSize="15dp"
                 android:layout_width="match_parent"
@@ -76,7 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></EditText>
             <TextView
-                android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
+                android:drawableStart="@drawable/email_icon"
                 android:text="Email"
                 android:textStyle="bold"
                 android:textSize="15dp"
@@ -88,7 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></EditText>
             <TextView
-                android:drawableStart="@drawable/ic_baseline_home_24"
+                android:drawableStart="@drawable/address_icon"
                 android:text="Address"
                 android:textStyle="bold"
                 android:textSize="15dp"

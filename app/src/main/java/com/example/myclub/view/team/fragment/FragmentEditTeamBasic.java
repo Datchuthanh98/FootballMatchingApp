@@ -17,7 +17,7 @@ import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.databinding.FragmentEditTeamBasicBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
 import com.example.myclub.model.Team;
-import com.example.myclub.viewModel.TeamViewModel;
+import com.example.myclub.session.SessionTeam;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.HashMap;
@@ -27,7 +27,7 @@ public class FragmentEditTeamBasic extends BottomSheetDialogFragment {
 
 
     private FragmentEditTeamBasicBinding binding;
-    private TeamViewModel teamViewModel = TeamViewModel.getInstance();
+    private SessionTeam sessionTeam = SessionTeam.getInstance();
     private Dialog loadingDialog;
     private LoadingLayoutBinding loadingLayoutBinding;
     private    Map<String, Object> data = new HashMap<>();
@@ -59,7 +59,7 @@ public class FragmentEditTeamBasic extends BottomSheetDialogFragment {
             public void onClick(View v) {
                 initLoadingDialog(context);
                 loadingDialog.show();
-                teamViewModel.updateProfile(getUpdateBasic());
+                sessionTeam.updateProfile(getUpdateBasic());
             }
         });
     }
@@ -74,22 +74,22 @@ public class FragmentEditTeamBasic extends BottomSheetDialogFragment {
     }
 
     private void observeLiveData(final Context context) {
-        teamViewModel.getResultLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
+        sessionTeam.getResultLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
             @Override
             public void onChanged(Result result) {
                 if (result == null) return;
                 if (result == Result.SUCCESS) {
-                    teamViewModel.resetResult();
+                    sessionTeam.resetResult();
                     loadingDialog.dismiss();
                     detach();
                     Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show();
                     updateUITeam();
 
                 } else if (result == Result.FAILURE) {
-                    teamViewModel.resetResult();
+                    sessionTeam.resetResult();
                     loadingDialog.dismiss();
                     detach();
-                    Toast.makeText(context, teamViewModel.getResultMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, sessionTeam.getResultMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -105,8 +105,8 @@ public class FragmentEditTeamBasic extends BottomSheetDialogFragment {
     }
 
     private  void updateUITeam (){
-        Team team = TeamViewModel.getInstance().getTeamLiveData().getValue();
+        Team team = SessionTeam.getInstance().getTeamLiveData().getValue();
         team.setInforBasic(data);
-        TeamViewModel.getInstance().setTeamLiveData(team);
+        SessionTeam.getInstance().setTeamLiveData(team);
     }
 }

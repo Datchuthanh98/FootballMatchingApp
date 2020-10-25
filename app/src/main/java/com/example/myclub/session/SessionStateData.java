@@ -1,4 +1,4 @@
-package com.example.myclub.data.session;
+package com.example.myclub.session;
 
 import androidx.lifecycle.MutableLiveData;
 

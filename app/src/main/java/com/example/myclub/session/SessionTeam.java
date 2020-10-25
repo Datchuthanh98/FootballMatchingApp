@@ -1,4 +1,4 @@
-package com.example.myclub.viewModel;
+package com.example.myclub.session;
 
 import android.app.Application;
 import android.content.Context;
@@ -19,9 +19,8 @@ import java.io.File;
 import java.util.Calendar;
 import java.util.Map;
 
-public class TeamViewModel extends ViewModel implements TeamChangeCallBack {
-    private final String TAG = "Session";
-    private static TeamViewModel instance;
+public class SessionTeam implements TeamChangeCallBack {
+    private static SessionTeam instance;
     private Application application;
     private TeamRepository teamRepository = TeamRepository.getInstance();
     private MutableLiveData<Team> teamLiveData = new MutableLiveData<>();
@@ -32,9 +31,9 @@ public class TeamViewModel extends ViewModel implements TeamChangeCallBack {
     private MutableLiveData<LoadingState> teamLoadState = new MutableLiveData<>(LoadingState.INIT);
     private String resultMessage = null;
 
-    public static TeamViewModel getInstance() {
+    public static SessionTeam getInstance() {
         if (instance == null) {
-            instance = new TeamViewModel();
+            instance = new SessionTeam();
         }
         return instance;
     }
@@ -79,8 +78,8 @@ public class TeamViewModel extends ViewModel implements TeamChangeCallBack {
 
     @Override
     public void onTeamChange(Team team) {
-
         teamLiveData.setValue(team);
+        teamLoadState.setValue(LoadingState.LOADED);
         if (team != null) {
             if (team.getUrlAvatar() != null) {
                 String[] files = team.getUrlAvatar().split("/");
@@ -89,13 +88,13 @@ public class TeamViewModel extends ViewModel implements TeamChangeCallBack {
                 // 24 hours
                 if (photo.exists() && photo.lastModified() < Calendar.getInstance().getTimeInMillis() - 86400000){
                     teamAvatarLiveData.setValue(photo);
-                    teamLoadState.setValue(LoadingState.LOADED);
+                    resultPhotoLiveData.setValue(Result.SUCCESS);
                 } else {
                     teamRepository.getAvatarPhoto(new CallBack<File, String>() {
                         @Override
                         public void onSuccess(File file) {
                             teamAvatarLiveData.setValue(file);
-                            teamLoadState.setValue(LoadingState.LOADED);
+                            resultPhotoLiveData.setValue(Result.SUCCESS);
                         }
 
                         @Override
@@ -114,13 +113,13 @@ public class TeamViewModel extends ViewModel implements TeamChangeCallBack {
                 // 24 hours
                 if (photo.exists() && photo.lastModified() < Calendar.getInstance().getTimeInMillis() - 86400000){
                     teamCoverLiveData.setValue(photo);
-                    teamLoadState.setValue(LoadingState.LOADED);
+                    resultPhotoLiveData.setValue(Result.SUCCESS);
                 } else {
                     teamRepository.getCoverPhoto(new CallBack<File, String>() {
                         @Override
                         public void onSuccess(File file) {
                             teamCoverLiveData.setValue(file);
-                            teamLoadState.setValue(LoadingState.LOADED);
+                            resultPhotoLiveData.setValue(Result.SUCCESS);
                         }
 
                         @Override
@@ -136,6 +135,10 @@ public class TeamViewModel extends ViewModel implements TeamChangeCallBack {
 
     public void loadTeam(String id){
         teamLoadState.setValue(LoadingState.LOADING);
+        teamAvatarLiveData.setValue(null);
+        teamCoverLiveData.setValue(null);
+        resultPhotoLiveData.setValue(null);
+        teamLiveData.setValue(null);
         teamRepository.loadTeam(id, new CallBack<Team, String>() {
             @Override
             public void onSuccess(Team team) {

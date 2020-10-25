@@ -17,8 +17,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.example.myclub.model.PlacesConstant;
-import com.example.myclub.data.session.SessionUser;
-import com.example.myclub.viewModel.TeamViewModel;
+import com.example.myclub.session.SessionUser;
+import com.example.myclub.session.SessionTeam;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -32,7 +32,7 @@ public class MyApplication extends Application {
         super.onCreate();
         //init Firebase for app
         SessionUser.getInstance().setApplication(this);
-        TeamViewModel.getInstance().setApplication(this);
+        SessionTeam.getInstance().setApplication(this);
         FirebaseApp.initializeApp(this);
         createNotificationChannel();
         locationService();

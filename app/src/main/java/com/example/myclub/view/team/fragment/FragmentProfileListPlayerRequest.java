@@ -15,17 +15,15 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myclub.data.enumeration.DataState;
-import com.example.myclub.data.enumeration.Result;
-import com.example.myclub.data.session.SessionStateData;
-import com.example.myclub.databinding.FragmentListPlayerRequestBinding;
+import com.example.myclub.databinding.FragmentListPlayerBinding;
+import com.example.myclub.session.SessionStateData;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterListPlayerRequestVertical;
 import com.example.myclub.viewModel.ListPlayerViewModel;
-import com.example.myclub.viewModel.TeamViewModel;
+
 
 public class FragmentProfileListPlayerRequest extends Fragment {
     private ListPlayerViewModel listPlayerViewModel = ListPlayerViewModel.getInstance();
-    private TeamViewModel teamViewModel = TeamViewModel.getInstance();
-    private FragmentListPlayerRequestBinding binding;
+    private FragmentListPlayerBinding binding;
     private String idTeam;
 
     public FragmentProfileListPlayerRequest(String idTeam) {
@@ -36,7 +34,7 @@ public class FragmentProfileListPlayerRequest extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         listPlayerViewModel = new ViewModelProvider(this).get(ListPlayerViewModel.class);
-        binding = FragmentListPlayerRequestBinding.inflate(inflater);
+        binding = FragmentListPlayerBinding.inflate(inflater);
         return  binding.getRoot();
     }
 
@@ -58,7 +56,6 @@ public class FragmentProfileListPlayerRequest extends Fragment {
         SessionStateData.getInstance().getDatalistRequestByTeam().observe(getViewLifecycleOwner(), new Observer<DataState>() {
             @Override
             public void onChanged(DataState dataState) {
-                Toast.makeText(getContext(),"list requesst 2",Toast.LENGTH_SHORT).show();
                 listPlayerViewModel.getListPlayerRequest(idTeam);
             }
         });

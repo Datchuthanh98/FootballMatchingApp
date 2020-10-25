@@ -22,9 +22,6 @@ public class ListQueueTeamViewModel extends ViewModel {
     public String teamLoadMessage;
     private MutableLiveData<Result> resultAddQueueTeam = new MutableLiveData<>(null);
 
-
-
-
     public MutableLiveData<Result> getResultAddQueueTeam() {
         return resultAddQueueTeam;
     }

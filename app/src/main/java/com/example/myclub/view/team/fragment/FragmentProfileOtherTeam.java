@@ -8,15 +8,15 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myclub.R;
 import com.example.myclub.databinding.FragmentProfileOtherTeamBinding;
 import com.example.myclub.model.Team;
-import com.example.myclub.data.session.SessionUser;
-import com.example.myclub.viewModel.RequestJoinTeamViewModel;
+import com.example.myclub.session.SessionUser;
+import com.example.myclub.viewModel.ProfileOtherTeamViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -33,34 +33,37 @@ public class FragmentProfileOtherTeam extends Fragment {
     private  Team team ;
     private  Map<String, Object> data = new HashMap<>();
     private SessionUser sessionUser = SessionUser.getInstance();
-    private RequestJoinTeamViewModel requestJoinTeamViewModel = RequestJoinTeamViewModel.getInstance();
-
+    private ProfileOtherTeamViewModel profileOtherTeamViewModel;
     public FragmentProfileOtherTeam(Team team) {
         this.team = team;
     }
-
-
     private FragmentProfileOtherTeamBinding binding;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_profile_other_team,container,false);
+        binding = FragmentProfileOtherTeamBinding.inflate(inflater);
+        binding.setLifecycleOwner(this);
         binding.setTeam(team);
-        View view = binding.getRoot();
-        return  view;
+        return binding.getRoot();
+
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        profileOtherTeamViewModel = new ViewModelProvider(this).get(ProfileOtherTeamViewModel.class);
+
         initComponent();
         observeLiveData();
-        requestJoinTeamViewModel.getStateJoinTeam(requestJoinTeam());
+        profileOtherTeamViewModel.getStateJoinTeam(requestJoinTeam());
 
     }
 
 
     private void initComponent(){
+
+
+
         //Set image
         storageRef.child(team.getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -97,14 +100,14 @@ public class FragmentProfileOtherTeam extends Fragment {
         binding.btnJoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requestJoinTeamViewModel.addRequestJoinTeam(requestJoinTeam());
+                profileOtherTeamViewModel.addRequestJoinTeam(requestJoinTeam());
             }
         });
 
         binding.btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requestJoinTeamViewModel.cancelRequestJoinTeam(requestJoinTeamViewModel.getKey());
+                profileOtherTeamViewModel.cancelRequestJoinTeam(profileOtherTeamViewModel.getKey());
             }
         });
 
@@ -119,7 +122,7 @@ public class FragmentProfileOtherTeam extends Fragment {
     }
 
     private void observeLiveData() {
-        requestJoinTeamViewModel.getStateRequestJoinTeam().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+        profileOtherTeamViewModel.getStateRequestJoinTeam().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean requestJoined) {
               if(requestJoined == true){
