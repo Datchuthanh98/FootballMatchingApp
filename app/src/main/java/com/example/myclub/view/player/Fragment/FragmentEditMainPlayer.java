@@ -22,11 +22,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
 import com.example.myclub.R;
+import com.example.myclub.auth.ActivityLogin;
 import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.databinding.FragmentEditMainPlayerBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
 import com.example.myclub.session.SessionUser;
+import com.facebook.login.LoginManager;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -34,8 +37,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 public class FragmentEditMainPlayer extends Fragment {
-    private Dialog loadingDialog;
-    private LoadingLayoutBinding loadingLayoutBinding;
     private FragmentEditMainPlayerBinding binding;
     public static final int RESULT_LOAD_IMG_AVATAR = 1012;
     public static final int RESULT_LOAD_IMG_COVER = 1013;
@@ -55,7 +56,6 @@ public class FragmentEditMainPlayer extends Fragment {
         super.onViewCreated(view, savedInstanceState);
          initComponent(view.getContext());
         observeLiveData(view.getContext());
-        initLoadingDialog(view.getContext());
     }
 
     private  void initComponent(final Context context){
@@ -115,19 +115,22 @@ public class FragmentEditMainPlayer extends Fragment {
                 dialog.show(getParentFragmentManager(), null);
             }
         });
+
+        binding.btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                LoginManager.getInstance().logOut();
+                getActivity().finish();
+            }
+        });
     }
 
     private void detach(){
         getParentFragmentManager().popBackStack();
     }
 
-    private void initLoadingDialog(Context context) {
-        loadingDialog = new Dialog(context);
-        loadingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        loadingLayoutBinding = LoadingLayoutBinding.inflate(getLayoutInflater());
-        loadingDialog.setContentView(loadingLayoutBinding.getRoot());
-        loadingDialog.setCancelable(false);
-    }
+
 
     private void observeLiveData(final Context context) {
         //init Photo
@@ -166,11 +169,9 @@ public class FragmentEditMainPlayer extends Fragment {
             public void onChanged(Result result) {
                 if (result == null) return;
                 if (result == Result.SUCCESS) {
-                    loadingDialog.dismiss();
                     Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show();
 
                 } else if (result == Result.FAILURE) {
-                    loadingDialog.dismiss();
                     Toast.makeText(context, session.getResultMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -213,7 +214,6 @@ public class FragmentEditMainPlayer extends Fragment {
     }
 
     private void updateImage(Uri uri, String path , boolean isAvatar) {
-        loadingDialog.show();
         session.updateImage(uri, path,isAvatar);
     }
 

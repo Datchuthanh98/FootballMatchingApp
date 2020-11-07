@@ -1,18 +1,28 @@
 package com.example.myclub.data.datasource;
 
 import android.net.Uri;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.myclub.Interface.CallBack;
+import com.example.myclub.model.Chat;
+import com.example.myclub.model.Comment;
+import com.example.myclub.model.Evaluate;
+import com.example.myclub.model.Player;
 import com.example.myclub.model.Team;
 import com.example.myclub.session.SessionUser;
 import com.example.myclub.session.SessionTeam;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
 import com.google.firebase.storage.FileDownloadTask;
@@ -27,6 +37,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static org.testng.reporters.jq.BasePanel.C;
 
 public class TeamDataSource {
     static TeamDataSource instance;
@@ -44,12 +56,8 @@ public class TeamDataSource {
     }
 
 
-    public void createTeam(final String name, final String phone, final String email, final CallBack<Team,String> callBack) {
-        Map<String, Object> map = new HashMap<>();
+    public void createTeam(final Map<String,Object> map, final CallBack<Team,String> callBack) {
         final String idPlayer = SessionUser.getInstance().getPlayerLiveData().getValue().getId();
-        map.put("name", name);
-        map.put("phone", phone);
-        map.put("email", email);
         map.put("idPlayer", idPlayer);
         functions.getHttpsCallable("createTeam").call(map).addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
             @Override
@@ -119,16 +127,17 @@ public class TeamDataSource {
 
 
     public void loadTeam(String idTeam, final CallBack<Team,String> callBack) {
-        db.collection("Team").document(idTeam).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        functions.getHttpsCallable("getTeamDetail").call(idTeam).addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Team team = documentSnapshot.toObject(Team.class);
+            public void onSuccess(HttpsCallableResult httpsCallableResult) {
+                Team team = convert.fromJson(convert.toJson(httpsCallableResult.getData()), Team.class);
                 callBack.onSuccess(team);
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                callBack.onFailure(e.getMessage());
+                callBack.onFailure("");
             }
         });
     }
@@ -192,4 +201,75 @@ public class TeamDataSource {
         StorageReference fileRef = storage.getReference().child(url);
         return fileRef.getFile(downloadLocation);
     }
+
+    public void loadChatTeam(String idTeam,final CallBack<List<Chat>,String> callBack) {
+        db.collection("Team").document(idTeam).collection("chatTeam").orderBy("timestamp").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                List<Chat>  chats = queryDocumentSnapshots.toObjects(Chat.class);
+                callBack.onSuccess(chats);
+            }
+        });
+
+    }
+
+
+    public void addChat(String idTeam, Map<String, Object> map, final CallBack<String,String > callBack) {
+        db.collection("Team").document(idTeam).collection("chatTeam").add(map).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                callBack.onSuccess("add chat sucess");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                callBack.onSuccess("add chat failure");
+            }
+        });
+    }
+
+
+    public  void getListEvaluate(String idTeam , final CallBack<List<Evaluate>,String> loadListTeamCallBack){
+        functions.getHttpsCallable("getListEvaluate").call(idTeam).addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
+            @Override
+            public void onSuccess(HttpsCallableResult httpsCallableResult) {
+                Gson gson= new Gson();
+                List<Map> listCommentMaps = (List<Map>) httpsCallableResult.getData();
+                List<Evaluate> listComments = new ArrayList<>();
+                if(listCommentMaps == null){
+                    loadListTeamCallBack.onSuccess(new ArrayList<Evaluate>());
+                }else{
+                    for (Map commentMap : listCommentMaps){
+                        Evaluate comment = gson.fromJson(gson.toJson(commentMap), Evaluate.class);
+                        listComments.add(comment);
+                    }
+                    loadListTeamCallBack.onSuccess(listComments);
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                loadListTeamCallBack.onFailure(e.getMessage());
+            }
+        });
+    }
+
+    public void addEvaluate(Map<String,Object> map, final CallBack<String ,String>  callBack){
+        DocumentReference ref = db.collection("Evaluate").document();
+        map.put("id", ref.getId());
+        ref.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                callBack.onSuccess("");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                callBack.onFailure(e.getMessage());
+            }
+        });
+    }
+
+
+
 }

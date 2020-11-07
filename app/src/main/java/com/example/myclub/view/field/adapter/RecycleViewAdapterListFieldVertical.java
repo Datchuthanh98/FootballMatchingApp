@@ -64,9 +64,7 @@ public class RecycleViewAdapterListFieldVertical extends RecyclerView.Adapter<Re
             public void onClick(View v) {
                 if(isShow) {
                     Bundle args = new Bundle();
-                    args.putSerializable("field", fieldList.get(position));
-                    FragmentProfileField fragmentProfileField = new FragmentProfileField();
-                    fragmentProfileField.setArguments(args);
+                    FragmentProfileField fragmentProfileField = new FragmentProfileField(fieldList.get(position));
                     ActivityHome activityHome = (ActivityHome) holder.itemView.getContext();
                     activityHome.addFragment(fragmentProfileField);
                 }else{

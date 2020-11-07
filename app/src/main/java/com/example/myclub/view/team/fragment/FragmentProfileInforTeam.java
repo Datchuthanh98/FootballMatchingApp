@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
 import com.example.myclub.R;
+import com.example.myclub.databinding.FragmentEditTeamBasicBinding;
 import com.example.myclub.databinding.FragmentProfileTeamBasicBinding;
 import com.example.myclub.session.SessionTeam;
 
@@ -23,7 +24,7 @@ public class FragmentProfileInforTeam extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile_team_basic, container, false);
+        binding = FragmentProfileTeamBasicBinding.inflate(inflater);
         binding.setLifecycleOwner(this);
         View view = binding.getRoot();
         return view;
@@ -32,6 +33,5 @@ public class FragmentProfileInforTeam extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        
     }
 }

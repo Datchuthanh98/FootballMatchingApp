@@ -72,6 +72,82 @@ exports.getAllListMatch = functions.https.onCall(async () => {
 });
 
 
+exports.getListMatchByDate = functions.https.onCall(async (date) => {
+    let result = []
+    let i;
+        let listMatchRecords = await db.collection('Match').get();
+        const listMatch = [];
+        let listTeamHomePromises = [];
+        let listFieldPromises = [];
+        let listTeamAwayPromises = [];
+        let listTimePromises = [];
+        if(!listMatchRecords.empty){
+            let listBookingPromises = [];
+            for(i = 0 ; i < listMatchRecords.docs.length ; i++){
+                listMatch.push(listMatchRecords.docs[i].data());
+                listBookingPromises.push(db.collection('Booking').doc(listMatchRecords.docs[i].data().idBooking).get());
+            }
+
+            await Promise.all(listBookingPromises).then((BookingRecords) => {
+                for( i = 0 ; i< BookingRecords.length ; i++){
+                    if (BookingRecords[i].exists){
+                            listMatch[i].idBooking = BookingRecords[i].data(); 
+                            listTeamHomePromises.push(db.collection('Team').doc(BookingRecords[i].data().idTeamHome).get());
+                            if (BookingRecords[i].data().idTeamAway !== null){
+                                listTeamAwayPromises.push(db.collection('Team').doc(BookingRecords[i].data().idTeamAway).get());
+                            }
+                            else {
+                                listTeamAwayPromises.push(null);
+                            }
+                            listFieldPromises.push(db.collection('Field').doc(BookingRecords[i].data().idField).get());
+                            listTimePromises.push(db.collection('TimeGame').doc(BookingRecords[i].data().idTimeGame).get());
+                    }
+                }
+                return null;
+            });
+
+            await Promise.all(listTeamHomePromises).then((ListTeamHomeRecords) => {
+                for( i = 0 ; i< ListTeamHomeRecords.length ; i++){
+                   listMatch[i].idBooking.idTeamHome = ListTeamHomeRecords[i].data();
+                }
+                return null;
+            })
+
+            await Promise.all(listTeamAwayPromises).then((ListTeamAwayRecords) => {
+                for( i = 0 ; i< ListTeamAwayRecords.length ; i++){
+                    if (ListTeamAwayRecords[i]!==null){
+                        listMatch[i].idBooking.idTeamAway = ListTeamAwayRecords[i].data();
+                    }
+                   
+                }
+                return null;
+            })
+
+            await Promise.all(listFieldPromises).then((ListFieldRecords) => {
+                for( i = 0 ; i< ListFieldRecords.length ; i++){
+                   listMatch[i].idBooking.idField = ListFieldRecords[i].data();
+                }
+                return null;
+            })
+
+            await Promise.all(listTimePromises).then((ListTimeRecords) => {
+                for( i = 0 ; i< ListTimeRecords.length ; i++){
+                   listMatch[i].idBooking.idTimeGame = ListTimeRecords[i].data();
+                }
+                return null;
+            })
+ 
+         
+            for( i =0 ; i <listMatch.length ; i++){
+                if(listMatch[i].idBooking.approve ===true && listMatch[i].idBooking.date === date ){
+                    result.push (listMatch[i]);
+                }
+            }
+        }  
+    return result; 
+});
+
+
 exports.getMyListMatch = functions.https.onCall(async (idPlayer) => {
     let i,j;
         let listMatchRecords = await db.collection('Match').get();
@@ -148,7 +224,8 @@ exports.getMyListMatch = functions.https.onCall(async (idPlayer) => {
             for(i =0 ;i < listMatch.length ; i++){
                 for( j = 0 ;  j<members.docs.length ; j ++){
                     if(members.docs[j].data().idTeam === listMatch[i].idBooking.idTeamHome.id ||  members.docs[j].data().idTeam === listMatch[i].idBooking.idTeamAway.id){
-                        listMyTeam.push(listMatch[i])
+                        listMyTeam.push(listMatch[i]);
+                        break;
                     }else if(j === (members.docs.length-1)){
                        //do somthing
                     }
@@ -175,25 +252,7 @@ exports.getMatchDetail = functions.https.onCall(async (idMatch) => {
         let teamAwayRecord = await db.collection("Team").doc(bookingRecord.data().idTeamAway).get();
         match.idBooking.idTeamAway =teamAwayRecord.data();
     }
-   
-    const listQueueTeamRecord = await db.collection("QueueTeam").where('idMatch','==',idMatch).get();
- 
-    let i ;
-    let listTeamPromises = []
-    for( i =0 ; i<listQueueTeamRecord.docs.length ; i++){
-        listTeamPromises.push(db.collection("Team").doc(listQueueTeamRecord.docs[i].data().idTeam).get());
-    }
-
-    let listTeam= []
-
-    await Promise.all(listTeamPromises).then((teamRecords) => {
-        for( i = 0 ; i< teamRecords.length ; i++){
-            listTeam.push(teamRecords[i].data());
-         }
-         return null;
-
-    })
-    match.listQueueTeam = listTeam;   
+  
     return match;
 });
 

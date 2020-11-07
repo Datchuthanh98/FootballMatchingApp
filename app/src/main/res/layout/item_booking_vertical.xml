@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View" />
         <variable
             name="booking"
             type="com.example.myclub.model.Booking" />
@@ -15,7 +14,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:contentPadding="10dp"
-    android:layout_margin="5dp"
+    android:layout_margin="10dp"
     app:cardCornerRadius="10dp"
    >
 
@@ -115,7 +114,7 @@
             <TextView
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/date"
-                app:layout_constraintRight_toLeftOf="@id/status"
+                app:layout_constraintRight_toLeftOf="@id/state"
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -125,7 +124,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/time"
                 app:layout_constraintRight_toRightOf="parent"
-                android:id="@+id/status"
+                android:id="@+id/state"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sắp diễn ra" />

@@ -107,10 +107,7 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
             public void onInfoWindowClick(Marker marker) {
                 Field field = fieldMarkers.get(marker);
                 if (field != null) {
-                    Bundle args = new Bundle();
-                    args.putSerializable("field", field);
-                    FragmentProfileField fragmentProfileField = new FragmentProfileField();
-                    fragmentProfileField.setArguments(args);
+                    FragmentProfileField fragmentProfileField = new FragmentProfileField(field);
                     ActivityHome activityHome = (ActivityHome) getContext();
                     activityHome.addFragment(fragmentProfileField);
                 }

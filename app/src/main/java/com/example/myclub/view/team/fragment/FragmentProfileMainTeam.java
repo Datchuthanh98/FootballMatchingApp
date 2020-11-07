@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.viewpager.widget.ViewPager;
 
 import com.example.myclub.R;
 import com.example.myclub.data.enumeration.LoadingState;
@@ -19,9 +18,8 @@ import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.databinding.FragmentProfileMyTeamBinding;
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.view.player.Adapter.AdapterFragmentProfile;
-import com.example.myclub.view.team.adapter.AdapterFragmentProfileTeam;
+import com.example.myclub.view.team.adapter.AdapterFragmentProfileMyTeam;
 import com.example.myclub.session.SessionTeam;
-import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
 
 public class FragmentProfileMainTeam extends Fragment {
@@ -43,14 +41,17 @@ public class FragmentProfileMainTeam extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        AdapterFragmentProfileTeam adapter = new AdapterFragmentProfileTeam(getChildFragmentManager(), AdapterFragmentProfile.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,idTeam);
+        AdapterFragmentProfileMyTeam adapter = new AdapterFragmentProfileMyTeam(getChildFragmentManager(), AdapterFragmentProfile.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         binding.viewpager.setAdapter(adapter);
         binding.tablayout.setupWithViewPager(binding.viewpager);
         initComponent();
         observeLiveData(view.getContext());
+
     }
 
     private  void initComponent(){
+//        sessionTeam.loadChat(idTeam);
+
         SessionTeam.getInstance().loadTeam(idTeam);
         binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_back_white_24);
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -66,8 +67,18 @@ public class FragmentProfileMainTeam extends Fragment {
                 activityHome.addFragment(new FragmentEditMainTeam());
             }
         });
-    }
 
+        binding.btnChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityHome activityHome = (ActivityHome) getContext();
+                activityHome.addFragment(new FragmentListChat(idTeam));
+            }
+        });
+
+
+
+    }
 
 
     private void observeLiveData(final Context context) {
@@ -103,6 +114,9 @@ public class FragmentProfileMainTeam extends Fragment {
             }
         });
     }
+
+
+
 
 
     private void detach() {

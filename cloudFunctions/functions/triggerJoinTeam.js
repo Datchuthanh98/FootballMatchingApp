@@ -17,7 +17,7 @@ exports.triggerJoinTeam = functions.firestore.document('RequestJoinTeam/{request
     const playerRecord = await db.collection('Player').doc(idPlayer).get();
     const playerData = playerRecord.data();
     // get captain
-    const idCaptain = teamData.idCaption;
+    const idCaptain = teamData.idCaptain;
     const captainRecord = await db.collection('Player').doc(idCaptain).get();
     const captainData = captainRecord.data();
     // get captain's registration token

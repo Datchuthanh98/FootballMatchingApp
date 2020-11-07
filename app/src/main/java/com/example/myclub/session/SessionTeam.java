@@ -3,6 +3,7 @@ package com.example.myclub.session;
 import android.app.Application;
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -13,10 +14,12 @@ import com.example.myclub.Interface.TeamChangeCallBack;
 import com.example.myclub.data.enumeration.LoadingState;
 import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.data.repository.TeamRepository;
+import com.example.myclub.model.Chat;
 import com.example.myclub.model.Team;
 
 import java.io.File;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 public class SessionTeam implements TeamChangeCallBack {
@@ -30,6 +33,7 @@ public class SessionTeam implements TeamChangeCallBack {
     private MutableLiveData<Result> resultPhotoLiveData = new MutableLiveData<>(null);
     private MutableLiveData<LoadingState> teamLoadState = new MutableLiveData<>(LoadingState.INIT);
     private String resultMessage = null;
+
 
     public static SessionTeam getInstance() {
         if (instance == null) {
@@ -194,4 +198,12 @@ public class SessionTeam implements TeamChangeCallBack {
     public void resetResult() {
         getInstance().resultLiveData.setValue(null);
     }
+
+
+
 }
+
+
+
+
+

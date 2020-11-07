@@ -26,9 +26,9 @@ public class AdapterFragmentInformationMatch extends FragmentStatePagerAdapter {
             case 0:
                 return new FragmentInformationMatch();
             case 1 :
-                return  new FragmentListQueueTeam(idMatch);
+                return  new FragmentListQueueTeam();
             case 2 :
-                return  new FragmentListComment(idMatch);
+                return  new FragmentListComment();
         }
         return  null;
     }

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="evaluate"
+            type="com.example.myclub.model.Evaluate" />
+    </data>
+<androidx.cardview.widget.CardView
+    android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:contentPadding="10dp"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="10dp"
+   >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:id="@+id/avatarPlayer"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/avatar_player_default"
+            />
+        <LinearLayout
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintLeft_toRightOf="@+id/avatarPlayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:hint="name player"
+                android:text="@{evaluate.idPlayer.name}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/namePlayer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="name player"
+                android:text="@{evaluate.comment}"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/position"
+                app:layout_constraintLeft_toRightOf="@id/avatarPlayer"
+                app:layout_constraintTop_toTopOf="parent" />
+            <RatingBar
+                android:rating="@{evaluate.rating}"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></RatingBar>
+        </LinearLayout>
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
+</layout>

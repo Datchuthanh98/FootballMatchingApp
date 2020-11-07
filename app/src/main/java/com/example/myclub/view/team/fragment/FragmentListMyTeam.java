@@ -14,10 +14,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.myclub.data.enumeration.DataState;
-import com.example.myclub.databinding.FragmentListTeamBinding;
-import com.example.myclub.session.SessionStateData;
-
+import com.example.myclub.data.enumeration.Result;
+import com.example.myclub.databinding.FragmentListBinding;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterListTeamVertical;
 import com.example.myclub.viewModel.ListTeamViewModel;
 import com.example.myclub.session.SessionUser;
@@ -27,7 +25,7 @@ public class FragmentListMyTeam extends Fragment {
     private ListTeamViewModel listTeamViewModel;
     private ShareSelectTeamViewModel selectTeamViewModel ;
     private SessionUser sessionUser = SessionUser.getInstance();
-    private FragmentListTeamBinding binding;
+    private FragmentListBinding binding;
     public boolean isShow = true ;
 
 
@@ -42,8 +40,8 @@ public class FragmentListMyTeam extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        listTeamViewModel = new ViewModelProvider(this).get(ListTeamViewModel.class);
-        binding = FragmentListTeamBinding.inflate(inflater);
+        listTeamViewModel = new ViewModelProvider(getActivity()).get(ListTeamViewModel.class);
+        binding = FragmentListBinding.inflate(inflater);
         return  binding.getRoot();
     }
 
@@ -56,28 +54,34 @@ public class FragmentListMyTeam extends Fragment {
     }
 
     private void observerLiveDate() {
-        SessionStateData.getInstance().getDatalistMyTeam().observe(getViewLifecycleOwner(), new Observer<DataState>() {
+
+        listTeamViewModel.getResult().observe(getViewLifecycleOwner(), new Observer<Result>() {
             @Override
-            public void onChanged(DataState dataState) {
-                listTeamViewModel.getListTeam(sessionUser.getPlayerLiveData().getValue().getId());
+            public void onChanged(Result result) {
+                if(result == Result.SUCCESS){
+                    Toast.makeText(getContext(),"add team vao day r ",Toast.LENGTH_SHORT).show();
+                    listTeamViewModel.getListTeam(sessionUser.getPlayerLiveData().getValue().getId());
+                }
+
             }
         });
-    }
+}
 
     private  void initComponent(){
         listTeamViewModel.getListTeam(sessionUser.getPlayerLiveData().getValue().getId());
-        binding.recycleViewListTeamVertical.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recycleViewListVertical.setLayoutManager(new LinearLayoutManager(getContext()));
         RecycleViewAdapterListTeamVertical adapter = listTeamViewModel.getAdapterListTeam();
+
+
         adapter.fragment = getTargetFragment();
         adapter.setFm(getParentFragmentManager());
         adapter.setShareSelectTeamViewModel(selectTeamViewModel);
         adapter.isMy = true ;
         adapter.isShow = this.isShow;
-        binding.recycleViewListTeamVertical.setAdapter(listTeamViewModel.getAdapterListTeam());
+        binding.recycleViewListVertical.setAdapter(listTeamViewModel.getAdapterListTeam());
         binding.btnCreateTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"create new Team",Toast.LENGTH_SHORT).show();
                 DialogFragment dialogFragment = new FragmentAddTeamDialog();
                 dialogFragment.show(getParentFragmentManager(),"Add Team Diaglog");
             }

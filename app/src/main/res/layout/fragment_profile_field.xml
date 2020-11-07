@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
     <data>
         <variable
             name="field"
             type="com.example.myclub.model.Field" />
     </data>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,47 +17,47 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
+            android:layout_height="?attr/actionBarSize"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
                 <TextView
                     android:id="@+id/title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="Information Field"
-                    android:textColor="@color/white"
-                    android:textSize="20dp" />
-
-                <ImageButton
-                    android:id="@+id/btnCall"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:background="?android:attr/selectableItemBackground"
-                    android:paddingHorizontal="15dp"
-                    android:src="@drawable/ic_baseline_phone_24_green" />
+                    android:text="My Information "
+                    android:gravity="center_vertical"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"/>
+
 
                 <ImageButton
                     android:id="@+id/btnEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:background="?android:attr/selectableItemBackground"
                     android:paddingHorizontal="15dp"
-                    android:src="@drawable/ic_baseline_email_24_yeallow" />
-
+                    android:background="?android:attr/selectableItemBackground"
+                    android:src="@drawable/ic_baseline_email_24_yeallow"/>
+                <ImageButton
+                    android:id="@+id/btnCall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="15dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:src="@drawable/ic_baseline_phone_24_green"/>
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/toolbar">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            android:layout_height="0dp">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -97,14 +97,14 @@
                         android:text="Name"
                         android:textSize="30dp"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"></TextView>
+                        android:layout_height="wrap_content"></TextView>
                     <LinearLayout
                         app:layout_constraintTop_toBottomOf="@+id/lblName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:paddingHorizontal="20dp"
-                 >
+                        >
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -118,7 +118,7 @@
                             android:layout_height="wrap_content"
                             android:drawableStart="@drawable/ic_baseline_phone_24_green"
                             android:padding="5dp"
-                            android:text="@{field.phone}"
+                            android:text="@{field.name}"
                             android:textSize="16dp" />
 
                         <TextView
@@ -150,17 +150,14 @@
                             android:padding="5dp"
                             android:text="@{field.introduce}"
                             android:textSize="16dp" />
+
+
                         <TextView
-                            android:textStyle="bold"
-                            android:textSize="22dp"
-                            android:text="List Time"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"></TextView>
-
-
-
-
-
+                            android:layout_height="wrap_content"
+                            android:text="List Time"
+                            android:textSize="24dp"
+                            android:textStyle="bold" />
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycleViewListTimeVertical"
                             android:layout_width="match_parent"
@@ -178,9 +175,14 @@
                             android:drawableStart="@drawable/ic_baseline_join_24_green"
                             android:text="Booking"
                             ></Button>
+
+
+
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

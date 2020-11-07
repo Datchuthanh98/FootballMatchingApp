@@ -29,17 +29,33 @@
             android:layout_height="50dp"
             app:srcCompat="@drawable/avatar_player_default"
             />
-        <TextView
-            android:textStyle="bold"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/namePlayer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@{comment.comment}"
+        <LinearLayout
+            android:orientation="vertical"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/avatarPlayer"
-            app:layout_constraintBottom_toTopOf="@+id/position"
-            />
+            app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintLeft_toRightOf="@+id/avatarPlayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:hint="name player"
+                android:text="@{comment.idPlayer.name}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/namePlayer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="name player"
+                android:text="@{comment.comment}"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/position"
+                app:layout_constraintLeft_toRightOf="@id/avatarPlayer"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </LinearLayout>
 
 
 

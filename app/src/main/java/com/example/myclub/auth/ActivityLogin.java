@@ -11,10 +11,14 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myclub.Interface.CallBack;
+import com.example.myclub.R;
 import com.example.myclub.data.datasource.PlayerDataSource;
+import com.example.myclub.model.Field;
+import com.example.myclub.model.Image;
 import com.example.myclub.session.SessionUser;
 import com.example.myclub.databinding.ActivityLoginBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
@@ -29,6 +33,7 @@ import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -38,15 +43,21 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.gson.Gson;
 import com.tuyenmonkey.mkloader.MKLoader;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ActivityLogin extends AppCompatActivity {
-
-
     private FirebaseAuth mAuth;
     private PlayerDataSource playerDataSource = PlayerDataSource.getInstance();
     private ActivityLoginBinding binding;
@@ -60,7 +71,9 @@ public class ActivityLogin extends AppCompatActivity {
     private Dialog loadingDialog;
     private LoadingLayoutBinding loadingLayoutBinding;
     private FirebaseFunctions functions = FirebaseFunctions.getInstance();
+     private  FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Gson convert = new Gson();
+    List<Image> imageResult = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,8 +91,6 @@ public class ActivityLogin extends AppCompatActivity {
 
 
         mAuth = FirebaseAuth.getInstance();
-
-
         //Login withEmail
         binding.btnLoginEmail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,13 +122,13 @@ public class ActivityLogin extends AppCompatActivity {
         //Login With Google
         mAuth = FirebaseAuth.getInstance();
         loader = binding.loader;
-//
-//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestIdToken(getString(R.string.default_web_client_id))
-//                .requestEmail()
-//                .build();
 
-//        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         binding.btnGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,8 +196,6 @@ public class ActivityLogin extends AppCompatActivity {
 
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d("hjdsvhjcdb", "firebaseAuthWithGoogle:" + acct.getId());
-
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -195,7 +204,6 @@ public class ActivityLogin extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             loader.setVisibility(View.GONE);
-                            Log.d("hjdsvhjcdb", "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             startActivity(new Intent(ActivityLogin.this, ActivityHome.class));
                             finish();
@@ -203,7 +211,6 @@ public class ActivityLogin extends AppCompatActivity {
                         } else {
                             loader.setVisibility(View.GONE);
                             // If sign in fails, display a message to the user.
-                            Log.w("hjdsvhjcdb", "signInWithCredential:failure", task.getException());
                             Toast.makeText(ActivityLogin.this, "signInWithCredential:failure", Toast.LENGTH_SHORT).show();
                         }
 
@@ -215,8 +222,6 @@ public class ActivityLogin extends AppCompatActivity {
 
 
     private void handleFacebookAccessToken(AccessToken token) {
-        Log.d("smdbcdbsc", "handleFacebookAccessToken:" + token);
-
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -224,18 +229,13 @@ public class ActivityLogin extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d("smdbcdbsc", "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             startActivity(new Intent(ActivityLogin.this, ActivityHome.class));
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w("smdbcdbsc", "signInWithCredential:failure", task.getException());
                             Toast.makeText(ActivityLogin.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-
                         }
-
-                        // ...
                     }
                 });
     }
@@ -253,7 +253,6 @@ public class ActivityLogin extends AppCompatActivity {
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
-                Log.w("hjdsvhjcdb", "Google sign in failed", e);
                 // ...
             }
         }else {

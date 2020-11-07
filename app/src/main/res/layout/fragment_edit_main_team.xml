@@ -214,6 +214,32 @@
                     android:layout_height="200dp"
                     android:text="@{SessionTeam.getInstance().teamLiveData.introduce}"
                     android:textStyle="bold" />
+                <LinearLayout
+                    android:paddingBottom="50dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Danh sách cầu thủ xin vào đội"
+                        android:textColor="@color/colorTittle"
+                        android:textSize="20dp"
+                        android:textStyle="bold"></TextView>
+
+                    <ImageButton
+                        android:id="@+id/btnShow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_baseline_edit_30_black"
+                        android:text="Edit"
+                        android:textSize="20dp"
+                        android:textStyle="bold"></ImageButton>
+                </LinearLayout>
+
+
             </LinearLayout>
         </ScrollView>
     <FrameLayout

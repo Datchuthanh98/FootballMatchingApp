@@ -14,16 +14,15 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.myclub.data.enumeration.DataState;
-import com.example.myclub.databinding.FragmentListPlayerBinding;
-import com.example.myclub.session.SessionStateData;
+import com.example.myclub.databinding.FragmentListBinding;
+import com.example.myclub.databinding.FragmentListRequestBinding;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterListPlayerRequestVertical;
 import com.example.myclub.viewModel.ListPlayerViewModel;
 
 
 public class FragmentProfileListPlayerRequest extends Fragment {
     private ListPlayerViewModel listPlayerViewModel = ListPlayerViewModel.getInstance();
-    private FragmentListPlayerBinding binding;
+    private FragmentListRequestBinding binding;
     private String idTeam;
 
     public FragmentProfileListPlayerRequest(String idTeam) {
@@ -34,7 +33,7 @@ public class FragmentProfileListPlayerRequest extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         listPlayerViewModel = new ViewModelProvider(this).get(ListPlayerViewModel.class);
-        binding = FragmentListPlayerBinding.inflate(inflater);
+        binding = FragmentListRequestBinding.inflate(inflater);
         return  binding.getRoot();
     }
 
@@ -46,18 +45,18 @@ public class FragmentProfileListPlayerRequest extends Fragment {
     }
     private  void initComponent(){
         listPlayerViewModel.getListPlayerRequest(idTeam);
-        binding.recycleViewListPlayerVertical.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recycleViewListRequestVertical.setLayoutManager(new LinearLayoutManager(getContext()));
         RecycleViewAdapterListPlayerRequestVertical adapter = listPlayerViewModel.getAdapterListPlayerRequest();
         adapter.setFm(getParentFragmentManager());
-        binding.recycleViewListPlayerVertical.setAdapter(listPlayerViewModel.getAdapterListPlayerRequest());
+        binding.recycleViewListRequestVertical.setAdapter(listPlayerViewModel.getAdapterListPlayerRequest());
     }
 
     private void observeLiveData(final Context context) {
-        SessionStateData.getInstance().getDatalistRequestByTeam().observe(getViewLifecycleOwner(), new Observer<DataState>() {
-            @Override
-            public void onChanged(DataState dataState) {
-                listPlayerViewModel.getListPlayerRequest(idTeam);
-            }
-        });
+//        SessionStateData.getInstance().getDatalistRequestByTeam().observe(getViewLifecycleOwner(), new Observer<DataState>() {
+//            @Override
+//            public void onChanged(DataState dataState) {
+//                listPlayerViewModel.getListPlayerRequest(idTeam);
+//            }
+//        });
     }
 }

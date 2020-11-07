@@ -25,8 +25,11 @@ import androidx.lifecycle.Observer;
 import com.example.myclub.R;
 import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.databinding.FragmentEditMainTeamBinding;
+import com.example.myclub.databinding.FragmentProfileMyTeamBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
+import com.example.myclub.main.ActivityHome;
 import com.example.myclub.session.SessionTeam;
+import com.example.myclub.view.player.Fragment.FragmentProfilePlayer;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.squareup.picasso.Picasso;
 
@@ -45,7 +48,8 @@ public class FragmentEditMainTeam extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_edit_main_team,container,false);
+        binding = FragmentEditMainTeamBinding.inflate(inflater);
+        binding.setLifecycleOwner(this);
         View view = binding.getRoot();
         return  view;
     }
@@ -105,6 +109,15 @@ public class FragmentEditMainTeam extends Fragment {
                 dialog.show(getParentFragmentManager(), null);
             }
         });
+
+        binding.btnShow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityHome activityHome = (ActivityHome) getContext();
+                activityHome.addFragment(new FragmentProfileListPlayerRequest(SessionTeam.getInstance().getTeamLiveData().getValue().getId()));
+            }
+        });
+
 
     }
 

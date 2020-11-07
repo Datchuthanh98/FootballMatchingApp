@@ -10,13 +10,12 @@ import com.example.myclub.view.team.fragment.FragmentProfileListPlayer;
 import com.example.myclub.view.team.fragment.FragmentProfileInforTeam;
 import com.example.myclub.view.team.fragment.FragmentProfileListPlayerRequest;
 
-public class AdapterFragmentProfileTeam extends FragmentPagerAdapter {
-    int numTab = 3;
-    String  idTeam;
+public class AdapterFragmentProfileMyTeam extends FragmentPagerAdapter {
+    int numTab = 2;
 
-    public AdapterFragmentProfileTeam(@NonNull FragmentManager fm, int behavior,String idTeam) {
+    public AdapterFragmentProfileMyTeam(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
-        this.idTeam = idTeam;
+
     }
 
     @NonNull
@@ -26,9 +25,7 @@ public class AdapterFragmentProfileTeam extends FragmentPagerAdapter {
             case 0:
                 return new FragmentProfileInforTeam();
             case 1:
-                return new FragmentProfileListPlayer(idTeam);
-            case 2:
-                return new FragmentProfileListPlayerRequest(idTeam);
+                return new FragmentProfileListPlayer();
         }
         return  null;
     }
@@ -46,8 +43,6 @@ public class AdapterFragmentProfileTeam extends FragmentPagerAdapter {
                 return "Information";
             case 1:
                 return "List Player";
-            case 2:
-                return "List Request";
         }
         return null;
     }

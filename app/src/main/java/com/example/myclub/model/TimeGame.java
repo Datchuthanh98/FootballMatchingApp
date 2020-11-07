@@ -6,6 +6,15 @@ public class TimeGame {
     private  String startTime;
     private  String endTime;
     private  String cost;
+    private  String position;
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
 
     public TimeGame() {
     }

@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.myclub.databinding.FragmentListFieldBinding;
+import com.example.myclub.databinding.FragmentListBinding;
 import com.example.myclub.view.field.adapter.RecycleViewAdapterListFieldVertical;
 import com.example.myclub.viewModel.ListFieldViewModel;
 
@@ -28,11 +28,11 @@ public class FragmentListField extends Fragment {
         this.isShown = isShown;
     }
 
-    FragmentListFieldBinding binding;
+    FragmentListBinding binding;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentListFieldBinding.inflate(inflater);
+        binding = FragmentListBinding.inflate(inflater);
         return binding.getRoot();
     }
 
@@ -43,8 +43,8 @@ public class FragmentListField extends Fragment {
         RecycleViewAdapterListFieldVertical adapter = viewModel.getAdapterListField();
         adapter.setFm(getParentFragmentManager());
         adapter.isShow = this.isShown;
-        binding.recycleViewListFieldVertical.setAdapter(viewModel.getAdapterListField());
-        binding.recycleViewListFieldVertical.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recycleViewListVertical.setAdapter(viewModel.getAdapterListField());
+        binding.recycleViewListVertical.setLayoutManager(new LinearLayoutManager(getContext()));
 
     }
 }

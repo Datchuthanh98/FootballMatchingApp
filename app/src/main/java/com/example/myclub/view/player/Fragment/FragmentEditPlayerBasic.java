@@ -24,12 +24,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FragmentEditPlayerBasic extends BottomSheetDialogFragment {
-
-
-         private FragmentEditPlayerContactBinding binding;
+    private FragmentEditPlayerContactBinding binding;
     private SessionUser session = SessionUser.getInstance();
-    private Dialog loadingDialog;
-    private LoadingLayoutBinding loadingLayoutBinding;
     private    Map<String, Object> data = new HashMap<>();
     @Nullable
     @Override
@@ -48,32 +44,17 @@ public class FragmentEditPlayerBasic extends BottomSheetDialogFragment {
 
     }
 
-
-
     private void detach(){
        dismiss();
     }
-
-
 
     private  void initComponent(final Context context){
         binding.imageBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                initLoadingDialog(context);
-                loadingDialog.show();
                 session.updateProfile(getUpdateBasic());
             }
         });
-    }
-
-    private void initLoadingDialog(Context context) {
-        loadingDialog = new Dialog(context);
-        loadingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        loadingLayoutBinding = LoadingLayoutBinding.inflate(getLayoutInflater());
-        loadingDialog.setContentView(loadingLayoutBinding.getRoot());
-//        loadingLayoutBinding.title.setText(R.string.updating_information);
-        loadingDialog.setCancelable(false);
     }
 
     private void observeLiveData(final Context context) {
@@ -83,14 +64,12 @@ public class FragmentEditPlayerBasic extends BottomSheetDialogFragment {
                 if (result == null) return;
                 if (result == Result.SUCCESS) {
                     session.resetResult();
-                    loadingDialog.dismiss();
                     detach();
                     Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show();
                     updateUIPlayer();
 
                 } else if (result == Result.FAILURE) {
                     session.resetResult();
-                    loadingDialog.dismiss();
                     detach();
                     Toast.makeText(context, session.getResultMessage(), Toast.LENGTH_SHORT).show();
                 }

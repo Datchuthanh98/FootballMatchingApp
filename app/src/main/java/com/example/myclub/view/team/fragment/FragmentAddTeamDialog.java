@@ -18,12 +18,15 @@ import com.example.myclub.databinding.FragmentAddTeamBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
 import com.example.myclub.viewModel.ListTeamViewModel;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class FragmentAddTeamDialog extends DialogFragment {
-    FragmentAddTeamBinding binding;
+    private FragmentAddTeamBinding binding;
     private ListTeamViewModel listTeamViewModel;
     private Dialog loadingDialog;
     private LoadingLayoutBinding loadingLayoutBinding;
-
+    private    Map<String, Object> data = new HashMap<>();
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -36,7 +39,7 @@ public class FragmentAddTeamDialog extends DialogFragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        listTeamViewModel = new ViewModelProvider(this).get(ListTeamViewModel.class);
+        listTeamViewModel = new ViewModelProvider(getActivity()).get(ListTeamViewModel.class);
         binding.setLifecycleOwner(this);
         initComponent(getContext());
         View view = binding.getRoot();
@@ -50,11 +53,11 @@ public class FragmentAddTeamDialog extends DialogFragment {
     }
 
     private  void initComponent(final Context context){
+        initLoadingDialog(context);
         binding.btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                initLoadingDialog(context);
-                listTeamViewModel.createTeam(binding.txtName.getText().toString(),binding.txtPhone.getText().toString(),binding.txtEmail.getText().toString());
+                listTeamViewModel.createTeam(getInforTeam());
                 detach();
             }
         });
@@ -67,6 +70,13 @@ public class FragmentAddTeamDialog extends DialogFragment {
         loadingLayoutBinding = LoadingLayoutBinding.inflate(getLayoutInflater());
         loadingDialog.setContentView(loadingLayoutBinding.getRoot());
         loadingDialog.setCancelable(false);
+    }
+
+    private Map<String, Object> getInforTeam() {
+        data.put("name", binding.txtName.getText().toString());
+        data.put("phone", binding.txtPhone.getText().toString());
+        data.put("email", binding.txtEmail.getText().toString());
+        return data;
     }
 
 

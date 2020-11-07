@@ -1,6 +1,5 @@
 package com.example.myclub.view.team.adapter;
 
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +13,11 @@ import com.example.myclub.main.ActivityHome;
 import com.example.myclub.model.Team;
 import com.example.myclub.view.team.fragment.FragmentProfileMainTeam;
 import com.example.myclub.databinding.ItemTeamVerticalBinding;
-import com.example.myclub.view.team.fragment.FragmentProfileOtherTeam;
+import com.example.myclub.view.team.fragment.FragmentProfileMainTeamOther;
 import com.example.myclub.session.SessionBookingField;
 import com.example.myclub.viewModel.ShareSelectTeamViewModel;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,27 +83,27 @@ public class RecycleViewAdapterListTeamVertical extends RecyclerView.Adapter<Rec
                       detach();
                     }
                 }else{
-                    activityHome.addFragment(new FragmentProfileOtherTeam(listTeam.get(position)));}
+                    activityHome.addFragment(new FragmentProfileMainTeamOther(listTeam.get(position)));}
             }
         });
         holder.binding.setTeam(listTeam.get(position));
 
-        if(listTeam.get(position).getUrlAvatar() !=null) {
-            storageRef.child(listTeam.get(position).getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    if (uri != null) {
-                        Picasso.get().load(uri).into(holder.binding.avatarTeam);
-                    }
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-
-                }
-            });
-        }
+//        if(listTeam.get(position).getUrlAvatar() !=null) {
+//            storageRef.child(listTeam.get(position).getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                @Override
+//                public void onSuccess(Uri uri) {
+//                    if (uri != null) {
+//                        Picasso.get().load(uri).into(holder.binding.avatarTeam);
+//                    }
+//
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception exception) {
+//
+//                }
+//            });
+//        }
     }
 
     @Override

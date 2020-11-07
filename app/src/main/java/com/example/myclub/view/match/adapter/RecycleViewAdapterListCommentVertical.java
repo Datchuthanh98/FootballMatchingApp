@@ -1,8 +1,6 @@
-package com.example.myclub.view.team.adapter;
+package com.example.myclub.view.match.adapter;
 
-import android.net.Uri;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -10,16 +8,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myclub.databinding.ItemCommentVerticalBinding;
-import com.example.myclub.databinding.ItemPlayerVerticalBinding;
-import com.example.myclub.main.ActivityHome;
 import com.example.myclub.model.Comment;
-import com.example.myclub.model.Player;
-import com.example.myclub.view.player.Fragment.FragmentProfilePlayer;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;

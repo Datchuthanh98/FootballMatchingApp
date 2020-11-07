@@ -10,7 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import com.example.myclub.databinding.FragmentListTeamBinding;
+
+import com.example.myclub.databinding.FragmentListBinding;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterListTeamVertical;
 import com.example.myclub.viewModel.ListTeamViewModel;
 import com.example.myclub.session.SessionUser;
@@ -18,13 +19,13 @@ import com.example.myclub.session.SessionUser;
 public class FragmentListOtherTeam extends Fragment {
     private ListTeamViewModel listTeamViewModel;
     private SessionUser sessionUser = SessionUser.getInstance();
-    private FragmentListTeamBinding binding;
+    private FragmentListBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         listTeamViewModel = new ViewModelProvider(this).get(ListTeamViewModel.class);
-        binding = FragmentListTeamBinding.inflate(inflater);
+        binding = FragmentListBinding.inflate(inflater);
         return  binding.getRoot();
     }
 
@@ -35,12 +36,13 @@ public class FragmentListOtherTeam extends Fragment {
     }
 
     private  void initComponent(){
+        binding.btnCreateTeam.setVisibility(View.GONE);
         listTeamViewModel.getListOtherTeam(sessionUser.getPlayerLiveData().getValue().getId());
-        binding.recycleViewListTeamVertical.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recycleViewListVertical.setLayoutManager(new LinearLayoutManager(getContext()));
         //Khởi tạo màn hình ban đầu của fragment
         RecycleViewAdapterListTeamVertical adapter = listTeamViewModel.getAdapterListOtherTeam();
         adapter.fragment = getTargetFragment();
         adapter.setFm(getParentFragmentManager());
-        binding.recycleViewListTeamVertical.setAdapter(listTeamViewModel.getAdapterListOtherTeam());
+        binding.recycleViewListVertical.setAdapter(listTeamViewModel.getAdapterListOtherTeam());
     }
 }

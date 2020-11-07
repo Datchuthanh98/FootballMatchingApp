@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.myclub.R;
+import com.example.myclub.databinding.FragmentEditMainTeamBinding;
 import com.example.myclub.databinding.FragmentMainFieldBinding;
 import com.example.myclub.view.player.Adapter.AdapterFragmentProfile;
 import com.example.myclub.view.team.adapter.AdapterFragmentListTeam;
@@ -25,7 +26,7 @@ public class FragmentListMainTeam extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main_field, container, false);
+        binding = FragmentMainFieldBinding.inflate(inflater);
         View view = binding.getRoot();
         return view;
     }

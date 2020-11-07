@@ -1,5 +1,6 @@
 package com.example.myclub.view.match.adapter;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,11 @@ import com.example.myclub.main.ActivityHome;
 import com.example.myclub.model.Match;
 import com.example.myclub.view.match.fragment.FragmentMainProfileMatch;
 import com.example.myclub.viewModel.ListMatchViewModel;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +29,8 @@ import java.util.List;
 public class RecycleViewAdapterListMatchVertical extends RecyclerView.Adapter<RecycleViewAdapterListMatchVertical.MyViewHolder> {
     private FragmentManager fm;
     private List<Match> matches = new ArrayList<>();
-    private ListMatchViewModel listMatchViewModel;
+    private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private StorageReference storageRef = storage.getReference();
 
     public RecycleViewAdapterListMatchVertical() {
     }
@@ -32,9 +39,7 @@ public class RecycleViewAdapterListMatchVertical extends RecyclerView.Adapter<Re
         this.fm = fm;
     }
 
-    public void setListBookingViewModel(ListMatchViewModel listMatchViewModel) {
-        this.listMatchViewModel = listMatchViewModel;
-    }
+
 
     public void setFm(FragmentManager fm) {
         this.fm = fm;
@@ -68,6 +73,26 @@ public class RecycleViewAdapterListMatchVertical extends RecyclerView.Adapter<Re
                 activityHome.addFragment(new FragmentMainProfileMatch(matches.get(position).getId()));
             }
         });
+
+
+//        if(matches.get(position).getIdBooking().getIdTeamHome().getUrlAvatar() !=null) {
+//            storageRef.child(matches.get(position).getIdBooking().getIdTeamHome().getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                @Override
+//                public void onSuccess(Uri uri) {
+//                    if (uri != null) {
+//                        Picasso.get().load(uri).into(holder.binding.avatarHome);
+//                    }
+//
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception exception) {
+//
+//                }
+//            });
+//        }
+
+
 
 
         holder.binding.setMatch(matches.get(position));

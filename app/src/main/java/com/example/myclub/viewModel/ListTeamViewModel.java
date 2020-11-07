@@ -1,24 +1,26 @@
 package com.example.myclub.viewModel;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.myclub.Interface.CallBack;
-import com.example.myclub.data.enumeration.DataState;
-import com.example.myclub.session.SessionStateData;
+import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.data.repository.TeamRepository;
 import com.example.myclub.model.Team;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterListTeamVertical;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ListTeamViewModel extends ViewModel {
-
     private TeamRepository teamRepository = TeamRepository.getInstance();
     private RecycleViewAdapterListTeamVertical adapterListTeam = new RecycleViewAdapterListTeamVertical();
     private RecycleViewAdapterListTeamVertical adapterListOtherTeam = new RecycleViewAdapterListTeamVertical();
     private MutableLiveData<List<Team>> listTeamLiveData = new MutableLiveData<>();
+    private MutableLiveData<Result> result = new MutableLiveData<>();
     private String resultMessage = null;
 
 
@@ -72,16 +74,17 @@ public class ListTeamViewModel extends ViewModel {
         return adapterListOtherTeam;
     }
 
-    public void createTeam(String name , String phone , String email){
-        teamRepository.creatTeam(name, phone, email, new CallBack<Team, String>() {
+    public void createTeam(Map<String,Object> map){
+        teamRepository.creatTeam(map, new CallBack<Team, String>() {
             @Override
             public void onSuccess(Team team) {
-                SessionStateData.getInstance().setDatalistMyTeam(DataState.NEW);
+                Log.d("meme", "onSuccess: 123 ");
+                result.setValue(Result.SUCCESS);
             }
 
             @Override
             public void onFailure(String message) {
-                SessionStateData.getInstance().setDatalistMyTeam(DataState.NOW);
+                result.setValue(Result.FAILURE);
             }
         });
     }
@@ -91,6 +94,11 @@ public class ListTeamViewModel extends ViewModel {
         return resultMessage;
     }
 
+    public MutableLiveData<Result> getResult() {
+        return result;
+    }
 
-
+    public void setResult(Result result) {
+        this.result.setValue(result);
+    }
 }

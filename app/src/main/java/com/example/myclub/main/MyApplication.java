@@ -25,7 +25,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 
 public class MyApplication extends Application {
-    public static final String alarm_channel_id = "FireBaseSync";
+
 
     @Override
     public void onCreate() {
@@ -34,21 +34,9 @@ public class MyApplication extends Application {
         SessionUser.getInstance().setApplication(this);
         SessionTeam.getInstance().setApplication(this);
         FirebaseApp.initializeApp(this);
-        createNotificationChannel();
         locationService();
     }
 
-    private void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Firebase channel";
-            String description = "Channel for sync Firebase";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(alarm_channel_id, name, importance);
-            channel.setDescription(description);
-            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
 
     private void locationService() {
 

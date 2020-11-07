@@ -24,6 +24,22 @@ public class ListPlayerViewModel extends ViewModel {
     private String resultMessage = null;
 
 
+    public MutableLiveData<List<Player>> getListPlayerLiveData() {
+        return listPlayerLiveData;
+    }
+
+    public void setListPlayerLiveData(List<Player> listPlayers) {
+        this.listPlayerLiveData.setValue(listPlayers);
+        if (listPlayers == null) {
+            adapterListPlayer.setListPlayer(new ArrayList<Player>());
+            adapterListPlayerRequest.notifyDataSetChanged();
+        } else {
+            listPlayerLiveData.setValue(listPlayers);
+            adapterListPlayer.setListPlayer(listPlayers);
+            adapterListPlayer.notifyDataSetChanged();
+        }
+    }
+
     public static ListPlayerViewModel getInstance() {
         if (instance == null) {
             instance = new ListPlayerViewModel();
@@ -31,26 +47,26 @@ public class ListPlayerViewModel extends ViewModel {
         return instance;
     }
 
-    public void getListPlayer(String idTeam) {
-        playerRepository.getListPlayer(idTeam, new CallBack<List<Player>, String>() {
-            @Override
-            public void onSuccess(List<Player> listPlayers) {
-                if (listPlayers == null) {
-                    adapterListPlayer.setListPlayer(new ArrayList<Player>());
-                    adapterListPlayerRequest.notifyDataSetChanged();
-                } else {
-                    listPlayerLiveData.setValue(listPlayers);
-                    adapterListPlayer.setListPlayer(listPlayers);
-                    adapterListPlayer.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onFailure(String message) {
-                resultMessage = message;
-            }
-        });
-    }
+//    public void getListPlayer(String idTeam) {
+//        playerRepository.getListPlayer(idTeam, new CallBack<List<Player>, String>() {
+//            @Override
+//            public void onSuccess(List<Player> listPlayers) {
+//                if (listPlayers == null) {
+//                    adapterListPlayer.setListPlayer(new ArrayList<Player>());
+//                    adapterListPlayerRequest.notifyDataSetChanged();
+//                } else {
+//                    listPlayerLiveData.setValue(listPlayers);
+//                    adapterListPlayer.setListPlayer(listPlayers);
+//                    adapterListPlayer.notifyDataSetChanged();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(String message) {
+//                resultMessage = message;
+//            }
+//        });
+//    }
 
 
     public void getListPlayerRequest(String idTeam) {

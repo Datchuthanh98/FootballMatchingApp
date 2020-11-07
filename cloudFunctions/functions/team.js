@@ -55,7 +55,7 @@ exports.getTeamDetail = functions.https.onCall(async (idTeam) => {
         if(!teamMembers.empty){
             let playerPromises = [];
             for(i =0 ; i < teamMembers.docs.length ; i++){
-                playerPromises.push(db.collection('Team').doc(teamMembers.docs[i].data().idTeam).get());
+                playerPromises.push(db.collection('Player').doc(teamMembers.docs[i].data().idPlayer).get());
             }
             await Promise.all(playerPromises).then((playerRecords) => {
                 for( i = 0 ; i< playerRecords.length ; i++){
@@ -113,4 +113,25 @@ exports.getListTeamOther = functions.https.onCall(async (idPlayer) => {
  
 })
 
+
+exports.getListEvaluate = functions.https.onCall(async (idTeam) => {    
+    const listEvaluateRecord = await db.collection("Evaluate").where('idTeam','==',idTeam).get();
+    let listComment = [];
+    let i ;
+    let listPlayerPromises = []
+    let listTeamPromises = []
+    for( i =0 ; i<listEvaluateRecord.docs.length ; i++){
+        listComment.push(listEvaluateRecord.docs[i].data());
+        listPlayerPromises.push(db.collection("Player").doc(listEvaluateRecord.docs[i].data().idPlayer).get());
+    }
+
+    await Promise.all(listPlayerPromises).then((playerRecords) => {
+        for( i = 0 ; i< playerRecords.length ; i++){
+            listComment[i].idPlayer = playerRecords[i].data();
+         }
+         return null;
+
+    })
+    return listComment;
+});
 

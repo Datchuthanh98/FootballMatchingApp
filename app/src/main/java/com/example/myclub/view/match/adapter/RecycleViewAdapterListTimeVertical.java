@@ -64,9 +64,6 @@ public class RecycleViewAdapterListTimeVertical extends RecyclerView.Adapter<Rec
             }
         });
         holder.binding.setTimeGame(listTimes.get(position));
-
-
-
     }
 
     @Override

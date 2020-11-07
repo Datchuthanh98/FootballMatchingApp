@@ -35,12 +35,13 @@
                             android:id="@+id/txtName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="input name club"/>
+                            android:hint="input name "/>
                     </LinearLayout>
 
 
+
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycleViewListTeamVertical"
+                        android:id="@+id/recycleViewListVertical"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
 <!--                    android:adapter="@{viewModel.adapter}"-->

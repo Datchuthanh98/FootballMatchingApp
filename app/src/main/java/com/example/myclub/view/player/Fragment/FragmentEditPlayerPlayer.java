@@ -28,8 +28,6 @@ public class FragmentEditPlayerPlayer extends BottomSheetDialogFragment {
 
     private FragmentEditPlayerInforBinding binding;
     private SessionUser session = SessionUser.getInstance();
-    private Dialog loadingDialog;
-    private LoadingLayoutBinding loadingLayoutBinding;
     private Map<String, Object> data = new HashMap<>();
     @Nullable
     @Override
@@ -56,12 +54,10 @@ public class FragmentEditPlayerPlayer extends BottomSheetDialogFragment {
                 if (result == null) return;
                 if (result == Result.SUCCESS) {
                     session.resetResult();
-                    loadingDialog.dismiss();
                     updateUIPlayer();
                     detach();
                 } else if (result == Result.FAILURE) {
                     session.resetResult();
-                    loadingDialog.dismiss();
                     Toast.makeText(context, session.getResultMessage(), Toast.LENGTH_SHORT).show();
                     detach();
                 }
@@ -73,25 +69,13 @@ public class FragmentEditPlayerPlayer extends BottomSheetDialogFragment {
         binding.imageBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                initLoadingDialog(context);
-                loadingDialog.show();
                 session.updateProfile(getUpdateIntroduction());
             }
         });
     }
 
     private void detach(){
-
       dismiss();
-    }
-
-    private void initLoadingDialog(Context context) {
-        loadingDialog = new Dialog(context);
-        loadingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        loadingLayoutBinding = LoadingLayoutBinding.inflate(getLayoutInflater());
-        loadingDialog.setContentView(loadingLayoutBinding.getRoot());
-//        loadingLayoutBinding.title.setText(R.string.updating_information);
-        loadingDialog.setCancelable(false);
     }
 
     private Map<String, Object> getUpdateIntroduction() {

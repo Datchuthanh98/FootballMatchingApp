@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 
 import com.example.myclub.Interface.CallBack;
 import com.example.myclub.data.datasource.TeamDataSource;
+import com.example.myclub.model.Chat;
+import com.example.myclub.model.Evaluate;
 import com.example.myclub.model.Field;
 import com.example.myclub.model.Team;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -92,8 +94,8 @@ public class TeamRepository {
     }
 
 
-    public void creatTeam(String name, String phone, String email, CallBack<Team,String> checkteam) {
-        teamDataSource.createTeam(name,phone,email,checkteam);
+    public void creatTeam(Map<String,Object> map, CallBack<Team,String> checkteam) {
+        teamDataSource.createTeam(map,checkteam);
     }
 
     public void getListTeam(String id,CallBack<List<Team>,String> listTeamCallBack){
@@ -103,4 +105,21 @@ public class TeamRepository {
     public void getListOtherTeam(String id,CallBack<List<Team>,String> listTeamCallBack){
         teamDataSource.loadListOtherTeam(id,listTeamCallBack);
     }
+
+    public  void loadChat(String idTeam , CallBack<List<Chat>,String> callBack){
+        teamDataSource.loadChatTeam(idTeam,callBack);
+    }
+
+    public  void addChat(String idTeam, Map<String,Object> map,CallBack<String,String > callBack) {
+        teamDataSource.addChat(idTeam,map,callBack);
+    }
+
+    public  void getListEvaluate(String idTeam , final CallBack<List<Evaluate>,String> loadListTeamCallBack){
+        teamDataSource.getListEvaluate(idTeam,loadListTeamCallBack);
+    }
+
+    public void addEvaluate(Map<String,Object> map, final CallBack<String ,String>  callBack){
+        teamDataSource.addEvaluate(map,callBack);
+    }
+
 }

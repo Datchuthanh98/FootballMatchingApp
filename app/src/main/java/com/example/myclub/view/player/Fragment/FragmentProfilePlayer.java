@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myclub.R;
 import com.example.myclub.databinding.FragmentProfilePlayerBinding;
+import com.example.myclub.databinding.FragmentProfileTeamBasicBinding;
 import com.example.myclub.model.Player;
 import com.example.myclub.viewModel.ProfilePlayerViewModel;
 import com.example.myclub.session.SessionTeam;
@@ -45,7 +46,7 @@ public class FragmentProfilePlayer extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         profilePlayerViewModel = new ViewModelProvider(this).get(ProfilePlayerViewModel.class);
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile_player, container, false);
+        binding = FragmentProfilePlayerBinding.inflate(inflater);
         binding.setPlayer(player);
         View view = binding.getRoot();
         return view;
@@ -85,6 +86,7 @@ public class FragmentProfilePlayer extends Fragment {
 
             }
         });
+
         binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_back_white_24);
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

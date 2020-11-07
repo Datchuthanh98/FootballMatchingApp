@@ -1,67 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <import type="android.view.View" />
+
+        <variable
+            name="match"
+            type="com.example.myclub.model.Match" />
     </data>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
 
 
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <LinearLayout
-        android:layout_margin="10dp"
-        android:orientation="vertical"
-   app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="0dp"
-        android:layout_height="0dp">
- <TextView
+            <TextView
+                android:layout_margin="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/time_icon"
+                android:drawablePadding="5dp"
+                android:text="@{match.idBooking.date +`,`+match.idBooking.idTimeGame.startTime+ `-`+match.idBooking.idTimeGame.endTime}"></TextView>
 
-     android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
-     android:text=" Thứ năm ,24/2019 lúc 17h30"
-     android:textStyle="bold"
-     android:textSize="15dp"
-     android:layout_width="match_parent"
-     android:layout_height="wrap_content"></TextView>
+            <TextView
+                android:layout_margin="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/horn_icon"
+                android:drawablePadding="5dp"
+                android:text="@{match.active == false ? `sắp diễn ra ` : `đã kết thúc`}"></TextView>
 
-        <TextView
-            android:drawableStart="@drawable/ic_baseline_phone_24_green"
-            android:text=" Sân bóng Bưu chính viễn thông"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></TextView>
+            <TextView
+                android:layout_margin="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/field_24"
+                android:text="@{`Sân ` + match.idBooking.idField.name +`,ô số `+match.idBooking.idTimeGame.position}"></TextView>
 
-        <TextView
-            android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
-            android:text=" 10km Nguyễn Trãi , Thanh Xuân Hà Nội"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></TextView>
+            <TextView
+                android:layout_margin="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/address_icon"
+                android:paddingLeft="5dp"
+                android:text="@{match.idBooking.idField.address}"></TextView>
+            <TextView
+                android:layout_margin="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_baseline_phone_24_green"
+                android:paddingLeft="5dp"
+                android:text="@{match.idBooking.phone}"></TextView>
+            <TextView
+                android:layout_margin="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/note_icon"
+                android:paddingLeft="5dp"
+                android:text="@{match.idBooking.note}"></TextView>
+        </LinearLayout>
 
 
-        <TextView
-            android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
-            android:text="Giao lưu vui vẻ , 50-50"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"></TextView>
-
-
-
-
-
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

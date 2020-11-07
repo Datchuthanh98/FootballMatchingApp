@@ -47,15 +47,7 @@ public class FragmentProfileMyself extends Fragment {
             }
         });
 
-        binding.btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                LoginManager.getInstance().logOut();
-                startActivity(new Intent(getContext(), ActivityLogin.class));
-                getActivity().finish();
-            }
-        });
+
 
 
         observeLiveData(view.getContext());

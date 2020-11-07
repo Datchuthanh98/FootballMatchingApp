@@ -38,6 +38,10 @@ public class MatchRepository {
         matchDataSource.loadListMatch(loadListMatchCallBack);
     }
 
+    public void getListMatchByDate(String date,CallBack<List<Match>,String> loadListMatchCallBack){
+        matchDataSource.loadListMatchByDate(date,loadListMatchCallBack);
+    }
+
     public void getListMyMatch(String idPlayer ,CallBack<List<Match>,String> loadListMatchCallBack){
         matchDataSource.loadListMyMatch(idPlayer,loadListMatchCallBack);
     }

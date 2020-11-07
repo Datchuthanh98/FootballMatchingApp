@@ -1,6 +1,6 @@
 package com.example.myclub.view.match.adapter;
 
-import android.util.Log;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +14,16 @@ import com.example.myclub.databinding.ItemTeamQueueVerticalBinding;
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.model.Team;
 import com.example.myclub.view.team.fragment.FragmentProfileMainTeam;
-import com.example.myclub.view.team.fragment.FragmentProfileOtherTeam;
-import com.example.myclub.viewModel.ShareExecuteJoinMatchViewModel;
+import com.example.myclub.view.team.fragment.FragmentProfileMainTeamOther;
+import com.example.myclub.viewModel.ProfileMatchViewModel;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -31,15 +35,10 @@ public class RecycleViewAdapterListQueueTeamVertical extends RecyclerView.Adapte
     public Boolean isMy = true;
     public Boolean isShow = true;
     public Fragment fragment;;
+    private ProfileMatchViewModel profileMatchViewModel;
 
-    public ShareExecuteJoinMatchViewModel executeTeamViewModel;
-
-
-
-
-
-    public void setExecuteViewModel(ShareExecuteJoinMatchViewModel executeTeamViewModel) {
-        this.executeTeamViewModel=executeTeamViewModel;
+    public void setProfileMatchViewModel(ProfileMatchViewModel profileMatchViewModel){
+        this.profileMatchViewModel = profileMatchViewModel;
     }
 
 
@@ -82,7 +81,7 @@ public class RecycleViewAdapterListQueueTeamVertical extends RecyclerView.Adapte
 
                     }
                 }else{
-                    activityHome.addFragment(new FragmentProfileOtherTeam(listTeam.get(position)));}
+                    activityHome.addFragment(new FragmentProfileMainTeamOther(listTeam.get(position)));}
             }
         });
 
@@ -90,7 +89,9 @@ public class RecycleViewAdapterListQueueTeamVertical extends RecyclerView.Adapte
         holder.binding.btnAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                executeTeamViewModel.setIdTeam(listTeam.get(position).getId());
+                HashMap<String ,Object> map = new HashMap<>();
+                map.put("idTeamAway",listTeam.get(position).getId());
+                profileMatchViewModel.acceptTeam(map);
                }
         });
 
@@ -99,18 +100,22 @@ public class RecycleViewAdapterListQueueTeamVertical extends RecyclerView.Adapte
 
         holder.binding.setTeam(listTeam.get(position));
 
-         //Set image
-//        storageRef.child(listTeam.get(position).getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//            @Override
-//            public void onSuccess(Uri uri) {
-//                Picasso.get().load(uri).into(holder.binding.avatarTeam);
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception exception) {
-//
-//            }
-//        });
+        if(listTeam.get(position).getUrlAvatar() !=null) {
+            storageRef.child(listTeam.get(position).getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    if (uri != null) {
+                        Picasso.get().load(uri).into(holder.binding.avatarTeam);
+                    }
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+
+                }
+            });
+        }
     }
 
     @Override

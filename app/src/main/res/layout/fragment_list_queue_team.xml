@@ -1,60 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <import type="android.view.View" />
     </data>
-<LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-                <LinearLayout
-                    android:gravity="center"
-                    android:id="@+id/listAction"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/aaa"
-                    android:orientation="horizontal"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/viewWait"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#d1e0e0"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/listAction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/aaa"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <Button
+                    android:id="@+id/btnJoin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/buttonstyle"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="Join Game"
+                    android:textColor="@color/white"></Button>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/aaa"
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycleViewListTeamVertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <Button
-                        android:id="@+id/btnJoin"
-                        android:text="Join Game"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"></Button>
-                    <Button
-                        android:id="@+id/btnCancel"
-                        android:text="Cancel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"></Button>
-                </LinearLayout>
+                    android:layout_height="match_parent" />
+                <!--                    android:adapter="@{viewModel.adapter}"-->
+            </LinearLayout>
+        </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/aaa"
+        <LinearLayout
+            android:id="@+id/viewDone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center"
+            android:visibility="gone">
 
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Việc chọn đội đã hoàn thành"></TextView>
 
-                        <TextView
-                            android:id="@+id/btnDetail"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Đội đang chờ"
-                            android:textSize="20dp"></TextView>
-
-
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycleViewListTeamVertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
-<!--                    android:adapter="@{viewModel.adapter}"-->
-
-                </LinearLayout>
-</LinearLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

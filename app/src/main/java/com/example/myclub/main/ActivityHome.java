@@ -44,12 +44,6 @@ public class ActivityHome extends AppCompatActivity {
         tabLayout.getTabAt(1).setIcon(R.drawable.tab_match);
         tabLayout.getTabAt(2).setIcon(R.drawable.tab_club);
         tabLayout.getTabAt(3).setIcon(R.drawable.tab_profile);
-        viewPager.setOffscreenPageLimit(4);
-
-
-
-
-
     }
 
     private void checkPermission() {
@@ -80,5 +74,9 @@ public class ActivityHome extends AppCompatActivity {
 
     public void addFragment(Fragment fragment){
         getSupportFragmentManager().beginTransaction().add(R.id.container, fragment, null).addToBackStack(null).commit();
+    }
+
+    public void replaceFragment(Fragment fragment){
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment, null).addToBackStack(null).commit();
     }
 }

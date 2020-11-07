@@ -83,6 +83,7 @@ public class MatchDataSource {
 
 
     public void loadListMyMatch(String idPlayer, final CallBack<List<Match>,String> loadListMyMatchCallBack) {
+        Log.d("mymatch","onsucess ");
         functions.getHttpsCallable("getMyListMatch").call(idPlayer).addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
             @Override
             public void onSuccess(HttpsCallableResult httpsCallableResult) {
@@ -115,6 +116,32 @@ public class MatchDataSource {
                 List<Map> listTeamMaps = (List<Map>) httpsCallableResult.getData();
                 List<Match> listMatch = new ArrayList<>();
                 if(listTeamMaps == null){
+                    loadListMatchCallBack.onSuccess(null);
+                }else{
+                    for (Map teamMap : listTeamMaps){
+                        Match match = gson.fromJson(gson.toJson(teamMap), Match.class);
+                        listMatch.add(match);
+                    }
+                    loadListMatchCallBack.onSuccess(listMatch);
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                loadListMatchCallBack.onFailure(e.getMessage());
+            }
+        });
+    }
+
+    public void loadListMatchByDate(String date,final CallBack loadListMatchCallBack) {
+
+        functions.getHttpsCallable("getListMatchByDate").call(date).addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
+            @Override
+            public void onSuccess(HttpsCallableResult httpsCallableResult) {
+                Gson gson= new Gson();
+                List<Map> listTeamMaps = (List<Map>) httpsCallableResult.getData();
+                List<Match> listMatch = new ArrayList<>();
+                if(listTeamMaps == null || listTeamMaps.size() == 0){
                     loadListMatchCallBack.onSuccess(null);
                 }else{
                     for (Map teamMap : listTeamMaps){
@@ -184,7 +211,6 @@ public class MatchDataSource {
                 if(listCommentMaps == null){
                     loadListTeamCallBack.onSuccess(new ArrayList<Comment>());
                 }else{
-
                     for (Map commentMap : listCommentMaps){
                         Comment comment = gson.fromJson(gson.toJson(commentMap), Comment.class);
                         listComments.add(comment);
@@ -196,7 +222,6 @@ public class MatchDataSource {
             @Override
             public void onFailure(@NonNull Exception e) {
                 loadListTeamCallBack.onFailure(e.getMessage());
-                Log.d("meme", "onFailure: "+e.getMessage());
             }
         });
     }
@@ -235,7 +260,6 @@ public class MatchDataSource {
 
 
     public void acceptTeam(String idBooking,Map<String, Object> map, final CallBack<String, String> acceptCallBack) {
-
         db.collection("Booking").document(idBooking).update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {

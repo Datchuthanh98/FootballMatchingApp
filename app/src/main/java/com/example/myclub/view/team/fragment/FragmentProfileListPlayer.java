@@ -13,28 +13,23 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.myclub.data.enumeration.DataState;
-import com.example.myclub.session.SessionStateData;
+import com.example.myclub.model.Team;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterListPlayerVertical;
-import com.example.myclub.databinding.FragmentListPlayerBinding;
+import com.example.myclub.databinding.FragmentListBinding;
 import com.example.myclub.viewModel.ListPlayerViewModel;
 import com.example.myclub.session.SessionTeam;
 
 
 public class FragmentProfileListPlayer extends Fragment {
     private ListPlayerViewModel listPlayerViewModel = ListPlayerViewModel.getInstance();
-    private FragmentListPlayerBinding binding;
-    private String idTeam;
+    private FragmentListBinding binding;
 
-    public FragmentProfileListPlayer(String idTeam) {
-        this.idTeam = idTeam;
-    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         listPlayerViewModel = new ViewModelProvider(this).get(ListPlayerViewModel.class);
-        binding = FragmentListPlayerBinding.inflate(inflater);
+        binding = FragmentListBinding.inflate(inflater);
         return  binding.getRoot();
     }
 
@@ -45,19 +40,22 @@ public class FragmentProfileListPlayer extends Fragment {
         observeLiveData(view.getContext());
     }
     private  void initComponent(){
-        listPlayerViewModel.getListPlayer(idTeam);
-        binding.recycleViewListPlayerVertical.setLayoutManager(new LinearLayoutManager(getContext()));
-        RecycleViewAdapterListPlayerVertical adapter = listPlayerViewModel.getAdapterListPlayer();
-        adapter.setFm(getParentFragmentManager());
-        binding.recycleViewListPlayerVertical.setAdapter(listPlayerViewModel.getAdapterListPlayer());
+
+        binding.recycleViewListVertical.setLayoutManager(new LinearLayoutManager(getContext()));
+
     }
 
     private void observeLiveData(final Context context) {
-        SessionStateData.getInstance().getDatalistPlayerByTeam().observe(getViewLifecycleOwner(), new Observer<DataState>() {
-            @Override
-            public void onChanged(DataState dataState) {
-                listPlayerViewModel.getListPlayer(idTeam);
-            }
-        });
+     SessionTeam.getInstance().getTeamLiveData().observe(getViewLifecycleOwner(), new Observer<Team>() {
+         @Override
+         public void onChanged(Team team) {
+             if(team != null) {
+                 listPlayerViewModel.setListPlayerLiveData(SessionTeam.getInstance().getTeamLiveData().getValue().getPlayers());
+                 RecycleViewAdapterListPlayerVertical adapter = listPlayerViewModel.getAdapterListPlayer();
+                 adapter.setFm(getParentFragmentManager());
+                 binding.recycleViewListVertical.setAdapter(listPlayerViewModel.getAdapterListPlayer());
+             }
+         }
+     });
     }
 }

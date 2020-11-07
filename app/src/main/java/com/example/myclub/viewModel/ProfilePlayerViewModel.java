@@ -2,11 +2,8 @@ package com.example.myclub.viewModel;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
 import com.example.myclub.Interface.CallBack;
-import com.example.myclub.data.enumeration.DataState;
 import com.example.myclub.data.repository.RequestJoinTeamRepository;
-import com.example.myclub.session.SessionStateData;
 import com.example.myclub.model.RequestJoinTeam;
 
 import java.util.Map;
@@ -54,8 +51,8 @@ public class ProfilePlayerViewModel extends ViewModel {
             @Override
             public void onSuccess(String s) {
                 stateRequestJoinTeam.setValue(Boolean.FALSE);
-                SessionStateData.getInstance().setDatalistPlayerByTeam(DataState.NEW);
-                SessionStateData.getInstance().setDatalistRequestByTeam(DataState.NEW);
+//                SessionStateData.getInstance().setDatalistPlayerByTeam(DataState.NEW);
+//                SessionStateData.getInstance().setDatalistRequestByTeam(DataState.NEW);
             }
 
             @Override

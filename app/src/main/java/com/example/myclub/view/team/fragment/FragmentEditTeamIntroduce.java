@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer;
 
 import com.example.myclub.R;
 import com.example.myclub.data.enumeration.Result;
+import com.example.myclub.databinding.FragmentEditMainTeamBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
 import com.example.myclub.model.Team;
 import com.example.myclub.databinding.FragmentEditTeamIntroduceBinding;
@@ -35,8 +36,7 @@ public class FragmentEditTeamIntroduce extends BottomSheetDialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-          binding = DataBindingUtil.inflate(inflater,R.layout.fragment_edit_team_introduce_,container,false);
-
+        binding = FragmentEditTeamIntroduceBinding.inflate(inflater);
         binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_back_white_24);
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
