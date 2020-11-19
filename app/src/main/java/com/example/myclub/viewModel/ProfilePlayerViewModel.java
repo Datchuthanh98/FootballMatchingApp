@@ -4,38 +4,27 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.example.myclub.Interface.CallBack;
 import com.example.myclub.data.repository.RequestJoinTeamRepository;
-import com.example.myclub.model.RequestJoinTeam;
+
 
 import java.util.Map;
 
 public class ProfilePlayerViewModel extends ViewModel {
     private RequestJoinTeamRepository requestJoinTeamRepository = RequestJoinTeamRepository.getInstance();
-    private static ProfilePlayerViewModel instance;
     private MutableLiveData<Boolean> stateRequestJoinTeam = new MutableLiveData<>(false);
-    private  String key ;
-
-    private String resultMessage = null;
-
-    public String getKey(){
-        return key;
-    }
-
-
-
     public  MutableLiveData<Boolean> getStateRequestJoinTeam(){
        return stateRequestJoinTeam;
     }
 
 
-    public void getStateJoinTeam(final Map<String, Object> requestJoin){
-        requestJoinTeamRepository.getStateJoinTeam(requestJoin, new CallBack<RequestJoinTeam, String>() {
+    public void getStateJoinTeam(final Map<String, Object> map){
+        requestJoinTeamRepository.getStateJoinTeam(map.get("team").toString(),map.get("player").toString(), new CallBack<Boolean, String>() {
             @Override
-            public void onSuccess(RequestJoinTeam requestJoinTeam) {
-                if(requestJoinTeam == null){
+            public void onSuccess(Boolean requestJoinTeam) {
+                if(requestJoinTeam == false){
                     stateRequestJoinTeam.setValue(false);
                 }else{
                     stateRequestJoinTeam.setValue(true);
-                    key = requestJoinTeam.getId();
+
                 }
             }
 
@@ -46,13 +35,11 @@ public class ProfilePlayerViewModel extends ViewModel {
         });
     }
 
-    public void acceptJoinTeam(Map<String, Object> decideJoin){
-        requestJoinTeamRepository.acceptJoinTeam(decideJoin, new CallBack<String, String>() {
+    public void acceptJoinTeam(Map<String, Object> map){
+        requestJoinTeamRepository.acceptJoinTeam(map.get("team").toString(),map.get("player").toString(), new CallBack<String, String>() {
             @Override
             public void onSuccess(String s) {
                 stateRequestJoinTeam.setValue(Boolean.FALSE);
-//                SessionStateData.getInstance().setDatalistPlayerByTeam(DataState.NEW);
-//                SessionStateData.getInstance().setDatalistRequestByTeam(DataState.NEW);
             }
 
             @Override
@@ -63,8 +50,8 @@ public class ProfilePlayerViewModel extends ViewModel {
     }
 
 
-    public void declineJoinTeam(Map<String, Object> decideJoin){
-        requestJoinTeamRepository.declineJoinTeam(decideJoin, new CallBack<String, String>() {
+    public void declineJoinTeam(Map<String, Object> map){
+        requestJoinTeamRepository.declineJoinTeam(map.get("team").toString(),map.get("player").toString(), new CallBack<String, String>() {
             @Override
             public void onSuccess(String s) {
                 stateRequestJoinTeam.setValue(Boolean.FALSE);

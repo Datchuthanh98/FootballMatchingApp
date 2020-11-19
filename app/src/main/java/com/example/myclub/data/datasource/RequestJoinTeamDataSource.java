@@ -1,17 +1,21 @@
 package com.example.myclub.data.datasource;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 
 import com.example.myclub.Interface.CallBack;
-import com.example.myclub.model.RequestJoinTeam;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.functions.HttpsCallableResult;
 import com.google.firebase.storage.FirebaseStorage;
+import com.myhexaville.smartimagepicker.ImagePicker;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +25,7 @@ public class RequestJoinTeamDataSource {
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseStorage storage = FirebaseStorage.getInstance();
-
+    private FirebaseFunctions functions = FirebaseFunctions.getInstance();
 
     public static RequestJoinTeamDataSource getInstance() {
         if (instance == null) {
@@ -30,9 +34,8 @@ public class RequestJoinTeamDataSource {
         return instance;
     }
 
-    public void addRequest(Map<String, Object> map, final CallBack<String, String> addRequestJoinTeam) {
-        final DocumentReference ref = db.collection("RequestJoinTeam").document();
-        map.put("id", ref.getId());
+    public void addRequest(String idTeam,Map<String, Object> map, final CallBack<String, String> addRequestJoinTeam) {
+        final DocumentReference ref = db.collection("Team").document(idTeam).collection("listRequest").document((String) map.get("player"));
         ref.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -47,8 +50,8 @@ public class RequestJoinTeamDataSource {
     }
 
 
-    public void cancelRequest(String key, final CallBack<String, String> cancelRequestJoinTeam) {
-        db.collection("RequestJoinTeam").document(key).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+    public void cancelRequest(String idTeam,String idPlayer, final CallBack<String, String> cancelRequestJoinTeam) {
+        db.collection("Team").document(idTeam).collection("listRequest").document(idPlayer).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 cancelRequestJoinTeam.onSuccess("Success");
@@ -63,15 +66,14 @@ public class RequestJoinTeamDataSource {
     }
 
 
-    public void getStateJoinTeamByTeam(Map<String, Object> requestJoin, final CallBack<RequestJoinTeam, String> getStateJoinTeam) {
-        db.collection("RequestJoinTeam").whereEqualTo("idPlayer", requestJoin.get("idPlayer")).whereEqualTo("idTeam", requestJoin.get("idTeam")).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+    public void getStateJoinTeamByTeam( String idTeam,String idPlayer, final CallBack<Boolean, String> getStateJoinTeam) {
+        db.collection("Team").document(idTeam).collection("listRequest").whereEqualTo("player", idPlayer).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 if (queryDocumentSnapshots.isEmpty()) {
-                    getStateJoinTeam.onSuccess(null);
+                    getStateJoinTeam.onSuccess(Boolean.FALSE);
                 } else {
-                    RequestJoinTeam requestJoinTeam = queryDocumentSnapshots.getDocuments().get(0).toObject(RequestJoinTeam.class);
-                    getStateJoinTeam.onSuccess(requestJoinTeam);
+                    getStateJoinTeam.onSuccess(Boolean.TRUE);
                 }
 
             }
@@ -83,22 +85,14 @@ public class RequestJoinTeamDataSource {
         });
     }
 
-    public void acceptJoinTeam(final Map<String, Object> acceptJoin, final CallBack<String, String> acceptJoinTeam) {
-        db.collection("TeamMember").add(acceptJoin).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+    public void acceptJoinTeam(final String idTeam, final String idPlayer, final CallBack<String, String> acceptJoinTeam) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("idPlayer", idPlayer);
+        map.put("idTeam",idTeam);
+        functions.getHttpsCallable("acceptJoinTeam").call(map).addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
             @Override
-            public void onSuccess(DocumentReference documentReference) {
-                db.collection("RequestJoinTeam").document((String) acceptJoin.get("key")).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        acceptJoinTeam.onSuccess("Success");
-
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        acceptJoinTeam.onFailure(e.getMessage());
-                    }
-                });
+            public void onSuccess(HttpsCallableResult httpsCallableResult) {
+                acceptJoinTeam.onSuccess("");
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -108,8 +102,8 @@ public class RequestJoinTeamDataSource {
         });
     }
 
-    public void declineJoinTeam(final Map<String, Object> acceptJoin, final CallBack<String, String> declineJoinTeam) {
-        db.collection("RequestJoinTeam").document((String) acceptJoin.get("key")).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+    public void declineJoinTeam(String idTeam,String idPlayer, final CallBack<String, String> declineJoinTeam) {
+        db.collection("Team").document(idTeam).collection("listRequest").document(idPlayer).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 declineJoinTeam.onSuccess("sucess");

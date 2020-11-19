@@ -8,6 +8,7 @@ const player = require('./player');
 const team = require('./team');
 const match = require('./match');
 const booking = require('./booking');
+const joinTeam = require('./joinTeam');
 
 exports.createPlayer = player.createUser;
 exports.getPlayerDetail= player.getPlayerDetail;
@@ -20,12 +21,19 @@ exports.getTeamDetail = team.getTeamDetail;
 exports.getListEvaluate= team.getListEvaluate;
 
 exports.getAllListMatch = match.getAllListMatch;
-exports.getMyListMatch = match.getMyListMatch;
+exports.getListMatchByTeam = match.getListMatchByTeam;
 exports.getMatchDetail = match.getMatchDetail;
 exports.getListMatchByDate = match.getListMatchByDate;
 exports.getListQueueTeam = match.getListQueueTeam;
 exports.getCommentMatch = match.getCommentMatch;
+exports.createMatch = match.createMatch;
+exports.getListMatchByField = match.getListMatchByField;
 exports.getListBookingByField = booking.getListBookingByField;
+exports.createBooking = booking.createBooking;
+
+exports.acceptJoinTeam = joinTeam.acceptJoinTeam;
+
+
 
 //notificationn
 exports.triggerJoinTeam = triggerJoinTeam.triggerJoinTeam;

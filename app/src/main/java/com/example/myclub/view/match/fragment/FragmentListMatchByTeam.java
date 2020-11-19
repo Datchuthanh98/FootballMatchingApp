@@ -17,22 +17,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myclub.data.enumeration.LoadingState;
 import com.example.myclub.data.enumeration.Status;
-import com.example.myclub.databinding.FragmentListBinding;
 import com.example.myclub.databinding.FragmentListCallendarBinding;
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.view.match.adapter.RecycleViewAdapterListMatchVertical;
-import com.example.myclub.view.team.fragment.FragmentProfileMainTeam;
+import com.example.myclub.viewModel.ListMatchByTeamViewModel;
 import com.example.myclub.viewModel.ListMatchViewModel;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 
-public class FragmentListMatch extends Fragment {
-    private ListMatchViewModel viewModel ;
+public class FragmentListMatchByTeam extends Fragment {
+    private ListMatchByTeamViewModel viewModel ;
     private FragmentListCallendarBinding binding;
+    private String idTeam;
 
+    public FragmentListMatchByTeam(String idTeam) {
+        this.idTeam = idTeam;
+    }
 
     @Nullable
     @Override
@@ -45,7 +46,7 @@ public class FragmentListMatch extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(ListMatchViewModel.class);
+        viewModel = new ViewModelProvider(this).get(ListMatchByTeamViewModel.class);
         initComponent();
         observerLiveDate();
 
@@ -59,41 +60,12 @@ public class FragmentListMatch extends Fragment {
     }
 
     private  void initComponent(){
+        viewModel.getListMatchByTeam(idTeam);
         RecycleViewAdapterListMatchVertical adapter = viewModel.getAdapterListMatch();
         adapter.setFm(getParentFragmentManager());
-        binding.txtCallendar.setText(viewModel.getDateNow());
         binding.recycleViewListVertical.setAdapter(adapter);
         binding.recycleViewListVertical.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.btnCallendar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar c = Calendar.getInstance();
-                Dialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        String sday, smonth;
-                        if(day<10){
-                            sday ="0"+day;
-                        }else{
-                            sday=""+day;
-                        }
 
-                        if(month<9){
-                            smonth ="0"+(month+1);
-                        }else{
-                            smonth=""+(month+1);
-                        }
-
-                        String dateString = sday + "/" + smonth + "/" + year;
-
-                        binding.txtCallendar.setText(dateString);
-                        viewModel.getListMatchByDate(dateString);
-
-                    }
-                }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.show();
-            }
-        });
 
 
 

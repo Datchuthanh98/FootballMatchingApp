@@ -118,8 +118,8 @@ public class TeamRepository {
         teamDataSource.getListEvaluate(idTeam,loadListTeamCallBack);
     }
 
-    public void addEvaluate(Map<String,Object> map, final CallBack<String ,String>  callBack){
-        teamDataSource.addEvaluate(map,callBack);
+    public void addEvaluate(String idTeam,Map<String,Object> map, final CallBack<String ,String>  callBack){
+        teamDataSource.addEvaluate(idTeam,map,callBack);
     }
 
 }

@@ -78,7 +78,6 @@ public class ListTeamViewModel extends ViewModel {
         teamRepository.creatTeam(map, new CallBack<Team, String>() {
             @Override
             public void onSuccess(Team team) {
-                Log.d("meme", "onSuccess: 123 ");
                 result.setValue(Result.SUCCESS);
             }
 

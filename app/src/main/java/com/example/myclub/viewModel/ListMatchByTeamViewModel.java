@@ -1,12 +1,10 @@
 package com.example.myclub.viewModel;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.myclub.Interface.CallBack;
 import com.example.myclub.data.enumeration.LoadingState;
-import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.data.enumeration.Status;
 import com.example.myclub.data.repository.MatchRepository;
 import com.example.myclub.model.Match;
@@ -17,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ListMatchViewModel extends ViewModel {
+public class ListMatchByTeamViewModel extends ViewModel {
     private MatchRepository matchRepository = MatchRepository.getInstance();
     private RecycleViewAdapterListMatchVertical adapterListMatchVertical = new RecycleViewAdapterListMatchVertical();
     private MutableLiveData<LoadingState> teamLoadState = new MutableLiveData<>(LoadingState.INIT);
@@ -31,17 +29,17 @@ public class ListMatchViewModel extends ViewModel {
         this.statusData.setValue(statusData);
     }
 
-    public ListMatchViewModel() {
-        getListMatchByDate(getDateNow());
+    public ListMatchByTeamViewModel() {
+
     }
 
     public MutableLiveData<LoadingState> getTeamLoadState() {
         return teamLoadState;
     }
 
-    public void getListMatchByDate(String date) {
+    public void getListMatchByTeam(String idTeam) {
         teamLoadState.setValue(LoadingState.LOADING);
-        matchRepository.getListMatchByDate(date,new CallBack<List<Match>, String>() {
+        matchRepository.getListMyMatchByDate(idTeam,new CallBack<List<Match>, String>() {
             @Override
             public void onSuccess(List<Match> matchList) {
                 teamLoadState.setValue(LoadingState.LOADED);
@@ -67,11 +65,7 @@ public class ListMatchViewModel extends ViewModel {
         return adapterListMatchVertical;
     }
 
-    public String getDateNow(){
-        Date date = new Date();
-        SimpleDateFormat dateFor = new SimpleDateFormat("dd/MM/yyyy");
-        return dateFor.format(date);
-    };
+
 
 
 

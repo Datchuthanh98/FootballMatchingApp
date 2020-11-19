@@ -4,7 +4,7 @@ public class Evaluate {
     private String id;
     private String idTeam;
     private Player idPlayer;
-    private int rating;
+    private float rating;
     private String comment;
 
     public Evaluate() {
@@ -34,8 +34,12 @@ public class Evaluate {
         this.idPlayer = idPlayer;
     }
 
-    public int getRating() {
+    public float getRating() {
         return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 
     public void setRating(int rating) {

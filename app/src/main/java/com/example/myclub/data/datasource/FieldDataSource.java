@@ -23,7 +23,6 @@ public class FieldDataSource {
     static FieldDataSource instance;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-
     public static FieldDataSource getInstance() {
         if (instance == null) {
             instance = new FieldDataSource();
@@ -59,7 +58,7 @@ public class FieldDataSource {
     }
 
     public void loadListTime(String idTeam, final CallBack<List<TimeGame>,String> loadListTimeCallBack) {
-        db.collection("TimeGame").whereEqualTo("idField", idTeam).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        db.collection("Field").document(idTeam).collection("listTimeGame").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 final List<TimeGame> listTimeGame = new ArrayList<>();

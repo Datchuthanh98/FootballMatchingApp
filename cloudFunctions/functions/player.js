@@ -16,16 +16,6 @@ exports.createUser = functions.https.onCall(async (data) => {
             name: data.name,
             urlAvatar: "/Avatar/default",
             urlCover: "/Cover/default"
-            // height: 0,
-            // weight: 0,
-            // address: null,
-            // birthday: null,
-            // phone: null,
-            // accountActive: true,
-            // introduce: null,
-            // position :null,
-            // level :null,
-            // foot : null
         };
         await db.collection('Player').doc(userRecord.uid).set(userInfo).catch((error) => {
             return {
@@ -105,12 +95,12 @@ exports.getListPlayer = functions.https.onCall(async (idTeam) => {
 
 
 exports.getListPlayerRequest = functions.https.onCall(async (idTeam) =>{
-    const listRequestJoin = await db.collection('RequestJoinTeam').where('idTeam','==',idTeam).get();
+    const listRequestJoin = await db.collection('Team').doc(idTeam).collection("listRequest").get();
     if(!listRequestJoin.empty){
         let listPlayer = [] ;
         let listPlayerPromises = [];
         for(i =0 ; i < listRequestJoin.docs.length ; i++){
-            listPlayerPromises.push(db.collection('Player').doc(listRequestJoin.docs[i].data().idPlayer).get());
+            listPlayerPromises.push(db.collection('Player').doc(listRequestJoin.docs[i].data().player).get());
         }
         await Promise.all(listPlayerPromises).then((playerRecords) => {
             for( i = 0 ; i< playerRecords.length ; i++){

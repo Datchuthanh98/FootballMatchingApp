@@ -39,8 +39,6 @@ public class RecycleViewAdapterListMatchVertical extends RecyclerView.Adapter<Re
         this.fm = fm;
     }
 
-
-
     public void setFm(FragmentManager fm) {
         this.fm = fm;
     }
@@ -73,8 +71,6 @@ public class RecycleViewAdapterListMatchVertical extends RecyclerView.Adapter<Re
                 activityHome.addFragment(new FragmentMainProfileMatch(matches.get(position).getId()));
             }
         });
-
-
 //        if(matches.get(position).getIdBooking().getIdTeamHome().getUrlAvatar() !=null) {
 //            storageRef.child(matches.get(position).getIdBooking().getIdTeamHome().getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
 //                @Override
@@ -91,10 +87,6 @@ public class RecycleViewAdapterListMatchVertical extends RecyclerView.Adapter<Re
 //                }
 //            });
 //        }
-
-
-
-
         holder.binding.setMatch(matches.get(position));
     }
 

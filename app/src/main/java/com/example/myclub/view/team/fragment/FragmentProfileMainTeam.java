@@ -17,6 +17,7 @@ import com.example.myclub.data.enumeration.LoadingState;
 import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.databinding.FragmentProfileMyTeamBinding;
 import com.example.myclub.main.ActivityHome;
+import com.example.myclub.view.match.fragment.FragmentListMatchByTeam;
 import com.example.myclub.view.player.Adapter.AdapterFragmentProfile;
 import com.example.myclub.view.team.adapter.AdapterFragmentProfileMyTeam;
 import com.example.myclub.session.SessionTeam;
@@ -75,6 +76,15 @@ public class FragmentProfileMainTeam extends Fragment {
                 activityHome.addFragment(new FragmentListChat(idTeam));
             }
         });
+
+        binding.btnMatch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityHome activityHome = (ActivityHome) getContext();
+                activityHome.addFragment(new FragmentListMatchByTeam(idTeam));
+            }
+        });
+
 
 
 

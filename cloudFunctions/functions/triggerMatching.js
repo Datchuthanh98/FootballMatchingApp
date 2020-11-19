@@ -5,19 +5,19 @@ const db = admin.firestore();
 const auth = admin.auth();
 
 
-
-exports.triggerQueue = functions.firestore.document('QueueTeam/{requestId}').onCreate(async (snap, context) => {
+// gửi thông báo đến đội trưởng của sân nhà là có team X đặt sân 
+exports.triggerQueue = functions.firestore.document('Match/{idMatch}/listQueueTeam/{requestId}').onCreate(async (snap, context) => {
     const newValue = snap.data();
-    // get team
-    const matchId = newValue.idMatch;
-    const matchRecord = await db.collection('Match').doc(matchId).get();
-    const matchData = matchRecord.data();
-    const bookingRecord = await db.collection('Booking').doc(matchData.idBooking).get();
+    const idTeamAway = newValue.team;
+    const idMatch = context.params.idMatch;
+    const matchRecord = await db.collection('Match').doc(idMatch).get();
+    const idBooking = matchRecord.data().idBooking;
+    const bookingRecord = await db.collection('Booking').doc(idBooking).get();
+    // const matchData = matchRecord.data();
     const bookingData = bookingRecord.data();
 
-
     // get player
-    const idTeamHome =bookingData.idTeamHome;
+    const idTeamHome = bookingData.idTeamHome;
     const teamRecord = await db.collection('Team').doc(idTeamHome).get();
     const teamData = teamRecord.data();
 
@@ -26,7 +26,7 @@ exports.triggerQueue = functions.firestore.document('QueueTeam/{requestId}').onC
     // get captain
     // console.log(newValue);
    
-    const teamAwayRecord = await db.collection('Team').doc(newValue.idTeam).get();
+    const teamAwayRecord = await db.collection('Team').doc(idTeamAway).get();
     const teamAwayData = teamAwayRecord.data();
 
     const message = {

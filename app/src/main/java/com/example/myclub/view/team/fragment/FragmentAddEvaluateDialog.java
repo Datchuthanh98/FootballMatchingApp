@@ -83,9 +83,8 @@ public class FragmentAddEvaluateDialog extends DialogFragment {
 
     private Map<String, Object> getInforTeam() {
         Map<String, Object> map = new HashMap<>();
-        map.put("idPlayer", SessionUser.getInstance().getPlayerLiveData().getValue().getId());
+        map.put("player", SessionUser.getInstance().getPlayerLiveData().getValue().getId());
         map.put("comment",binding.txtComment.getText().toString());
-        map.put("idTeam",viewModel.getMatchMutableLiveData().getValue().getId());
         map.put("rating",binding.ratingBar.getRating());
         return  map;
     };

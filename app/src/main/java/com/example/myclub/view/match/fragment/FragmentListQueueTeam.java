@@ -74,8 +74,7 @@ public class FragmentListQueueTeam extends Fragment  {
             public void onChanged(Team team) {
                 if(team != null) {
                     Map<String ,Object> map = new HashMap<>();
-                    map.put("idTeam",team.getId());
-                    map.put("idMatch",viewModel.getMatchMutableLiveData().getValue().getId());
+                    map.put("team",team.getId());
                     map.put("timestamp", Calendar.getInstance().getTime());
                     viewModel.addQueueTeam(map);
                     selectTeamViewModel.setSelectedTeam(null);

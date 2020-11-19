@@ -130,6 +130,7 @@ public class TeamDataSource {
         functions.getHttpsCallable("getTeamDetail").call(idTeam).addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
             @Override
             public void onSuccess(HttpsCallableResult httpsCallableResult) {
+
                 Team team = convert.fromJson(convert.toJson(httpsCallableResult.getData()), Team.class);
                 callBack.onSuccess(team);
 
@@ -254,8 +255,9 @@ public class TeamDataSource {
         });
     }
 
-    public void addEvaluate(Map<String,Object> map, final CallBack<String ,String>  callBack){
-        DocumentReference ref = db.collection("Evaluate").document();
+    public void addEvaluate(String idTeam,Map<String,Object> map, final CallBack<String ,String>  callBack){
+
+        DocumentReference ref = db.collection("Team").document(idTeam).collection("listEvaluate").document();
         map.put("id", ref.getId());
         ref.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override

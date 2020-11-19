@@ -12,8 +12,8 @@ import com.example.myclub.data.repository.RequestJoinTeamRepository;
 import com.example.myclub.data.repository.TeamRepository;
 import com.example.myclub.model.Comment;
 import com.example.myclub.model.Evaluate;
-import com.example.myclub.model.RequestJoinTeam;
 import com.example.myclub.model.Team;
+import com.example.myclub.session.SessionUser;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterLisEvaluateVertical;
 
 
@@ -24,21 +24,13 @@ import java.util.Map;
 public class ProfileOtherTeamViewModel extends ViewModel {
     private RequestJoinTeamRepository requestJoinTeamRepository = RequestJoinTeamRepository.getInstance();
     private MutableLiveData<Boolean> stateRequestJoinTeam = new MutableLiveData<>(false);
-    private String key;
+
 
     private MutableLiveData<Team> matchMutableLiveData = new MutableLiveData<>(null);
     private TeamRepository teamRepository = TeamRepository.getInstance();
     private MutableLiveData<List<Evaluate>> listCommentLiveData = new MutableLiveData<>(null);
     private RecycleViewAdapterLisEvaluateVertical adapterListComment = new RecycleViewAdapterLisEvaluateVertical();
     private MutableLiveData<LoadingState> matchLoadState = new MutableLiveData<>(LoadingState.INIT);
-    private MutableLiveData<State> teamAwayStatus = new MutableLiveData<>();
-    private String resultMessage = null;
-
-    public String getKey() {
-        return key;
-    }
-
-
 
 
     public MutableLiveData<Boolean> getStateRequestJoinTeam() {
@@ -46,10 +38,9 @@ public class ProfileOtherTeamViewModel extends ViewModel {
     }
 
     public void addRequestJoinTeam(Map<String, Object> requestJoin) {
-        requestJoinTeamRepository.addRequestJoinTeam(requestJoin, new CallBack<String, String>() {
+        requestJoinTeamRepository.addRequestJoinTeam(matchMutableLiveData.getValue().getId(), requestJoin, new CallBack<String, String>() {
             @Override
             public void onSuccess(String getKey) {
-                key = getKey;
                 stateRequestJoinTeam.setValue(Boolean.TRUE);
             }
 
@@ -60,8 +51,8 @@ public class ProfileOtherTeamViewModel extends ViewModel {
         });
     }
 
-    public void cancelRequestJoinTeam(String key) {
-        requestJoinTeamRepository.cancelRequestJoinTeam(key, new CallBack<String, String>() {
+    public void cancelRequestJoinTeam() {
+        requestJoinTeamRepository.cancelRequestJoinTeam(matchMutableLiveData.getValue().getId(), SessionUser.getInstance().getPlayerLiveData().getValue().getId(), new CallBack<String, String>() {
             @Override
             public void onSuccess(String sucess) {
                 stateRequestJoinTeam.setValue(Boolean.FALSE);
@@ -74,15 +65,14 @@ public class ProfileOtherTeamViewModel extends ViewModel {
         });
     }
 
-    public void getStateJoinTeam(final Map<String, Object> requestJoin) {
-        requestJoinTeamRepository.getStateJoinTeam(requestJoin, new CallBack<RequestJoinTeam, String>() {
+    public void getStateJoinTeam() {
+        requestJoinTeamRepository.getStateJoinTeam(matchMutableLiveData.getValue().getId(), SessionUser.getInstance().getPlayerLiveData().getValue().getId(), new CallBack<Boolean, String>() {
             @Override
-            public void onSuccess(RequestJoinTeam requestJoinTeam) {
-                if (requestJoinTeam == null) {
+            public void onSuccess(Boolean requestJoinTeam) {
+                if (requestJoinTeam == Boolean.FALSE) {
                     stateRequestJoinTeam.setValue(false);
                 } else {
                     stateRequestJoinTeam.setValue(true);
-                    key = requestJoinTeam.getId();
                 }
             }
 
@@ -152,7 +142,7 @@ public class ProfileOtherTeamViewModel extends ViewModel {
     }
 
     public  void addComment(Map<String,Object> map){
-        teamRepository.addEvaluate(map, new CallBack<String, String>() {
+        teamRepository.addEvaluate(matchMutableLiveData.getValue().getId(),map, new CallBack<String, String>() {
             @Override
             public void onSuccess(String s) {
                 getListComment();

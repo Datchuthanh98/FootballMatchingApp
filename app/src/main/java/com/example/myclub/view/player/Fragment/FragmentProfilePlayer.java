@@ -95,12 +95,6 @@ public class FragmentProfilePlayer extends Fragment {
             }
         });
 
-        binding.btnInvite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(),"Invited Player "+ profilePlayerViewModel.getKey(),Toast.LENGTH_SHORT).show();
-            }
-        });
 
         binding.btnAccept.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,9 +112,8 @@ public class FragmentProfilePlayer extends Fragment {
     }
 
     private Map<String, Object> approveJoinTeam() {
-        data.put("idTeam", sessionTeam.getTeamLiveData().getValue().getId());
-        data.put("idPlayer",player.getId());
-        data.put("key", profilePlayerViewModel.getKey());
+        data.put("team", sessionTeam.getTeamLiveData().getValue().getId());
+        data.put("player",player.getId());
         return data;
     }
 

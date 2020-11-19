@@ -33,7 +33,7 @@ public class FragmentListTime extends Fragment {
         //Khởi tạo màn hình ban đầu của fragment
         RecycleViewAdapterListTimeVertical adapter = viewModel.getAdapterListTimeVertical();
         adapter.setFm(getParentFragmentManager());
-        binding.recycleViewListTimeVertical.setAdapter(viewModel.getAdapterListTimeVertical());
+        binding.recycleViewListTimeVertical.setAdapter(adapter);
 
 
     }

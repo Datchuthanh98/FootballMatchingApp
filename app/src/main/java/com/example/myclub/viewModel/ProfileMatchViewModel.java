@@ -101,7 +101,7 @@ public class ProfileMatchViewModel extends ViewModel {
 
 
     public  void addQueueTeam(Map<String,Object> map){
-        matchRepository.addQueueTeam(map, new CallBack<String, String>() {
+        matchRepository.addQueueTeam(matchMutableLiveData.getValue().getId(),map, new CallBack<String, String>() {
             @Override
             public void onSuccess(String s) {
                 getListQueueTeam();
@@ -162,7 +162,7 @@ public class ProfileMatchViewModel extends ViewModel {
     }
 
     public  void addComment(Map<String,Object> map){
-        matchRepository.addComment(map, new CallBack<String, String>() {
+        matchRepository.addComment(matchMutableLiveData.getValue().getId(),map, new CallBack<String, String>() {
             @Override
             public void onSuccess(String s) {
                 getListComment();

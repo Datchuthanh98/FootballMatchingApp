@@ -4,16 +4,17 @@ const admin = require('firebase-admin');
 const db = admin.firestore();
 const auth = admin.auth();
 
-
-exports.triggerJoinTeam = functions.firestore.document('RequestJoinTeam/{requestId}').onCreate(async (snap, context) => {
+// thông bao đến sân , có người muốn vào đội
+exports.triggerJoinTeam = functions.firestore.document('Team/{idTeam}/listRequest/{requestId}').onCreate(async (snap, context) => {
     const newValue = snap.data();
     console.log(context.params.requestId);
     // get team
-    const idTeam = newValue.idTeam;
+    // const idTeam = newValue.idTeam;
+    const idTeam = context.params.idTeam;
     const teamRecord = await db.collection('Team').doc(idTeam).get();
     const teamData = teamRecord.data();
     // get player
-    const idPlayer = newValue.idPlayer;
+    const idPlayer = newValue.player;
     const playerRecord = await db.collection('Player').doc(idPlayer).get();
     const playerData = playerRecord.data();
     // get captain
@@ -39,19 +40,22 @@ exports.triggerJoinTeam = functions.firestore.document('RequestJoinTeam/{request
     })
 });
 
-exports.triggerJoinTeamToAllMembers = functions.firestore.document('TeamMember/{recordId}').onCreate(async (snap, context) => {
+
+//thông báo tới các thành viên của đội là có người gia nhập tên x,  thông báo tới cầu thủ x là đã đc gia nhập đội, tự xem lại logic
+exports.triggerJoinTeamToAllMembers = functions.firestore.document('Team/{idTeam}/listPlayer/{recordId}').onCreate(async (snap, context) => {
     const newValue = snap.data();
     // get new member data
-    const idNewMember = newValue.idPlayer;
+    const idNewMember = newValue.player;
     const newMemberRecord = await db.collection('Player').doc(idNewMember).get();
     const newMemberData = newMemberRecord.data();
     const newMemberRegistrationToken = newMemberData.registrationToken;
     // get team data
-    const teamId = newValue.idTeam;
+    // const teamId = newValue.idTeam;
+    const teamId = context.params.idTeam;
     const teamRecord = await db.collection('Team').doc(teamId).get();
     const teamData = teamRecord.data();
     // check if the member is leader
-    if (teamData.idCaption === idNewMember){
+    if (teamData.idCaptain === idNewMember){
         // do nothing
     } else {
         // Send welcome message to new member
@@ -77,15 +81,16 @@ exports.triggerJoinTeamToAllMembers = functions.firestore.document('TeamMember/{
         // get other team members
         const teamMemberRegistrationTokens = [];
         // teamMemberRegistrationTokens.push(newMemberRegistrationToken);
-        const teamMemberRecords = await db.collection('TeamMember').where('idTeam', '==', teamId).get();
+        // const teamMemberRecords = await db.collection('TeamMember').where('idTeam', '==', teamId).get();
+        const teamMemberRecords = await db.collection('Team').doc(teamId).collection('listPlayer').get();
         if (!teamMemberRecords.empty) {
             const teamMembersPromises = [];
             let i;
             for (i = 0 ; i < teamMemberRecords.docs.length; i++){
                 const teamMemberData = teamMemberRecords.docs[i].data();
-                const idPlayer = teamMemberData.idPlayer;
+                const idPlayer = teamMemberData.player;
                 if (idPlayer !== idNewMember){
-                    teamMembersPromises.push(db.collection('Player').doc(teamMemberData.idPlayer).get());
+                    teamMembersPromises.push(db.collection('Player').doc(idPlayer).get());
                 }
             }
             await Promise.all(teamMembersPromises).then((playerRecords) => {

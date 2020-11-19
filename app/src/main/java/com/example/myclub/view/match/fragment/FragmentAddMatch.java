@@ -100,10 +100,20 @@ public class FragmentAddMatch extends Fragment {
                 Dialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        String dateString = day + "/" + month + "/" + year;
-                        pDay = day;
-                        pMonth = month;
-                        pYear = year;
+                        String sday, smonth;
+                        if(day<10){
+                            sday ="0"+day;
+                        }else{
+                            sday=""+day;
+                        }
+
+                        if(month<9){
+                            smonth ="0"+(month+1);
+                        }else{
+                            smonth=""+(month+1);
+                        }
+
+                        String dateString = sday + "/" + smonth + "/" + year;
                         binding.txtDate.setText(dateString);
                     }
                 }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
@@ -219,7 +229,7 @@ public class FragmentAddMatch extends Fragment {
         data.put("idTimeGame", matchViewModel.getTimeLiveData().getValue().getId());
         data.put("note",binding.txtNote.getText().toString());
         data.put("phone",binding.txtPhone.getText().toString());
-        data.put("timestamp",Calendar.getInstance().getTime());
+//        data.put("timestamp",Calendar.getInstance().getTime());
         return data;
     }
 

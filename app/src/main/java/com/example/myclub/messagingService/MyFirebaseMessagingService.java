@@ -114,7 +114,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
             notificationBuilder.setAutoCancel(true)
                     .setDefaults(Notification.DEFAULT_ALL)
@@ -123,7 +122,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     .setContentTitle(messageType)
                     .setContentText(contentText)
                     .setContentInfo("Info");
-
             notificationManager.notify(new Random().nextInt(), notificationBuilder.build());
         }
     }

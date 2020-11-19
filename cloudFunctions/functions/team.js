@@ -21,22 +21,21 @@ exports.createTeam = functions.https.onCall(async (data) => {
     teamData.id = newTeamRef.id;
     await newTeamRef.set(teamData);
 
-    const newTeamMemberRef = await db.collection('TeamMember').doc();
-
+    const newTeamMemberRef = await db.collection('Team').doc(newTeamRef.id).collection("listPlayer").doc(data.idPlayer);
     const teamMemberData = {
-        id : newTeamMemberRef.id,
-        idPlayer : data.idPlayer,
-        idTeam : newTeamRef.id
+        player: data.idPlayer
     }
 
-    await newTeamMemberRef.set(teamMemberData).catch((error) => {
-        return {
-            result: 0,
-            message: 'Add teammember into database failed',
-            errorCode: error.code,
-            errorMessage: error.message
-        }
-    });
+    const myTeamRef = await db.collection('Player').doc(data.idPlayer).collection("listTeam").doc(teamData.id);
+    const myTeamData = {
+        team: teamData.id
+    }
+
+
+    await myTeamRef.set(myTeamData);
+    await newTeamMemberRef.set(teamMemberData);
+
+
     return {
         result: 1,
         message: 'Team created'
@@ -51,11 +50,11 @@ exports.getTeamDetail = functions.https.onCall(async (idTeam) => {
     if(teamRecord.exists){
         let result  = teamRecord.data();
         let players = [];
-        const teamMembers = await db.collection('TeamMember').where('idTeam','==',teamRecord.data().id).get();
+        const teamMembers = await db.collection('Team').doc(idTeam).collection("listPlayer").get();
         if(!teamMembers.empty){
             let playerPromises = [];
             for(i =0 ; i < teamMembers.docs.length ; i++){
-                playerPromises.push(db.collection('Player').doc(teamMembers.docs[i].data().idPlayer).get());
+                playerPromises.push(db.collection('Player').doc(teamMembers.docs[i].data().player).get());
             }
             await Promise.all(playerPromises).then((playerRecords) => {
                 for( i = 0 ; i< playerRecords.length ; i++){
@@ -64,7 +63,7 @@ exports.getTeamDetail = functions.https.onCall(async (idTeam) => {
                 return null;
             });
             result.players=players;
-        }  
+        }   
     return result;
 
     }else {
@@ -74,12 +73,12 @@ exports.getTeamDetail = functions.https.onCall(async (idTeam) => {
 
 
 exports.getListTeam = functions.https.onCall(async (idPlayer) => {
-    const members = await db.collection('TeamMember').where('idPlayer','==',idPlayer).get();
-    if(!members.empty){
+    const teams = await db.collection('Player').doc(idPlayer).collection('listTeam').get();
+    if(!teams.empty){
         let listTeam = [] ;
         let listTeamPromises = [];
-        for(i =0 ; i < members.docs.length ; i++){
-            listTeamPromises.push(db.collection('Team').doc(members.docs[i].data().idTeam).get());
+        for(i =0 ; i < teams.docs.length ; i++){
+            listTeamPromises.push(db.collection('Team').doc(teams.docs[i].data().team).get());
         }
         await Promise.all(listTeamPromises).then((teamRecords) => {
             for( i = 0 ; i< teamRecords.length ; i++){
@@ -96,33 +95,32 @@ exports.getListTeam = functions.https.onCall(async (idPlayer) => {
 
 exports.getListTeamOther = functions.https.onCall(async (idPlayer) => {
     let i,j ;
-    const listTeam = [];
-    const members = await db.collection('TeamMember').where('idPlayer','==',idPlayer).get();
-      const allTeam = await db.collection('Team').get();
+    let listTeam = [];
+    const listMyTeam = await db.collection('Player').doc(idPlayer).collection('listTeam').get();
+    const allTeam = await db.collection('Team').get();
       for(i =0 ;i < allTeam.docs.length ; i++){
-        for( j = 0 ;  j<members.docs.length ; j ++){
-            if(members.docs[j].data().idTeam === allTeam.docs[i].data().id){
+        for( j = 0 ;  j<listMyTeam.docs.length ; j ++){
+            if(listMyTeam.docs[j].data().team === allTeam.docs[i].data().id){
                break;
-            }else if(j === (members.docs.length-1)){
+            }else if(j === (listMyTeam.docs.length-1)){
                 listTeam.push(allTeam.docs[i].data())
             }
         }
       }
-    
+
+     
       return listTeam;
- 
 })
 
 
 exports.getListEvaluate = functions.https.onCall(async (idTeam) => {    
-    const listEvaluateRecord = await db.collection("Evaluate").where('idTeam','==',idTeam).get();
+    const listEvaluateRecord = await db.collection('Team').doc(idTeam).collection('listEvaluate').get();
     let listComment = [];
     let i ;
     let listPlayerPromises = []
-    let listTeamPromises = []
     for( i =0 ; i<listEvaluateRecord.docs.length ; i++){
         listComment.push(listEvaluateRecord.docs[i].data());
-        listPlayerPromises.push(db.collection("Player").doc(listEvaluateRecord.docs[i].data().idPlayer).get());
+        listPlayerPromises.push(db.collection("Player").doc(listEvaluateRecord.docs[i].data().player).get());
     }
 
     await Promise.all(listPlayerPromises).then((playerRecords) => {
@@ -130,8 +128,7 @@ exports.getListEvaluate = functions.https.onCall(async (idTeam) => {
             listComment[i].idPlayer = playerRecords[i].data();
          }
          return null;
-
-    })
+    }) 
     return listComment;
 });
 

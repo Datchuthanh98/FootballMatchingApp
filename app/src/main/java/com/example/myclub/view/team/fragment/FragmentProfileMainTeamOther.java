@@ -69,7 +69,7 @@ public class FragmentProfileMainTeamOther extends Fragment {
         binding.tablayout.setupWithViewPager(binding.viewpager);
         initComponent();
         observeLiveData();
-        profileOtherTeamViewModel.getStateJoinTeam(requestJoinTeam());
+
 
     }
 
@@ -87,34 +87,35 @@ public class FragmentProfileMainTeamOther extends Fragment {
                     binding.loadingLayout.setVisibility(View.VISIBLE);
                 } else if (loadingState == LoadingState.LOADED) {
                     binding.loadingLayout.setVisibility(View.GONE);
+                    profileOtherTeamViewModel.getStateJoinTeam();
                 }
             }
         });
 
-        storageRef.child(team.getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(binding.avatar);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-
-            }
-        });
-
-        //Set image
-        storageRef.child(team.getUrlCover()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(binding.cover);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-
-            }
-        });
+//        storageRef.child(team.getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//            @Override
+//            public void onSuccess(Uri uri) {
+//                Picasso.get().load(uri).into(binding.avatar);
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception exception) {
+//
+//            }
+//        });
+//
+//        //Set image
+//        storageRef.child(team.getUrlCover()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//            @Override
+//            public void onSuccess(Uri uri) {
+//                Picasso.get().load(uri).into(binding.cover);
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception exception) {
+//
+//            }
+//        });
 
 
         binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_back_white_24);
@@ -135,7 +136,7 @@ public class FragmentProfileMainTeamOther extends Fragment {
         binding.btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                profileOtherTeamViewModel.cancelRequestJoinTeam(profileOtherTeamViewModel.getKey());
+                profileOtherTeamViewModel.cancelRequestJoinTeam();
             }
         });
 
@@ -167,8 +168,7 @@ public class FragmentProfileMainTeamOther extends Fragment {
 
 
     private Map<String, Object> requestJoinTeam() {
-        data.put("idPlayer", sessionUser.getPlayerLiveData().getValue().getId());
-        data.put("idTeam",team.getId());
+        data.put("player", sessionUser.getPlayerLiveData().getValue().getId());
         data.put("isPlayerRequest",true);
         data.put("timestamp", Calendar.getInstance().getTime());
         return data;

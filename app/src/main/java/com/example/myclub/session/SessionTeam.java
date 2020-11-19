@@ -82,6 +82,7 @@ public class SessionTeam implements TeamChangeCallBack {
 
     @Override
     public void onTeamChange(Team team) {
+//        Log.d("json", "team: "+team.getName());
         teamLiveData.setValue(team);
         teamLoadState.setValue(LoadingState.LOADED);
         if (team != null) {

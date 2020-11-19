@@ -73,10 +73,11 @@ public class FragmentMap extends Fragment implements OnMapReadyCallback {
         FirebaseFirestore.getInstance().collection("Field").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                Log.d("GetFields", "onSuccess");
                 List<DocumentSnapshot> documentSnapshots = queryDocumentSnapshots.getDocuments();
                 for (DocumentSnapshot documentSnapshot : documentSnapshots) {
                     Field field = documentSnapshot.toObject(Field.class);
+                    System.out.println(field.getLatitude());
+                    System.out.println(field.getLongitude());
                     MarkerOptions markerOptions = new MarkerOptions();
                     double lat = Double.parseDouble(field.getLatitude());
                     double lng = Double.parseDouble(field.getLongitude());

@@ -42,8 +42,8 @@ public class MatchRepository {
         matchDataSource.loadListMatchByDate(date,loadListMatchCallBack);
     }
 
-    public void getListMyMatch(String idPlayer ,CallBack<List<Match>,String> loadListMatchCallBack){
-        matchDataSource.loadListMyMatch(idPlayer,loadListMatchCallBack);
+    public void getListMyMatchByDate(String idTeam ,CallBack<List<Match>,String> loadListMatchCallBack){
+        matchDataSource.loadListMyMatch(idTeam,loadListMatchCallBack);
     }
 
     public void getInformationMatch(String idTeam , CallBack<Match,String> getInformationMatch){
@@ -58,12 +58,12 @@ public class MatchRepository {
         matchDataSource.getListComment(idMatch,getListComment);
     }
 
-    public void addComment(Map<String,Object> map , CallBack<String,String> addCommentCallback){
-        matchDataSource.addComment(map,addCommentCallback);
+    public void addComment(String idMatch,Map<String,Object> map , CallBack<String,String> addCommentCallback){
+        matchDataSource.addComment(idMatch,map,addCommentCallback);
     }
 
-    public void addQueueTeam(Map<String,Object> map , CallBack<String,String> addQueueTeamCallback){
-        matchDataSource.addQueueTeam(map,addQueueTeamCallback);
+    public void addQueueTeam(String idMatch,Map<String,Object> map , CallBack<String,String> addQueueTeamCallback){
+        matchDataSource.addQueueTeam(idMatch,map,addQueueTeamCallback);
     }
 
     public void acceptTeam(String idBooking ,Map<String, Object> map, CallBack<String, String> acceptCallBack) {

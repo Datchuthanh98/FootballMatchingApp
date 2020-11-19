@@ -1,5 +1,7 @@
 package com.example.myclub.viewModel;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -29,6 +31,7 @@ public class ListPlayerViewModel extends ViewModel {
     }
 
     public void setListPlayerLiveData(List<Player> listPlayers) {
+        Log.d("json", "setListPlayerLiveData: "+listPlayers.size());
         this.listPlayerLiveData.setValue(listPlayers);
         if (listPlayers == null) {
             adapterListPlayer.setListPlayer(new ArrayList<Player>());
@@ -46,28 +49,6 @@ public class ListPlayerViewModel extends ViewModel {
         }
         return instance;
     }
-
-//    public void getListPlayer(String idTeam) {
-//        playerRepository.getListPlayer(idTeam, new CallBack<List<Player>, String>() {
-//            @Override
-//            public void onSuccess(List<Player> listPlayers) {
-//                if (listPlayers == null) {
-//                    adapterListPlayer.setListPlayer(new ArrayList<Player>());
-//                    adapterListPlayerRequest.notifyDataSetChanged();
-//                } else {
-//                    listPlayerLiveData.setValue(listPlayers);
-//                    adapterListPlayer.setListPlayer(listPlayers);
-//                    adapterListPlayer.notifyDataSetChanged();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(String message) {
-//                resultMessage = message;
-//            }
-//        });
-//    }
-
 
     public void getListPlayerRequest(String idTeam) {
         playerRepository.getListPlayerRequest(idTeam, new CallBack<List<Player>, String>() {

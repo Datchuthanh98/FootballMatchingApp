@@ -64,17 +64,15 @@ public class MatchDataSource {
 
 
     public void addBooking(Map<String, Object> map, final CallBack<String,String> addBookingField) {
-        DocumentReference ref = db.collection("Booking").document();
-        map.put("id", ref.getId());
-        map.put("approve",null);
-        ref.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+        functions.getHttpsCallable("createBooking").call(map).addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
             @Override
-            public void onSuccess(Void aVoid) {
+            public void onSuccess(HttpsCallableResult httpsCallableResult) {
                 addBookingField.onSuccess("");
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                Log.d("addbooking", "onFailure: "+e.getMessage());
                 addBookingField.onFailure(e.getMessage());
             }
         });
@@ -82,9 +80,8 @@ public class MatchDataSource {
 
 
 
-    public void loadListMyMatch(String idPlayer, final CallBack<List<Match>,String> loadListMyMatchCallBack) {
-        Log.d("mymatch","onsucess ");
-        functions.getHttpsCallable("getMyListMatch").call(idPlayer).addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
+    public void loadListMyMatch(String idTeam, final CallBack<List<Match>,String> loadListMyMatchCallBack) {
+        functions.getHttpsCallable("getListMatchByTeam").call(idTeam).addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
             @Override
             public void onSuccess(HttpsCallableResult httpsCallableResult) {
                 Gson gson= new Gson();
@@ -134,7 +131,6 @@ public class MatchDataSource {
     }
 
     public void loadListMatchByDate(String date,final CallBack loadListMatchCallBack) {
-
         functions.getHttpsCallable("getListMatchByDate").call(date).addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
             @Override
             public void onSuccess(HttpsCallableResult httpsCallableResult) {
@@ -226,8 +222,8 @@ public class MatchDataSource {
         });
     }
 
-    public void addComment(Map<String,Object> map, final CallBack<String ,String>  callBack){
-            DocumentReference ref = db.collection("Comment").document();
+    public void addComment(String idMatch,Map<String,Object> map, final CallBack<String ,String>  callBack){
+            DocumentReference ref = db.collection("Match").document(idMatch).collection("listComment").document();
         map.put("id", ref.getId());
         ref.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -242,8 +238,8 @@ public class MatchDataSource {
         });
     }
 
-    public void addQueueTeam(Map<String,Object> map, final CallBack<String ,String>  callBack){
-        DocumentReference ref = db.collection("QueueTeam").document();
+    public void addQueueTeam(String idMatch,Map<String,Object> map, final CallBack<String ,String>  callBack){
+        DocumentReference ref = db.collection("Match").document(idMatch).collection("listQueueTeam").document();
         map.put("id", ref.getId());
         ref.set(map).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
