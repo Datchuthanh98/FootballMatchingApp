@@ -25,7 +25,7 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:id="@+id/avatarTeam"
+                android:id="@+id/avatarField"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@drawable/field"
@@ -41,7 +41,7 @@
                 android:text="@{field.name}"
                 android:hint="Name Team"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/avatarTeam"
+                app:layout_constraintLeft_toRightOf="@id/avatarField"
                 app:layout_constraintBottom_toTopOf="@+id/position"
                 />
             <TextView
@@ -54,7 +54,7 @@
                 android:hint="Adress Field"
                 android:text="@{field.address}"
                 app:layout_constraintTop_toBottomOf="@+id/namePlayer"
-                app:layout_constraintLeft_toRightOf="@id/avatarTeam"
+                app:layout_constraintLeft_toRightOf="@id/avatarField"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:focusable="true"
                 android:focusableInTouchMode="true"

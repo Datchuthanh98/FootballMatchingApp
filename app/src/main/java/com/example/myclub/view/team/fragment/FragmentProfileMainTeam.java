@@ -114,9 +114,9 @@ public class FragmentProfileMainTeam extends Fragment {
                 if (result == null) return;
                 if (result == Result.SUCCESS) {
                     if (sessionTeam.getAvatarLiveData().getValue() != null)
-                    Picasso.get().load(sessionTeam.getAvatarLiveData().getValue()).into(binding.avatar);
+                    Picasso.get().load(sessionTeam.getAvatarLiveData().getValue()).fit().centerCrop().into(binding.avatar);
                     if (sessionTeam.getCoverLiveData().getValue() != null)
-                    Picasso.get().load(sessionTeam.getCoverLiveData().getValue()).into(binding.cover);
+                    Picasso.get().load(sessionTeam.getCoverLiveData().getValue()).fit().centerCrop().into(binding.cover);
 
                 } else if (result == Result.FAILURE) {
                     Toast.makeText(context, sessionTeam.getResultMessage(), Toast.LENGTH_SHORT).show();

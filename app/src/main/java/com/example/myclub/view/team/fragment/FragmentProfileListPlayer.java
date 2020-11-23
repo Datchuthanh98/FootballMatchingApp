@@ -53,7 +53,7 @@ public class FragmentProfileListPlayer extends Fragment {
                  listPlayerViewModel.setListPlayerLiveData(SessionTeam.getInstance().getTeamLiveData().getValue().getPlayers());
                  RecycleViewAdapterListPlayerVertical adapter = listPlayerViewModel.getAdapterListPlayer();
                  adapter.setFm(getParentFragmentManager());
-                 binding.recycleViewListVertical.setAdapter(listPlayerViewModel.getAdapterListPlayer());
+                 binding.recycleViewListVertical.setAdapter(adapter);
              }
          }
      });

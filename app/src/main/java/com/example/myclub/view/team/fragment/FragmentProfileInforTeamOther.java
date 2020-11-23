@@ -40,7 +40,6 @@ public class FragmentProfileInforTeamOther extends Fragment {
             @Override
             public void onChanged(Team team) {
                 if(team !=null) {
-                    Toast.makeText(getContext(),"!23"+team.getName(),Toast.LENGTH_SHORT).show();
                     binding.setTeam(team);
                 }
             }

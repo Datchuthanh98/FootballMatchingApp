@@ -1,5 +1,6 @@
 package com.example.myclub.view.field.adapter;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,11 @@ import com.example.myclub.model.Field;
 import com.example.myclub.view.field.fragment.FragmentProfileField;
 import com.example.myclub.databinding.ItemFieldVerticalBinding;
 import com.example.myclub.session.SessionBookingField;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +30,8 @@ public class RecycleViewAdapterListFieldVertical extends RecyclerView.Adapter<Re
     private FragmentManager fm;
     private List<Field> fieldList = new ArrayList<>();
     private SessionBookingField matchViewModel = SessionBookingField.getInstance();
+    private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private StorageReference storageRef = storage.getReference();
     public RecycleViewAdapterListFieldVertical() {
 
     }
@@ -74,6 +82,23 @@ public class RecycleViewAdapterListFieldVertical extends RecyclerView.Adapter<Re
             }
         });
         holder.binding.setField(fieldList.get(position));
+
+        if(fieldList.get(position).getUrlAvatar() !=null) {
+            storageRef.child(fieldList.get(position).getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    if (uri != null) {
+                        Picasso.get().load(uri).fit().centerCrop().into(holder.binding.avatarField);
+                    }
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+
+                }
+            });
+        }
 
     }
 

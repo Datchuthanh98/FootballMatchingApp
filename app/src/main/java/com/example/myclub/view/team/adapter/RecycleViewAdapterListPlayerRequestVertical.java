@@ -77,7 +77,7 @@ public class RecycleViewAdapterListPlayerRequestVertical extends RecyclerView.Ad
         storageRef.child(players.get(position).getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(holder.binding.avatarPlayer);
+                Picasso.get().load(uri).fit().centerCrop().into(holder.binding.avatarPlayer);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

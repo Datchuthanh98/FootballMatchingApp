@@ -65,7 +65,6 @@ public class FragmentEditPlayerBasic extends BottomSheetDialogFragment {
                 if (result == Result.SUCCESS) {
                     session.resetResult();
                     detach();
-                    Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show();
                     updateUIPlayer();
 
                 } else if (result == Result.FAILURE) {

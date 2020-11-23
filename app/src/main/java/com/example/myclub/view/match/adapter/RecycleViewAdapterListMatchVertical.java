@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myclub.R;
 import com.example.myclub.databinding.ItemMatchVerticalBinding;
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.model.Match;
@@ -71,22 +72,47 @@ public class RecycleViewAdapterListMatchVertical extends RecyclerView.Adapter<Re
                 activityHome.addFragment(new FragmentMainProfileMatch(matches.get(position).getId()));
             }
         });
-//        if(matches.get(position).getIdBooking().getIdTeamHome().getUrlAvatar() !=null) {
-//            storageRef.child(matches.get(position).getIdBooking().getIdTeamHome().getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                @Override
-//                public void onSuccess(Uri uri) {
-//                    if (uri != null) {
-//                        Picasso.get().load(uri).into(holder.binding.avatarHome);
-//                    }
-//
-//                }
-//            }).addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception exception) {
-//
-//                }
-//            });
-//        }
+
+
+
+
+
+
+        if(matches.get(position).getIdBooking().getIdTeamHome() !=null) {
+            storageRef.child(matches.get(position).getIdBooking().getIdTeamHome().getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    if (uri != null) {
+                        Picasso.get().load(uri).fit().centerCrop().into(holder.binding.avatarHome);
+                    }
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+
+                }
+            });
+        }
+
+
+        if(matches.get(position).getIdBooking().getIdTeamAway() !=null) {
+            holder.binding.avatarAway.setImageResource(R.drawable.avatar_team_default);
+            storageRef.child(matches.get(position).getIdBooking().getIdTeamAway().getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    if (uri != null) {
+                        Picasso.get().load(uri).fit().centerCrop().into(holder.binding.avatarAway);
+                    }
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+
+                }
+            });
+        }
         holder.binding.setMatch(matches.get(position));
     }
 

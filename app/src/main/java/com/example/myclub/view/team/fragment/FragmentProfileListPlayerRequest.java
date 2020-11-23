@@ -48,15 +48,9 @@ public class FragmentProfileListPlayerRequest extends Fragment {
         binding.recycleViewListRequestVertical.setLayoutManager(new LinearLayoutManager(getContext()));
         RecycleViewAdapterListPlayerRequestVertical adapter = listPlayerViewModel.getAdapterListPlayerRequest();
         adapter.setFm(getParentFragmentManager());
-        binding.recycleViewListRequestVertical.setAdapter(listPlayerViewModel.getAdapterListPlayerRequest());
+        binding.recycleViewListRequestVertical.setAdapter(adapter);
     }
 
     private void observeLiveData(final Context context) {
-//        SessionStateData.getInstance().getDatalistRequestByTeam().observe(getViewLifecycleOwner(), new Observer<DataState>() {
-//            @Override
-//            public void onChanged(DataState dataState) {
-//                listPlayerViewModel.getListPlayerRequest(idTeam);
-//            }
-//        });
     }
 }

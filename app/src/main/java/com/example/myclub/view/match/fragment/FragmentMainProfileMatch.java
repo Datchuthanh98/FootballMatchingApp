@@ -94,7 +94,7 @@ public class FragmentMainProfileMatch extends Fragment {
             public void onChanged(Match match) {
                 if(match != null) {
                     binding.setMatch(match);
-                if(match.getIdBooking().getIdTeamHome().getUrlAvatar() !=null)
+                if(match.getIdBooking().getIdTeamHome() !=null)
                 storageRef.child(match.getIdBooking().getIdTeamHome().getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
@@ -110,25 +110,23 @@ public class FragmentMainProfileMatch extends Fragment {
                     }
                 });
 
-                    //set image away
-//                if(match.getIdBooking().getIdTeamAway().getUrlAvatar() !=null) {
-//                    storageRef.child(match.getIdBooking().getIdTeamAway().getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                        @Override
-//                        public void onSuccess(Uri uri) {
-//                            if (uri != null) {
-//                                Picasso.get().load(uri).into(binding.avatarAway);
-//                            }
-//
-//                        }
-//                    }).addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception exception) {
-//                            Picasso.get().load(avatar_team_default).into(binding.avatarAway);
-//                        }
-//                    });
-//                }else{
-//                    Picasso.get().load(avatar_team_default).into(binding.avatarAway);
-//                }
+                    if(match.getIdBooking().getIdTeamAway() !=null){
+                        binding.avatarAway.setImageResource(R.drawable.avatar_team_default);
+                    storageRef.child(match.getIdBooking().getIdTeamAway().getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            if (uri != null) {
+                                Picasso.get().load(uri).into(binding.avatarAway);
+                            }
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+
+                        }
+                    });
+                    }
 
 
                 }

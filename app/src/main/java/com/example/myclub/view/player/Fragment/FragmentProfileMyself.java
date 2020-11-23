@@ -46,13 +46,7 @@ public class FragmentProfileMyself extends Fragment {
                 activityHome.addFragment(new FragmentEditMainPlayer());
             }
         });
-
-
-
-
         observeLiveData(view.getContext());
-
-
     }
 
 
@@ -61,14 +55,14 @@ public class FragmentProfileMyself extends Fragment {
         SessionUser.getInstance().getAvatarLiveData().observe(getViewLifecycleOwner(), new Observer<File>() {
             @Override
             public void onChanged(File file) {
-                Picasso.get().load(file).into(binding.avatar);
+                Picasso.get().load(file).fit().centerCrop().into(binding.avatar);
             }
         });
 
         SessionUser.getInstance().getCoverLiveData().observe(getViewLifecycleOwner(), new Observer<File>() {
             @Override
             public void onChanged(File file) {
-                Picasso.get().load(file).into(binding.cover);
+                Picasso.get().load(file).fit().centerCrop().into(binding.cover);
             }
         });
 
@@ -77,8 +71,8 @@ public class FragmentProfileMyself extends Fragment {
             public void onChanged(Result result) {
                 if (result == null) return;
                 if (result == Result.SUCCESS) {
-                    Picasso.get().load(session.getAvatarLiveData().getValue()).into(binding.avatar);
-                    Picasso.get().load(session.getCoverLiveData().getValue()).into(binding.cover);
+                    Picasso.get().load(session.getAvatarLiveData().getValue()).fit().centerCrop().into(binding.avatar);
+                    Picasso.get().load(session.getCoverLiveData().getValue()).fit().centerCrop().into(binding.cover);
 
                 } else if (result == Result.FAILURE) {
                     Toast.makeText(context, session.getResultMessage(), Toast.LENGTH_SHORT).show();

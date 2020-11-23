@@ -154,8 +154,8 @@ public class FragmentEditMainPlayer extends Fragment {
             public void onChanged(Result result) {
                 if (result == null) return;
                 if (result == Result.SUCCESS) {
-                    Picasso.get().load(session.getAvatarLiveData().getValue()).into(binding.avatar);
-                    Picasso.get().load(session.getCoverLiveData().getValue()).into(binding.cover);
+                    Picasso.get().load(session.getAvatarLiveData().getValue()).fit().centerCrop().into(binding.avatar);
+                    Picasso.get().load(session.getCoverLiveData().getValue()).fit().centerCrop().into(binding.cover);
 
                 } else if (result == Result.FAILURE) {
                     Toast.makeText(context, session.getResultMessage(), Toast.LENGTH_SHORT).show();

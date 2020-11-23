@@ -72,17 +72,17 @@ public class RecycleViewAdapterListChatVertical extends RecyclerView.Adapter<Rec
             if(listChat.get(position).getIdPlayer().equals( players.get(i).getId())){
                 //Set image
                 holder.binding.namePlayer.setText(players.get(i).getName());
-//                storageRef.child(players.get(i).getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                    @Override
-//                    public void onSuccess(Uri uri) {
-//                        Picasso.get().load(uri).into(holder.binding.avatarPlayer);
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception exception) {
-//
-//                    }
-//                });
+                storageRef.child(players.get(i).getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Picasso.get().load(uri).fit().centerCrop().into(holder.binding.avatarPlayer);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+
+                    }
+                });
                break;
             }
         }
