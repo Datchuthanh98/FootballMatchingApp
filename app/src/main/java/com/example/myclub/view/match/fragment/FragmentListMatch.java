@@ -17,16 +17,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myclub.data.enumeration.LoadingState;
 import com.example.myclub.data.enumeration.Status;
-import com.example.myclub.databinding.FragmentListBinding;
 import com.example.myclub.databinding.FragmentListCallendarBinding;
 import com.example.myclub.main.ActivityHome;
+import com.example.myclub.view.field.fragment.FragmentAddBooking;
 import com.example.myclub.view.match.adapter.RecycleViewAdapterListMatchVertical;
-import com.example.myclub.view.team.fragment.FragmentProfileMainTeam;
 import com.example.myclub.viewModel.ListMatchViewModel;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 
 public class FragmentListMatch extends Fragment {
@@ -49,13 +46,7 @@ public class FragmentListMatch extends Fragment {
         initComponent();
         observerLiveDate();
 
-        binding.btnCreateMatch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ActivityHome activityHome = (ActivityHome) getContext();
-                activityHome.addFragment(new FragmentAddMatch());
-            }
-        });
+
     }
 
     private  void initComponent(){

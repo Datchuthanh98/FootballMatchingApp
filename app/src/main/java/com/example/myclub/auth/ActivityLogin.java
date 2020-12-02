@@ -121,7 +121,7 @@ public class ActivityLogin extends AppCompatActivity {
 
         //Login With Google
         mAuth = FirebaseAuth.getInstance();
-        loader = binding.loader;
+
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))

@@ -1,7 +1,5 @@
 package com.example.myclub.viewModel;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -10,7 +8,7 @@ import com.example.myclub.Interface.CallBack;
 import com.example.myclub.data.repository.FieldRepository;
 import com.example.myclub.model.Field;
 import com.example.myclub.model.TimeGame;
-import com.example.myclub.view.match.adapter.RecycleViewAdapterListTimeVertical;
+import com.example.myclub.view.field.adapter.RecycleViewAdapterListTimeVertical;
 
 import java.util.ArrayList;
 import java.util.List;

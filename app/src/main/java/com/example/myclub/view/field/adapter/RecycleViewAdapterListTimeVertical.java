@@ -1,4 +1,4 @@
-package com.example.myclub.view.match.adapter;
+package com.example.myclub.view.field.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myclub.databinding.ItemTimeHorizontalBinding;
 import com.example.myclub.model.TimeGame;
 import com.example.myclub.session.SessionBookingField;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +61,7 @@ public class RecycleViewAdapterListTimeVertical extends RecyclerView.Adapter<Rec
             @Override
             public void onClick(View v) {
                 SessionBookingField.getInstance().setTimeLiveData(listTimes.get(position));
-               detach();
+                detach();
             }
         });
         holder.binding.setTimeGame(listTimes.get(position));
@@ -75,4 +76,5 @@ public class RecycleViewAdapterListTimeVertical extends RecyclerView.Adapter<Rec
         fm.popBackStack();
     }
 }
+
 

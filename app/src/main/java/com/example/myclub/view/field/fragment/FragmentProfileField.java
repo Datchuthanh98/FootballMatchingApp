@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,17 +22,13 @@ import com.example.myclub.R;
 import com.example.myclub.databinding.FragmentProfileFieldBinding;
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.model.Field;
-import com.example.myclub.view.match.adapter.RecycleViewAdapterListTimeVertical;
-import com.example.myclub.view.match.fragment.FragmentAddMatch;
+import com.example.myclub.view.field.adapter.RecycleViewAdapterListTimeVertical;
 import com.example.myclub.viewModel.ProfileFieldViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
-
-import java.util.Calendar;
-import java.util.Map;
 
 public class FragmentProfileField extends Fragment {
     private ProfileFieldViewModel viewModel;
@@ -86,22 +81,24 @@ public class FragmentProfileField extends Fragment {
             @Override
             public void onClick(View v) {
                 ActivityHome activityHome = (ActivityHome) getContext();
-                activityHome.addFragment(new FragmentAddMatch());
+                activityHome.addFragment(new FragmentAddBooking(field));
 
             }
         });
 
-        storageRef.child(field.getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).fit().centerCrop().into(binding.avatar);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
 
-            }
-        });
+            storageRef.child(field.getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Picasso.get().load(uri).fit().centerCrop().into(binding.avatar);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+
+                }
+            });
+
 
         //Set image
         storageRef.child(field.getUrlCover()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

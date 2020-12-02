@@ -13,7 +13,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/shape"
             android:layout_height="?attr/actionBarSize">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -52,7 +52,6 @@
             android:layout_width="match_parent"
             >
             <TextView
-                android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
                 android:text=" Name Player"
                 android:textStyle="bold"
                 android:textSize="15dp"
@@ -88,7 +87,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></EditText>
             <TextView
-                android:drawableStart="@drawable/ic_baseline_home_24"
+                android:drawableStart="@drawable/address_icon"
                 android:text="Address"
                 android:textStyle="bold"
                 android:textSize="15dp"

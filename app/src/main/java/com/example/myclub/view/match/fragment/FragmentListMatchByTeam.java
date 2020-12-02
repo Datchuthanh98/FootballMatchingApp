@@ -1,12 +1,9 @@
 package com.example.myclub.view.match.fragment;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,11 +16,9 @@ import com.example.myclub.data.enumeration.LoadingState;
 import com.example.myclub.data.enumeration.Status;
 import com.example.myclub.databinding.FragmentListCallendarBinding;
 import com.example.myclub.main.ActivityHome;
+import com.example.myclub.view.field.fragment.FragmentAddBooking;
 import com.example.myclub.view.match.adapter.RecycleViewAdapterListMatchVertical;
 import com.example.myclub.viewModel.ListMatchByTeamViewModel;
-import com.example.myclub.viewModel.ListMatchViewModel;
-
-import java.util.Calendar;
 
 
 public class FragmentListMatchByTeam extends Fragment {
@@ -50,13 +45,6 @@ public class FragmentListMatchByTeam extends Fragment {
         initComponent();
         observerLiveDate();
 
-        binding.btnCreateMatch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ActivityHome activityHome = (ActivityHome) getContext();
-                activityHome.addFragment(new FragmentAddMatch());
-            }
-        });
     }
 
     private  void initComponent(){

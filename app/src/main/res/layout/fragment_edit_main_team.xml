@@ -17,7 +17,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/shape"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
@@ -154,7 +154,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
+                        
                         android:text="@{SessionTeam.getInstance().teamLiveData.name}"
                         android:textSize="20dp"
                         android:textStyle="bold" />

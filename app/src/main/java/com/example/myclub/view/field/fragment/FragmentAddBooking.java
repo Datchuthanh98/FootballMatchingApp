@@ -1,9 +1,10 @@
-package com.example.myclub.view.match.fragment;
+package com.example.myclub.view.field.fragment;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,31 +17,51 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.myclub.Interface.CallBack;
 import com.example.myclub.R;
 import com.example.myclub.data.enumeration.Result;
+import com.example.myclub.data.repository.FieldRepository;
+import com.example.myclub.data.repository.TeamRepository;
 import com.example.myclub.databinding.FragmentAddMatchBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.model.Field;
 import com.example.myclub.model.Team;
 import com.example.myclub.model.TimeGame;
-import com.example.myclub.view.field.fragment.FragmentListField;
-import com.example.myclub.view.team.fragment.FragmentListMyTeam;
 import com.example.myclub.session.SessionBookingField;
+import com.example.myclub.session.SessionUser;
+import com.example.myclub.view.field.adapter.RecycleViewAdapterListTimeVertical;
+import com.example.myclub.view.match.fragment.FragmentListTime;
+import com.example.myclub.view.team.adapter.RecycleViewAdapterListTeamVertical;
+import com.example.myclub.view.team.fragment.FragmentListMyTeam;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class FragmentAddMatch extends Fragment {
-
+public class FragmentAddBooking extends Fragment {
     private int pYear, pMonth, pDay, pHour, pMinute;
     private SessionBookingField matchViewModel = SessionBookingField.getInstance();
     private  Map<String ,Object> data = new HashMap<>();
     private Dialog loadingDialog;
     private LoadingLayoutBinding loadingLayoutBinding;
-    FragmentAddMatchBinding binding;
+    private  FragmentAddMatchBinding binding;
+    private  Field field;
+
+    public FragmentAddBooking(Field field) {
+        this.field = field;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -54,11 +75,12 @@ public class FragmentAddMatch extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         observeLiveData(view.getContext());
         initComponent();
-      initLoadingDialog(view.getContext());
+        initLoadingDialog(view.getContext());
 
     }
 
     private void initLoadingDialog(Context context) {
+        binding.setField(field);
         loadingDialog = new Dialog(context);
         loadingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         loadingLayoutBinding = LoadingLayoutBinding.inflate(getLayoutInflater());
@@ -84,14 +106,7 @@ public class FragmentAddMatch extends Fragment {
             }
         });
 
-        binding.btnSelectField.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ActivityHome activityHome = (ActivityHome) getContext();
-                Fragment selectField = new FragmentListField(false);
-                activityHome.addFragment(selectField);
-            }
-        });
+
 
         binding.btnSelectDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,7 +140,7 @@ public class FragmentAddMatch extends Fragment {
             @Override
             public void onClick(View v) {
                 ActivityHome activityHome = (ActivityHome) getContext();
-                Fragment selectTime = new FragmentListTime();
+                Fragment selectTime = new FragmentListTime(field.getId());
                 activityHome.addFragment(selectTime);
             }
         });
@@ -174,32 +189,18 @@ public class FragmentAddMatch extends Fragment {
             }
         });
 
-
-        matchViewModel.getFieldLiveData().observe(getViewLifecycleOwner(), new Observer<Field>() {
-            @Override
-            public void onChanged(Field field) {
-                if(field == null){
-                    binding.viewField.setVisibility(View.GONE);
-                }else{
-                    binding.setField(field);
-                    matchViewModel.onChangeSelectField();
-                    binding.viewField.setVisibility(View.VISIBLE);
-                }
-
-            }
-        });
-
-
         matchViewModel.getTimeLiveData().observe(getViewLifecycleOwner(), new Observer<TimeGame>() {
             @Override
             public void onChanged(TimeGame timeGame) {
+                Toast.makeText(getContext(), "ahihi",Toast.LENGTH_SHORT).show();
                 if(timeGame == null){
                     binding.viewTimeGame.setVisibility(View.GONE);
+                    binding.viewOption.setVisibility(View.GONE);
                 }else{
                     binding.setTimeGame(timeGame);
                     binding.viewTimeGame.setVisibility(View.VISIBLE);
+                    binding.viewOption.setVisibility(View.VISIBLE);
                 }
-
             }
         });
 
@@ -224,7 +225,7 @@ public class FragmentAddMatch extends Fragment {
 
     private Map<String, Object> getInforBooking() {
         data.put("idTeamHome", matchViewModel.getTeamLiveData().getValue().getId());
-        data.put("idField", matchViewModel.getFieldLiveData().getValue().getId());
+        data.put("idField", field.getId());
         data.put("date", binding.txtDate.getText().toString());
         data.put("idTimeGame", matchViewModel.getTimeLiveData().getValue().getId());
         data.put("note",binding.txtNote.getText().toString());

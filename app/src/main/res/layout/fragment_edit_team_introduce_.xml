@@ -16,7 +16,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/shape"
             android:layout_height="?attr/actionBarSize"
             app:layout_constraintTop_toTopOf="parent">
             <LinearLayout
@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
-                android:drawableStart="@drawable/ic_baseline_account_box_24_blue"
+                android:drawableStart="@drawable/introduce_icon"
                 android:text=" Introduce"
                 android:textStyle="bold"
                 android:textSize="15dp"

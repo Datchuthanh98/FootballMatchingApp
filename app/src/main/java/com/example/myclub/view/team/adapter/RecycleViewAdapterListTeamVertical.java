@@ -12,10 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.model.Team;
+import com.example.myclub.session.SessionBookingField;
 import com.example.myclub.view.team.fragment.FragmentProfileMainTeam;
 import com.example.myclub.databinding.ItemTeamVerticalBinding;
 import com.example.myclub.view.team.fragment.FragmentProfileMainTeamOther;
-import com.example.myclub.session.SessionBookingField;
+
 import com.example.myclub.viewModel.ShareSelectTeamViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -84,7 +85,7 @@ public class RecycleViewAdapterListTeamVertical extends RecyclerView.Adapter<Rec
                     }else {
                         matchViewModel.setTeamLiveData(listTeam.get(position));
                         selectTeamViewModel.setSelectedTeam(listTeam.get(position));
-                      detach();
+                        detach();
                     }
                 }else{
                     activityHome.addFragment(new FragmentProfileMainTeamOther(listTeam.get(position)));}
@@ -120,4 +121,3 @@ public class RecycleViewAdapterListTeamVertical extends RecyclerView.Adapter<Rec
         fm.popBackStack();
     }
 }
-

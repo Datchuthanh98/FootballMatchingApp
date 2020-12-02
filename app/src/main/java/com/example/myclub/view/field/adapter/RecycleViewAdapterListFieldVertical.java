@@ -14,7 +14,7 @@ import com.example.myclub.main.ActivityHome;
 import com.example.myclub.model.Field;
 import com.example.myclub.view.field.fragment.FragmentProfileField;
 import com.example.myclub.databinding.ItemFieldVerticalBinding;
-import com.example.myclub.session.SessionBookingField;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -29,7 +29,7 @@ public class RecycleViewAdapterListFieldVertical extends RecyclerView.Adapter<Re
     public Boolean isShow = false;
     private FragmentManager fm;
     private List<Field> fieldList = new ArrayList<>();
-    private SessionBookingField matchViewModel = SessionBookingField.getInstance();
+
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private StorageReference storageRef = storage.getReference();
     public RecycleViewAdapterListFieldVertical() {
@@ -76,7 +76,7 @@ public class RecycleViewAdapterListFieldVertical extends RecyclerView.Adapter<Re
                     ActivityHome activityHome = (ActivityHome) holder.itemView.getContext();
                     activityHome.addFragment(fragmentProfileField);
                 }else{
-                    matchViewModel.setFieldLiveData(fieldList.get(position));
+
                     detach();
                 }
             }

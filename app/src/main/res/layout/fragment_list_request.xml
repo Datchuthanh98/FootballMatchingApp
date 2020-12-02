@@ -9,16 +9,17 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#d1e0e0"
+
         android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/shape"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout

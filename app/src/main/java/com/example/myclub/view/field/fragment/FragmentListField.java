@@ -45,6 +45,7 @@ public class FragmentListField extends Fragment {
         adapter.isShow = this.isShown;
         binding.recycleViewListVertical.setAdapter(viewModel.getAdapterListField());
         binding.recycleViewListVertical.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.btnCreateTeam.setVisibility(View.GONE);
 
     }
 }

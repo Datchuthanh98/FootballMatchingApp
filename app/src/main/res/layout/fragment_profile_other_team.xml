@@ -18,7 +18,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/shape"
             android:layout_height="?attr/actionBarSize"
             app:layout_constraintTop_toTopOf="parent">
             <LinearLayout
@@ -146,7 +146,7 @@
                     android:paddingRight="20dp"
                     android:paddingLeft="20dp"
                     android:textColor="@color/white"
-                    android:background="@drawable/buttonstyle"
+                    android:background="@drawable/shape"
                     android:id="@+id/btnJoin"
                     android:drawableStart="@drawable/ic_baseline_join_24_green"
                     android:text="Join Team"
@@ -156,7 +156,7 @@
                     android:paddingRight="20dp"
                     android:paddingLeft="20dp"
                     android:textColor="@color/white"
-                    android:background="@drawable/buttonstyle"
+                    android:background="@drawable/shape"
                     android:text="Cancel"
                     android:id="@+id/btnCancel"
                     android:drawableStart="@drawable/ic_baseline_join_24_green"

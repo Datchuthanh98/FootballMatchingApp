@@ -15,6 +15,7 @@ public class Field implements Serializable {
     private  String urlCover;
     private  String introduce;
 
+
     public Field() {
     }
 
@@ -104,6 +105,7 @@ public class Field implements Serializable {
         this.email =  inforBasic.get("email").toString() ;
         this.address =  inforBasic.get("address").toString() ;
     }
+
 
 
 

@@ -100,7 +100,7 @@
                 android:paddingRight="60dp"
                 android:paddingLeft="60dp"
                 android:textColor="@color/white"
-                android:background="@drawable/buttonstyle"
+                android:background="@drawable/shape"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Next"

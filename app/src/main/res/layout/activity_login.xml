@@ -1,180 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
  <data>
-  <import type="android.view.View" />
-
  </data>
-<androidx.constraintlayout.widget.ConstraintLayout
+
+<RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/login_background"
-    >
+    android:layout_height="match_parent">
 
- <androidx.constraintlayout.widget.ConstraintLayout
-     app:layout_constraintTop_toTopOf="parent"
-     app:layout_constraintBottom_toBottomOf="parent"
-     android:layout_width="match_parent"
-     android:layout_height="wrap_content">
-
-  <ImageView
-      android:id="@+id/logoApp"
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintLeft_toLeftOf="parent"
-      app:layout_constraintRight_toRightOf="parent"
-      android:layout_width="150dp"
-      android:layout_height="150dp"
-      android:src="@drawable/logo_app_default" />
+ <ImageView
+     android:layout_centerInParent="true"
+     android:layout_above="@+id/ll"
+     android:layout_width="250dp"
+     android:layout_height="match_parent"
+     android:src="@drawable/icon_app" />
 
  <LinearLayout
-     android:id="@+id/loginBasic"
+     android:id="@+id/ll"
+     android:layout_centerInParent="true"
+     android:layout_marginRight="30dp"
+     android:layout_marginLeft="30dp"
      android:orientation="vertical"
-     app:layout_constraintTop_toBottomOf="@id/logoApp"
      android:layout_width="match_parent"
      android:layout_height="wrap_content">
   <EditText
       android:id="@+id/txtEmail"
+      android:paddingLeft="15dp"
+      android:layout_marginBottom="15dp"
+      android:textColor="@color/black"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_margin="10dp"
-      android:padding="15dp"
-      android:background="#F0F8FF"
-      android:drawableLeft="@drawable/ic_account_circle_black_24dp"
-      android:drawablePadding="10dp"
+      android:layout_height="50dp"
       android:hint="Email"
-      android:textColor="#0c0d0c"
-      android:textColorHint="#0c0d0c"
-      android:textColorHighlight="#FFFFFF"
-      android:text="meo@gmail.com"
+      android:text="test@gmail.com"
+      android:background="@drawable/shape2"
       />
 
   <EditText
-      android:id="@+id/txtPassword"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_margin="10dp"
-      android:background="#F0F8FF"
-      android:drawableLeft="@drawable/ic_account_circle_black_24dp"
-      android:drawablePadding="10dp"
-      android:hint="Password"
-      android:inputType="textPassword"
-      android:padding="15dp"
       android:text="123456"
-      android:textColor="#0c0d0c"
-      android:textColorHighlight="#FFFFFF"
-      android:textColorHint="#0c0d0c" />
-
- </LinearLayout>
-
-
- <LinearLayout
-     android:orientation="vertical"
-     app:layout_constraintTop_toBottomOf="@id/loginBasic"
-     app:layout_constraintLeft_toLeftOf="parent"
-     app:layout_constraintRight_toRightOf="parent"
-     android:layout_width="match_parent"
-     android:layout_height="0dp"
-     android:gravity="center"
-     >
-  <Button
-      android:drawableStart="@drawable/ic_baseline_email_24_yeallow"
-      android:layout_width="250dp"
+      android:id="@+id/txtPassword"
+      android:inputType="textPassword"
+      android:paddingLeft="15dp"
+      android:layout_marginBottom="15dp"
+      android:textColor="@color/black"
+      android:layout_width="match_parent"
+      android:layout_height="50dp"
+      android:hint="Mật khẩu"
+      android:background="@drawable/shape2"
+      />
+  <TextView
+      android:id="@+id/forgot"
+      android:textSize="16sp"
+      android:layout_marginBottom="30dp"
+      android:layout_gravity="right"
+      android:layout_alignParentBottom="true"
+      android:hint = "Quên mật khẩu"
+      android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text=" Login with Email"
+      />
+  <Button
       android:id="@+id/btnLoginEmail"
-      android:shadowColor="@android:color/transparent"
-      android:padding="15dp"
-      android:layout_marginRight="10dp"
-      android:layout_marginLeft="10dp"
-      android:layout_marginBottom="10dp"
-      android:layout_marginTop="0dp"
-      android:textColor="#ffffff"
-      android:background="#071112"/>
+      android:layout_width="match_parent"
+      android:layout_height="50dp"
+      android:layout_marginBottom="15dp"
+      android:background="@drawable/shape"
+      android:text="Đăng nhập"
+      android:textAllCaps="false"
+      android:textColor="@color/white"
+      android:textSize="20sp" />
   <Button
-      android:drawableStart="@drawable/ic_baseline_phone_24_green"
-      android:layout_width="250dp"
-      android:layout_height="wrap_content"
-      android:text="Login with Phone"
       android:id="@+id/btnPhone"
-      android:shadowColor="@android:color/transparent"
-      android:padding="15dp"
-      android:layout_marginRight="10dp"
-      android:layout_marginLeft="10dp"
-      android:layout_marginBottom="10dp"
-      android:layout_marginTop="0dp"
-      android:textColor="#ffffff"
-      android:background="#071112"/>
-
+      android:layout_width="match_parent"
+      android:layout_height="50dp"
+      android:layout_marginBottom="15dp"
+      android:background="@drawable/shape"
+      android:text="Đăng nhập qua SDT"
+      android:textAllCaps="false"
+      android:textColor="@color/white"
+      android:textSize="20sp" />
   <Button
-      android:drawableStart="@drawable/facebook"
-      android:id="@+id/btnFacebook"
-      android:layout_width="250dp"
-      android:layout_height="64dp"
-      android:layout_marginLeft="10dp"
-      android:layout_marginTop="0dp"
-      android:layout_marginRight="10dp"
-      android:layout_marginBottom="10dp"
-      android:background="#071112"
-      android:padding="15dp"
-      android:shadowColor="@android:color/transparent"
-      android:text="Login with Facebook"
-      android:textColor="#ffffff" />
-
-  <Button
-      android:drawableStart="@drawable/google"
-      android:layout_width="250dp"
-      android:layout_height="wrap_content"
-      android:text="Login with Google"
       android:id="@+id/btnGoogle"
-      android:shadowColor="@android:color/transparent"
-      android:padding="15dp"
-      android:layout_marginRight="10dp"
-      android:layout_marginLeft="10dp"
-      android:layout_marginBottom="10dp"
-      android:layout_marginTop="0dp"
-      android:textColor="#ffffff"
-      android:background="#071112"/>
-
-
+      android:layout_width="match_parent"
+      android:layout_height="50dp"
+      android:layout_marginBottom="15dp"
+      android:background="@drawable/shape"
+      android:text="Đăng nhập qua Email"
+      android:textAllCaps="false"
+      android:textColor="@color/white"
+      android:textSize="20sp" />
   <Button
-      android:drawableStart="@drawable/ic_add_white_24"
-      android:layout_width="250dp"
-      android:layout_height="wrap_content"
-      android:text="Register"
-      android:id="@+id/btnRegister"
-      android:shadowColor="@android:color/transparent"
-      android:padding="15dp"
-      android:layout_marginRight="10dp"
-      android:layout_marginLeft="10dp"
-      android:layout_marginBottom="10dp"
-      android:layout_marginTop="0dp"
-      android:textColor="#ffffff"
-      android:background="#071112"/>
-
-
+      android:id="@+id/btnFacebook"
+      android:layout_width="match_parent"
+      android:layout_height="50dp"
+      android:layout_marginBottom="15dp"
+      android:background="@drawable/shape"
+      android:text="Đăng nhập qua Facebook"
+      android:textAllCaps="false"
+      android:textColor="@color/white"
+      android:textSize="20sp" />
 
 
  </LinearLayout>
 
- <com.tuyenmonkey.mkloader.MKLoader
-     android:id="@+id/loader"
-     android:layout_width="70dp"
-     android:layout_height="70dp"
-     android:visibility="gone"
+ <TextView
+     android:id="@+id/btnRegister"
+     android:textSize="16sp"
+     android:layout_marginBottom="30dp"
      android:layout_centerInParent="true"
-     android:layout_centerHorizontal="true"
-     android:layout_centerVertical="true"
-     android:layout_marginTop="60dp"
-     app:layout_constraintBottom_toBottomOf="parent"
-     app:layout_constraintEnd_toEndOf="parent"
-     app:layout_constraintStart_toStartOf="parent"
-     app:layout_constraintTop_toTopOf="parent"
-     app:mk_color="#ffffff"
-     app:mk_type="FishSpinner" />
+     android:layout_alignParentBottom="true"
+     android:text = "Tạo tài khoản"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>
 </layout>
