@@ -40,9 +40,9 @@ public class AdapterFragmentProfileTeamOther extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "Information";
+                return "Thông tin ";
             case 1:
-                return "List Evaluate";
+                return "Đánh giá";
         }
         return null;
     }

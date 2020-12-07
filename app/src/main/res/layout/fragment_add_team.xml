@@ -13,7 +13,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:background="@drawable/shape"
+            android:background="@drawable/toolbar_color"
             android:layout_height="?attr/actionBarSize">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -23,7 +23,7 @@
                     android:id="@+id/title"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="Create Team"
+                    android:text="Tạo đội bóng mới"
                     android:gravity="center_vertical"
                     android:textSize="20dp"
                     android:layout_weight="1"/>
@@ -52,8 +52,9 @@
             android:layout_width="match_parent"
             >
             <TextView
+                android:drawablePadding="10dp"
                 android:drawableStart="@drawable/name_icon"
-                android:text=" Name Team"
+                android:text=" Tên đội bóng"
                 android:textStyle="bold"
                 android:textSize="15dp"
                 android:layout_width="match_parent"
@@ -63,8 +64,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></EditText>
             <TextView
+                android:drawablePadding="10dp"
                 android:drawableStart="@drawable/ic_baseline_phone_24_green"
-                android:text=" Phone"
+                android:text=" Số điện thoại"
                 android:textStyle="bold"
                 android:textSize="15dp"
                 android:layout_width="match_parent"
@@ -81,6 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></TextView>
             <EditText
+                android:drawablePadding="10dp"
                 android:id="@+id/txtEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></EditText>

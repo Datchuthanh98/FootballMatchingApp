@@ -14,7 +14,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:background="@drawable/shape"
+            android:background="@drawable/toolbar_color"
             android:layout_height="?attr/actionBarSize"
             app:layout_constraintTop_toTopOf="parent">
             <LinearLayout
@@ -25,7 +25,7 @@
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="My Information "
+                    android:text="Hồ sơ cầu thủ"
                     android:gravity="center_vertical"
                     android:textSize="20dp"
                     android:textColor="@color/white"/>
@@ -79,8 +79,8 @@
                             android:layout_width="130dp"
                             android:layout_height="130dp"
                             android:src="@drawable/avatar_player_default"
-                            app:border_color="@color/white"
-                            app:border_width="5dp"
+                            app:civ_border_color="#ffffff"
+                            app:civ_border_width="2dp"
                             app:layout_constraintBottom_toBottomOf="@id/cover"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
@@ -107,12 +107,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                             <Button
+                                android:textAllCaps="false"
                                 android:paddingRight="20dp"
                                 android:paddingLeft="20dp"
                                 android:textColor="@color/white"
                                 android:background="@drawable/shape"
                                 android:id="@+id/btnInvite"
-                                android:text="Invite to Team"
+                                android:text="Mời vào đội"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"></Button>
 
@@ -158,8 +159,8 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Information"
-                                android:textSize="24dp"
+                                android:text="Thông tin cầu thủ"
+                                android:textSize="20dp"
                                 android:textStyle="bold" />
                             <LinearLayout
                                 android:id="@+id/listGridData"
@@ -191,7 +192,7 @@
                                                 android:layout_height="30dp"
                                                 android:layout_margin="5dp"
                                                 android:gravity="center"
-                                                android:text="Birthday"></TextView>
+                                                android:text="Ngày sinh"></TextView>
 
                                             <TextView
                                                 android:layout_width="match_parent"
@@ -219,7 +220,7 @@
                                                 android:layout_height="30dp"
                                                 android:layout_margin="5dp"
                                                 android:gravity="center"
-                                                android:text="Height"></TextView>
+                                                android:text="Chiều cao"></TextView>
 
                                             <TextView
                                                 android:layout_width="match_parent"
@@ -247,7 +248,7 @@
                                                 android:layout_height="30dp"
                                                 android:layout_margin="5dp"
                                                 android:gravity="center"
-                                                android:text="Weight"></TextView>
+                                                android:text="Cân nặng"></TextView>
 
                                             <TextView
                                                 android:layout_width="match_parent"
@@ -280,7 +281,7 @@
                                                 android:layout_height="30dp"
                                                 android:layout_margin="5dp"
                                                 android:gravity="center"
-                                                android:text="Foot"></TextView>
+                                                android:text="Chân thuận"></TextView>
 
                                             <TextView
                                                 android:layout_width="match_parent"
@@ -308,7 +309,7 @@
                                                 android:layout_height="30dp"
                                                 android:layout_margin="5dp"
                                                 android:gravity="center"
-                                                android:text="Position"></TextView>
+                                                android:text="Sở trường"></TextView>
 
                                             <TextView
                                                 android:layout_width="match_parent"
@@ -336,7 +337,7 @@
                                                 android:layout_height="30dp"
                                                 android:layout_margin="5dp"
                                                 android:gravity="center"
-                                                android:text="Level"></TextView>
+                                                android:text="Trình độ"></TextView>
 
                                             <TextView
                                                 android:layout_width="match_parent"
@@ -355,8 +356,8 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Contact"
-                                android:textSize="24dp"
+                                android:text="Thông tin liên lạc"
+                                android:textSize="20dp"
                                 android:textStyle="bold" />
                             <TextView
                                 android:padding="5dp"
@@ -388,8 +389,8 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Introduce"
-                                android:textSize="24dp"
+                                android:text="Lời giới thiệu"
+                                android:textSize="20dp"
                                 android:textStyle="bold" />
                             <TextView
                                 android:padding="5dp"

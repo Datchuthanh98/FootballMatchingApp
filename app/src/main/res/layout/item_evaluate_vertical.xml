@@ -33,32 +33,46 @@
             android:orientation="vertical"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-           app:layout_constraintLeft_toRightOf="@+id/avatarPlayer"
+           app:layout_constraintLeft_toLeftOf="@+id/avatarPlayer"
+            app:layout_constraintRight_toRightOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <TextView
-                android:hint="name player"
-                android:text="@{evaluate.idPlayer.name}"
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+                <TextView
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:hint="name player"
+                    android:text="@{evaluate.idPlayer.name}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-            </TextView>
+                </TextView>
 
+            </LinearLayout>
+
+            <RatingBar
+
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+                android:rating="@{evaluate.rating}"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"></RatingBar>
             <TextView
+                android:textSize="16dp"
                 android:id="@+id/namePlayer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="name player"
+                android:hint="Comment "
                 android:text="@{evaluate.comment}"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/position"
                 app:layout_constraintLeft_toRightOf="@id/avatarPlayer"
                 app:layout_constraintTop_toTopOf="parent" />
-            <RatingBar
-                android:rating="@{evaluate.rating}"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></RatingBar>
+
         </LinearLayout>
 
 

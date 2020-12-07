@@ -43,11 +43,11 @@ public class AdapterFragmentInformationMatch extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "Information";
+                return "Thông tin";
             case 1:
-                return "Queue Club";
+                return "Hàng chờ";
             case 2:
-                return "Comment";
+                return "Bình luận";
         }
         return null;
     }

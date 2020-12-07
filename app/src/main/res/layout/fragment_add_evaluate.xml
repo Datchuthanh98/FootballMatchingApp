@@ -13,7 +13,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:background="@drawable/shape"
+            android:background="@drawable/toolbar_color"
             android:layout_height="?attr/actionBarSize">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -23,7 +23,7 @@
                     android:id="@+id/title"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:text="Evaluate"
+                    android:text="Đánh giá "
                     android:gravity="center_vertical"
                     android:textSize="20dp"
                     android:layout_weight="1"/>
@@ -51,24 +51,20 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             >
-            <TextView
-                android:drawableStart="@drawable/chat"
-                android:text=" Comment"
-                android:textStyle="bold"
-                android:textSize="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"></TextView>
+            <RatingBar
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                android:id="@+id/ratingBar"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></RatingBar>
             <EditText
+
+                android:background="@drawable/shape2"
+                android:hint="Viết đánh giá của bạn về đội bóng này "
                 android:id="@+id/txtComment"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"></EditText>
-
-         <RatingBar
-             android:id="@+id/ratingBar"
-             android:layout_gravity="center"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"></RatingBar>
-
+                android:layout_height="50dp"></EditText>
         </LinearLayout>
     </LinearLayout>
 </layout>

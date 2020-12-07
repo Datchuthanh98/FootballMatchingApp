@@ -19,7 +19,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/shape"
+            android:background="@drawable/toolbar_color"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
@@ -32,7 +32,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="List Request"
+                    android:text="Danh sách cầu thủ xin gia nhập"
                     android:textColor="@color/white"
                     android:textSize="20dp" />
 

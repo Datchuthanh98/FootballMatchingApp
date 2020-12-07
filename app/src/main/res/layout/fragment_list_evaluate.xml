@@ -14,20 +14,28 @@
         android:layout_height="match_parent"
 
         android:orientation="vertical">
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <TextView
-                    android:drawableStart="@drawable/chat"
+                <Button
+                    android:layout_gravity="center"
+                    android:paddingRight="20dp"
+                    android:paddingLeft="20dp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/shape"
                     android:id="@+id/btnComment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Wirire your evaluate "></TextView>
-
+                    android:text="Viết đánh giá"
+                    android:textAllCaps="false"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"></Button>
+             <TextView
+                 android:padding="10dp"
+                 android:textSize="20dp"
+                 android:text="Danh sách đánh giá"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"></TextView>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycleViewListCommentVertical"
                     android:layout_width="match_parent"

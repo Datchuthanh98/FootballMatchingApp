@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myclub.R;
 import com.example.myclub.databinding.FragmentProfilePlayerBinding;
-import com.example.myclub.databinding.FragmentProfileTeamBasicBinding;
+
 import com.example.myclub.model.Player;
 import com.example.myclub.viewModel.ProfilePlayerViewModel;
 import com.example.myclub.session.SessionTeam;

@@ -40,7 +40,7 @@ public class FragmentProfileListPlayer extends Fragment {
         observeLiveData(view.getContext());
     }
     private  void initComponent(){
-
+       binding.viewSearch.setVisibility(View.GONE);
         binding.recycleViewListVertical.setLayoutManager(new LinearLayoutManager(getContext()));
 
     }

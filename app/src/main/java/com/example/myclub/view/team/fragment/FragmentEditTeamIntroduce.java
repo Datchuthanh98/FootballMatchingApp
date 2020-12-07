@@ -16,7 +16,6 @@ import androidx.lifecycle.Observer;
 
 import com.example.myclub.R;
 import com.example.myclub.data.enumeration.Result;
-import com.example.myclub.databinding.FragmentEditMainTeamBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
 import com.example.myclub.model.Team;
 import com.example.myclub.databinding.FragmentEditTeamIntroduceBinding;

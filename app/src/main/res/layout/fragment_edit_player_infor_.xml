@@ -15,7 +15,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:background="@drawable/shape"
+        android:background="@drawable/toolbar_color"
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintTop_toTopOf="parent">
         <LinearLayout
@@ -26,7 +26,7 @@
                 android:id="@+id/title"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="Edit information "
+                android:text="Chỉnh sửa"
                 android:gravity="center_vertical"
                 android:textSize="20dp"
                 android:layout_weight="1"/>
@@ -55,7 +55,7 @@
         android:layout_height="match_parent">
  <TextView
      android:drawableStart="@drawable/birthday"
-     android:text=" Birhday"
+     android:text=" Ngày sinh"
      android:textStyle="bold"
      android:textSize="15dp"
      android:layout_width="match_parent"
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"></EditText>
         <TextView
             android:drawableStart="@drawable/height_icon"
-            android:text=" Height (cm)"
+            android:text=" Chiều cao (cm)"
             android:textStyle="bold"
             android:textSize="15dp"
             android:layout_width="match_parent"
@@ -79,7 +79,7 @@
             android:layout_height="wrap_content"></EditText>
         <TextView
             android:drawableStart="@drawable/weight_icon"
-            android:text=" Weight (kg)"
+            android:text=" Cân nặng (kg)"
             android:textStyle="bold"
             android:textSize="15dp"
             android:layout_width="match_parent"
@@ -92,7 +92,7 @@
 
         <TextView
             android:drawableStart="@drawable/level_icon"
-            android:text=" Level"
+            android:text=" Trình độ"
             android:textStyle="bold"
             android:textSize="15dp"
             android:layout_width="match_parent"
@@ -104,7 +104,7 @@
             android:layout_height="wrap_content"></EditText>
         <TextView
             android:drawableStart="@drawable/position"
-            android:text=" Posstion"
+            android:text=" Sở trường"
             android:textStyle="bold"
             android:textSize="15dp"
             android:layout_width="match_parent"
@@ -116,7 +116,7 @@
             android:layout_height="wrap_content"></EditText>
         <TextView
             android:drawableStart="@drawable/foot"
-            android:text=" Nice foot"
+            android:text=" Chân thuận"
             android:textStyle="bold"
             android:textSize="15dp"
             android:layout_width="match_parent"

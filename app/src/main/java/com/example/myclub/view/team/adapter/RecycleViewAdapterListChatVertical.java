@@ -70,7 +70,6 @@ public class RecycleViewAdapterListChatVertical extends RecyclerView.Adapter<Rec
 
         for(int i =0 ; i< players.size(); i++){
             if(listChat.get(position).getIdPlayer().equals( players.get(i).getId())){
-                //Set image
                 holder.binding.namePlayer.setText(players.get(i).getName());
                 storageRef.child(players.get(i).getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override

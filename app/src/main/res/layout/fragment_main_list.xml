@@ -10,7 +10,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <com.google.android.material.tabs.TabLayout
-        android:background="@drawable/shape"
+        style="@style/MyTabLayout"
+        app:tabTextColor="@color/white"
+        android:background="@drawable/toolbar_color"
         android:id="@+id/tablayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -60,7 +60,8 @@ public class FragmentListChat extends Fragment {
         binding.recycleViewListCommentVertical.setLayoutManager(new LinearLayoutManager(getContext()));
         RecycleViewAdapterListChatVertical adapter = viewModel.getAdapter();
         adapter.setFm(getParentFragmentManager());
-        binding.recycleViewListCommentVertical.setAdapter(viewModel.getAdapter());
+        binding.recycleViewListCommentVertical.setAdapter(adapter);
+        binding.recycleViewListCommentVertical.scrollToPosition(viewModel.getListChat().getValue().size()-1);
 
 
      binding.btnComment.setOnClickListener(new View.OnClickListener() {

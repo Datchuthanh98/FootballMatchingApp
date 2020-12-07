@@ -37,9 +37,9 @@ public class AdapterFragmentField extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "List Fields";
+                return "Danh sách";
             case 1:
-                return "Show on Map";
+                return "Bản đồ";
         }
         return null;
     }

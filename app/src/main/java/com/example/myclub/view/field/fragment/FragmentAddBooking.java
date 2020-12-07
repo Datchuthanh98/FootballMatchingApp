@@ -57,6 +57,8 @@ public class FragmentAddBooking extends Fragment {
     private LoadingLayoutBinding loadingLayoutBinding;
     private  FragmentAddMatchBinding binding;
     private  Field field;
+    private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private StorageReference storageRef = storage.getReference();
 
     public FragmentAddBooking(Field field) {
         this.field = field;
@@ -81,6 +83,24 @@ public class FragmentAddBooking extends Fragment {
 
     private void initLoadingDialog(Context context) {
         binding.setField(field);
+
+        if(field.getUrlAvatar() != null) {
+            storageRef.child(field.getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    if (uri != null) {
+                        Picasso.get().load(uri).fit().centerCrop().into(binding.avatarField);
+                    }
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+
+                }
+            });
+        }
+
         loadingDialog = new Dialog(context);
         loadingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         loadingLayoutBinding = LoadingLayoutBinding.inflate(getLayoutInflater());
@@ -179,11 +199,25 @@ public class FragmentAddBooking extends Fragment {
             public void onChanged(Team team) {
                 if(team == null){
                     binding.viewTeam.setVisibility(View.GONE);
-                    binding.viewOption.setVisibility(View.GONE);
                 }else{
                     binding.setTeam(team);
+                    if(team.getUrlAvatar() != null) {
+                        storageRef.child(team.getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                if (uri != null) {
+                                    Picasso.get().load(uri).fit().centerCrop().into(binding.avatarTeam);
+                                }
+
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+
+                            }
+                        });
+                    }
                     binding.viewTeam.setVisibility(View.VISIBLE);
-                    binding.viewOption.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -195,11 +229,9 @@ public class FragmentAddBooking extends Fragment {
                 Toast.makeText(getContext(), "ahihi",Toast.LENGTH_SHORT).show();
                 if(timeGame == null){
                     binding.viewTimeGame.setVisibility(View.GONE);
-                    binding.viewOption.setVisibility(View.GONE);
                 }else{
                     binding.setTimeGame(timeGame);
                     binding.viewTimeGame.setVisibility(View.VISIBLE);
-                    binding.viewOption.setVisibility(View.VISIBLE);
                 }
             }
         });

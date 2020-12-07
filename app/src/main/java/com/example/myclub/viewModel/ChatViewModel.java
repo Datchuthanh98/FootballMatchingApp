@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class ChatViewModel  extends ViewModel {
     private TeamRepository teamRepository = TeamRepository.getInstance();
-    private MutableLiveData<List<Chat>> listChat = new MutableLiveData<>();
+    private MutableLiveData<List<Chat>> listChat = new MutableLiveData<List<Chat>>(new ArrayList<Chat>());
     private RecycleViewAdapterListChatVertical adapter = new RecycleViewAdapterListChatVertical();
     private String idTeam;
 

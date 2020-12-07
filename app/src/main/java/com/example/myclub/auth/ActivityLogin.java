@@ -70,10 +70,7 @@ public class ActivityLogin extends AppCompatActivity {
     private CallbackManager mCallbackManager;
     private Dialog loadingDialog;
     private LoadingLayoutBinding loadingLayoutBinding;
-    private FirebaseFunctions functions = FirebaseFunctions.getInstance();
-     private  FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private Gson convert = new Gson();
-    List<Image> imageResult = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,12 +78,10 @@ public class ActivityLogin extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         initLoadingDialog(ActivityLogin.this);
-//        loginWithEmail();
+
 
 //        if (FirebaseAuth.getInstance().getCurrentUser() != null){
-//
-//            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//            startActivity(intent);
+//            loginWithEmail();
 //        }
 
 

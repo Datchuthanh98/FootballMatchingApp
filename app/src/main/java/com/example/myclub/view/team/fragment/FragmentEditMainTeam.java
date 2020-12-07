@@ -24,8 +24,9 @@ import androidx.lifecycle.Observer;
 
 import com.example.myclub.R;
 import com.example.myclub.data.enumeration.Result;
-import com.example.myclub.databinding.FragmentEditMainTeamBinding;
+
 import com.example.myclub.databinding.FragmentProfileMyTeamBinding;
+import com.example.myclub.databinding.FragmentSettingTeamBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.session.SessionTeam;
@@ -40,7 +41,7 @@ import java.io.InputStream;
 public class FragmentEditMainTeam extends Fragment {
     private Dialog loadingDialog;
     private LoadingLayoutBinding loadingLayoutBinding;
-    private FragmentEditMainTeamBinding binding;
+    private FragmentSettingTeamBinding binding;
     public static final int RESULT_LOAD_IMG_AVATAR = 1001;
     public static final int RESULT_LOAD_IMG_COVER = 1002;
     private  String urlAvatar , urlCover;
@@ -48,7 +49,7 @@ public class FragmentEditMainTeam extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentEditMainTeamBinding.inflate(inflater);
+        binding = FragmentSettingTeamBinding.inflate(inflater);
         binding.setLifecycleOwner(this);
         View view = binding.getRoot();
         return  view;
@@ -58,7 +59,6 @@ public class FragmentEditMainTeam extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initComponent(view.getContext());
-        observeLiveData(view.getContext());
         initLoadingDialog(view.getContext());
 
     }
@@ -133,55 +133,6 @@ public class FragmentEditMainTeam extends Fragment {
         loadingDialog.setCancelable(false);
     }
 
-    private void observeLiveData(final Context context) {
-        //init Photo
-        SessionTeam.getInstance().getAvatarLiveData().observe(getViewLifecycleOwner(), new Observer<File>() {
-            @Override
-            public void onChanged(File file) {
-                Picasso.get().load(file).into(binding.avatar);
-            }
-        });
-
-        SessionTeam.getInstance().getCoverLiveData().observe(getViewLifecycleOwner(), new Observer<File>() {
-            @Override
-            public void onChanged(File file) {
-                Picasso.get().load(file).into(binding.cover);
-            }
-        });
-
-        //update Photo
-        sessionTeam.getResultPhotoLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
-            @Override
-            public void onChanged(Result result) {
-                if (result == null) return;
-                if (result == Result.SUCCESS) {
-                    loadingDialog.dismiss();
-                    Picasso.get().load(sessionTeam.getAvatarLiveData().getValue()).into(binding.avatar);
-                    Picasso.get().load(sessionTeam.getCoverLiveData().getValue()).into(binding.cover);
-
-                } else if (result == Result.FAILURE) {
-                    loadingDialog.dismiss();
-                    Toast.makeText(context, sessionTeam.getResultMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-
-        sessionTeam.getResultPhotoLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
-            @Override
-            public void onChanged(Result result) {
-                if (result == null) return;
-                if (result == Result.SUCCESS) {
-                    loadingDialog.dismiss();
-                    Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show();
-
-                } else if (result == Result.FAILURE) {
-                    loadingDialog.dismiss();
-                    Toast.makeText(context, sessionTeam.getResultMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
 
 
     @Override
@@ -200,11 +151,9 @@ public class FragmentEditMainTeam extends Fragment {
                 returnCursor.moveToFirst();
 
                 if(requestCode == RESULT_LOAD_IMG_AVATAR){
-                    binding.avatar.setImageBitmap(selectedImage);
                     urlAvatar = returnCursor.getString(nameIndex);
                     updateImage(imageUri,urlAvatar,true);
                 }else if(requestCode == RESULT_LOAD_IMG_COVER){
-                    binding.cover.setImageBitmap(selectedImage) ;
                     urlCover =  returnCursor.getString(nameIndex);
                     updateImage(imageUri,urlCover,false);
                 }

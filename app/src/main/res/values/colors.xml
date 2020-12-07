@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#F44336</color>
-    <color name="colorPrimaryDark">#F44336</color>
+    <color name="colorPrimary">#006666</color>
+    <color name="colorPrimaryDark">#006666</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="white">#ffffff</color>
     <color name="colorBG">#e6f9ff</color>
@@ -13,8 +13,8 @@
     <color name="colorGradient">#FAC44E</color>
 
     <color name="colorGradientStart">#4c84ff</color>
-    <color name="colorGradientEnd">#FF9800</color>
-    <color name="colorGradientEnde">#F44336</color>
+    <color name="colorGradientEnd">#00cccc</color>
+    <color name="colorGradientEnde">#00b3b3</color>
 
 
     <!--colors for light mode-->

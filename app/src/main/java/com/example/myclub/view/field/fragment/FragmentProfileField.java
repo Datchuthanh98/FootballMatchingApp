@@ -64,7 +64,7 @@ public class FragmentProfileField extends Fragment {
         RecycleViewAdapterListTimeVertical adapter = viewModel.getAdapterListTimeVertical();
         adapter.setFm(getParentFragmentManager());
         binding.recycleViewListTimeVertical.setAdapter(adapter);
-        binding.recycleViewListTimeVertical.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        binding.recycleViewListTimeVertical.setLayoutManager(new GridLayoutManager(getContext(), 1));
         initComponent();
 
     }
@@ -86,7 +86,7 @@ public class FragmentProfileField extends Fragment {
             }
         });
 
-
+        if(field.getUrlAvatar() != null){
             storageRef.child(field.getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
@@ -97,21 +97,22 @@ public class FragmentProfileField extends Fragment {
                 public void onFailure(@NonNull Exception exception) {
 
                 }
+            });}
+
+
+        if(field.getUrlCover() != null) {
+            storageRef.child(field.getUrlCover()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Picasso.get().load(uri).fit().centerCrop().into(binding.cover);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+
+                }
             });
-
-
-        //Set image
-        storageRef.child(field.getUrlCover()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).fit().centerCrop().into(binding.cover);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-
-            }
-        });
+        }
 
         binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_back_white_24);
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {

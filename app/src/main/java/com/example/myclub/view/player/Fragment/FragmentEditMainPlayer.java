@@ -24,7 +24,7 @@ import androidx.lifecycle.Observer;
 import com.example.myclub.R;
 import com.example.myclub.auth.ActivityLogin;
 import com.example.myclub.data.enumeration.Result;
-import com.example.myclub.databinding.FragmentEditMainPlayerBinding;
+import com.example.myclub.databinding.FragmentSettingPlayerBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
 import com.example.myclub.session.SessionUser;
 import com.facebook.login.LoginManager;
@@ -37,7 +37,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 public class FragmentEditMainPlayer extends Fragment {
-    private FragmentEditMainPlayerBinding binding;
+    private FragmentSettingPlayerBinding binding;
     public static final int RESULT_LOAD_IMG_AVATAR = 1012;
     public static final int RESULT_LOAD_IMG_COVER = 1013;
     private  String urlAvatar , urlCover;
@@ -46,7 +46,7 @@ public class FragmentEditMainPlayer extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentEditMainPlayerBinding.inflate(inflater);
+        binding = FragmentSettingPlayerBinding.inflate(inflater);
         binding.setLifecycleOwner(this);
         return binding.getRoot();
     }
@@ -55,7 +55,7 @@ public class FragmentEditMainPlayer extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
          initComponent(view.getContext());
-        observeLiveData(view.getContext());
+
     }
 
     private  void initComponent(final Context context){
@@ -131,54 +131,6 @@ public class FragmentEditMainPlayer extends Fragment {
     }
 
 
-
-    private void observeLiveData(final Context context) {
-        //init Photo
-        SessionUser.getInstance().getAvatarLiveData().observe(getViewLifecycleOwner(), new Observer<File>() {
-            @Override
-            public void onChanged(File file) {
-                Picasso.get().load(file).into(binding.avatar);
-            }
-        });
-
-        SessionUser.getInstance().getCoverLiveData().observe(getViewLifecycleOwner(), new Observer<File>() {
-            @Override
-            public void onChanged(File file) {
-                Picasso.get().load(file).into(binding.cover);
-            }
-        });
-
-        //update Photo
-        session.getResultPhotoLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
-            @Override
-            public void onChanged(Result result) {
-                if (result == null) return;
-                if (result == Result.SUCCESS) {
-                    Picasso.get().load(session.getAvatarLiveData().getValue()).fit().centerCrop().into(binding.avatar);
-                    Picasso.get().load(session.getCoverLiveData().getValue()).fit().centerCrop().into(binding.cover);
-
-                } else if (result == Result.FAILURE) {
-                    Toast.makeText(context, session.getResultMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-
-        session.getResultPhotoLiveData().observe(getViewLifecycleOwner(), new Observer<Result>() {
-            @Override
-            public void onChanged(Result result) {
-                if (result == null) return;
-                if (result == Result.SUCCESS) {
-                    Toast.makeText(context, "Updated", Toast.LENGTH_SHORT).show();
-
-                } else if (result == Result.FAILURE) {
-                    Toast.makeText(context, session.getResultMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -195,11 +147,9 @@ public class FragmentEditMainPlayer extends Fragment {
                 returnCursor.moveToFirst();
 
                 if(requestCode == RESULT_LOAD_IMG_AVATAR){
-                    binding.avatar.setImageBitmap(selectedImage);
                     urlAvatar = returnCursor.getString(nameIndex);
                     updateImage(imageUri,urlAvatar,true);
                 }else if(requestCode == RESULT_LOAD_IMG_COVER){
-                    binding.cover.setImageBitmap(selectedImage) ;
                     urlCover =  returnCursor.getString(nameIndex);
                     updateImage(imageUri,urlCover,false);
                 }

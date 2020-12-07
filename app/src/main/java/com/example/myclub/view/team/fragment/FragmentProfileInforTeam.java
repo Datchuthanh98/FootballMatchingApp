@@ -10,11 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-
-import com.example.myclub.R;
-import com.example.myclub.databinding.FragmentEditTeamBasicBinding;
 import com.example.myclub.databinding.FragmentProfileTeamBasicBinding;
-import com.example.myclub.session.SessionTeam;
+
 
 import java.io.File;
 

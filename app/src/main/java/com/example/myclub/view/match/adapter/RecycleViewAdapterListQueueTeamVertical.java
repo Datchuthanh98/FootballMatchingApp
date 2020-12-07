@@ -105,7 +105,7 @@ public class RecycleViewAdapterListQueueTeamVertical extends RecyclerView.Adapte
                 @Override
                 public void onSuccess(Uri uri) {
                     if (uri != null) {
-                        Picasso.get().load(uri).into(holder.binding.avatarTeam);
+                        Picasso.get().load(uri).fit().centerCrop().into(holder.binding.avatarTeam);
                     }
 
                 }

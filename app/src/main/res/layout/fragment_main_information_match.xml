@@ -19,7 +19,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/shape"
+            android:background="@drawable/toolbar_color"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
@@ -32,7 +32,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="Information Match"
+                    android:text="Thông tin trận đấu"
                     android:textColor="@color/white"
                     android:textSize="20dp" />
             </LinearLayout>
@@ -80,8 +80,8 @@
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
                                 android:src="@drawable/avatar_team_default"
-                                app:border_color="@color/white"
-                                app:border_width="5dp" />
+
+                                />
 
                             <TextView
 
@@ -148,8 +148,8 @@
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
                                 android:src="@drawable/noteam"
-                                app:border_color="@color/white"
-                                app:border_width="5dp" />
+                                app:civ_border_color="@color/white"
+                                app:civ_border_width="2dp"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -168,6 +168,7 @@
                 app:layout_constraintBottom_toBottomOf="parent">
 
                 <com.google.android.material.tabs.TabLayout
+                    style="@style/MyTabLayout"
                     android:id="@+id/tablayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

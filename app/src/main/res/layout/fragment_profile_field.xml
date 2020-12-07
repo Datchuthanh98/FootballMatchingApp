@@ -17,7 +17,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:background="@drawable/shape"
+            android:background="@drawable/toolbar_color"
             android:layout_height="?attr/actionBarSize"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -29,7 +29,7 @@
                     android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="My Information "
+                    android:text="Thông tin sân bóng "
                     android:gravity="center_vertical"
                     android:textSize="20dp"
                     android:textColor="@color/white"/>
@@ -41,7 +41,8 @@
                     android:layout_height="match_parent"
                     android:paddingHorizontal="15dp"
                     android:background="?android:attr/selectableItemBackground"
-                    android:src="@drawable/ic_baseline_email_24_yeallow"/>
+                    android:src="@drawable/email_icon"
+                   />
                 <ImageButton
                     android:id="@+id/btnCall"
                     android:layout_width="wrap_content"
@@ -74,27 +75,28 @@
                         android:layout_width="match_parent"
                         android:layout_height="160dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/cover_field"
+                        android:src="@drawable/cover_default"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/avatar"
                         android:layout_width="130dp"
                         android:layout_height="130dp"
-                        android:src="@drawable/cover_field"
-                        app:border_color="@color/white"
-                        app:border_width="5dp"
+                        android:src="@drawable/field"
+                        app:civ_border_color="#ffffff"
+                        app:civ_border_width="2dp"
                         app:layout_constraintBottom_toBottomOf="@id/cover"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/cover" />
 
                     <TextView
+                        android:hint="Name"
                         android:id="@+id/lblName"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/avatar"
-                        android:text="Name"
+                        android:text="@{field.name}"
                         android:textSize="30dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"></TextView>
@@ -109,8 +111,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Contact"
-                            android:textSize="24dp"
+                            android:text="Thông tin cơ bản"
+                            android:textSize="20dp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -140,8 +142,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Introduce"
-                            android:textSize="24dp"
+                            android:text="Lời giới thiệu"
+                            android:textSize="20dp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -155,8 +157,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="List Time"
-                            android:textSize="24dp"
+                            android:text="Khung giờ"
+                            android:textSize="20dp"
                             android:textStyle="bold" />
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recycleViewListTimeVertical"
@@ -172,8 +174,7 @@
                             android:id="@+id/btnBooking"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:drawableStart="@drawable/ic_baseline_join_24_green"
-                            android:text="Booking"
+                            android:text="Đặt sân"
                             ></Button>
 
 

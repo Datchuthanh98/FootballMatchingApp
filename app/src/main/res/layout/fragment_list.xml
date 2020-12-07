@@ -13,7 +13,6 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -23,36 +22,42 @@
                     android:gravity="center"
                     android:orientation="vertical">
                     <LinearLayout
+                        android:id="@+id/viewSearch"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
-                        android:background="@drawable/shape"
+                        android:background="@drawable/toolbar_color"
                         >
 
                         <EditText
+                            android:layout_weight="1"
                             android:drawablePadding="10dp"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
                             android:layout_gravity="center"
-                            android:id="@+id/search"
+                            android:id="@+id/txtsearch"
                             android:background="@drawable/shape2"
-                            android:layout_width="fill_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="42dp"
                             android:layout_marginRight="10dp"
                             android:layout_marginLeft="10dp"
-                            android:drawableLeft="@drawable/ic_search"
-                            android:drawableRight="@drawable/ic_stars"
-                            android:hint="Seach"
+                            android:hint="Tìm kiếm"
 
 
                             ></EditText>
+                       <ImageView
 
+                           android:src="@drawable/ic_search"
+                           android:layout_width="40dp"
+                           android:layout_height="match_parent">
+                       </ImageView>
 
                     </LinearLayout>
 
 
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:padding="10dp"
                         android:id="@+id/recycleViewListVertical"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>

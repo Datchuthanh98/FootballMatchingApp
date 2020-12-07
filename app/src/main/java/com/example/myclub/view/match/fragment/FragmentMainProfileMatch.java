@@ -99,7 +99,7 @@ public class FragmentMainProfileMatch extends Fragment {
                     @Override
                     public void onSuccess(Uri uri) {
                         if (uri != null) {
-                            Picasso.get().load(uri).into(binding.avatarHome);
+                            Picasso.get().load(uri).fit().centerCrop().into(binding.avatarHome);
                         }
 
                     }
@@ -116,7 +116,7 @@ public class FragmentMainProfileMatch extends Fragment {
                         @Override
                         public void onSuccess(Uri uri) {
                             if (uri != null) {
-                                Picasso.get().load(uri).into(binding.avatarAway);
+                                Picasso.get().load(uri).fit().centerCrop().into(binding.avatarAway);
                             }
 
                         }

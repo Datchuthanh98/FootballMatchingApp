@@ -2,7 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
     <data>
         <variable
             name="team"
@@ -15,16 +14,17 @@
             type="com.example.myclub.model.TimeGame" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="#d1e0e0"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/toolbar_color"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
@@ -37,7 +37,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="Create Match"
+                    android:text="Đặt sân"
                     android:textColor="@color/white"
                     android:textSize="20dp" />
                 <ImageButton
@@ -53,379 +53,240 @@
                     android:layout_height="match_parent"
                     android:paddingHorizontal="15dp"
                     android:background="?android:attr/selectableItemBackground"
-                    android:src="@drawable/ic_baseline_check_green_24"/>
+                    android:src="@drawable/ic_baseline_check_white_24"/>
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
-
-        <ScrollView
-            android:padding="10dp"
+     <ScrollView
+         app:layout_constraintTop_toBottomOf="@+id/toolbar"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/toolbar">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp">
+            <TextView
+                android:id="@+id/btnEditBasic"
+                style="@style/viewParent.headerText.settingsTextIcon"
+                android:drawableLeft="@drawable/ic_dark_mode"
+                android:layout_marginTop="10dp"
+                android:text="Sân bóng được chọn" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_margin="20dp"
+                android:id="@+id/viewField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <androidx.cardview.widget.CardView
-                app:cardCornerRadius="10dp"
+                <de.hdodenhof.circleimageview.CircleImageView
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:id="@+id/avatarField"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/field"
+                    />
+                <TextView
+                    android:drawableStart="@drawable/name_icon"
+                    android:drawablePadding="5dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/nameField"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@{field.name}"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/avatarField"
+                    app:layout_constraintBottom_toTopOf="@+id/address"
+                    />
+                <TextView
+                    android:drawableStart="@drawable/address_icon"
+                    android:drawablePadding="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@{field.address}"
+                    app:layout_constraintTop_toBottomOf="@+id/nameField"
+                    app:layout_constraintLeft_toRightOf="@id/avatarField"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+            <TextView
+                android:id="@+id/btnSelectClub"
+                style="@style/viewParent.headerText.settingsTextIcon"
+                android:drawableLeft="@drawable/ic_dark_mode"
+                android:layout_marginTop="10dp"
+                android:text="Chọn đội bóng" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_margin="20dp"
+                android:id="@+id/viewTeam"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:id="@+id/avatarTeam"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/avatar_team_default"
+                    />
+                <TextView
+                    android:drawableStart="@drawable/name_icon"
+                    android:drawablePadding="5dp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/namePlayer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@{team.name}"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/avatarTeam"
+                    app:layout_constraintBottom_toTopOf="@+id/position"
+                    />
+                <TextView
+                    android:drawableStart="@drawable/address_icon"
+                    android:drawablePadding="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/position"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@{team.address}"
+                    app:layout_constraintTop_toBottomOf="@+id/namePlayer"
+                    app:layout_constraintLeft_toRightOf="@id/avatarTeam"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+
+                style="@style/viewParent.headerText.settingsTextIcon"
+                android:drawableLeft="@drawable/ic_edit_password"
+                android:text="Chọn kiểu chơi" />
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:textAllCaps="false"
+                    android:id="@+id/btnLocal"
+                    android:layout_marginRight="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingLeft="20dp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/shape"
+                    android:text="Nội bộ"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </Button>
+                <Button
+                    android:textAllCaps="false"
+                    android:id="@+id/btnAway"
+                    android:layout_marginLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingLeft="20dp"
+                    android:textColor="@color/white"
+                    android:background="@drawable/shape"
+                    android:text="Giao lưu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </Button>
+            </LinearLayout>
+            <TextView
+                android:id="@+id/btnSelectDate"
+                style="@style/viewParent.headerText.settingsTextIcon"
+                android:drawableLeft="@drawable/ic_edit_password"
+                android:text="Chọn thời gian" />
+            <EditText
+                android:gravity="center"
+                android:id="@+id/txtDate"
+                android:paddingLeft="15dp"
+                android:layout_marginBottom="15dp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Nhập ngày đặt sân"
+                android:background="@drawable/shape2"
+                />
+
+
+            <TextView
+                android:id="@+id/btnSelectTime"
+                style="@style/viewParent.headerText.settingsTextIcon"
+                android:drawableLeft="@drawable/ic_languages"
+                android:text="Chọn khung giờ" />
+            <LinearLayout
+                android:id="@+id/viewTimeGame"
+                android:layout_marginHorizontal="20dp"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <LinearLayout
+                <EditText
+                    android:gravity="center"
+                    android:paddingLeft="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:textColor="@color/black"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="50dp"
+                    android:hint="Nhập ngày đặt sân"
+                    android:background="@drawable/shape2"
+                    android:text="@{timeGame.startTime+'-'+timeGame.endTime+`-`+timeGame.cost+` VND`}"
+                    />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:orientation="vertical">
+            </LinearLayout>
+            <TextView
+                style="@style/viewParent.headerText.settingsTextIcon"
+                android:drawableLeft="@drawable/iconpassword"
+                android:layout_marginTop="10dp"
+                android:text="Số điện thoại liên hệ" />
+            <EditText
+                android:gravity="center"
+                android:id="@+id/txtPhone"
+                android:paddingLeft="15dp"
+                android:layout_marginBottom="15dp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Nhập ngày số điện thoại liên hệ"
+                android:background="@drawable/shape2"
+                />
 
-                        <LinearLayout
-                            android:id="@+id/selectClub"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+            <TextView
 
-                            <TextView
-                                android:drawableStart="@drawable/team_icon"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Select Club"
-                                android:textColor="@color/colorTittle"
-                                android:textSize="20dp"
-                                android:textStyle="bold"></TextView>
-
-                            <ImageButton
-                                android:id="@+id/btnSelectClub"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/ic_baseline_edit_30_black"
-                                android:text="Edit"
-                                android:textStyle="bold"></ImageButton>
-                        </LinearLayout>
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/viewTeam"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <de.hdodenhof.circleimageview.CircleImageView
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                android:id="@+id/avatarTeam"
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
-                                android:src="@drawable/avatar_team_default"
-                                />
-                            <TextView
-                                android:drawableStart="@drawable/name_icon"
-                                android:drawablePadding="5dp"
-                                android:textStyle="bold"
-                                android:layout_marginLeft="10dp"
-                                android:id="@+id/namePlayer"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:hint="@{team.name}"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintLeft_toRightOf="@id/avatarTeam"
-                                app:layout_constraintBottom_toTopOf="@+id/position"
-                                />
-                            <TextView
-                                android:drawableStart="@drawable/address_icon"
-                                android:drawablePadding="5dp"
-                                android:layout_marginLeft="10dp"
-                                android:id="@+id/position"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:hint="@{team.address}"
-                                app:layout_constraintTop_toBottomOf="@+id/namePlayer"
-                                app:layout_constraintLeft_toRightOf="@id/avatarTeam"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                android:focusable="true"
-                                android:focusableInTouchMode="true"
-                                android:singleLine="true"
-                                android:scrollHorizontally="true"
-                                android:ellipsize="marquee"
-                                android:marqueeRepeatLimit="marquee_forever"
-                                />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/viewOption"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:orientation="vertical">
-
-
-                        <TextView
-                            android:drawableStart="@drawable/option_icon"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Select Option"
-                            android:textColor="@color/colorTittle"
-                            android:textSize="20dp"
-                            android:textStyle="bold"></TextView>
-                        <LinearLayout
-                            android:gravity="center"
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-                            <Button
-                                android:id="@+id/btnLocal"
-                                android:layout_marginRight="20dp"
-                                android:paddingRight="20dp"
-                                android:paddingLeft="20dp"
-                                android:textColor="@color/white"
-                                android:background="@drawable/shape"
-                                android:text="Local"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-                            </Button>
-                            <Button
-                                android:id="@+id/btnAway"
-                                android:layout_marginLeft="20dp"
-                                android:paddingRight="20dp"
-                                android:paddingLeft="20dp"
-                                android:textColor="@color/white"
-                                android:background="@drawable/shape"
-                                android:text="Away"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
-                            </Button>
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:drawableStart="@drawable/field_24"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Select Field"
-                                android:textColor="@color/colorTittle"
-                                android:textSize="20dp"
-                                android:textStyle="bold"></TextView>
-
-                        </LinearLayout>
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/viewField"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <de.hdodenhof.circleimageview.CircleImageView
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                android:id="@+id/avatarField"
-                                android:layout_width="80dp"
-                                android:layout_height="80dp"
-                                android:src="@drawable/field"
-                                />
-                            <TextView
-                                android:drawableStart="@drawable/name_icon"
-                                android:drawablePadding="5dp"
-                                android:textStyle="bold"
-                                android:layout_marginLeft="10dp"
-                                android:id="@+id/nameField"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:hint="@{field.name}"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintLeft_toRightOf="@id/avatarField"
-                                app:layout_constraintBottom_toTopOf="@+id/address"
-                                />
-                            <TextView
-                                android:drawableStart="@drawable/address_icon"
-                                android:drawablePadding="5dp"
-                                android:layout_marginLeft="10dp"
-                                android:id="@+id/address"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:hint="@{field.address}"
-                                app:layout_constraintTop_toBottomOf="@+id/nameField"
-                                app:layout_constraintLeft_toRightOf="@id/avatarField"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                android:focusable="true"
-                                android:focusableInTouchMode="true"
-                                android:singleLine="true"
-                                android:scrollHorizontally="true"
-                                android:ellipsize="marquee"
-                                android:marqueeRepeatLimit="marquee_forever"
-                                />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:drawableStart="@drawable/date_icon"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Select Date"
-                                android:textColor="@color/colorTittle"
-                                android:textSize="20dp"
-                                android:textStyle="bold"></TextView>
-
-                            <ImageButton
-                                android:id="@+id/btnSelectDate"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/ic_baseline_edit_30_black"
-                                android:text="Edit"
-                                android:textStyle="bold"></ImageButton>
-                        </LinearLayout>
-                        <TextView
-                            android:id="@+id/txtDate"
-                            android:gravity="center"
-                            android:hint="input time"
-                            android:textSize="20dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"></TextView>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:drawableStart="@drawable/time_icon"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Select Time"
-                                android:textColor="@color/colorTittle"
-                                android:textSize="20dp"
-                                android:textStyle="bold"></TextView>
-
-                            <ImageButton
-                                android:id="@+id/btnSelectTime"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/ic_baseline_edit_30_black"
-                                android:text="Edit"
-                                android:textStyle="bold"></ImageButton>
-                        </LinearLayout>
-
-                        <FrameLayout
-                            android:id="@+id/container"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
-
-                        <LinearLayout
-                            android:id="@+id/viewTimeGame"
-                            android:layout_marginHorizontal="20dp"
-                            android:orientation="horizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-                            <TextView
-                                android:textSize="25dp"
-                                android:layout_weight="1"
-                                android:text="@{timeGame.startTime+'-'+timeGame.endTime}"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"></TextView>
-
-                            <TextView
-                                android:text="@{timeGame.cost}"
-                                android:textSize="20dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:drawableStart="@drawable/ic_baseline_phone_24_green"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Contact"
-                                android:textColor="@color/colorTittle"
-                                android:textSize="20dp"
-                                android:textStyle="bold"></TextView>
-                        </LinearLayout>
-                        <EditText
-                            android:id="@+id/txtPhone"
-                            android:gravity="center"
-                            android:hint="input phone "
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"></EditText>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:drawableStart="@drawable/note_icon"
-                                android:id="@+id/txtNote"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="Note"
-                                android:textColor="@color/colorTittle"
-                                android:textSize="20dp"
-                                android:textStyle="bold"></TextView>
-                        </LinearLayout>
-                        <EditText
-                            android:gravity="center"
-                            android:hint="input note "
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"></EditText>
-                    </LinearLayout>
-
-
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </ScrollView>
-
+                style="@style/viewParent.headerText.settingsTextIcon"
+                android:drawableLeft="@drawable/iconpassword"
+                android:layout_marginTop="10dp"
+                android:text="Yêu cầu đội tham gia" />
+            <EditText
+                android:gravity="center"
+                android:id="@+id/txtNote"
+                android:paddingLeft="15dp"
+                android:layout_marginBottom="15dp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Nhập yêu cầu bổ xung"
+                android:background="@drawable/shape2"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"></TextView>
+        </LinearLayout>
+     </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -35,7 +35,7 @@ public class AdapterFragmentProfile extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "Profile";
+                return "Cá nhân";
         }
         return null;
     }

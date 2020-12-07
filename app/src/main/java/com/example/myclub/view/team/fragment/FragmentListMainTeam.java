@@ -13,8 +13,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.myclub.R;
-import com.example.myclub.databinding.FragmentEditMainTeamBinding;
-import com.example.myclub.databinding.FragmentMainFieldBinding;
+import com.example.myclub.databinding.FragmentMainListBinding;
 import com.example.myclub.view.player.Adapter.AdapterFragmentProfile;
 import com.example.myclub.view.team.adapter.AdapterFragmentListTeam;
 import com.google.android.material.tabs.TabLayout;
@@ -22,11 +21,11 @@ import com.google.android.material.tabs.TabLayout;
 public class FragmentListMainTeam extends Fragment {
 
 
-    FragmentMainFieldBinding binding;
+    FragmentMainListBinding binding;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentMainFieldBinding.inflate(inflater);
+        binding = FragmentMainListBinding.inflate(inflater);
         View view = binding.getRoot();
         return view;
     }

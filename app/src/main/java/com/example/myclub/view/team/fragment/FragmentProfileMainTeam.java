@@ -29,7 +29,7 @@ public class FragmentProfileMainTeam extends Fragment {
     public FragmentProfileMainTeam(String idTeam) {
         this.idTeam = idTeam;
     }
-    FragmentProfileMyTeamBinding binding;
+    private FragmentProfileMyTeamBinding binding;
     private SessionTeam sessionTeam = SessionTeam.getInstance();
     @Nullable
     @Override

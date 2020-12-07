@@ -39,9 +39,9 @@ public class AdapterFragmentListTeam extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "My Team";
+                return "Đội bóng của tôi";
             case 1:
-                return "Other Team";
+                return "Đội bóng khác";
         }
         return null;
     }

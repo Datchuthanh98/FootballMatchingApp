@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
  <data>
  </data>
+ <androidx.constraintlayout.widget.ConstraintLayout
+     android:layout_width="match_parent"
+     android:layout_height="match_parent">
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+  <ImageView
+      android:id="@+id/logo"
+       app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+       app:layout_constraintBottom_toTopOf="@id/layoutLogin"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/icon_app" />
 
- <ImageView
-     android:layout_centerInParent="true"
-     android:layout_above="@+id/ll"
-     android:layout_width="250dp"
-     android:layout_height="match_parent"
-     android:src="@drawable/icon_app" />
-
+ <RelativeLayout
+     android:id="@+id/layoutLogin"
+     app:layout_constraintLeft_toLeftOf="parent"
+     app:layout_constraintRight_toRightOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/logo"
+     app:layout_constraintBottom_toBottomOf="parent"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     >
  <LinearLayout
      android:id="@+id/ll"
      android:layout_centerInParent="true"
@@ -66,50 +78,67 @@
       android:textAllCaps="false"
       android:textColor="@color/white"
       android:textSize="20sp" />
-  <Button
+  <TextView
+      android:gravity="center"
       android:id="@+id/btnPhone"
       android:layout_width="match_parent"
-      android:layout_height="50dp"
-      android:layout_marginBottom="15dp"
-      android:background="@drawable/shape"
-      android:text="Đăng nhập qua SDT"
+      android:layout_height="wrap_content"
+      android:text="Lựa chọn khác"
       android:textAllCaps="false"
-      android:textColor="@color/white"
-      android:textSize="20sp" />
-  <Button
-      android:id="@+id/btnGoogle"
+
+      />
+  <LinearLayout
+
+      android:gravity="center"
       android:layout_width="match_parent"
-      android:layout_height="50dp"
-      android:layout_marginBottom="15dp"
-      android:background="@drawable/shape"
+      android:layout_height="wrap_content">
+  <de.hdodenhof.circleimageview.CircleImageView
+      android:layout_marginHorizontal="5dp"
+      android:paddingHorizontal="5dp"
+      android:src="@drawable/facebook"
+      android:id="@+id/btnFacebook"
+      android:layout_width="60dp"
+      android:layout_height="60dp"
       android:text="Đăng nhập qua Email"
       android:textAllCaps="false"
       android:textColor="@color/white"
       android:textSize="20sp" />
-  <Button
-      android:id="@+id/btnFacebook"
-      android:layout_width="match_parent"
-      android:layout_height="50dp"
-      android:layout_marginBottom="15dp"
-      android:background="@drawable/shape"
-      android:text="Đăng nhập qua Facebook"
-      android:textAllCaps="false"
-      android:textColor="@color/white"
-      android:textSize="20sp" />
-
+   <de.hdodenhof.circleimageview.CircleImageView
+       android:layout_marginHorizontal="5dp"
+       android:src="@drawable/google"
+       android:id="@+id/btnGoogle"
+       android:layout_width="50dp"
+       android:layout_height="50dp"
+       android:text="Đăng nhập qua Email"
+       android:textAllCaps="false"
+       android:textColor="@color/white"
+       android:textSize="20sp" />
+   <de.hdodenhof.circleimageview.CircleImageView
+       android:layout_marginHorizontal="5dp"
+       android:src="@drawable/phone_login"
+       android:id="@+id/btnCall"
+       android:layout_width="50dp"
+       android:layout_height="50dp"
+       android:text="Đăng nhập qua Email"
+       android:textAllCaps="false"
+       android:textColor="@color/white"
+       android:textSize="20sp" />
+  </LinearLayout>
 
  </LinearLayout>
-
- <TextView
-     android:id="@+id/btnRegister"
-     android:textSize="16sp"
-     android:layout_marginBottom="30dp"
-     android:layout_centerInParent="true"
-     android:layout_alignParentBottom="true"
-     android:text = "Tạo tài khoản"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
-     />
-
 </RelativeLayout>
+  <TextView
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
+      android:id="@+id/btnRegister"
+      android:textSize="16sp"
+      android:layout_marginBottom="30dp"
+      android:layout_centerInParent="true"
+      android:layout_alignParentBottom="true"
+      android:text = "Tạo tài khoản"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      />
+ </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

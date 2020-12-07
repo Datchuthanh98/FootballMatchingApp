@@ -44,14 +44,14 @@ public class AdapterFragmentHome extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "Field";
+                return "Sân bóng";
             case 1:
-                return "Match";
+                return "Trận đấu";
             case 2:
-                return "Team";
+                return "Đội bóng";
 
             case 3:
-                return "Profile";
+                return "Cá nhân";
 
         }
         return null;

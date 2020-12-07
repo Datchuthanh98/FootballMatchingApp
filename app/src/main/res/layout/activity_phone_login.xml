@@ -7,44 +7,23 @@
     android:layout_height="match_parent"
       >
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/login_background" />
 
     <LinearLayout
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:gravity="right|center_vertical"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="56dp">
 
-            <TextView
-                android:layout_marginRight="12dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Login"
-                android:textSize="24sp"
-                android:textColor="@color/white"
-                android:textStyle="bold"/>
-
-        </LinearLayout>
 
 
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-
-
+            android:layout_height="wrap_content"
+            >
 
             <LinearLayout
                 android:layout_marginTop="40dp"
@@ -67,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:layout_marginLeft="10dp"
-                    app:ccp_contentColor="@color/white"
+
                     android:id="@+id/ccp"/>
 
 
@@ -82,8 +61,7 @@
                     android:gravity="center_vertical"
                     android:hint="Number"
                     android:inputType="phone"
-                    android:textColor="#ffffff"
-                    android:textColorHint="#FFFFFF"
+
                     />
 
             </LinearLayout>
@@ -92,7 +70,7 @@
                 android:layout_marginLeft="40dp"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/white"/>
+              />
 
 
             <Button
@@ -106,8 +84,6 @@
                 android:text="Next"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="40dp"/>
-
-
             <LinearLayout
                 android:layout_marginTop="40dp"
                 android:layout_width="match_parent"
