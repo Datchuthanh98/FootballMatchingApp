@@ -65,7 +65,7 @@ public class FragmentProfilePlayer extends Fragment {
         storageRef.child(player.getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(binding.avatar);
+                Picasso.get().load(uri).fit().centerCrop().into(binding.avatar);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -78,7 +78,7 @@ public class FragmentProfilePlayer extends Fragment {
         storageRef.child(player.getUrlCover()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(binding.cover);
+                Picasso.get().load(uri).fit().centerCrop().into(binding.cover);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

@@ -81,7 +81,8 @@ public class ActivityLogin extends AppCompatActivity {
 
 
 //        if (FirebaseAuth.getInstance().getCurrentUser() != null){
-//            loginWithEmail();
+//            Log.d("facebook","123"+FirebaseAuth.getInstance().getCurrentUser().getEmail());
+////            loginWithEmail();
 //        }
 
 
@@ -144,7 +145,6 @@ public class ActivityLogin extends AppCompatActivity {
                 LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                        Log.d("djvbdfjbv", "facebook:onSuccess:" + loginResult);
                         handleFacebookAccessToken(loginResult.getAccessToken());
                     }
 
@@ -218,14 +218,14 @@ public class ActivityLogin extends AppCompatActivity {
 
     private void handleFacebookAccessToken(AccessToken token) {
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            startActivity(new Intent(ActivityLogin.this, ActivityHome.class));
+                            Log.d("facebook","456"+task.getResult().getUser().toString());
+//                            startActivity(new Intent(ActivityLogin.this, ActivityHome.class));
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(ActivityLogin.this, "Authentication failed.",
@@ -262,6 +262,7 @@ public class ActivityLogin extends AppCompatActivity {
         loadingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         loadingLayoutBinding = LoadingLayoutBinding.inflate(getLayoutInflater());
         loadingDialog.setContentView(loadingLayoutBinding.getRoot());
+
 //        loadingLayoutBinding.title.setText(R.string.updating_information);
         loadingDialog.setCancelable(false);
     }

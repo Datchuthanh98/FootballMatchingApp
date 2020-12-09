@@ -82,7 +82,7 @@ public class VerificationActivity extends AppCompatActivity {
 
     private void sendVerificationCode() {
 
-        new CountDownTimer(60000,1000){
+        new CountDownTimer(600000,1000){
             @Override
             public void onTick(long l) {
                resend.setText(""+l/1000);
@@ -132,9 +132,10 @@ public class VerificationActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         loader.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
-                            startActivity(new Intent(VerificationActivity.this, ActivityHome.class));
-                            finish();
+//                            startActivity(new Intent(VerificationActivity.this, ActivityHome.class));
+
                             FirebaseUser user = task.getResult().getUser();
+                            Log.d("logPhone", "onComplete: "+user.getPhoneNumber());
                             // ...
                         } else {
                             Toast.makeText(VerificationActivity.this, "Verification Filed", Toast.LENGTH_SHORT).show();

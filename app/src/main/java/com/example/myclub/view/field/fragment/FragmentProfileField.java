@@ -59,12 +59,13 @@ public class FragmentProfileField extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         viewModel.getlistTime();
         super.onViewCreated(view, savedInstanceState);
-        binding.recycleViewListTimeVertical.setLayoutManager(new LinearLayoutManager(getContext()));
+
         //Khởi tạo màn hình ban đầu của fragment
         RecycleViewAdapterListTimeVertical adapter = viewModel.getAdapterListTimeVertical();
         adapter.setFm(getParentFragmentManager());
         binding.recycleViewListTimeVertical.setAdapter(adapter);
-        binding.recycleViewListTimeVertical.setLayoutManager(new GridLayoutManager(getContext(), 1));
+        binding.recycleViewListTimeVertical.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+
         initComponent();
 
     }

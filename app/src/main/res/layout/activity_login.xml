@@ -80,7 +80,6 @@
       android:textSize="20sp" />
   <TextView
       android:gravity="center"
-      android:id="@+id/btnPhone"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:text="Lựa chọn khác"
@@ -116,7 +115,7 @@
    <de.hdodenhof.circleimageview.CircleImageView
        android:layout_marginHorizontal="5dp"
        android:src="@drawable/phone_login"
-       android:id="@+id/btnCall"
+       android:id="@+id/btnPhone"
        android:layout_width="50dp"
        android:layout_height="50dp"
        android:text="Đăng nhập qua Email"
@@ -133,7 +132,7 @@
       app:layout_constraintBottom_toBottomOf="parent"
       android:id="@+id/btnRegister"
       android:textSize="16sp"
-      android:layout_marginBottom="30dp"
+      android:layout_marginBottom="5dp"
       android:layout_centerInParent="true"
       android:layout_alignParentBottom="true"
       android:text = "Tạo tài khoản"
