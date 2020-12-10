@@ -8,13 +8,19 @@ import androidx.lifecycle.ViewModel;
 import com.example.myclub.Interface.CallBack;
 import com.example.myclub.data.enumeration.LoadingState;
 import com.example.myclub.data.enumeration.State;
+import com.example.myclub.data.repository.MatchRepository;
+import com.example.myclub.data.repository.PlayerRepository;
 import com.example.myclub.data.repository.RequestJoinTeamRepository;
 import com.example.myclub.data.repository.TeamRepository;
 import com.example.myclub.model.Comment;
 import com.example.myclub.model.Evaluate;
+import com.example.myclub.model.Match;
+import com.example.myclub.model.Player;
 import com.example.myclub.model.Team;
 import com.example.myclub.session.SessionUser;
+import com.example.myclub.view.match.adapter.RecycleViewAdapterListMatchVertical;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterLisEvaluateVertical;
+import com.example.myclub.view.team.adapter.RecycleViewAdapterListPlayerVertical;
 
 
 import java.util.ArrayList;
@@ -24,12 +30,16 @@ import java.util.Map;
 public class ProfileOtherTeamViewModel extends ViewModel {
     private RequestJoinTeamRepository requestJoinTeamRepository = RequestJoinTeamRepository.getInstance();
     private MutableLiveData<Boolean> stateRequestJoinTeam = new MutableLiveData<>(false);
-
-
     private MutableLiveData<Team> matchMutableLiveData = new MutableLiveData<>(null);
     private TeamRepository teamRepository = TeamRepository.getInstance();
-    private MutableLiveData<List<Evaluate>> listCommentLiveData = new MutableLiveData<>(null);
+    private MatchRepository matchRepository = MatchRepository.getInstance();
+    private PlayerRepository playerRepository = PlayerRepository.getInstance();
+
     private RecycleViewAdapterLisEvaluateVertical adapterListComment = new RecycleViewAdapterLisEvaluateVertical();
+    private RecycleViewAdapterListPlayerVertical adapterListPlayer = new RecycleViewAdapterListPlayerVertical();
+    private RecycleViewAdapterListMatchVertical adapterListMatch = new RecycleViewAdapterListMatchVertical();
+
+
     private MutableLiveData<LoadingState> matchLoadState = new MutableLiveData<>(LoadingState.INIT);
 
 
@@ -83,20 +93,6 @@ public class ProfileOtherTeamViewModel extends ViewModel {
         });
     }
 
-
-    public MutableLiveData<Team> getMatchMutableLiveData() {
-        return matchMutableLiveData;
-    }
-
-
-
-    public RecycleViewAdapterLisEvaluateVertical getAdapterListComment() {
-        return adapterListComment;
-    }
-
-
-
-
     public MutableLiveData<LoadingState> getMatchLoadState() {
         return matchLoadState;
     }
@@ -109,7 +105,9 @@ public class ProfileOtherTeamViewModel extends ViewModel {
             public void onSuccess(Team team) {
                 matchMutableLiveData.setValue(team);
                 matchLoadState.setValue(LoadingState.LOADED);
-                getListComment();
+                getListPlayer();
+                getListEvaluate();
+                getListMatch();
             }
 
             @Override
@@ -120,15 +118,14 @@ public class ProfileOtherTeamViewModel extends ViewModel {
     }
 
 
-    public  void getListComment(){
+    public  void getListEvaluate(){
         teamRepository.getListEvaluate(matchMutableLiveData.getValue().getId(), new CallBack<List<Evaluate>, String>() {
             @Override
             public void onSuccess(List<Evaluate> evaluates) {
                 if(evaluates == null){
                     adapterListComment.setListEvaluate(new ArrayList<Evaluate>());
-                    listCommentLiveData.setValue(new ArrayList<Evaluate>());
                 }else {
-                    listCommentLiveData.setValue(evaluates);
+
                     adapterListComment.setListEvaluate(evaluates);
                     adapterListComment.notifyDataSetChanged();
                 }
@@ -141,11 +138,18 @@ public class ProfileOtherTeamViewModel extends ViewModel {
         });
     }
 
-    public  void addComment(Map<String,Object> map){
-        teamRepository.addEvaluate(matchMutableLiveData.getValue().getId(),map, new CallBack<String, String>() {
+    public  void getListPlayer(){
+        playerRepository.getListPlayer(matchMutableLiveData.getValue().getId(), new CallBack<List<Player>, String>() {
             @Override
-            public void onSuccess(String s) {
-                getListComment();
+            public void onSuccess(List<Player> players) {
+                if(players == null){
+                    adapterListPlayer.setListPlayer(new ArrayList<Player>());
+                }else {
+
+                    adapterListPlayer.setListPlayer(players);
+                    adapterListComment.notifyDataSetChanged();
+                }
+
             }
 
             @Override
@@ -155,5 +159,50 @@ public class ProfileOtherTeamViewModel extends ViewModel {
         });
     }
 
+
+    public  void getListMatch(){
+        matchRepository.loadListMatchByTeam(matchMutableLiveData.getValue().getId(), new CallBack<List<Match>, String>() {
+            @Override
+            public void onSuccess(List<Match> matches) {
+                if(matches == null){
+                    adapterListMatch.setListMatch(new ArrayList<Match>());
+                }else {
+                    adapterListMatch.setListMatch(matches);
+                    adapterListMatch.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(String s) {
+
+            }
+        });
+    }
+
+    public  void addEvaluate(Map<String,Object> map){
+        teamRepository.addEvaluate(matchMutableLiveData.getValue().getId(),map, new CallBack<String, String>() {
+            @Override
+            public void onSuccess(String s) {
+                getListEvaluate();
+            }
+
+            @Override
+            public void onFailure(String s) {
+
+            }
+        });
+    }
+
+    public RecycleViewAdapterListPlayerVertical getAdapterListPlayer() {
+        return adapterListPlayer;
+    }
+
+    public RecycleViewAdapterListMatchVertical getAdapterListMatch() {
+        return adapterListMatch;
+    }
+
+    public RecycleViewAdapterLisEvaluateVertical getAdapterListEvaluate() {
+        return adapterListComment;
+    }
 
 }

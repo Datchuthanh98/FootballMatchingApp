@@ -62,7 +62,7 @@ public class FragmentAddEvaluateDialog extends DialogFragment {
         binding.btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.addComment(getInforTeam());
+                viewModel.addEvaluate(getInforTeam());
                 detach();
             }
         });

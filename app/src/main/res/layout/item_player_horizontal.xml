@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="player"
+            type="com.example.myclub.model.Player" />
+    </data>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:contentPadding="10dp"
+        android:layout_margin="5dp"
+        app:cardCornerRadius="10dp"
+        >
+
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/avatarPlayer"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/avatar_player_default" />
+
+            <TextView
+                android:id="@+id/namePlayer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:drawableStart="@drawable/name_icon"
+                android:drawablePadding="5dp"
+                android:hint="name player"
+                android:text="@{player.name}"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/position"
+                app:layout_constraintLeft_toRightOf="@id/avatarPlayer"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:drawableStart="@drawable/position"
+                android:drawablePadding="5dp"
+                android:hint="position"
+                android:text="@{player.position}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/avatarPlayer"
+                app:layout_constraintTop_toBottomOf="@+id/namePlayer" />
+
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

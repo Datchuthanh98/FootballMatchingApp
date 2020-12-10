@@ -11,16 +11,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myclub.R;
 import com.example.myclub.data.enumeration.LoadingState;
 import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.databinding.FragmentProfileMyTeamBinding;
 import com.example.myclub.main.ActivityHome;
+import com.example.myclub.view.match.adapter.RecycleViewAdapterListMatchVertical;
 import com.example.myclub.view.match.fragment.FragmentListMatchByTeam;
-import com.example.myclub.view.player.Adapter.AdapterFragmentProfile;
-import com.example.myclub.view.team.adapter.AdapterFragmentProfileMyTeam;
 import com.example.myclub.session.SessionTeam;
+import com.example.myclub.view.team.adapter.RecycleViewAdapterLisEvaluateVertical;
+import com.example.myclub.view.team.adapter.RecycleViewAdapterListPlayerVertical;
 import com.squareup.picasso.Picasso;
 
 public class FragmentProfileMainTeam extends Fragment {
@@ -42,9 +44,7 @@ public class FragmentProfileMainTeam extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        AdapterFragmentProfileMyTeam adapter = new AdapterFragmentProfileMyTeam(getChildFragmentManager(), AdapterFragmentProfile.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        binding.viewpager.setAdapter(adapter);
-        binding.tablayout.setupWithViewPager(binding.viewpager);
+
         initComponent();
         observeLiveData(view.getContext());
 
@@ -86,6 +86,20 @@ public class FragmentProfileMainTeam extends Fragment {
         });
 
 
+        RecycleViewAdapterListPlayerVertical adapterListPlayer = SessionTeam.getInstance().getAdapterListPlayer();
+        adapterListPlayer.setFm(getParentFragmentManager());
+        binding.recycleViewListPlayerVertical.setAdapter(adapterListPlayer);
+        binding.recycleViewListPlayerVertical.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+
+        RecycleViewAdapterListMatchVertical adapterListMatch = SessionTeam.getInstance().getAdapterListMatch();
+        adapterListMatch.setFm(getParentFragmentManager());
+        binding.recycleViewListMatchVertical.setAdapter(adapterListMatch);
+        binding.recycleViewListMatchVertical.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+
+        RecycleViewAdapterLisEvaluateVertical adapterListEvaluate = SessionTeam.getInstance().getAdapterListEvaluate();
+        adapterListEvaluate.setFm(getParentFragmentManager());
+        binding.recycleViewListEvaluateVertical.setAdapter(adapterListEvaluate);
+        binding.recycleViewListEvaluateVertical.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
 
 
     }

@@ -13,11 +13,20 @@ import com.example.myclub.Interface.CallBack;
 import com.example.myclub.Interface.TeamChangeCallBack;
 import com.example.myclub.data.enumeration.LoadingState;
 import com.example.myclub.data.enumeration.Result;
+import com.example.myclub.data.repository.MatchRepository;
+import com.example.myclub.data.repository.PlayerRepository;
 import com.example.myclub.data.repository.TeamRepository;
 import com.example.myclub.model.Chat;
+import com.example.myclub.model.Evaluate;
+import com.example.myclub.model.Match;
+import com.example.myclub.model.Player;
 import com.example.myclub.model.Team;
+import com.example.myclub.view.match.adapter.RecycleViewAdapterListMatchVertical;
+import com.example.myclub.view.team.adapter.RecycleViewAdapterLisEvaluateVertical;
+import com.example.myclub.view.team.adapter.RecycleViewAdapterListPlayerVertical;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +41,11 @@ public class SessionTeam implements TeamChangeCallBack {
     private MutableLiveData<Result> resultLiveData = new MutableLiveData<>(null);
     private MutableLiveData<Result> resultPhotoLiveData = new MutableLiveData<>(null);
     private MutableLiveData<LoadingState> teamLoadState = new MutableLiveData<>(LoadingState.INIT);
+    private RecycleViewAdapterLisEvaluateVertical adapterListComment = new RecycleViewAdapterLisEvaluateVertical();
+    private RecycleViewAdapterListPlayerVertical adapterListPlayer = new RecycleViewAdapterListPlayerVertical();
+    private RecycleViewAdapterListMatchVertical adapterListMatch = new RecycleViewAdapterListMatchVertical();
+    private MatchRepository matchRepository = MatchRepository.getInstance();
+    private PlayerRepository playerRepository = PlayerRepository.getInstance();
     private String resultMessage = null;
 
 
@@ -82,8 +96,11 @@ public class SessionTeam implements TeamChangeCallBack {
 
     @Override
     public void onTeamChange(Team team) {
-//        Log.d("json", "team: "+team.getName());
+
         teamLiveData.setValue(team);
+        getListMatch();
+        getListPlayer();
+        getListEvaluate();
         teamLoadState.setValue(LoadingState.LOADED);
         if (team != null) {
             if (team.getUrlAvatar() != null) {
@@ -200,7 +217,80 @@ public class SessionTeam implements TeamChangeCallBack {
         getInstance().resultLiveData.setValue(null);
     }
 
+    public  void getListEvaluate(){
+        teamRepository.getListEvaluate(teamLiveData.getValue().getId(), new CallBack<List<Evaluate>, String>() {
+            @Override
+            public void onSuccess(List<Evaluate> evaluates) {
+                if(evaluates == null){
+                    adapterListComment.setListEvaluate(new ArrayList<Evaluate>());
+                }else {
 
+                    adapterListComment.setListEvaluate(evaluates);
+                    adapterListComment.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(String s) {
+
+            }
+        });
+    }
+
+    public  void getListPlayer(){
+        playerRepository.getListPlayer(teamLiveData.getValue().getId(), new CallBack<List<Player>, String>() {
+            @Override
+            public void onSuccess(List<Player> players) {
+
+                if(players == null){
+                    Log.d("player", "onSuccess: 1");
+                    adapterListPlayer.setListPlayer(new ArrayList<Player>());
+                }else {
+                    Log.d("player", "onSuccess: 2");
+                    adapterListPlayer.setListPlayer(players);
+                    adapterListPlayer.notifyDataSetChanged();
+                }
+
+            }
+
+            @Override
+            public void onFailure(String s) {
+
+            }
+        });
+    }
+
+
+    public  void getListMatch(){
+        matchRepository.loadListMatchByTeam(teamLiveData.getValue().getId(), new CallBack<List<Match>, String>() {
+            @Override
+            public void onSuccess(List<Match> matches) {
+                if(matches == null){
+                    adapterListMatch.setListMatch(new ArrayList<Match>());
+                }else {
+                    adapterListMatch.setListMatch(matches);
+                    adapterListMatch.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(String s) {
+
+            }
+        });
+    }
+
+    public RecycleViewAdapterListPlayerVertical getAdapterListPlayer() {
+        return adapterListPlayer;
+    }
+
+    public RecycleViewAdapterListMatchVertical getAdapterListMatch() {
+        return adapterListMatch;
+    }
+
+    public RecycleViewAdapterLisEvaluateVertical getAdapterListEvaluate() {
+        return adapterListComment;
+    }
 
 }
 

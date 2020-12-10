@@ -62,7 +62,7 @@ public class RecycleViewAdapterListCommentVertical extends RecyclerView.Adapter<
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
         holder.binding.setChat(comments.get(position));
 
-
+        holder.binding.namePlayer.setText(comments.get(position).getIdPlayer().getName());
         //Set image
         if(comments.get(position).getIdPlayer().getUrlAvatar() != null)
         storageRef.child(comments.get(position).getIdPlayer().getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

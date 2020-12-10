@@ -34,16 +34,13 @@ public class MatchRepository {
         matchDataSource.addBooking(map,addBookingField );
     }
 
-    public void getListMatch(CallBack<List<Match>,String> loadListMatchCallBack){
-        matchDataSource.loadListMatch(loadListMatchCallBack);
-    }
 
     public void getListMatchByDate(String date,CallBack<List<Match>,String> loadListMatchCallBack){
         matchDataSource.loadListMatchByDate(date,loadListMatchCallBack);
     }
 
-    public void getListMyMatchByDate(String idTeam ,CallBack<List<Match>,String> loadListMatchCallBack){
-        matchDataSource.loadListMyMatch(idTeam,loadListMatchCallBack);
+    public void loadListMatchByTeam(String idTeam ,CallBack<List<Match>,String> loadListMatchCallBack){
+        matchDataSource.loadListMatchByTeam(idTeam,loadListMatchCallBack);
     }
 
     public void getInformationMatch(String idTeam , CallBack<Match,String> getInformationMatch){

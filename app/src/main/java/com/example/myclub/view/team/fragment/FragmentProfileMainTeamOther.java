@@ -16,15 +16,18 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myclub.R;
 import com.example.myclub.data.enumeration.LoadingState;
 import com.example.myclub.databinding.FragmentProfileOtherTeamBinding;
 import com.example.myclub.model.Team;
 import com.example.myclub.session.SessionUser;
+import com.example.myclub.view.field.adapter.RecycleViewAdapterListTimeVertical;
+import com.example.myclub.view.match.adapter.RecycleViewAdapterListMatchVertical;
 import com.example.myclub.view.player.Adapter.AdapterFragmentProfile;
-import com.example.myclub.view.team.adapter.AdapterFragmentProfileMyTeam;
-import com.example.myclub.view.team.adapter.AdapterFragmentProfileTeamOther;
+import com.example.myclub.view.team.adapter.RecycleViewAdapterLisEvaluateVertical;
+import com.example.myclub.view.team.adapter.RecycleViewAdapterListPlayerVertical;
 import com.example.myclub.viewModel.ProfileOtherTeamViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -43,7 +46,7 @@ public class FragmentProfileMainTeamOther extends Fragment {
     private  Team team ;
     private  Map<String, Object> data = new HashMap<>();
     private SessionUser sessionUser = SessionUser.getInstance();
-    private ProfileOtherTeamViewModel profileOtherTeamViewModel;
+    private ProfileOtherTeamViewModel viewModel;
     public FragmentProfileMainTeamOther(Team team) {
         this.team = team;
     }
@@ -62,11 +65,9 @@ public class FragmentProfileMainTeamOther extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        profileOtherTeamViewModel = new ViewModelProvider(getActivity()).get(ProfileOtherTeamViewModel.class);
-        profileOtherTeamViewModel.getInformationTeam(team.getId());
-        AdapterFragmentProfileTeamOther adapter = new AdapterFragmentProfileTeamOther(getChildFragmentManager(), AdapterFragmentProfile.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        binding.viewpager.setAdapter(adapter);
-        binding.tablayout.setupWithViewPager(binding.viewpager);
+        viewModel = new ViewModelProvider(getActivity()).get(ProfileOtherTeamViewModel.class);
+        viewModel.getInformationTeam(team.getId());
+
         initComponent();
         observeLiveData();
 
@@ -76,8 +77,7 @@ public class FragmentProfileMainTeamOther extends Fragment {
 
     private void initComponent(){
 
-
-        profileOtherTeamViewModel.getMatchLoadState().observe(getViewLifecycleOwner(), new Observer<LoadingState>() {
+        viewModel.getMatchLoadState().observe(getViewLifecycleOwner(), new Observer<LoadingState>() {
             @Override
             public void onChanged(LoadingState loadingState) {
                 if (loadingState == null) return;
@@ -87,7 +87,7 @@ public class FragmentProfileMainTeamOther extends Fragment {
                     binding.loadingLayout.setVisibility(View.VISIBLE);
                 } else if (loadingState == LoadingState.LOADED) {
                     binding.loadingLayout.setVisibility(View.GONE);
-                    profileOtherTeamViewModel.getStateJoinTeam();
+                    viewModel.getStateJoinTeam();
                 }
             }
         });
@@ -129,14 +129,14 @@ public class FragmentProfileMainTeamOther extends Fragment {
         binding.btnJoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                profileOtherTeamViewModel.addRequestJoinTeam(requestJoinTeam());
+                viewModel.addRequestJoinTeam(requestJoinTeam());
             }
         });
 
         binding.btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                profileOtherTeamViewModel.cancelRequestJoinTeam();
+                viewModel.cancelRequestJoinTeam();
             }
         });
 
@@ -164,6 +164,21 @@ public class FragmentProfileMainTeamOther extends Fragment {
             }
         });
 
+        RecycleViewAdapterListPlayerVertical adapterListPlayer = viewModel.getAdapterListPlayer();
+        adapterListPlayer.setFm(getParentFragmentManager());
+        binding.recycleViewListPlayerVertical.setAdapter(adapterListPlayer);
+        binding.recycleViewListPlayerVertical.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+
+        RecycleViewAdapterListMatchVertical adapterListMatch = viewModel.getAdapterListMatch();
+        adapterListMatch.setFm(getParentFragmentManager());
+        binding.recycleViewListMatchVertical.setAdapter(adapterListMatch);
+        binding.recycleViewListMatchVertical.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+
+        RecycleViewAdapterLisEvaluateVertical adapterListEvaluate = viewModel.getAdapterListEvaluate();
+        adapterListEvaluate.setFm(getParentFragmentManager());
+        binding.recycleViewListEvaluateVertical.setAdapter(adapterListEvaluate);
+        binding.recycleViewListEvaluateVertical.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+
     }
 
 
@@ -175,7 +190,7 @@ public class FragmentProfileMainTeamOther extends Fragment {
     }
 
     private void observeLiveData() {
-        profileOtherTeamViewModel.getStateRequestJoinTeam().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+        viewModel.getStateRequestJoinTeam().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean requestJoined) {
               if(requestJoined == true){

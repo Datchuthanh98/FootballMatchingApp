@@ -80,7 +80,7 @@ public class MatchDataSource {
 
 
 
-    public void loadListMyMatch(String idTeam, final CallBack<List<Match>,String> loadListMyMatchCallBack) {
+    public void loadListMatchByTeam(String idTeam, final CallBack<List<Match>,String> loadListMyMatchCallBack) {
         functions.getHttpsCallable("getListMatchByTeam").call(idTeam).addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
             @Override
             public void onSuccess(HttpsCallableResult httpsCallableResult) {

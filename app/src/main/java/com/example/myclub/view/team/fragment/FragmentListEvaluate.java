@@ -45,7 +45,7 @@ public class FragmentListEvaluate extends Fragment {
 
     private  void initComponent(){
         binding.recycleViewListCommentVertical.setLayoutManager(new LinearLayoutManager(getContext()));
-        RecycleViewAdapterLisEvaluateVertical adapter = viewModel.getAdapterListComment();
+        RecycleViewAdapterLisEvaluateVertical adapter = viewModel.getAdapterListEvaluate();
         adapter.setFm(getParentFragmentManager());
         binding.recycleViewListCommentVertical.setAdapter(adapter);
 

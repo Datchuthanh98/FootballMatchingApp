@@ -73,12 +73,12 @@ exports.getPlayerDetail = functions.https.onCall(async (uid) => {
 
 
 exports.getListPlayer = functions.https.onCall(async (idTeam) => {
-    const members = await db.collection('TeamMember').where('idTeam','==',idTeam).get();
+    const members = await db.collection('Team').doc(idTeam).collection('listPlayer').get();
     if(!members.empty){
         let listPlayer = [] ;
         let listPlayerPromises = [];
         for(i =0 ; i < members.docs.length ; i++){
-            listPlayerPromises.push(db.collection('Player').doc(members.docs[i].data().idPlayer).get());
+            listPlayerPromises.push(db.collection('Player').doc(members.docs[i].data().player).get());
         }
         await Promise.all(listPlayerPromises).then((playerRecords) => {
             for( i = 0 ; i< playerRecords.length ; i++){

@@ -39,7 +39,7 @@ public class ListMatchByTeamViewModel extends ViewModel {
 
     public void getListMatchByTeam(String idTeam) {
         teamLoadState.setValue(LoadingState.LOADING);
-        matchRepository.getListMyMatchByDate(idTeam,new CallBack<List<Match>, String>() {
+        matchRepository.loadListMatchByTeam(idTeam,new CallBack<List<Match>, String>() {
             @Override
             public void onSuccess(List<Match> matchList) {
                 teamLoadState.setValue(LoadingState.LOADED);
