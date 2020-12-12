@@ -27,6 +27,7 @@ import com.example.myclub.view.field.adapter.RecycleViewAdapterListTimeVertical;
 import com.example.myclub.view.match.adapter.RecycleViewAdapterListMatchVertical;
 import com.example.myclub.view.player.Adapter.AdapterFragmentProfile;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterLisEvaluateVertical;
+import com.example.myclub.view.team.adapter.RecycleViewAdapterListPlayerHorizontal;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterListPlayerVertical;
 import com.example.myclub.viewModel.ProfileOtherTeamViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -164,7 +165,7 @@ public class FragmentProfileMainTeamOther extends Fragment {
             }
         });
 
-        RecycleViewAdapterListPlayerVertical adapterListPlayer = viewModel.getAdapterListPlayer();
+        RecycleViewAdapterListPlayerHorizontal adapterListPlayer = viewModel.getAdapterListPlayer();
         adapterListPlayer.setFm(getParentFragmentManager());
         binding.recycleViewListPlayerVertical.setAdapter(adapterListPlayer);
         binding.recycleViewListPlayerVertical.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));

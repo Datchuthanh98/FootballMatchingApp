@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="Adress Team"
-                android:text="@{team.address}"
+                android:text="@{team.phone}"
                 app:layout_constraintTop_toBottomOf="@+id/namePlayer"
                 app:layout_constraintLeft_toRightOf="@id/avatarTeam"
                 app:layout_constraintBottom_toBottomOf="parent"

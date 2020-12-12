@@ -23,6 +23,7 @@ import com.example.myclub.model.Player;
 import com.example.myclub.model.Team;
 import com.example.myclub.view.match.adapter.RecycleViewAdapterListMatchVertical;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterLisEvaluateVertical;
+import com.example.myclub.view.team.adapter.RecycleViewAdapterListPlayerHorizontal;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterListPlayerVertical;
 
 import java.io.File;
@@ -42,7 +43,7 @@ public class SessionTeam implements TeamChangeCallBack {
     private MutableLiveData<Result> resultPhotoLiveData = new MutableLiveData<>(null);
     private MutableLiveData<LoadingState> teamLoadState = new MutableLiveData<>(LoadingState.INIT);
     private RecycleViewAdapterLisEvaluateVertical adapterListComment = new RecycleViewAdapterLisEvaluateVertical();
-    private RecycleViewAdapterListPlayerVertical adapterListPlayer = new RecycleViewAdapterListPlayerVertical();
+    private RecycleViewAdapterListPlayerHorizontal adapterListPlayer = new RecycleViewAdapterListPlayerHorizontal();
     private RecycleViewAdapterListMatchVertical adapterListMatch = new RecycleViewAdapterListMatchVertical();
     private MatchRepository matchRepository = MatchRepository.getInstance();
     private PlayerRepository playerRepository = PlayerRepository.getInstance();
@@ -280,7 +281,7 @@ public class SessionTeam implements TeamChangeCallBack {
         });
     }
 
-    public RecycleViewAdapterListPlayerVertical getAdapterListPlayer() {
+    public RecycleViewAdapterListPlayerHorizontal getAdapterListPlayer() {
         return adapterListPlayer;
     }
 

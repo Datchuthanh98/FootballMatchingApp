@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +15,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myclub.R;
+import com.example.myclub.data.enumeration.LoadingState;
 import com.example.myclub.databinding.FragmentProfileFieldBinding;
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.model.Field;
@@ -86,6 +89,23 @@ public class FragmentProfileField extends Fragment {
 
             }
         });
+
+
+        viewModel.getMatchLoadState().observe(getViewLifecycleOwner(), new Observer<LoadingState>() {
+            @Override
+            public void onChanged(LoadingState loadingState) {
+                if (loadingState == null) return;
+                if (loadingState == LoadingState.INIT) {
+                    binding.loadingLayout.setVisibility(View.VISIBLE);
+                } else if (loadingState == LoadingState.LOADING) {
+                    binding.loadingLayout.setVisibility(View.VISIBLE);
+                } else if (loadingState == LoadingState.LOADED) {
+                    binding.loadingLayout.setVisibility(View.GONE);
+                }
+            }
+        });
+
+
 
         if(field.getUrlAvatar() != null){
             storageRef.child(field.getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {

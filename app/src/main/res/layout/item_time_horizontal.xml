@@ -29,18 +29,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
                 <TextView
+                    android:paddingTop="5dp"
                     android:drawablePadding="10dp"
                     android:drawableStart="@drawable/time_icon"
-                    android:textSize="20dp"
+                    android:textSize="16dp"
                     android:layout_weight="1"
-                    android:text="@{timeGame.startTime+ ` h`+` - `+timeGame.endTime + ` h`}"
+                    android:text="@{timeGame.startTime+ `h`+` - `+timeGame.endTime + `h`}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"></TextView>
                 <TextView
+                    android:paddingTop="5dp"
                     android:drawablePadding="10dp"
                     android:drawableStart="@drawable/money"
                     android:hint="money"
-                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:textSize="16dp"
                     android:text="@{ timeGame.cost +` VND`}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"></TextView>

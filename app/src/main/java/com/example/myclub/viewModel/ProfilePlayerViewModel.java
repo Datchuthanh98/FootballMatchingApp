@@ -3,6 +3,7 @@ package com.example.myclub.viewModel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import com.example.myclub.Interface.CallBack;
+import com.example.myclub.data.enumeration.LoadingState;
 import com.example.myclub.data.repository.RequestJoinTeamRepository;
 
 
@@ -14,7 +15,7 @@ public class ProfilePlayerViewModel extends ViewModel {
     public  MutableLiveData<Boolean> getStateRequestJoinTeam(){
        return stateRequestJoinTeam;
     }
-
+    private MutableLiveData<LoadingState> matchLoadState = new MutableLiveData<>(LoadingState.INIT);
 
     public void getStateJoinTeam(final Map<String, Object> map){
         requestJoinTeamRepository.getStateJoinTeam(map.get("team").toString(),map.get("player").toString(), new CallBack<Boolean, String>() {

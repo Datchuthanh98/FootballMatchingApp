@@ -20,6 +20,7 @@ import com.example.myclub.model.Team;
 import com.example.myclub.session.SessionUser;
 import com.example.myclub.view.match.adapter.RecycleViewAdapterListMatchVertical;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterLisEvaluateVertical;
+import com.example.myclub.view.team.adapter.RecycleViewAdapterListPlayerHorizontal;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterListPlayerVertical;
 
 
@@ -36,7 +37,7 @@ public class ProfileOtherTeamViewModel extends ViewModel {
     private PlayerRepository playerRepository = PlayerRepository.getInstance();
 
     private RecycleViewAdapterLisEvaluateVertical adapterListComment = new RecycleViewAdapterLisEvaluateVertical();
-    private RecycleViewAdapterListPlayerVertical adapterListPlayer = new RecycleViewAdapterListPlayerVertical();
+    private RecycleViewAdapterListPlayerHorizontal adapterListPlayer = new RecycleViewAdapterListPlayerHorizontal();
     private RecycleViewAdapterListMatchVertical adapterListMatch = new RecycleViewAdapterListMatchVertical();
 
 
@@ -193,7 +194,7 @@ public class ProfileOtherTeamViewModel extends ViewModel {
         });
     }
 
-    public RecycleViewAdapterListPlayerVertical getAdapterListPlayer() {
+    public RecycleViewAdapterListPlayerHorizontal getAdapterListPlayer() {
         return adapterListPlayer;
     }
 

@@ -27,7 +27,8 @@ exports.triggerJoinTeam = functions.firestore.document('Team/{idTeam}/listReques
         data: {
             messageType: "NewJoinRequest",
             playerId: idPlayer,
-            playerName: playerData.name
+            playerName: playerData.name,
+            teamName : teamData.name
         },
         token: captainToken
     }

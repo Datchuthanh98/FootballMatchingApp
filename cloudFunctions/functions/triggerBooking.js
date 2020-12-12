@@ -56,7 +56,6 @@ exports.triggerAcceptBooking = functions.firestore.document('Booking/{recordId}'
     if (!listPlayerRecordID.empty) {
         for (i = 0; i < listPlayerRecordID.docs.length; i++) {
             listPlayerPromises.push(db.collection("Player").doc(listPlayerRecordID.docs[i].data().player).get())
-            // teamMemberRegistrationTokens.push(listPlayerRecord.docs[i].data().registrationToken);
         }
     }
 
@@ -77,20 +76,35 @@ exports.triggerAcceptBooking = functions.firestore.document('Booking/{recordId}'
                 teamName: teamHomeRecord.data().name,
                 fieldName: fieldRecord.data().name,
                 startTime: timeGameRecord.data().startTime,
-                endTime: timeGameRecord.data().endTime
+                endTime: timeGameRecord.data().endTime,
+                dateTime : bookingBefore.date, 
             },
             tokens: teamMemberRegistrationTokens
         }
-    } else if (bookingAfter.idTeamAway !== bookingBefore.idTeamAway) {
-       //vế 2 , dell nhớ là sao có mỗi gửi team away , t nhớ lúc t làm là gửi cả 2 bên , xem hộ lại logic 
+    }
+
+ 
+     if (bookingAfter.approve === true && bookingAfter.idTeamAway !== null) {
+      
         const teamAway = await db.collection("Team").doc(bookingAfter.idTeamAway).get();
         const playersAway = await db.collection("Team").doc(bookingAfter.idTeamAway).collection("listPlayer").get();
-        const teamMemberRecords = await db.collection('TeamMember').doc(bookingAfter.idTeamAway).collection("listPlayer").get();
-        if (!playersAway) {
-            for (i = 0; i < teamMemberRecords.docs.length; i++) {
-                teamMemberRegistrationTokens.push(teamMemberRecords.docs[i].data().registrationToken);
-            }
+     
+         listPlayerPromises = [];
+      
+
+    if (!playersAway.empty) {
+        for (i = 0; i < listPlayerRecordID.docs.length; i++) {
+            listPlayerPromises.push(db.collection("Player").doc(playersAway.docs[i].data().player).get())
         }
+    }
+
+    await Promise.all(listPlayerPromises).then((playerRecords) => {
+        for( i = 0 ; i< playerRecords.length ; i++){
+            teamMemberRegistrationTokens.push(playerRecords[i].data().registrationToken);
+         }
+         return null;
+
+    })
 
         messageToOthers = {
             data: {
@@ -99,11 +113,14 @@ exports.triggerAcceptBooking = functions.firestore.document('Booking/{recordId}'
                 teamAwayName: teamAway.data().name,
                 fieldName: fieldRecord.data().name,
                 startTime: timeGameRecord.data().startTime,
-                endTime: timeGameRecord.data().endTime
+                endTime: timeGameRecord.data().endTime,
+                dateTime : bookingBefore.date, 
             },
             tokens: teamMemberRegistrationTokens
         }
 
+        
+    
     }
 
     admin.messaging().sendMulticast(messageToOthers).then((response) => {
@@ -113,6 +130,5 @@ exports.triggerAcceptBooking = functions.firestore.document('Booking/{recordId}'
         console.log('Error sending message: ', error);
         return;
     })
-
 
 });  

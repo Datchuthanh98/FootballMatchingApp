@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.myclub.Interface.CallBack;
+import com.example.myclub.data.enumeration.LoadingState;
 import com.example.myclub.data.repository.FieldRepository;
 import com.example.myclub.model.Field;
 import com.example.myclub.model.TimeGame;
@@ -20,19 +21,22 @@ public class ProfileFieldViewModel extends ViewModel {
     public void setField(Field field) {
         fieldLiveData.setValue(field);
     }
-
+    private MutableLiveData<LoadingState> matchLoadState = new MutableLiveData<>(LoadingState.INIT);
     public LiveData<Field> getFieldLiveData(){
         return fieldLiveData;
     }
 
     public void getlistTime(){
+        matchLoadState.setValue(LoadingState.INIT);
         fieldRepository.getListTimeByField(fieldLiveData.getValue().getId(), new CallBack<List<TimeGame>, String>() {
             @Override
             public void onSuccess(List<TimeGame> listTimeGames) {
                 if(listTimeGames == null){
+                    matchLoadState.setValue(LoadingState.LOADED);
                     adapterListTimeVertical.setListTime(new ArrayList<TimeGame>());
                     adapterListTimeVertical.notifyDataSetChanged();
                 }else {
+                    matchLoadState.setValue(LoadingState.LOADED);
                     adapterListTimeVertical.setListTime(listTimeGames);
                     adapterListTimeVertical.notifyDataSetChanged();
                 }
@@ -40,7 +44,7 @@ public class ProfileFieldViewModel extends ViewModel {
 
             @Override
             public void onFailure(String message) {
-
+                matchLoadState.setValue(LoadingState.ERROR);
             }
         });
     }
@@ -49,5 +53,8 @@ public class ProfileFieldViewModel extends ViewModel {
         return adapterListTimeVertical;
     }
 
+    public MutableLiveData<LoadingState> getMatchLoadState() {
+        return matchLoadState;
+    }
 
 }
