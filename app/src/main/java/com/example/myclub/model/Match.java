@@ -7,6 +7,7 @@ public class Match {
     private  Booking idBooking;
     private  String scoreHome;
     private  String scoreAway;
+    private  long date;
     private  Boolean active ;
     private  List<Team> listQueueTeam;
 
@@ -59,5 +60,13 @@ public class Match {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public long getDate() {
+        return date;
+    }
+
+    public void setDate(long date) {
+        this.date = date;
     }
 }

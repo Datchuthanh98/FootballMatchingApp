@@ -60,6 +60,7 @@
                 android:layout_height="wrap_content"></RatingBar>
             <EditText
 
+                android:layout_margin="10dp"
                 android:background="@drawable/shape2"
                 android:hint="Viết đánh giá của bạn về đội bóng này "
                 android:id="@+id/txtComment"

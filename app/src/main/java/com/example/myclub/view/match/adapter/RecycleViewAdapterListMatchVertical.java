@@ -22,6 +22,7 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 //import com.example.managefield.view.Fragment.FragmentMainProfileMatch;
@@ -73,9 +74,23 @@ public class RecycleViewAdapterListMatchVertical extends RecyclerView.Adapter<Re
             }
         });
 
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(matches.get(position).getIdBooking().getDate());
+        int pYear=calendar.get(Calendar.YEAR);
+        int pMonth=calendar.get(Calendar.MONTH);
+        int pDay=calendar.get(Calendar.DAY_OF_MONTH);
+        String startTime = matches.get(position).getIdBooking().getIdTimeGame().getStartTime()+"h";
+        String endTime = matches.get(position).getIdBooking().getIdTimeGame().getEndTime()+"h";
+        String timeDate = pDay+"/"+(pMonth+1)+"/"+pYear+","+startTime+"-"+endTime;
+
+       String nameField = matches.get(position).getIdBooking().getIdField().getName();
+       String addressField= matches.get(position).getIdBooking().getIdField().getAddress();
+       String positionField = matches.get(position).getIdBooking().getIdTimeGame().getPosition();
 
 
 
+        holder.binding.txtField.setText("Sân "+nameField+ " , ô số "+positionField+ ",địa chỉ : "+addressField );
+        holder.binding.txtTime.setText(timeDate);
 
 
         if(matches.get(position).getIdBooking().getIdTeamHome() !=null) {

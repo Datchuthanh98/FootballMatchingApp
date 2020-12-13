@@ -212,7 +212,7 @@
                 style="@style/viewParent.headerText.settingsTextIcon"
                 android:drawableLeft="@drawable/ic_edit_password"
                 android:text="Chọn thời gian" />
-            <EditText
+            <TextView
                 android:gravity="center"
                 android:id="@+id/txtDate"
                 android:paddingLeft="15dp"
@@ -267,7 +267,6 @@
                 />
 
             <TextView
-
                 style="@style/viewParent.headerText.settingsTextIcon"
                 android:drawableLeft="@drawable/iconpassword"
                 android:layout_marginTop="10dp"

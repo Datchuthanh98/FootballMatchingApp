@@ -59,7 +59,7 @@ public class FragmentAddBooking extends Fragment {
     private  Field field;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private StorageReference storageRef = storage.getReference();
-
+    private long timeTimeLong;
     public FragmentAddBooking(Field field) {
         this.field = field;
     }
@@ -149,6 +149,11 @@ public class FragmentAddBooking extends Fragment {
                         }
 
                         String dateString = sday + "/" + smonth + "/" + year;
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(year, month, day,0,0,0);
+                        timeTimeLong = calendar.getTimeInMillis();
+                        timeTimeLong = timeTimeLong/1000;
+                        timeTimeLong = timeTimeLong * 1000;
                         binding.txtDate.setText(dateString);
                     }
                 }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
@@ -258,7 +263,7 @@ public class FragmentAddBooking extends Fragment {
     private Map<String, Object> getInforBooking() {
         data.put("idTeamHome", matchViewModel.getTeamLiveData().getValue().getId());
         data.put("idField", field.getId());
-        data.put("date", binding.txtDate.getText().toString());
+        data.put("date", timeTimeLong);
         data.put("idTimeGame", matchViewModel.getTimeLiveData().getValue().getId());
         data.put("note",binding.txtNote.getText().toString());
         data.put("phone",binding.txtPhone.getText().toString());

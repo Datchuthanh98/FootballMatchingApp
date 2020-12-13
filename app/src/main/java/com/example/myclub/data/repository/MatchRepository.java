@@ -35,7 +35,7 @@ public class MatchRepository {
     }
 
 
-    public void getListMatchByDate(String date,CallBack<List<Match>,String> loadListMatchCallBack){
+    public void getListMatchByDate(Map<String,Object> date,CallBack<List<Match>,String> loadListMatchCallBack){
         matchDataSource.loadListMatchByDate(date,loadListMatchCallBack);
     }
 

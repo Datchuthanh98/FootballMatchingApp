@@ -1,13 +1,12 @@
 package com.example.myclub.viewModel;
 
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.myclub.Interface.CallBack;
 import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.data.repository.TeamRepository;
+import com.example.myclub.model.Field;
 import com.example.myclub.model.Team;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterListTeamVertical;
 
@@ -15,9 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ListTeamViewModel extends ViewModel {
+public class ListTeamOtherViewModel extends ViewModel {
     private TeamRepository teamRepository = TeamRepository.getInstance();
-    private RecycleViewAdapterListTeamVertical adapterListTeam = new RecycleViewAdapterListTeamVertical();
+
+    private RecycleViewAdapterListTeamVertical adapterListOtherTeam = new RecycleViewAdapterListTeamVertical();
 
     private MutableLiveData<Result> result = new MutableLiveData<>();
     private String resultMessage = null;
@@ -31,22 +31,24 @@ public class ListTeamViewModel extends ViewModel {
                 listSearch.add(listField.get(i));
             }
         }
-        adapterListTeam.setListTeam(listSearch);
-        adapterListTeam.notifyDataSetChanged();
+        adapterListOtherTeam.setListTeam(listSearch);
+        adapterListOtherTeam.notifyDataSetChanged();
 
     }
 
-    public void getListTeam(String idPlayer){
-        teamRepository.getListTeam(idPlayer,new CallBack<List<Team>, String>() {
+
+    public void getListOtherTeam(String idPlayer){
+        teamRepository.getListOtherTeam(idPlayer,new CallBack<List<Team>, String>() {
             @Override
             public void onSuccess(List<Team> listTeams) {
                 if(listTeams == null){
-                    listField = new ArrayList<Team>();
-                    adapterListTeam.setListTeam(new ArrayList<Team>());
+                    listField = new ArrayList<>();
+                    adapterListOtherTeam.setListTeam(new ArrayList<Team>());
+                    adapterListOtherTeam.notifyDataSetChanged();
                 }else {
                     listField = listTeams;
-                    adapterListTeam.setListTeam(listTeams);
-                    adapterListTeam.notifyDataSetChanged();
+                    adapterListOtherTeam.setListTeam(listTeams);
+                    adapterListOtherTeam.notifyDataSetChanged();
                 }
             }
 
@@ -54,32 +56,15 @@ public class ListTeamViewModel extends ViewModel {
             public void onFailure(String message) {
                 resultMessage = message;
             }
-
-
         });
     }
 
 
-
-    public RecycleViewAdapterListTeamVertical getAdapterListTeam() {
-        return adapterListTeam;
+    public RecycleViewAdapterListTeamVertical getAdapterListOtherTeam() {
+        return adapterListOtherTeam;
     }
 
 
-
-    public void createTeam(Map<String,Object> map){
-        teamRepository.creatTeam(map, new CallBack<Team, String>() {
-            @Override
-            public void onSuccess(Team team) {
-                result.setValue(Result.SUCCESS);
-            }
-
-            @Override
-            public void onFailure(String message) {
-                result.setValue(Result.FAILURE);
-            }
-        });
-    }
 
 
     public String getResultMessage() {

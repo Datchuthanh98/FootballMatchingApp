@@ -9,6 +9,7 @@ import com.example.myclub.data.enumeration.LoadingState;
 import com.example.myclub.data.repository.FieldRepository;
 import com.example.myclub.model.Field;
 import com.example.myclub.model.TimeGame;
+import com.example.myclub.view.field.adapter.RecycleViewAdapterListTimeHorizontal;
 import com.example.myclub.view.field.adapter.RecycleViewAdapterListTimeVertical;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.List;
 
 public class ProfileFieldViewModel extends ViewModel {
     private MutableLiveData<Field> fieldLiveData = new MutableLiveData<>();
-    private RecycleViewAdapterListTimeVertical adapterListTimeVertical = new RecycleViewAdapterListTimeVertical();
+    private RecycleViewAdapterListTimeHorizontal adapterListTimeVertical = new RecycleViewAdapterListTimeHorizontal();
     private FieldRepository fieldRepository = FieldRepository.getInstance();
     public void setField(Field field) {
         fieldLiveData.setValue(field);
@@ -49,7 +50,7 @@ public class ProfileFieldViewModel extends ViewModel {
         });
     }
 
-    public RecycleViewAdapterListTimeVertical getAdapterListTimeVertical() {
+    public RecycleViewAdapterListTimeHorizontal getAdapterListTimeVertical() {
         return adapterListTimeVertical;
     }
 

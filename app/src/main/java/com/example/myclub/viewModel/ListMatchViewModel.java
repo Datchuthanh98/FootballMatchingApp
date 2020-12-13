@@ -1,5 +1,7 @@
 package com.example.myclub.viewModel;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -14,8 +16,11 @@ import com.example.myclub.view.match.adapter.RecycleViewAdapterListMatchVertical
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ListMatchViewModel extends ViewModel {
     private MatchRepository matchRepository = MatchRepository.getInstance();
@@ -32,14 +37,14 @@ public class ListMatchViewModel extends ViewModel {
     }
 
     public ListMatchViewModel() {
-        getListMatchByDate(getDateNow());
+      getListMatchByDate(getDateNow());
     }
 
     public MutableLiveData<LoadingState> getTeamLoadState() {
         return teamLoadState;
     }
 
-    public void getListMatchByDate(String date) {
+    public void getListMatchByDate(Map<String,Object> date) {
         teamLoadState.setValue(LoadingState.INIT);
         matchRepository.getListMatchByDate(date,new CallBack<List<Match>, String>() {
             @Override
@@ -67,10 +72,19 @@ public class ListMatchViewModel extends ViewModel {
         return adapterListMatchVertical;
     }
 
-    public String getDateNow(){
-        Date date = new Date();
-        SimpleDateFormat dateFor = new SimpleDateFormat("dd/MM/yyyy");
-        return dateFor.format(date);
+    public Map<String,Object> getDateNow(){
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        int month = Calendar.getInstance().get(Calendar.MONTH);
+        int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month, day,0,0,0);
+        long timeStartLong = calendar.getTimeInMillis();
+        timeStartLong = timeStartLong/1000;
+        timeStartLong = timeStartLong * 1000;
+        HashMap<String,Object> map = new HashMap<>();
+        map.put("startDate",timeStartLong);
+        map.put("endDate",timeStartLong);
+        return map;
     };
 
 

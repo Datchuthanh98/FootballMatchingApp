@@ -76,7 +76,7 @@ public class SessionUser implements  UserChangeCallBack {
 
         playerLiveData.setValue(player);
         if (player != null) {
-            if (!player.getUrlAvatar().isEmpty()) {
+            if (player.getUrlAvatar() != null ) {
                 String[] files = player.getUrlAvatar().split("/");
                 String fileName = files[files.length-1];
                 File photo = new File(getApplicationContext().getCacheDir(), fileName);
@@ -99,7 +99,7 @@ public class SessionUser implements  UserChangeCallBack {
                 }
             }
 
-            if (!player.getUrlCover().isEmpty()) {
+            if (player.getUrlCover() != null) {
                 String[] files = player.getUrlCover().split("/");
                 String fileName = files[files.length-1];
                 File photo = new File(getApplicationContext().getCacheDir(), fileName);

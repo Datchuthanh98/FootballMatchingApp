@@ -91,6 +91,7 @@ public class MatchDataSource {
                     loadListMyMatchCallBack.onSuccess(null);
                 }else{
                     for (Map teamMap : listTeamMaps){
+
                         Match match = gson.fromJson(gson.toJson(teamMap), Match.class);
                         listMatch.add(match);
                     }
@@ -130,7 +131,7 @@ public class MatchDataSource {
         });
     }
 
-    public void loadListMatchByDate(String date,final CallBack loadListMatchCallBack) {
+    public void loadListMatchByDate(Map<String,Object>  date,final CallBack loadListMatchCallBack) {
         functions.getHttpsCallable("getListMatchByDate").call(date).addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
             @Override
             public void onSuccess(HttpsCallableResult httpsCallableResult) {
@@ -141,6 +142,7 @@ public class MatchDataSource {
                     loadListMatchCallBack.onSuccess(null);
                 }else{
                     for (Map teamMap : listTeamMaps){
+                        Log.d("match", teamMap.toString());
                         Match match = gson.fromJson(gson.toJson(teamMap), Match.class);
                         listMatch.add(match);
                     }
@@ -161,6 +163,7 @@ public class MatchDataSource {
             @Override
             public void onSuccess(HttpsCallableResult httpsCallableResult) {
                 Match match = convert.fromJson(convert.toJson(httpsCallableResult.getData()), Match.class);
+                Log.d("ahihi", convert.toJson(httpsCallableResult.getData().toString()));
                             callBack.onSuccess(match);
                 }
 

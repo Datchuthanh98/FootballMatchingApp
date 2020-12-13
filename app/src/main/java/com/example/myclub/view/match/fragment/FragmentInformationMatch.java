@@ -20,6 +20,8 @@ import com.example.myclub.model.Match;
 import com.example.myclub.viewModel.ProfileMatchViewModel;
 import com.example.myclub.viewModel.ShareSelectTeamViewModel;
 
+import java.util.Calendar;
+
 
 public class FragmentInformationMatch extends Fragment {
 
@@ -42,9 +44,21 @@ public class FragmentInformationMatch extends Fragment {
         viewModel.getMatchMutableLiveData().observe(getViewLifecycleOwner(), new Observer<Match>() {
             @Override
             public void onChanged(Match match) {
-                binding.setMatch(viewModel.getMatchMutableLiveData().getValue());
+                if(match != null) {
+                    binding.setMatch(viewModel.getMatchMutableLiveData().getValue());
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTimeInMillis(viewModel.getMatchMutableLiveData().getValue().getIdBooking().getDate());
+                    int pYear = calendar.get(Calendar.YEAR);
+                    int pMonth = calendar.get(Calendar.MONTH);
+                    int pDay = calendar.get(Calendar.DAY_OF_MONTH);
+                    String startTime = viewModel.getMatchMutableLiveData().getValue().getIdBooking().getIdTimeGame().getStartTime() + "h";
+                    String endTime = viewModel.getMatchMutableLiveData().getValue().getIdBooking().getIdTimeGame().getEndTime() + "h";
+                    String timeDate = pDay + "/" + (pMonth + 1) + "/" + pYear + "," + startTime + "-" + endTime;
+                    binding.txtTime.setText(timeDate);
+                }
             }
         });
+
 
 
 

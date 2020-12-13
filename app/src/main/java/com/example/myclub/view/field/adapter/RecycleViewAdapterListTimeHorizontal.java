@@ -9,25 +9,23 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myclub.databinding.ItemTimeHorizontalBinding;
-import com.example.myclub.databinding.ItemTimeVerticalBinding;
 import com.example.myclub.model.TimeGame;
 import com.example.myclub.session.SessionBookingField;
-
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class RecycleViewAdapterListTimeVertical extends RecyclerView.Adapter<RecycleViewAdapterListTimeVertical.MyViewHolder> {
+public class RecycleViewAdapterListTimeHorizontal extends RecyclerView.Adapter<RecycleViewAdapterListTimeHorizontal.MyViewHolder> {
 
     private FragmentManager fm;
     private List<TimeGame> listTimes = new ArrayList<>();
 
-    public RecycleViewAdapterListTimeVertical() {
+    public RecycleViewAdapterListTimeHorizontal() {
 
     }
 
-    public RecycleViewAdapterListTimeVertical(FragmentManager fm) {
+    public RecycleViewAdapterListTimeHorizontal(FragmentManager fm) {
         this.fm = fm;
     }
 
@@ -43,12 +41,12 @@ public class RecycleViewAdapterListTimeVertical extends RecyclerView.Adapter<Rec
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        ItemTimeVerticalBinding binding = ItemTimeVerticalBinding.inflate(inflater, parent, false);
+        ItemTimeHorizontalBinding binding = ItemTimeHorizontalBinding.inflate(inflater, parent, false);
         return new MyViewHolder(binding);
     }
     class MyViewHolder extends RecyclerView.ViewHolder {
-        final ItemTimeVerticalBinding binding;
-        public MyViewHolder(ItemTimeVerticalBinding binding) {
+        final ItemTimeHorizontalBinding binding;
+        public MyViewHolder(ItemTimeHorizontalBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }

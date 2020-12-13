@@ -14,7 +14,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:contentPadding="10dp"
-    android:layout_margin="5dp"
+    android:layout_margin="10dp"
     app:cardCornerRadius="10dp"
    >
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,39 +28,45 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             app:srcCompat="@drawable/avatar_player_default"
+            app:layout_constraintRight_toLeftOf="@+id/content"
             />
         <LinearLayout
+            android:id="@id/content"
             android:orientation="vertical"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-           app:layout_constraintLeft_toLeftOf="@+id/avatarPlayer"
+           app:layout_constraintLeft_toRightOf="@+id/avatarPlayer"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content">
             <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:layout_weight="1"
                     android:textSize="20dp"
                     android:textStyle="bold"
                     android:hint="name player"
                     android:text="@{evaluate.idPlayer.name}"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                 </TextView>
+                <RatingBar
+                    android:rating="@{evaluate.rating}"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:id="@+id/rating_bar_small"
+                    style="@style/Widget.AppCompat.RatingBar.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:isIndicator="false"
+                    android:numStars="5"
 
+                    android:stepSize="0.5"></RatingBar>
             </LinearLayout>
 
-            <RatingBar
 
-                android:scaleX="0.5"
-                android:scaleY="0.5"
-                android:rating="@{evaluate.rating}"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"></RatingBar>
             <TextView
                 android:textSize="16dp"
                 android:id="@+id/namePlayer"

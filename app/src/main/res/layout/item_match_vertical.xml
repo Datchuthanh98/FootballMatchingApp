@@ -131,9 +131,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <TextView
+            android:id="@+id/txtTime"
             android:layout_weight="1"
             android:drawablePadding="5dp"
-            android:text="@{match.idBooking.date +`,`+match.idBooking.idTimeGame.startTime+ `-`+match.idBooking.idTimeGame.endTime}"
             android:drawableStart="@drawable/time_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"></TextView>
@@ -152,17 +152,18 @@
             android:layout_height="wrap_content">
         <TextView
             android:layout_weight="1"
-            android:text="@{`Sân ` + match.idBooking.idField.name +`,ô số `+match.idBooking.idTimeGame.position}"
+            android:id="@+id/txtField"
             android:drawableStart="@drawable/field_24"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></TextView>
-        <TextView
-            android:paddingLeft="5dp"
-            android:layout_weight="1"
-            android:text="@{match.idBooking.idField.address}"
-            android:drawableStart="@drawable/address_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></TextView>
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            ></TextView>
+
         </LinearLayout>
 
     </LinearLayout>

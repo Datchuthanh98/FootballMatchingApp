@@ -59,7 +59,6 @@ public class FragmentListMyTeam extends Fragment {
             @Override
             public void onChanged(Result result) {
                 if(result == Result.SUCCESS){
-                    Toast.makeText(getContext(),"add team vao day r ",Toast.LENGTH_SHORT).show();
                     listTeamViewModel.getListTeam(sessionUser.getPlayerLiveData().getValue().getId());
                 }
 
@@ -78,12 +77,20 @@ public class FragmentListMyTeam extends Fragment {
         adapter.setShareSelectTeamViewModel(selectTeamViewModel);
         adapter.isMy = true ;
         adapter.isShow = this.isShow;
-        binding.recycleViewListVertical.setAdapter(listTeamViewModel.getAdapterListTeam());
+        binding.recycleViewListVertical.setAdapter(adapter);
         binding.btnCreateTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogFragment dialogFragment = new FragmentAddTeamDialog();
                 dialogFragment.show(getParentFragmentManager(),"Add Team Diaglog");
+            }
+        });
+
+        binding.btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listTeamViewModel.searchField(binding.txtSearch.getText().toString());
+
             }
         });
     }

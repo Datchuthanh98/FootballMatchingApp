@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -47,5 +48,12 @@ public class FragmentListField extends Fragment {
         binding.recycleViewListVertical.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.btnCreateTeam.setVisibility(View.GONE);
 
+        binding.btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.searchField(binding.txtSearch.getText().toString());
+
+            }
+        });
     }
 }

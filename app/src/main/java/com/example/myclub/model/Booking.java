@@ -7,7 +7,7 @@ public class Booking {
     private Field idField;
     private Team idTeamHome;
     private Team idTeamAway;
-    private String date;
+    private long date;
     private String phone;
     private TimeGame idTimeGame;
     private String note;
@@ -48,11 +48,11 @@ public class Booking {
         this.idTeamAway = idTeamAway;
     }
 
-    public String getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(long date) {
         this.date = date;
     }
 

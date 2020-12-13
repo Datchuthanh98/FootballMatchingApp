@@ -93,22 +93,23 @@ public class RecycleViewAdapterListTeamVertical extends RecyclerView.Adapter<Rec
         });
         holder.binding.setTeam(listTeam.get(position));
 
+        if(listTeam.size() > 0) {
+            if (listTeam.get(position).getUrlAvatar() != null) {
+                storageRef.child(listTeam.get(position).getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        if (uri != null) {
+                            Picasso.get().load(uri).fit().centerCrop().into(holder.binding.avatarTeam);
+                        }
 
-        if(listTeam.get(position).getUrlAvatar() !=null) {
-            storageRef.child(listTeam.get(position).getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    if (uri != null) {
-                        Picasso.get().load(uri).fit().centerCrop().into(holder.binding.avatarTeam);
                     }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
 
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-
-                }
-            });
+                    }
+                });
+            }
         }
     }
 

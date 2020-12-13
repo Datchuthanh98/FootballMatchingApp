@@ -13,18 +13,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myclub.databinding.FragmentListBinding;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterListTeamVertical;
+import com.example.myclub.viewModel.ListTeamOtherViewModel;
 import com.example.myclub.viewModel.ListTeamViewModel;
 import com.example.myclub.session.SessionUser;
 
 public class FragmentListOtherTeam extends Fragment {
-    private ListTeamViewModel listTeamViewModel;
+    private ListTeamOtherViewModel listTeamViewModel;
     private SessionUser sessionUser = SessionUser.getInstance();
     private FragmentListBinding binding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        listTeamViewModel = new ViewModelProvider(this).get(ListTeamViewModel.class);
+        listTeamViewModel = new ViewModelProvider(this).get(ListTeamOtherViewModel.class);
         binding = FragmentListBinding.inflate(inflater);
         return  binding.getRoot();
     }
@@ -43,6 +44,14 @@ public class FragmentListOtherTeam extends Fragment {
         RecycleViewAdapterListTeamVertical adapter = listTeamViewModel.getAdapterListOtherTeam();
         adapter.fragment = getTargetFragment();
         adapter.setFm(getParentFragmentManager());
-        binding.recycleViewListVertical.setAdapter(listTeamViewModel.getAdapterListOtherTeam());
+        binding.recycleViewListVertical.setAdapter(adapter);
+
+        binding.btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listTeamViewModel.searchField(binding.txtSearch.getText().toString());
+
+            }
+        });
     }
 }

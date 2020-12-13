@@ -25,6 +25,7 @@ import com.example.myclub.data.enumeration.LoadingState;
 import com.example.myclub.databinding.FragmentProfileFieldBinding;
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.model.Field;
+import com.example.myclub.view.field.adapter.RecycleViewAdapterListTimeHorizontal;
 import com.example.myclub.view.field.adapter.RecycleViewAdapterListTimeVertical;
 import com.example.myclub.viewModel.ProfileFieldViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -53,7 +54,7 @@ public class FragmentProfileField extends Fragment {
         binding = FragmentProfileFieldBinding.inflate(inflater);
         binding.setLifecycleOwner(this);
         viewModel = new ViewModelProvider(this).get(ProfileFieldViewModel.class);
-        binding.setField(field);
+        binding.setTeam(field);
         viewModel.setField(field);
         return binding.getRoot();
     }
@@ -64,10 +65,10 @@ public class FragmentProfileField extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //Khởi tạo màn hình ban đầu của fragment
-        RecycleViewAdapterListTimeVertical adapter = viewModel.getAdapterListTimeVertical();
+        RecycleViewAdapterListTimeHorizontal adapter = viewModel.getAdapterListTimeVertical();
         adapter.setFm(getParentFragmentManager());
-        binding.recycleViewListTimeVertical.setAdapter(adapter);
-        binding.recycleViewListTimeVertical.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        binding.recycleViewListPlayerVertical.setAdapter(adapter);
+        binding.recycleViewListPlayerVertical.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
 
         initComponent();
 
