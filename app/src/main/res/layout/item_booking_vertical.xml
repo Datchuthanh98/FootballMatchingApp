@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="match"
+            type="com.example.myclub.model.Match" />
+    </data>
+
+<androidx.cardview.widget.CardView
+    android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:contentPadding="10dp"
+    app:cardCornerRadius="10dp"
+    android:layout_margin="10dp"
+   >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_margin="5dp"
+            android:id="@+id/viewA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+             app:layout_constraintTop_toTopOf="parent"
+           >
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/score1"
+                android:id="@+id/club1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/avatarHome"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/avatar_team_default"
+                app:civ_border_color="#ffffff"
+                app:civ_border_width="2dp" />
+                <TextView
+
+                    android:text="@{match.idBooking.idTeamHome.name}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"></TextView>
+
+            </LinearLayout>
+
+
+
+            <TextView
+                android:textSize="30dp"
+                android:gravity="center"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/club1"
+                app:layout_constraintRight_toLeftOf="@id/diffence"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:id="@+id/score1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="@{match.scoreHome}"
+                />
+
+            <TextView
+                android:gravity="center"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/score1"
+                app:layout_constraintRight_toLeftOf="@id/score2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:id="@+id/diffence"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:text="-" />
+
+            <TextView
+                android:textSize="30dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                app:layout_constraintLeft_toRightOf="@id/diffence"
+                app:layout_constraintRight_toLeftOf="@id/club2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:id="@+id/score2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="@{match.scoreAway}" />
+
+
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/score2"
+                app:layout_constraintRight_toRightOf="parent"
+                android:id="@+id/club2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/avatarAway"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/noteam"
+                app:civ_border_color="#ffffff"
+                app:civ_border_width="2dp" />
+                <TextView
+                    android:text="@{match.idBooking.idTeamAway.name}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"></TextView>
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/viewA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:paddingTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/txtTime"
+            android:layout_weight="1"
+            android:drawablePadding="5dp"
+            android:drawableStart="@drawable/time_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></TextView>
+            <TextView
+                android:layout_weight="1"
+                android:drawablePadding="5dp"
+                android:text="@{match.active == false ? `sắp diễn ra ` : `đã kết thúc`}"
+                android:drawableStart="@drawable/horn_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:paddingTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+            android:layout_weight="1"
+            android:id="@+id/txtField"
+            android:drawableStart="@drawable/field_24"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            ></TextView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
+</layout>

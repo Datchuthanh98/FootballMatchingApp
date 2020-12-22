@@ -1,4 +1,4 @@
-package com.example.myclub.view.match.fragment;
+package com.example.myclub.view.team.adapter;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
