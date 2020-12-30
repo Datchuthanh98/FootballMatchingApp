@@ -21,14 +21,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.myclub.R;
 import com.example.myclub.data.enumeration.LoadingState;
 import com.example.myclub.databinding.FragmentProfileOtherTeamBinding;
+import com.example.myclub.main.ActivityHome;
 import com.example.myclub.model.Team;
 import com.example.myclub.session.SessionUser;
-import com.example.myclub.view.field.adapter.RecycleViewAdapterListTimeVertical;
 import com.example.myclub.view.match.adapter.RecycleViewAdapterListMatchVertical;
-import com.example.myclub.view.player.Adapter.AdapterFragmentProfile;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterLisEvaluateVertical;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterListPlayerHorizontal;
-import com.example.myclub.view.team.adapter.RecycleViewAdapterListPlayerVertical;
 import com.example.myclub.viewModel.ProfileOtherTeamViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -141,6 +139,31 @@ public class FragmentProfileMainTeamOther extends Fragment {
             }
         });
 
+        binding.listEvaluateMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityHome activityHome = (ActivityHome) getContext();
+                activityHome.addFragment(new FragmentListEvaluate(team.getId()));
+            }
+        });
+
+        binding.matchMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityHome activityHome = (ActivityHome) getContext();
+                activityHome.addFragment(new FragmentListMatchByTeam(team.getId()));
+            }
+        });
+
+
+        binding.listPlayerMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityHome activityHome = (ActivityHome) getContext();
+                activityHome.addFragment(new FragmentProfileListPlayer(team.getId()));
+            }
+        });
+
         binding.btnCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,8 +208,7 @@ public class FragmentProfileMainTeamOther extends Fragment {
 
     private Map<String, Object> requestJoinTeam() {
         data.put("player", sessionUser.getPlayerLiveData().getValue().getId());
-        data.put("isPlayerRequest",true);
-        data.put("timestamp", Calendar.getInstance().getTime());
+        data.put("time_create",Calendar.getInstance().getTimeInMillis());
         return data;
     }
 

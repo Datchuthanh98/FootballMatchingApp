@@ -41,19 +41,20 @@
             </TextView>
 
             <TextView
+                android:id="@+id/status"
                 android:layout_margin="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/horn_icon"
                 android:drawablePadding="5dp"
-                android:text="@{match.active == false ? `sắp diễn ra ` : `đã kết thúc`}"></TextView>
+               ></TextView>
 
             <TextView
                 android:layout_margin="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/field_24"
-                android:text="@{`Sân ` + match.idBooking.idField.name +`,ô số `+match.idBooking.idTimeGame.position}"></TextView>
+                android:text="@{`Sân ` + match.idBooking.idField.name +`,ô số `+match.idBooking.position}"></TextView>
 
             <TextView
                 android:layout_margin="5dp"

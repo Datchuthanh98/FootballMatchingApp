@@ -26,9 +26,6 @@ public class MatchRepository {
         return instance;
     }
 
-    public void getListBooking(CallBack<List<Booking>, String> callBack){
-        matchDataSource.loadListBooking(callBack);
-    }
 
     public  void addbookingField(Map<String,Object> map , CallBack<String,String> addBookingField){
         matchDataSource.addBooking(map,addBookingField );

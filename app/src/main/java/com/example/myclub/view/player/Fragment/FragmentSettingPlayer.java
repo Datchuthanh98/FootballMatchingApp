@@ -1,4 +1,4 @@
-package com.example.myclub.view.team.fragment;
+package com.example.myclub.view.player.Fragment;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -18,53 +18,47 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
 import com.example.myclub.R;
+import com.example.myclub.auth.ActivityLogin;
 import com.example.myclub.data.enumeration.Result;
-
-import com.example.myclub.databinding.FragmentProfileMyTeamBinding;
-import com.example.myclub.databinding.FragmentSettingTeamBinding;
+import com.example.myclub.databinding.FragmentSettingPlayerBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
-import com.example.myclub.main.ActivityHome;
-import com.example.myclub.session.SessionTeam;
-import com.example.myclub.view.player.Fragment.FragmentProfilePlayer;
+import com.example.myclub.session.SessionUser;
+import com.facebook.login.LoginManager;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-public class FragmentEditMainTeam extends Fragment {
-    private Dialog loadingDialog;
-    private LoadingLayoutBinding loadingLayoutBinding;
-    private FragmentSettingTeamBinding binding;
-    public static final int RESULT_LOAD_IMG_AVATAR = 1001;
-    public static final int RESULT_LOAD_IMG_COVER = 1002;
+public class FragmentSettingPlayer extends Fragment {
+    private FragmentSettingPlayerBinding binding;
+    public static final int RESULT_LOAD_IMG_AVATAR = 1012;
+    public static final int RESULT_LOAD_IMG_COVER = 1013;
     private  String urlAvatar , urlCover;
-    private SessionTeam sessionTeam = SessionTeam.getInstance();
+    private SessionUser session = SessionUser.getInstance();
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentSettingTeamBinding.inflate(inflater);
+        binding = FragmentSettingPlayerBinding.inflate(inflater);
         binding.setLifecycleOwner(this);
-        View view = binding.getRoot();
-        return  view;
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initComponent(view.getContext());
-        initLoadingDialog(view.getContext());
+         initComponent(view.getContext());
 
     }
 
     private  void initComponent(final Context context){
-
         binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_back_white_24);
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,13 +67,14 @@ public class FragmentEditMainTeam extends Fragment {
             }
         });
 
-
         binding.btnEditAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
                 photoPickerIntent.setType("image/*");
                 startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG_AVATAR);
+
+
             }
         });
 
@@ -89,14 +84,25 @@ public class FragmentEditMainTeam extends Fragment {
                 Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
                 photoPickerIntent.setType("image/*");
                 startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG_COVER);
+
             }
         });
 
         binding.btnEditBasic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BottomSheetDialogFragment dialog = new FragmentEditTeamBasic();
+                BottomSheetDialogFragment dialog = new FragmentEditPlayerBasic();
                 dialog.show(getParentFragmentManager(), null);
+
+            }
+        });
+
+        binding.btnEditPlayer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomSheetDialogFragment dialog = new FragmentEditPlayerPlayer();
+                dialog.show(getParentFragmentManager(), null);
+
             }
         });
 
@@ -105,34 +111,24 @@ public class FragmentEditMainTeam extends Fragment {
         binding.btnEditIntroduce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BottomSheetDialogFragment dialog = new FragmentEditTeamIntroduce();
+                BottomSheetDialogFragment dialog = new FragmentEditPlayerIntroduce();
                 dialog.show(getParentFragmentManager(), null);
             }
         });
 
-        binding.btnShow.setOnClickListener(new View.OnClickListener() {
+        binding.btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ActivityHome activityHome = (ActivityHome) getContext();
-                activityHome.addFragment(new FragmentProfileListPlayerRequest(SessionTeam.getInstance().getTeamLiveData().getValue().getId()));
+                FirebaseAuth.getInstance().signOut();
+                LoginManager.getInstance().logOut();
+                getActivity().finish();
             }
         });
-
-
     }
 
     private void detach(){
         getParentFragmentManager().popBackStack();
     }
-
-    private void initLoadingDialog(Context context) {
-        loadingDialog = new Dialog(context);
-        loadingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        loadingLayoutBinding = LoadingLayoutBinding.inflate(getLayoutInflater());
-        loadingDialog.setContentView(loadingLayoutBinding.getRoot());
-        loadingDialog.setCancelable(false);
-    }
-
 
 
     @Override
@@ -168,9 +164,10 @@ public class FragmentEditMainTeam extends Fragment {
     }
 
     private void updateImage(Uri uri, String path , boolean isAvatar) {
-        loadingDialog.show();
-        sessionTeam.updateImage(uri, path,isAvatar);
+        session.updateImage(uri, path,isAvatar);
     }
+
+
 
 
 }

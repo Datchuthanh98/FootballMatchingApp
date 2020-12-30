@@ -44,7 +44,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/position"
                 />
             <TextView
-                android:drawableStart="@drawable/address_icon"
+                android:drawableStart="@drawable/ic_baseline_phone_24_green"
                 android:drawablePadding="5dp"
                 android:layout_marginLeft="10dp"
                 android:id="@+id/position"

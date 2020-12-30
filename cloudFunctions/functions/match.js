@@ -12,7 +12,7 @@ exports.getListMatchByDate = functions.https.onCall(async (date) => {
         let listTeamHomePromises = [];
         let listFieldPromises = [];
         let listTeamAwayPromises = [];
-        let listTimePromises = [];
+     
         if(!listMatchRecords.empty){
             let listBookingPromises = [];
             for(i = 0 ; i < listMatchRecords.docs.length ; i++){
@@ -32,7 +32,7 @@ exports.getListMatchByDate = functions.https.onCall(async (date) => {
                                 listTeamAwayPromises.push(null);
                             }
                             listFieldPromises.push(db.collection('Field').doc(BookingRecords[i].data().idField).get());
-                            listTimePromises.push(db.collection('Field').doc(BookingRecords[i].data().idField).collection('listTimeGame').doc(BookingRecords[i].data().idTimeGame).get());
+                         
                     }
                 }
                 return null;
@@ -62,12 +62,7 @@ exports.getListMatchByDate = functions.https.onCall(async (date) => {
                 return null;
             })
 
-            await Promise.all(listTimePromises).then((ListTimeRecords) => {
-                for( i = 0 ; i< ListTimeRecords.length ; i++){
-                   listMatch[i].idBooking.idTimeGame = ListTimeRecords[i].data();
-                }
-                return null;
-            })
+        
         }  
     return listMatch; 
 });
@@ -121,7 +116,7 @@ exports.getListMatchByField = functions.https.onCall(async (idField) => {
     let listTeamHomePromises = [];
     let listFieldPromises = [];
     let listTeamAwayPromises = [];
-    let listTimePromises = [];
+
     if (!listDataMatch.empty) {
         for (i = 0; i < listDataMatch.length; i++) {
             listTeamHomePromises.push(db.collection('Team').doc(listDataMatch[i].idBooking.idTeamHome).get());
@@ -131,7 +126,7 @@ exports.getListMatchByField = functions.https.onCall(async (idField) => {
                 listTeamAwayPromises.push(db.collection('Team').doc(listDataMatch[i].idBooking.idTeamAway).get());
             }
             listFieldPromises.push(db.collection('Field').doc(listDataMatch[i].idBooking.idField).get());
-            listTimePromises.push(db.collection('Field').doc(listDataMatch[i].idBooking.idField).collection('listTimeGame').doc(listDataMatch[i].idBooking.idTimeGame).get());
+        
         }
 
         await Promise.all(listTeamHomePromises).then((ListTeamHomeRecords) => {
@@ -162,12 +157,7 @@ exports.getListMatchByField = functions.https.onCall(async (idField) => {
             return null;
         })
 
-        await Promise.all(listTimePromises).then((ListTimeRecords) => {
-            for (i = 0; i < ListTimeRecords.length; i++) {
-                listDataMatch[i].idBooking.idTimeGame = ListTimeRecords[i].data();
-            }
-            return null;
-        })
+      
     }
     console.log(listDataMatch)
     return listDataMatch;
@@ -222,7 +212,7 @@ exports.getListMatchByTeam = functions.https.onCall(async (idTeam) => {
     let listTeamHomePromises = [];
     let listFieldPromises = [];
     let listTeamAwayPromises = [];
-    let listTimePromises = [];
+
     if (!listDataMatch.empty) {
         for (i = 0; i < listDataMatch.length; i++) {
             listTeamHomePromises.push(db.collection('Team').doc(listDataMatch[i].idBooking.idTeamHome).get());
@@ -232,7 +222,7 @@ exports.getListMatchByTeam = functions.https.onCall(async (idTeam) => {
                 listTeamAwayPromises.push(db.collection('Team').doc(listDataMatch[i].idBooking.idTeamAway).get());
             }
             listFieldPromises.push(db.collection('Field').doc(listDataMatch[i].idBooking.idField).get());
-            listTimePromises.push(db.collection('Field').doc(listDataMatch[i].idBooking.idField).collection('listTimeGame').doc(listDataMatch[i].idBooking.idTimeGame).get());
+           
         }
 
         await Promise.all(listTeamHomePromises).then((ListTeamHomeRecords) => {
@@ -262,13 +252,6 @@ exports.getListMatchByTeam = functions.https.onCall(async (idTeam) => {
             }
             return null;
         })
-
-        await Promise.all(listTimePromises).then((ListTimeRecords) => {
-            for (i = 0; i < ListTimeRecords.length; i++) {
-                listDataMatch[i].idBooking.idTimeGame = ListTimeRecords[i].data();
-            }
-            return null;
-        })
     }
     return listDataMatch;
 
@@ -285,8 +268,6 @@ exports.getMatchDetail = functions.https.onCall(async (idMatch) => {
     match.idBooking = bookingRecord.data();
     let fieldRecord = await db.collection("Field").doc(bookingRecord.data().idField).get();
     match.idBooking.idField = fieldRecord.data();
-    let timeRecord = await db.collection("Field").doc(bookingRecord.data().idField).collection("listTimeGame").doc(bookingRecord.data().idTimeGame).get();
-    match.idBooking.idTimeGame = timeRecord.data();
     let teamHomeRecord = await db.collection("Team").doc(bookingRecord.data().idTeamHome).get();
     match.idBooking.idTeamHome =teamHomeRecord.data();
     if(bookingRecord.data().idTeamAway !== null){
@@ -298,7 +279,7 @@ exports.getMatchDetail = functions.https.onCall(async (idMatch) => {
 });
 
 exports.getListQueueTeam = functions.https.onCall(async (idMatch) => {
-    const listQueueTeamRecord = await db.collection("Match").doc(idMatch).collection("listQueueTeam").get();
+    const listQueueTeamRecord = await db.collection("Match").doc(idMatch).collection("listQueueTeam").orderBy("time_create",'desc').get();
  
     let i ;
     let listTeamPromises = []
@@ -322,7 +303,7 @@ exports.getListQueueTeam = functions.https.onCall(async (idMatch) => {
 
 
 exports.getCommentMatch = functions.https.onCall(async (idMatch) => {    
-    const listCommentRecord = await db.collection("Match").doc(idMatch).collection("listComment").get();
+    const listCommentRecord = await db.collection("Match").doc(idMatch).collection("listComment").orderBy("time_create",'desc').get();
     let listComment = [];
     let i ;
     let listPlayerPromises = []

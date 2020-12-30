@@ -55,7 +55,7 @@ public class FragmentListComment extends Fragment {
               Map<String, Object> map = new HashMap<>();
               map.put("player", SessionUser.getInstance().getPlayerLiveData().getValue().getId());
               map.put("comment",binding.txtCommemt.getText().toString());
-              map.put("timestamp", Calendar.getInstance().getTime());
+              map.put("time_create",Calendar.getInstance().getTimeInMillis());
               viewModel.addComment(map);
          }
      });

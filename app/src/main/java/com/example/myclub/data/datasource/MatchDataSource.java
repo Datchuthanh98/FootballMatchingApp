@@ -36,33 +36,6 @@ public class MatchDataSource {
         return instance;
     }
 
-
-    public void loadListBooking(final CallBack<List<Booking>, String> callBack) {
-//            db.collection("Booking").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                @Override
-//                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                    List<Booking> bookingList = new ArrayList<>();
-//                    if (!queryDocumentSnapshots.isEmpty()) {
-//                        for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
-//                            Booking booking =  document.toObject(Booking.class);
-//
-//                            bookingList.add(booking);
-//                        }
-//                        callBack.onSuccess(bookingList);
-//                    } else {
-//                        callBack.onSuccess(null);
-//                    }
-//                    callBack.onSuccess(null);
-//                }
-//            }).addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception e) {
-//                        callBack.onFailure(e.getMessage());
-//                }
-//            });
-    }
-
-
     public void addBooking(Map<String, Object> map, final CallBack<String,String> addBookingField) {
         functions.getHttpsCallable("createBooking").call(map).addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
             @Override
@@ -106,30 +79,6 @@ public class MatchDataSource {
         });
     }
 
-    public void loadListMatch(final CallBack loadListMatchCallBack) {
-        functions.getHttpsCallable("getAllListMatch").call().addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
-            @Override
-            public void onSuccess(HttpsCallableResult httpsCallableResult) {
-                Gson gson= new Gson();
-                List<Map> listTeamMaps = (List<Map>) httpsCallableResult.getData();
-                List<Match> listMatch = new ArrayList<>();
-                if(listTeamMaps == null){
-                    loadListMatchCallBack.onSuccess(null);
-                }else{
-                    for (Map teamMap : listTeamMaps){
-                        Match match = gson.fromJson(gson.toJson(teamMap), Match.class);
-                        listMatch.add(match);
-                    }
-                    loadListMatchCallBack.onSuccess(listMatch);
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                loadListMatchCallBack.onFailure(e.getMessage());
-            }
-        });
-    }
 
     public void loadListMatchByDate(Map<String,Object>  date,final CallBack loadListMatchCallBack) {
         functions.getHttpsCallable("getListMatchByDate").call(date).addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {

@@ -1,4 +1,4 @@
-package com.example.myclub.view.team.fragment;
+package com.example.myclub.view.field.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,21 +12,21 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.myclub.R;
 import com.example.myclub.data.enumeration.LoadingState;
 import com.example.myclub.data.enumeration.Status;
 import com.example.myclub.databinding.FragmentListCallendarBinding;
-import com.example.myclub.main.ActivityHome;
-import com.example.myclub.view.field.fragment.FragmentAddBooking;
 import com.example.myclub.view.match.adapter.RecycleViewAdapterListMatchVertical;
+import com.example.myclub.viewModel.ListMatchByFieldViewModel;
 import com.example.myclub.viewModel.ListMatchByTeamViewModel;
 
 
-public class FragmentListMatchByTeam extends Fragment {
-    private ListMatchByTeamViewModel viewModel ;
+public class FragmentListMatchByField extends Fragment {
+    private ListMatchByFieldViewModel viewModel ;
     private FragmentListCallendarBinding binding;
     private String idTeam;
 
-    public FragmentListMatchByTeam(String idTeam) {
+    public FragmentListMatchByField(String idTeam) {
         this.idTeam = idTeam;
     }
 
@@ -41,7 +41,7 @@ public class FragmentListMatchByTeam extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(ListMatchByTeamViewModel.class);
+        viewModel = new ViewModelProvider(this).get(ListMatchByFieldViewModel.class);
         initComponent();
         observerLiveDate();
 
@@ -54,7 +54,13 @@ public class FragmentListMatchByTeam extends Fragment {
         binding.recycleViewListVertical.setAdapter(adapter);
         binding.recycleViewListVertical.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.selectDate.setVisibility(View.GONE);
-
+        binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_back_white_24);
+        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().popBackStack();
+            }
+        });
 
     }
 

@@ -51,9 +51,10 @@ public class FragmentListChat extends Fragment {
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                detach();
+                getParentFragmentManager().popBackStack();
             }
         });
+
 
         viewModel.setIdTeam(this.idTeam);
         viewModel.loadChat();
@@ -70,7 +71,7 @@ public class FragmentListChat extends Fragment {
               Map<String, Object> map = new HashMap<>();
               map.put("idPlayer", SessionUser.getInstance().getPlayerLiveData().getValue().getId());
               map.put("message",binding.txtCommemt.getText().toString());
-              map.put("timestamp", Calendar.getInstance().getTime());
+              map.put("time_create",Calendar.getInstance().getTimeInMillis());
               viewModel.addComment(map);
          }
      });

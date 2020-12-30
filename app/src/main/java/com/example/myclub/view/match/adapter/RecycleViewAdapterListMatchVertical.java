@@ -79,18 +79,49 @@ public class RecycleViewAdapterListMatchVertical extends RecyclerView.Adapter<Re
         int pYear=calendar.get(Calendar.YEAR);
         int pMonth=calendar.get(Calendar.MONTH);
         int pDay=calendar.get(Calendar.DAY_OF_MONTH);
-        String startTime = matches.get(position).getIdBooking().getIdTimeGame().getStartTime()+"h";
-        String endTime = matches.get(position).getIdBooking().getIdTimeGame().getEndTime()+"h";
+        String startTime = matches.get(position).getIdBooking().getStartTime();
+        String endTime = matches.get(position).getIdBooking().getEndTime();
         String timeDate = pDay+"/"+(pMonth+1)+"/"+pYear+","+startTime+"-"+endTime;
 
        String nameField = matches.get(position).getIdBooking().getIdField().getName();
        String addressField= matches.get(position).getIdBooking().getIdField().getAddress();
-       String positionField = matches.get(position).getIdBooking().getIdTimeGame().getPosition();
+       String positionField = matches.get(position).getIdBooking().getPosition();
 
 
 
         holder.binding.txtField.setText("Sân "+nameField+ " , ô số "+positionField+ ",địa chỉ : "+addressField );
         holder.binding.txtTime.setText(timeDate);
+
+
+
+        String cutEndTime[] = matches.get(position).getIdBooking().getEndTime().split(":",2);
+        int pHourEnd=Integer.parseInt(cutEndTime[0]);
+        int mMinuteEnd= Integer.parseInt(cutEndTime[1]);
+
+        String cutStartTime[] = matches.get(position).getIdBooking().getStartTime().split(":",2);
+        int pHourStart=Integer.parseInt(cutStartTime[0]);
+        int mMinuteStart= Integer.parseInt(cutStartTime[1]);
+
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.set(pYear,pMonth,pDay,pHourEnd,mMinuteEnd);
+        long timeGameEnd = calendar2.getTimeInMillis();
+
+        Calendar calendar3 = Calendar.getInstance();
+        calendar3.set(pYear,pMonth,pDay,pHourStart,mMinuteStart);
+        long timeGameStart = calendar3.getTimeInMillis();
+
+        Calendar calendar4 = Calendar.getInstance();
+        long timeNow = calendar4.getTimeInMillis();
+
+
+        if(timeNow < timeGameStart){
+            holder.binding.status.setText("Sắp diễn ra");
+        }else if(timeGameStart <= timeNow && timeNow  <= timeGameEnd){
+            holder.binding.status.setText("Đang diễn ra ");
+        }else {
+            holder.binding.status.setText("Đã kết thúc ");
+        }
+
 
 
         if(matches.get(position).getIdBooking().getIdTeamHome() !=null) {

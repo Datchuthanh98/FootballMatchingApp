@@ -1,4 +1,4 @@
-package com.example.myclub.view.player.Fragment;
+package com.example.myclub.view.team.fragment;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -18,47 +18,52 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
 import com.example.myclub.R;
-import com.example.myclub.auth.ActivityLogin;
 import com.example.myclub.data.enumeration.Result;
-import com.example.myclub.databinding.FragmentSettingPlayerBinding;
+
+import com.example.myclub.databinding.FragmentProfileMyTeamBinding;
+import com.example.myclub.databinding.FragmentSettingTeamBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
-import com.example.myclub.session.SessionUser;
-import com.facebook.login.LoginManager;
+import com.example.myclub.main.ActivityHome;
+import com.example.myclub.session.SessionTeam;
+import com.example.myclub.view.player.Fragment.FragmentProfilePlayer;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-public class FragmentEditMainPlayer extends Fragment {
-    private FragmentSettingPlayerBinding binding;
-    public static final int RESULT_LOAD_IMG_AVATAR = 1012;
-    public static final int RESULT_LOAD_IMG_COVER = 1013;
-    private  String urlAvatar , urlCover;
-    private SessionUser session = SessionUser.getInstance();
+public class FragmentSettingTeam extends Fragment {
 
+    private FragmentSettingTeamBinding binding;
+    public static final int RESULT_LOAD_IMG_AVATAR = 1001;
+    public static final int RESULT_LOAD_IMG_COVER = 1002;
+    private  String urlAvatar , urlCover;
+    private SessionTeam sessionTeam = SessionTeam.getInstance();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentSettingPlayerBinding.inflate(inflater);
+        binding = FragmentSettingTeamBinding.inflate(inflater);
         binding.setLifecycleOwner(this);
-        return binding.getRoot();
+        View view = binding.getRoot();
+        return  view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-         initComponent(view.getContext());
+        initComponent(view.getContext());
+
 
     }
 
     private  void initComponent(final Context context){
+
         binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_back_white_24);
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,14 +72,13 @@ public class FragmentEditMainPlayer extends Fragment {
             }
         });
 
+
         binding.btnEditAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
                 photoPickerIntent.setType("image/*");
                 startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG_AVATAR);
-
-
             }
         });
 
@@ -84,25 +88,14 @@ public class FragmentEditMainPlayer extends Fragment {
                 Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
                 photoPickerIntent.setType("image/*");
                 startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG_COVER);
-
             }
         });
 
         binding.btnEditBasic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BottomSheetDialogFragment dialog = new FragmentEditPlayerBasic();
+                BottomSheetDialogFragment dialog = new FragmentEditTeamBasic();
                 dialog.show(getParentFragmentManager(), null);
-
-            }
-        });
-
-        binding.btnEditPlayer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BottomSheetDialogFragment dialog = new FragmentEditPlayerPlayer();
-                dialog.show(getParentFragmentManager(), null);
-
             }
         });
 
@@ -111,24 +104,27 @@ public class FragmentEditMainPlayer extends Fragment {
         binding.btnEditIntroduce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BottomSheetDialogFragment dialog = new FragmentEditPlayerIntroduce();
+                BottomSheetDialogFragment dialog = new FragmentEditTeamIntroduce();
                 dialog.show(getParentFragmentManager(), null);
             }
         });
 
-        binding.btnLogout.setOnClickListener(new View.OnClickListener() {
+        binding.btnShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                LoginManager.getInstance().logOut();
-                getActivity().finish();
+                ActivityHome activityHome = (ActivityHome) getContext();
+                activityHome.addFragment(new FragmentProfileListPlayerRequest(SessionTeam.getInstance().getTeamLiveData().getValue().getId()));
             }
         });
+
+
     }
 
     private void detach(){
         getParentFragmentManager().popBackStack();
     }
+
+
 
 
     @Override
@@ -164,10 +160,8 @@ public class FragmentEditMainPlayer extends Fragment {
     }
 
     private void updateImage(Uri uri, String path , boolean isAvatar) {
-        session.updateImage(uri, path,isAvatar);
+        sessionTeam.updateImage(uri, path,isAvatar);
     }
-
-
 
 
 }

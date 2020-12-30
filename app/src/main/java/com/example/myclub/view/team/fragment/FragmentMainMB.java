@@ -1,4 +1,4 @@
-package com.example.myclub.view.team.adapter;
+package com.example.myclub.view.team.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,10 +16,15 @@ import com.example.myclub.R;
 import com.example.myclub.databinding.FragmentMainListBinding;
 import com.example.myclub.view.field.adapter.AdapterFragmentField;
 import com.example.myclub.view.player.Adapter.AdapterFragmentProfile;
+import com.example.myclub.view.team.adapter.AdapterFragmentListMB;
 import com.google.android.material.tabs.TabLayout;
 
 public class FragmentMainMB extends Fragment {
 
+    private  String idTeam;
+    public FragmentMainMB(String idTeam) {
+        this.idTeam = idTeam;
+    }
 
     FragmentMainListBinding binding;
     @Nullable
@@ -35,9 +40,8 @@ public class FragmentMainMB extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         TabLayout tabLayout = view.findViewById(R.id.tablayout);
         ViewPager viewPager = view.findViewById(R.id.viewpager);
-//        viewPager.setPageTransformer(true, new HorizontalFlipTransformation());
         FragmentManager manager = getParentFragmentManager();
-        AdapterFragmentField adapter = new AdapterFragmentField(getChildFragmentManager(), AdapterFragmentProfile.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        AdapterFragmentListMB adapter = new AdapterFragmentListMB(getChildFragmentManager(), AdapterFragmentProfile.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,idTeam);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 

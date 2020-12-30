@@ -8,9 +8,11 @@ import com.example.myclub.Interface.CallBack;
 import com.example.myclub.data.enumeration.LoadingState;
 import com.example.myclub.data.repository.FieldRepository;
 import com.example.myclub.model.Field;
+import com.example.myclub.model.Match;
 import com.example.myclub.model.TimeGame;
 import com.example.myclub.view.field.adapter.RecycleViewAdapterListTimeHorizontal;
 import com.example.myclub.view.field.adapter.RecycleViewAdapterListTimeVertical;
+import com.example.myclub.view.match.adapter.RecycleViewAdapterListMatchVertical;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,7 @@ import java.util.List;
 public class ProfileFieldViewModel extends ViewModel {
     private MutableLiveData<Field> fieldLiveData = new MutableLiveData<>();
     private RecycleViewAdapterListTimeHorizontal adapterListTimeVertical = new RecycleViewAdapterListTimeHorizontal();
+    private RecycleViewAdapterListMatchVertical adapterListMatchVertical = new RecycleViewAdapterListMatchVertical();
     private FieldRepository fieldRepository = FieldRepository.getInstance();
     public void setField(Field field) {
         fieldLiveData.setValue(field);
@@ -53,6 +56,31 @@ public class ProfileFieldViewModel extends ViewModel {
     public RecycleViewAdapterListTimeHorizontal getAdapterListTimeVertical() {
         return adapterListTimeVertical;
     }
+
+    public void  getListMatch(){
+        fieldRepository.getListMatch(fieldLiveData.getValue().getId(),new CallBack<List<Match>, String>() {
+            @Override
+            public void onSuccess(List<Match> matchList) {
+                if(matchList == null){
+                    adapterListMatchVertical.setListMatch(new ArrayList<Match>());
+                    adapterListMatchVertical.notifyDataSetChanged();
+                }else{
+                    adapterListMatchVertical.setListMatch(matchList);
+                    adapterListMatchVertical.notifyDataSetChanged();
+                }
+            }
+            @Override
+            public void onFailure(String message) {
+
+            }
+        });
+    }
+
+
+    public RecycleViewAdapterListMatchVertical getAdapterListMatch() {
+        return adapterListMatchVertical;
+    }
+
 
     public MutableLiveData<LoadingState> getMatchLoadState() {
         return matchLoadState;

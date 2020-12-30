@@ -183,7 +183,7 @@ public class FragmentListMatch extends Fragment {
       int year = Calendar.getInstance().get(Calendar.YEAR);
       int month = Calendar.getInstance().get(Calendar.MONTH);
       int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-      String dateString = day + "/" + month + "/" + year;
+      String dateString = day + "/" + (month+1) + "/" + year;
       binding.dateStart.setText(dateString);
       binding.dateEnd.setText(dateString);
       Calendar calendar = Calendar.getInstance();

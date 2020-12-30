@@ -45,7 +45,7 @@ exports.triggerAcceptBooking = functions.firestore.document('Booking/{recordId}'
     const bookingBefore = change.before.data();
     let i;
     const fieldRecord = await db.collection("Field").doc(bookingAfter.idField).get();
-    const timeGameRecord = await db.collection("Field").doc(bookingAfter.idField).collection("listTimeGame").doc(bookingAfter.idTimeGame).get();
+
 
     const teamHomeRecord = await db.collection("Team").doc(bookingAfter.idTeamHome).get();
     const listPlayerRecordID = await db.collection("Team").doc(bookingAfter.idTeamHome).collection("listPlayer").get();
@@ -75,8 +75,8 @@ exports.triggerAcceptBooking = functions.firestore.document('Booking/{recordId}'
                 messageType: 'Accept Booking',
                 teamName: teamHomeRecord.data().name,
                 fieldName: fieldRecord.data().name,
-                startTime: timeGameRecord.data().startTime,
-                endTime: timeGameRecord.data().endTime,
+                startTime: bookingBefore.startTime,
+                endTime: bookingBefore.endTime,
                 dateTime : bookingBefore.date, 
             },
             tokens: teamMemberRegistrationTokens
@@ -112,8 +112,8 @@ exports.triggerAcceptBooking = functions.firestore.document('Booking/{recordId}'
                 teamHomeName: teamHomeRecord.data().name,
                 teamAwayName: teamAway.data().name,
                 fieldName: fieldRecord.data().name,
-                startTime: timeGameRecord.data().startTime,
-                endTime: timeGameRecord.data().endTime,
+                startTime:  bookingBefore.startTime,
+                endTime:  bookingBefore.endTime,
                 dateTime : bookingBefore.date, 
             },
             tokens: teamMemberRegistrationTokens

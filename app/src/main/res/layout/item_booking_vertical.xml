@@ -6,8 +6,8 @@
     <data>
         <import type="android.view.View" />
         <variable
-            name="match"
-            type="com.example.myclub.model.Match" />
+            name="booking"
+            type="com.example.myclub.model.Booking" />
     </data>
 
 <androidx.cardview.widget.CardView
@@ -47,7 +47,7 @@
                 app:civ_border_width="2dp" />
                 <TextView
 
-                    android:text="@{match.idBooking.idTeamHome.name}"
+                    android:text="@{booking.idTeamHome.name}"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"></TextView>
 
@@ -66,7 +66,6 @@
                 android:id="@+id/score1"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:text="@{match.scoreHome}"
                 />
 
             <TextView
@@ -94,7 +93,7 @@
                 android:id="@+id/score2"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:text="@{match.scoreAway}" />
+                />
 
 
             <LinearLayout
@@ -114,7 +113,7 @@
                 app:civ_border_color="#ffffff"
                 app:civ_border_width="2dp" />
                 <TextView
-                    android:text="@{match.idBooking.idTeamAway.name}"
+                    android:text="@{booking.idTeamAway.name}"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"></TextView>
             </LinearLayout>
@@ -132,15 +131,15 @@
             android:layout_height="wrap_content">
         <TextView
             android:id="@+id/txtTime"
-            android:layout_weight="1"
+
             android:drawablePadding="5dp"
             android:drawableStart="@drawable/time_icon"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"></TextView>
             <TextView
-                android:layout_weight="1"
+                android:id="@+id/status"
+                android:text=""
                 android:drawablePadding="5dp"
-                android:text="@{match.active == false ? `sắp diễn ra ` : `đã kết thúc`}"
                 android:drawableStart="@drawable/horn_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"></TextView>

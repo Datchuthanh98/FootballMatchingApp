@@ -14,7 +14,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.myclub.data.enumeration.LoadingState;
 import com.example.myclub.data.enumeration.Result;
+import com.example.myclub.data.enumeration.Status;
 import com.example.myclub.databinding.FragmentListBinding;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterListTeamVertical;
 import com.example.myclub.viewModel.ListTeamViewModel;
@@ -71,6 +73,33 @@ public class FragmentListMyTeam extends Fragment {
         binding.recycleViewListVertical.setLayoutManager(new LinearLayoutManager(getContext()));
         RecycleViewAdapterListTeamVertical adapter = listTeamViewModel.getAdapterListTeam();
 
+        listTeamViewModel.getTeamLoadState().observe(getViewLifecycleOwner(), new Observer<LoadingState>() {
+            @Override
+            public void onChanged(LoadingState loadingState) {
+                if (loadingState == null) return;
+                if (loadingState == LoadingState.INIT) {
+                    binding.loadingLayout.setVisibility(View.VISIBLE);
+                } else if (loadingState == LoadingState.LOADING) {
+                    binding.loadingLayout.setVisibility(View.VISIBLE);
+                } else if (loadingState == LoadingState.LOADED) {
+                    binding.loadingLayout.setVisibility(View.GONE);
+                }
+            }
+        });
+
+
+        listTeamViewModel.getStatusData().observe(getViewLifecycleOwner(), new Observer<Status>() {
+            @Override
+            public void onChanged(Status status) {
+
+                if(status == Status.NO_DATA){
+                    binding.viewNoData.setVisibility(View.VISIBLE);
+                    binding.txtNodata.setText("Bạn chưa có đội bóng nào , hãy mau tạo đội !!!");
+                }else if(status == status.EXIST_DATA){
+                    binding.viewNoData.setVisibility(View.GONE);
+                }
+            }
+        });
 
         adapter.fragment = getTargetFragment();
         adapter.setFm(getParentFragmentManager());
@@ -94,6 +123,7 @@ public class FragmentListMyTeam extends Fragment {
             }
         });
     }
+
 
 
 

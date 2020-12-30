@@ -1,4 +1,4 @@
-package com.example.myclub.view.team.adapter;
+package com.example.myclub.view.team.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.myclub.R;
 import com.example.myclub.data.enumeration.LoadingState;
 import com.example.myclub.data.enumeration.Status;
 import com.example.myclub.databinding.FragmentListCallendarBinding;
@@ -53,9 +54,7 @@ public class FragmentListMatchByTeam extends Fragment {
         adapter.setFm(getParentFragmentManager());
         binding.recycleViewListVertical.setAdapter(adapter);
         binding.recycleViewListVertical.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
-
+        binding.selectDate.setVisibility(View.GONE);
 
 
     }

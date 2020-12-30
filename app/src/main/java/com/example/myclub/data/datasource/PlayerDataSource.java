@@ -45,11 +45,11 @@ public class PlayerDataSource {
         return instance;
     }
 
-    public void register(final String email, final String password, final CallBack<Player, String> callBack) {
+    public void register(final String email, final String password,final String name, final CallBack<Player, String> callBack) {
         Map<String, Object> map = new HashMap<>();
         map.put("email", email);
         map.put("password", password);
-        map.put("name", "ronaldoo");
+        map.put("name", name);
         functions.getHttpsCallable("createPlayer").call(map).addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
             @Override
             public void onSuccess(HttpsCallableResult httpsCallableResult) {

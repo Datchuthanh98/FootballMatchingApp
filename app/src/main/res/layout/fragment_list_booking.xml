@@ -26,16 +26,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:text="Danh sách khung giờ còn trống"
+                    android:text="Lịch sử đặt sân"
                     android:textSize="20dp"
                     android:textColor="@color/white"/>
 
             </LinearLayout>
 
         </androidx.appcompat.widget.Toolbar>
-        <androidx.constraintlayout.widget.ConstraintLayout
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
 
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+    app:layout_constraintTop_toBottomOf="@id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="0dp">
 

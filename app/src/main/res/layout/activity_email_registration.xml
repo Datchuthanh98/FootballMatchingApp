@@ -37,6 +37,16 @@
                 />
 
             <EditText
+                android:id="@+id/txtName"
+                android:paddingLeft="15dp"
+                android:layout_marginBottom="15dp"
+                android:textColor="@color/black"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Tên người dùng"
+                android:background="@drawable/shape2"
+                />
+            <EditText
                 android:id="@+id/txtPassword"
                 android:inputType="textPassword"
                 android:paddingLeft="15dp"

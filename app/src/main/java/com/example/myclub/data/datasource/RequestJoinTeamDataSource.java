@@ -17,6 +17,7 @@ import com.google.firebase.functions.HttpsCallableResult;
 import com.google.firebase.storage.FirebaseStorage;
 import com.myhexaville.smartimagepicker.ImagePicker;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -89,6 +90,7 @@ public class RequestJoinTeamDataSource {
         Map<String, Object> map = new HashMap<>();
         map.put("idPlayer", idPlayer);
         map.put("idTeam",idTeam);
+        map.put("time_create",Calendar.getInstance().getTimeInMillis());
         functions.getHttpsCallable("acceptJoinTeam").call(map).addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
             @Override
             public void onSuccess(HttpsCallableResult httpsCallableResult) {

@@ -20,9 +20,7 @@ public class ListPlayerViewModel extends ViewModel {
     private PlayerRepository playerRepository = PlayerRepository.getInstance();
     private static ListPlayerViewModel instance;
     private RecycleViewAdapterListPlayerVertical adapterListPlayer = new RecycleViewAdapterListPlayerVertical();
-    private RecycleViewAdapterListPlayerRequestVertical adapterListPlayerRequest = new RecycleViewAdapterListPlayerRequestVertical();
     private MutableLiveData<List<Player>> listPlayerLiveData = new MutableLiveData<>();
-    private MutableLiveData<List<Player>> listPlayerRequestLiveData = new MutableLiveData<>();
     private String resultMessage = null;
 
 
@@ -30,18 +28,7 @@ public class ListPlayerViewModel extends ViewModel {
         return listPlayerLiveData;
     }
 
-    public void setListPlayerLiveData(List<Player> listPlayers) {
-        Log.d("json", "setListPlayerLiveData: "+listPlayers.size());
-        this.listPlayerLiveData.setValue(listPlayers);
-        if (listPlayers == null) {
-            adapterListPlayer.setListPlayer(new ArrayList<Player>());
-            adapterListPlayerRequest.notifyDataSetChanged();
-        } else {
-            listPlayerLiveData.setValue(listPlayers);
-            adapterListPlayer.setListPlayer(listPlayers);
-            adapterListPlayer.notifyDataSetChanged();
-        }
-    }
+
 
     public static ListPlayerViewModel getInstance() {
         if (instance == null) {
@@ -50,17 +37,17 @@ public class ListPlayerViewModel extends ViewModel {
         return instance;
     }
 
-    public void getListPlayerRequest(String idTeam) {
-        playerRepository.getListPlayerRequest(idTeam, new CallBack<List<Player>, String>() {
+    public void getListPlayer(String idTeam) {
+        playerRepository.getListPlayer(idTeam, new CallBack<List<Player>, String>() {
             @Override
             public void onSuccess(List<Player> listPlayers) {
                 if (listPlayers == null) {
-                    adapterListPlayerRequest.setListPlayer(new ArrayList<Player>());
-                    adapterListPlayerRequest.notifyDataSetChanged();
+                    adapterListPlayer.setListPlayer(new ArrayList<Player>());
+                    adapterListPlayer.notifyDataSetChanged();
                 } else {
-                    listPlayerRequestLiveData.setValue(listPlayers);
-                    adapterListPlayerRequest.setListPlayer(listPlayers);
-                    adapterListPlayerRequest.notifyDataSetChanged();
+                    listPlayerLiveData.setValue(listPlayers);
+                    adapterListPlayer.setListPlayer(listPlayers);
+                    adapterListPlayer.notifyDataSetChanged();
                 }
             }
 
@@ -73,10 +60,6 @@ public class ListPlayerViewModel extends ViewModel {
 
     public RecycleViewAdapterListPlayerVertical getAdapterListPlayer() {
         return adapterListPlayer;
-    }
-
-    public RecycleViewAdapterListPlayerRequestVertical getAdapterListPlayerRequest() {
-        return adapterListPlayerRequest;
     }
 
     public String getResultMessage() {

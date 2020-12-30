@@ -9,7 +9,52 @@ public class Booking {
     private Team idTeamAway;
     private long date;
     private String phone;
-    private TimeGame idTimeGame;
+    private String startTime ;
+    private String endTime;
+    private String position;
+    private String cost ;
+    private Boolean  approve;
+
+    public Boolean getApprove() {
+        return approve;
+    }
+
+    public void setApprove(Boolean approve) {
+        this.approve = approve;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getCost() {
+        return cost;
+    }
+
+    public void setCost(String cost) {
+        this.cost = cost;
+    }
+
     private String note;
 
 
@@ -62,14 +107,6 @@ public class Booking {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public TimeGame getIdTimeGame() {
-        return idTimeGame;
-    }
-
-    public void setIdTimeGame(TimeGame idTimeGame) {
-        this.idTimeGame = idTimeGame;
     }
 
     public String getNote() {

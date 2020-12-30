@@ -27,6 +27,9 @@ import com.example.myclub.main.ActivityHome;
 import com.example.myclub.model.Field;
 import com.example.myclub.view.field.adapter.RecycleViewAdapterListTimeHorizontal;
 import com.example.myclub.view.field.adapter.RecycleViewAdapterListTimeVertical;
+import com.example.myclub.view.match.adapter.RecycleViewAdapterListMatchVertical;
+import com.example.myclub.view.team.fragment.FragmentListEvaluate;
+import com.example.myclub.view.team.fragment.FragmentListMatchByTeam;
 import com.example.myclub.viewModel.ProfileFieldViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -62,6 +65,7 @@ public class FragmentProfileField extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         viewModel.getlistTime();
+        viewModel.getListMatch();
         super.onViewCreated(view, savedInstanceState);
 
         //Khởi tạo màn hình ban đầu của fragment
@@ -70,10 +74,36 @@ public class FragmentProfileField extends Fragment {
         binding.recycleViewListPlayerVertical.setAdapter(adapter);
         binding.recycleViewListPlayerVertical.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
 
+        RecycleViewAdapterListMatchVertical adapterMatch = viewModel.getAdapterListMatch();
+        adapterMatch.setFm(getParentFragmentManager());
+        binding.recycleViewListMatchVertical.setAdapter(adapterMatch);
+        binding.recycleViewListMatchVertical.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         initComponent();
 
     }
     private void initComponent(){
+
+        binding.timeMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.timeMore.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ActivityHome activityHome = (ActivityHome) getContext();
+                        activityHome.addFragment(new FragmentListTime(field.getId()));
+                    }
+                });
+            }
+        });
+
+
+        binding.matchMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityHome activityHome = (ActivityHome) getContext();
+                activityHome.addFragment(new FragmentListMatchByField(field.getId()));
+            }
+        });
 
         binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_back_white_24);
         binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {

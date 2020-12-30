@@ -22,9 +22,9 @@ public class AdapterFragmentHome extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new FragmentMainField();
-            case 1:
                 return new FragmentListMatch();
+            case 1:
+            return new FragmentMainField();
             case 2:
                 return new FragmentListMainTeam();
             case 3:
@@ -44,9 +44,9 @@ public class AdapterFragmentHome extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "Sân bóng";
-            case 1:
                 return "Trận đấu";
+            case 1:
+                return "Sân bóng";
             case 2:
                 return "Đội bóng";
 

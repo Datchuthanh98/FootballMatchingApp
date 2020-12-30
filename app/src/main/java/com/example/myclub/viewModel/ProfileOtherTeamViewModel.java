@@ -180,19 +180,11 @@ public class ProfileOtherTeamViewModel extends ViewModel {
         });
     }
 
-    public  void addEvaluate(Map<String,Object> map){
-        teamRepository.addEvaluate(matchMutableLiveData.getValue().getId(),map, new CallBack<String, String>() {
-            @Override
-            public void onSuccess(String s) {
-                getListEvaluate();
-            }
 
-            @Override
-            public void onFailure(String s) {
-
-            }
-        });
+    public RecycleViewAdapterLisEvaluateVertical getAdapterListEvaluate() {
+        return adapterListComment;
     }
+
 
     public RecycleViewAdapterListPlayerHorizontal getAdapterListPlayer() {
         return adapterListPlayer;
@@ -202,8 +194,6 @@ public class ProfileOtherTeamViewModel extends ViewModel {
         return adapterListMatch;
     }
 
-    public RecycleViewAdapterLisEvaluateVertical getAdapterListEvaluate() {
-        return adapterListComment;
-    }
+
 
 }

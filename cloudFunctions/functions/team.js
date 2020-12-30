@@ -74,6 +74,7 @@ exports.getTeamDetail = functions.https.onCall(async (idTeam) => {
 
 exports.getListTeam = functions.https.onCall(async (idPlayer) => {
     const teams = await db.collection('Player').doc(idPlayer).collection('listTeam').get();
+    console.log("list Team : "+teams.docs.length);
     if(!teams.empty){
         let listTeam = [] ;
         let listTeamPromises = [];
@@ -97,24 +98,32 @@ exports.getListTeamOther = functions.https.onCall(async (idPlayer) => {
     let i,j ;
     let listTeam = [];
     const listMyTeam = await db.collection('Player').doc(idPlayer).collection('listTeam').get();
-    const allTeam = await db.collection('Team').get();
-      for(i =0 ;i < allTeam.docs.length ; i++){
-        for( j = 0 ;  j<listMyTeam.docs.length ; j ++){
-            if(listMyTeam.docs[j].data().team === allTeam.docs[i].data().id){
-               break;
-            }else if(j === (listMyTeam.docs.length-1)){
-                listTeam.push(allTeam.docs[i].data())
-            }
-        }
-      }
 
+    const allTeam = await db.collection('Team').get();
+    if(listMyTeam.docs.length === 0){
+        for(i =0 ;i < allTeam.docs.length ; i++){
+            listTeam.push(allTeam.docs[i].data());
+        }
+
+    }else{
+        for(i =0 ;i < allTeam.docs.length ; i++){
+            for( j = 0 ;  j<listMyTeam.docs.length ; j ++){
+                if(listMyTeam.docs[j].data().team === allTeam.docs[i].data().id){
+                   break;
+                }else if(j === (listMyTeam.docs.length-1)){
+                    listTeam.push(allTeam.docs[i].data())
+                }
+            }
+          }     
+        
+    }
+    return listTeam;
      
-      return listTeam;
 })
 
 
 exports.getListEvaluate = functions.https.onCall(async (idTeam) => {    
-    const listEvaluateRecord = await db.collection('Team').doc(idTeam).collection('listEvaluate').get();
+    const listEvaluateRecord = await db.collection('Team').doc(idTeam).collection('listEvaluate').orderBy("time_create",'desc').get();
     let listComment = [];
     let i ;
     let listPlayerPromises = []

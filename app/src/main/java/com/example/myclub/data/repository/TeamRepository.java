@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 
 import com.example.myclub.Interface.CallBack;
 import com.example.myclub.data.datasource.TeamDataSource;
+import com.example.myclub.model.Booking;
 import com.example.myclub.model.Chat;
 import com.example.myclub.model.Evaluate;
 import com.example.myclub.model.Field;
@@ -122,5 +123,8 @@ public class TeamRepository {
         teamDataSource.addEvaluate(idTeam,map,callBack);
     }
 
+    public  void getListBooking(String idTeam , final CallBack<List<Booking>,String> loadListTeamCallBack){
+        teamDataSource.getListBooking(idTeam,loadListTeamCallBack);
+    }
 
 }

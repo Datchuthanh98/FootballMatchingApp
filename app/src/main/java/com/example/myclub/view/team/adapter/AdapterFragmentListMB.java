@@ -6,15 +6,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.myclub.view.team.fragment.FragmentListMyTeam;
-import com.example.myclub.view.team.fragment.FragmentListOtherTeam;
+import com.example.myclub.view.team.fragment.FragmentListBooking;
+import com.example.myclub.view.team.fragment.FragmentListMatchByTeam;
 
-public class AdapterFragmentListTeam extends FragmentPagerAdapter {
+public class AdapterFragmentListMB extends FragmentPagerAdapter {
     int numTab = 2;
+    private  String idTeam;
 
-    public AdapterFragmentListTeam(@NonNull FragmentManager fm, int behavior) {
+    public AdapterFragmentListMB(@NonNull FragmentManager fm, int behavior, String idTeam) {
         super(fm, behavior);
-
+        this.idTeam = idTeam;
     }
 
     @NonNull
@@ -22,9 +23,9 @@ public class AdapterFragmentListTeam extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new FragmentListMyTeam();
+                return new FragmentListMatchByTeam(idTeam);
             case 1:
-                return new FragmentListOtherTeam();
+                return new FragmentListBooking(idTeam);
         }
         return  null;
     }
@@ -39,9 +40,9 @@ public class AdapterFragmentListTeam extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position){
             case 0:
-                return "Đội bóng của tôi";
+                return "Trận đấu";
             case 1:
-                return "Đội bóng khác";
+                return "Đặt sân";
         }
         return null;
     }

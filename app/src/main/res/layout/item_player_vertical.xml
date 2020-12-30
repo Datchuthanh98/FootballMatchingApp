@@ -21,13 +21,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:src="@drawable/avatar_player_default"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:id="@+id/avatarPlayer"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            app:srcCompat="@drawable/avatar_player_default"
+
             />
         <TextView
             android:drawableStart="@drawable/name_icon"

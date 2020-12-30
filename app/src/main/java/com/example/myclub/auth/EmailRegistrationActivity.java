@@ -37,7 +37,7 @@ public class EmailRegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                playerDataSource.register(binding.txtEmail.getText().toString(), binding.txtPassword.getText().toString(), new CallBack<Player, String>() {
+                playerDataSource.register(binding.txtEmail.getText().toString(), binding.txtPassword.getText().toString(),binding.txtName.getText().toString(), new CallBack<Player, String>() {
                     @Override
                     public void onSuccess(Player player) {
                         startActivity(new Intent(EmailRegistrationActivity.this,ActivityLogin.class));

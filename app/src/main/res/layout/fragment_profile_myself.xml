@@ -141,8 +141,7 @@
 
                                             <TextView
                                                 android:layout_width="match_parent"
-                                                android:layout_height="30dp"
-                                                android:layout_margin="5dp"
+                                                android:layout_height="40dp"
                                                 android:gravity="center"
                                                 android:text="Ngày sinh"></TextView>
 
@@ -169,8 +168,7 @@
 
                                             <TextView
                                                 android:layout_width="match_parent"
-                                                android:layout_height="30dp"
-                                                android:layout_margin="5dp"
+                                                android:layout_height="40dp"
                                                 android:gravity="center"
                                                 android:text="Chiều cao"></TextView>
 
@@ -197,8 +195,7 @@
 
                                             <TextView
                                                 android:layout_width="match_parent"
-                                                android:layout_height="30dp"
-                                                android:layout_margin="5dp"
+                                                android:layout_height="40dp"
                                                 android:gravity="center"
                                                 android:text="Cân nặng"></TextView>
 
@@ -232,7 +229,7 @@
 
                                             <TextView
                                                 android:layout_width="match_parent"
-                                                android:layout_height="30dp"
+                                                android:layout_height="40dp"
                                                 android:layout_margin="5dp"
                                                 android:gravity="center"
                                                 android:text="Chân thuận"></TextView>
@@ -240,7 +237,6 @@
                                             <TextView
                                                 android:layout_width="match_parent"
                                                 android:layout_height="30dp"
-                                                android:layout_margin="5dp"
                                                 android:gravity="center"
                                                 android:text="@{SessionUser.getInstance().playerLiveData.foot}"
                                                 android:textStyle="bold"></TextView>
@@ -260,8 +256,7 @@
 
                                             <TextView
                                                 android:layout_width="match_parent"
-                                                android:layout_height="30dp"
-                                                android:layout_margin="5dp"
+                                                android:layout_height="40dp"
                                                 android:gravity="center"
                                                 android:text="Sở trường"></TextView>
 
@@ -288,8 +283,7 @@
 
                                             <TextView
                                                 android:layout_width="match_parent"
-                                                android:layout_height="30dp"
-                                                android:layout_margin="5dp"
+                                                android:layout_height="40dp"
                                                 android:gravity="center"
                                                 android:text="Trình độ"></TextView>
 

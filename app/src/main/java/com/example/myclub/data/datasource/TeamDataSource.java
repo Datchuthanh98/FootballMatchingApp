@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.myclub.Interface.CallBack;
+import com.example.myclub.model.Booking;
 import com.example.myclub.model.Chat;
 import com.example.myclub.model.Comment;
 import com.example.myclub.model.Evaluate;
@@ -204,7 +205,7 @@ public class TeamDataSource {
     }
 
     public void loadChatTeam(String idTeam,final CallBack<List<Chat>,String> callBack) {
-        db.collection("Team").document(idTeam).collection("chatTeam").orderBy("timestamp").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        db.collection("Team").document(idTeam).collection("chatTeam").orderBy("time_create").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 List<Chat>  chats = queryDocumentSnapshots.toObjects(Chat.class);
@@ -273,5 +274,30 @@ public class TeamDataSource {
     }
 
 
+
+    public  void getListBooking(String idTeam , final CallBack<List<Booking>,String> loadListTeamCallBack){
+        functions.getHttpsCallable("getListBookingByTeamm").call(idTeam.trim()).addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
+            @Override
+            public void onSuccess(HttpsCallableResult httpsCallableResult) {
+                Gson gson= new Gson();
+                List<Map> listCommentMaps = (List<Map>) httpsCallableResult.getData();
+                List<Booking> listComments = new ArrayList<>();
+                if(listCommentMaps == null){
+                    loadListTeamCallBack.onSuccess(new ArrayList<Booking>());
+                }else{
+                    for (Map commentMap : listCommentMaps){
+                        Booking comment = gson.fromJson(gson.toJson(commentMap), Booking.class);
+                        listComments.add(comment);
+                    }
+                    loadListTeamCallBack.onSuccess(listComments);
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                loadListTeamCallBack.onFailure(e.getMessage());
+            }
+        });
+    }
 
 }

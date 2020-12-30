@@ -1,7 +1,6 @@
 package com.example.myclub.view.player.Fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +12,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 
-import com.example.myclub.auth.ActivityLogin;
 import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.session.SessionUser;
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.databinding.FragmentProfileMyselfBinding;
-import com.facebook.login.LoginManager;
-import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -43,7 +39,7 @@ public class FragmentProfileMyself extends Fragment {
             @Override
             public void onClick(View v) {
                 ActivityHome activityHome = (ActivityHome) getContext();
-                activityHome.addFragment(new FragmentEditMainPlayer());
+                activityHome.addFragment(new FragmentSettingPlayer());
             }
         });
         observeLiveData(view.getContext());

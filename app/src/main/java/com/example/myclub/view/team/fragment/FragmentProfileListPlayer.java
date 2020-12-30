@@ -13,6 +13,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.myclub.R;
+import com.example.myclub.databinding.FragmentListPlayerBinding;
 import com.example.myclub.model.Team;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterListPlayerVertical;
 import com.example.myclub.databinding.FragmentListBinding;
@@ -22,14 +24,18 @@ import com.example.myclub.session.SessionTeam;
 
 public class FragmentProfileListPlayer extends Fragment {
     private ListPlayerViewModel listPlayerViewModel = ListPlayerViewModel.getInstance();
-    private FragmentListBinding binding;
+    private FragmentListPlayerBinding binding;
+    private String idTeam;
 
+    public FragmentProfileListPlayer(String idTeam) {
+        this.idTeam = idTeam;
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         listPlayerViewModel = new ViewModelProvider(this).get(ListPlayerViewModel.class);
-        binding = FragmentListBinding.inflate(inflater);
+        binding = FragmentListPlayerBinding.inflate(inflater);
         return  binding.getRoot();
     }
 
@@ -38,10 +44,17 @@ public class FragmentProfileListPlayer extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initComponent();
         observeLiveData(view.getContext());
+        binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_back_white_24);
+        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().popBackStack();
+            }
+        });
     }
     private  void initComponent(){
-       binding.viewSearch.setVisibility(View.GONE);
-        binding.recycleViewListVertical.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        binding.recycleViewListPlayerVertical.setLayoutManager(new LinearLayoutManager(getContext()));
 
     }
 
@@ -50,10 +63,10 @@ public class FragmentProfileListPlayer extends Fragment {
          @Override
          public void onChanged(Team team) {
              if(team != null) {
-                 listPlayerViewModel.setListPlayerLiveData(SessionTeam.getInstance().getTeamLiveData().getValue().getPlayers());
+                 listPlayerViewModel.getListPlayer(idTeam);
                  RecycleViewAdapterListPlayerVertical adapter = listPlayerViewModel.getAdapterListPlayer();
                  adapter.setFm(getParentFragmentManager());
-                 binding.recycleViewListVertical.setAdapter(adapter);
+                 binding.recycleViewListPlayerVertical.setAdapter(adapter);
              }
          }
      });

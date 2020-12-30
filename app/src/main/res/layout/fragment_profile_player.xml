@@ -32,14 +32,14 @@
 
 
                 <ImageButton
-                    android:id="@+id/btnLogout"
+                    android:id="@+id/btnEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:paddingHorizontal="15dp"
                     android:background="?android:attr/selectableItemBackground"
                     android:src="@drawable/email_icon"/>
                 <ImageButton
-                    android:id="@+id/btnEdit"
+                    android:id="@+id/btnPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:paddingHorizontal="15dp"
@@ -189,8 +189,8 @@
 
                                             <TextView
                                                 android:layout_width="match_parent"
-                                                android:layout_height="30dp"
-                                                android:layout_margin="5dp"
+                                                android:layout_height="40dp"
+
                                                 android:gravity="center"
                                                 android:text="Ngày sinh"></TextView>
 
@@ -217,8 +217,7 @@
 
                                             <TextView
                                                 android:layout_width="match_parent"
-                                                android:layout_height="30dp"
-                                                android:layout_margin="5dp"
+                                                android:layout_height="40dp"
                                                 android:gravity="center"
                                                 android:text="Chiều cao"></TextView>
 
@@ -245,8 +244,7 @@
 
                                             <TextView
                                                 android:layout_width="match_parent"
-                                                android:layout_height="30dp"
-                                                android:layout_margin="5dp"
+                                                android:layout_height="40dp"
                                                 android:gravity="center"
                                                 android:text="Cân nặng"></TextView>
 
@@ -278,7 +276,7 @@
 
                                             <TextView
                                                 android:layout_width="match_parent"
-                                                android:layout_height="30dp"
+                                                android:layout_height="40dp"
                                                 android:layout_margin="5dp"
                                                 android:gravity="center"
                                                 android:text="Chân thuận"></TextView>
@@ -286,7 +284,6 @@
                                             <TextView
                                                 android:layout_width="match_parent"
                                                 android:layout_height="30dp"
-                                                android:layout_margin="5dp"
                                                 android:gravity="center"
                                                 android:text="@{player.foot}"
                                                 android:textStyle="bold"></TextView>
@@ -301,12 +298,12 @@
 
                                         <LinearLayout
                                             android:layout_width="match_parent"
-                                            android:layout_height="match_parent"
+                                            android:layout_height="69dp"
                                             android:orientation="vertical">
 
                                             <TextView
                                                 android:layout_width="match_parent"
-                                                android:layout_height="30dp"
+                                                android:layout_height="40dp"
                                                 android:layout_margin="5dp"
                                                 android:gravity="center"
                                                 android:text="Sở trường"></TextView>
@@ -314,7 +311,6 @@
                                             <TextView
                                                 android:layout_width="match_parent"
                                                 android:layout_height="30dp"
-                                                android:layout_margin="5dp"
                                                 android:gravity="center"
                                                 android:text="@{player.position}"
                                                 android:textStyle="bold"></TextView>
@@ -334,7 +330,7 @@
 
                                             <TextView
                                                 android:layout_width="match_parent"
-                                                android:layout_height="30dp"
+                                                android:layout_height="40dp"
                                                 android:layout_margin="5dp"
                                                 android:gravity="center"
                                                 android:text="Trình độ"></TextView>
@@ -342,7 +338,6 @@
                                             <TextView
                                                 android:layout_width="match_parent"
                                                 android:layout_height="30dp"
-                                                android:layout_margin="5dp"
                                                 android:gravity="center"
                                                 android:text="@{player.level}"
                                                 android:textStyle="bold"></TextView>

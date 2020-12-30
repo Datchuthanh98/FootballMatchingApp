@@ -30,6 +30,7 @@ exports.createMatch = match.createMatch;
 exports.getListMatchByField = match.getListMatchByField;
 exports.getListBookingByField = booking.getListBookingByField;
 exports.createBooking = booking.createBooking;
+exports.getListBookingByTeamm = booking.getListBookingByTeamm;
 
 exports.acceptJoinTeam = joinTeam.acceptJoinTeam;
 

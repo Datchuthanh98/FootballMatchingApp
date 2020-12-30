@@ -16,7 +16,7 @@
     android:layout_height="wrap_content"
     app:contentPadding="10dp"
     app:cardCornerRadius="10dp"
-    android:layout_margin="10dp"
+    android:layout_margin="5dp"
    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -138,9 +138,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"></TextView>
             <TextView
+             android:id="@+id/status"
                 android:layout_weight="1"
                 android:drawablePadding="5dp"
-                android:text="@{match.active == false ? `sắp diễn ra ` : `đã kết thúc`}"
                 android:drawableStart="@drawable/horn_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"></TextView>

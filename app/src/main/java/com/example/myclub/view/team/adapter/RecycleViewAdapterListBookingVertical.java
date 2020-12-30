@@ -1,4 +1,4 @@
-package com.example.myclub.view.match.adapter;
+package com.example.myclub.view.team.adapter;
 
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -10,11 +10,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myclub.R;
+import com.example.myclub.databinding.ItemBookingVerticalBinding;
 import com.example.myclub.databinding.ItemMatchVerticalBinding;
 import com.example.myclub.main.ActivityHome;
+import com.example.myclub.model.Booking;
 import com.example.myclub.model.Match;
 import com.example.myclub.view.match.fragment.FragmentMainProfileMatch;
-import com.example.myclub.viewModel.ListMatchViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -28,16 +29,16 @@ import java.util.List;
 //import com.example.managefield.view.Fragment.FragmentMainProfileMatch;
 
 
-public class RecycleViewAdapterListMatchVertical extends RecyclerView.Adapter<RecycleViewAdapterListMatchVertical.MyViewHolder> {
+public class RecycleViewAdapterListBookingVertical extends RecyclerView.Adapter<RecycleViewAdapterListBookingVertical.MyViewHolder> {
     private FragmentManager fm;
-    private List<Match> matches = new ArrayList<>();
+    private List<Booking> bookingList = new ArrayList<>();
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private StorageReference storageRef = storage.getReference();
 
-    public RecycleViewAdapterListMatchVertical() {
+    public RecycleViewAdapterListBookingVertical() {
     }
 
-    public RecycleViewAdapterListMatchVertical(FragmentManager fm) {
+    public RecycleViewAdapterListBookingVertical(FragmentManager fm) {
         this.fm = fm;
     }
 
@@ -45,20 +46,20 @@ public class RecycleViewAdapterListMatchVertical extends RecyclerView.Adapter<Re
         this.fm = fm;
     }
 
-    public  void  setListMatch(List<Match> listMatch){
-        this.matches = listMatch;
+    public  void  setListMatch(List<Booking> bookingList){
+        this.bookingList = bookingList;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        ItemMatchVerticalBinding binding = ItemMatchVerticalBinding.inflate(inflater, parent, false);
+        ItemBookingVerticalBinding binding = ItemBookingVerticalBinding.inflate(inflater, parent, false);
         return new MyViewHolder(binding);
     }
     class MyViewHolder extends RecyclerView.ViewHolder {
-        final ItemMatchVerticalBinding binding;
-        public MyViewHolder(ItemMatchVerticalBinding binding) {
+        final ItemBookingVerticalBinding binding;
+        public MyViewHolder(ItemBookingVerticalBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
@@ -66,26 +67,20 @@ public class RecycleViewAdapterListMatchVertical extends RecyclerView.Adapter<Re
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int position) {
-        holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ActivityHome activityHome = (ActivityHome) holder.itemView.getContext();
-                activityHome.addFragment(new FragmentMainProfileMatch(matches.get(position).getId()));
-            }
-        });
+
 
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(matches.get(position).getIdBooking().getDate());
+        calendar.setTimeInMillis(bookingList.get(position).getDate());
         int pYear=calendar.get(Calendar.YEAR);
         int pMonth=calendar.get(Calendar.MONTH);
         int pDay=calendar.get(Calendar.DAY_OF_MONTH);
-        String startTime = matches.get(position).getIdBooking().getIdTimeGame().getStartTime()+"h";
-        String endTime = matches.get(position).getIdBooking().getIdTimeGame().getEndTime()+"h";
+        String startTime =bookingList.get(position).getStartTime()+"h";
+        String endTime = bookingList.get(position).getEndTime()+"h";
         String timeDate = pDay+"/"+(pMonth+1)+"/"+pYear+","+startTime+"-"+endTime;
 
-       String nameField = matches.get(position).getIdBooking().getIdField().getName();
-       String addressField= matches.get(position).getIdBooking().getIdField().getAddress();
-       String positionField = matches.get(position).getIdBooking().getIdTimeGame().getPosition();
+       String nameField = bookingList.get(position).getIdField().getName();
+       String addressField= bookingList.get(position).getIdField().getAddress();
+       String positionField = bookingList.get(position).getPosition();
 
 
 
@@ -93,8 +88,8 @@ public class RecycleViewAdapterListMatchVertical extends RecyclerView.Adapter<Re
         holder.binding.txtTime.setText(timeDate);
 
 
-        if(matches.get(position).getIdBooking().getIdTeamHome() !=null) {
-            storageRef.child(matches.get(position).getIdBooking().getIdTeamHome().getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        if(bookingList.get(position).getIdTeamHome() !=null) {
+            storageRef.child(bookingList.get(position).getIdTeamHome().getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
                     if (uri != null) {
@@ -111,9 +106,9 @@ public class RecycleViewAdapterListMatchVertical extends RecyclerView.Adapter<Re
         }
 
 
-        if(matches.get(position).getIdBooking().getIdTeamAway() !=null) {
+        if(bookingList.get(position).getIdTeamAway() !=null) {
             holder.binding.avatarAway.setImageResource(R.drawable.avatar_team_default);
-            storageRef.child(matches.get(position).getIdBooking().getIdTeamAway().getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            storageRef.child(bookingList.get(position).getIdTeamAway().getUrlAvatar()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
                     if (uri != null) {
@@ -128,12 +123,21 @@ public class RecycleViewAdapterListMatchVertical extends RecyclerView.Adapter<Re
                 }
             });
         }
-        holder.binding.setMatch(matches.get(position));
+
+
+        if(bookingList.get(position).getApprove() == null){
+            holder.binding.status.setText("Chưa phê duyệt");
+        }else if(bookingList.get(position).getApprove() == true){
+            holder.binding.status.setText("Đã chấp nhận");
+        }else if(bookingList.get(position).getApprove() == false) {
+            holder.binding.status.setText("Đã từ chối");
+        }
+        holder.binding.setBooking(bookingList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return matches.size();
+        return bookingList.size();
     }
 }
 

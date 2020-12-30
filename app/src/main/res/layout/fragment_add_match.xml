@@ -71,52 +71,62 @@
                 android:drawableLeft="@drawable/ic_dark_mode"
                 android:layout_marginTop="10dp"
                 android:text="Sân bóng được chọn" />
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_margin="20dp"
-                android:id="@+id/viewField"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <androidx.cardview.widget.CardView
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:id="@+id/avatarField"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/field"
-                    />
-                <TextView
-                    android:drawableStart="@drawable/name_icon"
-                    android:drawablePadding="5dp"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="10dp"
-                    android:id="@+id/nameField"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="@{field.name}"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/avatarField"
-                    app:layout_constraintBottom_toTopOf="@+id/address"
-                    />
-                <TextView
-                    android:drawableStart="@drawable/address_icon"
-                    android:drawablePadding="5dp"
-                    android:layout_marginLeft="10dp"
-                    android:id="@+id/address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="@{field.address}"
-                    app:layout_constraintTop_toBottomOf="@+id/nameField"
-                    app:layout_constraintLeft_toRightOf="@id/avatarField"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:singleLine="true"
-                    android:scrollHorizontally="true"
-                    android:ellipsize="marquee"
-                    android:marqueeRepeatLimit="marquee_forever"
-                    />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                android:id="@+id/cardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:contentPadding="10dp"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="10dp"
+                >
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:id="@+id/avatarField"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/field"
+                        />
+                    <TextView
+                        android:drawableStart="@drawable/name_icon"
+                        android:drawablePadding="5dp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/namePlayer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{field.name}"
+                        android:hint="Name Team"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/avatarField"
+                        app:layout_constraintBottom_toTopOf="@+id/position"
+                        />
+                    <TextView
+                        android:drawableStart="@drawable/address_icon"
+                        android:drawablePadding="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/position"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="Adress Field"
+                        android:text="@{field.address}"
+                        app:layout_constraintTop_toBottomOf="@+id/namePlayer"
+                        app:layout_constraintLeft_toRightOf="@id/avatarField"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:singleLine="true"
+                        android:scrollHorizontally="true"
+                        android:ellipsize="marquee"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
 
 
 
@@ -126,52 +136,61 @@
                 android:drawableLeft="@drawable/ic_dark_mode"
                 android:layout_marginTop="10dp"
                 android:text="Chọn đội bóng" />
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_margin="20dp"
-                android:id="@+id/viewTeam"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewTeam"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:contentPadding="10dp"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="10dp"
+                >
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:id="@+id/avatarTeam"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/avatar_team_default"
-                    />
-                <TextView
-                    android:drawableStart="@drawable/name_icon"
-                    android:drawablePadding="5dp"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="10dp"
-                    android:id="@+id/namePlayer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="@{team.name}"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/avatarTeam"
-                    app:layout_constraintBottom_toTopOf="@+id/position"
-                    />
-                <TextView
-                    android:drawableStart="@drawable/address_icon"
-                    android:drawablePadding="5dp"
-                    android:layout_marginLeft="10dp"
-                    android:id="@+id/position"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="@{team.address}"
-                    app:layout_constraintTop_toBottomOf="@+id/namePlayer"
-                    app:layout_constraintLeft_toRightOf="@id/avatarTeam"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:singleLine="true"
-                    android:scrollHorizontally="true"
-                    android:ellipsize="marquee"
-                    android:marqueeRepeatLimit="marquee_forever"
-                    />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:id="@+id/avatarTeam"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/avatar_team_default"
+                        />
+                    <TextView
+                        android:drawableStart="@drawable/name_icon"
+                        android:drawablePadding="5dp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/nameTeam"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{team.name}"
+                        android:hint="Name Team"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/avatarTeam"
+                        app:layout_constraintBottom_toTopOf="@+id/positionTeam"
+                        />
+                    <TextView
+                        android:drawableStart="@drawable/address_icon"
+                        android:drawablePadding="5dp"
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/positionTeam"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:hint="Adress Team"
+                        android:text="@{team.phone}"
+                        app:layout_constraintTop_toBottomOf="@+id/nameTeam"
+                        app:layout_constraintLeft_toRightOf="@id/avatarTeam"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:singleLine="true"
+                        android:scrollHorizontally="true"
+                        android:ellipsize="marquee"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
             <TextView
 
                 style="@style/viewParent.headerText.settingsTextIcon"
@@ -189,7 +208,7 @@
                     android:paddingRight="20dp"
                     android:paddingLeft="20dp"
                     android:textColor="@color/white"
-                    android:background="@drawable/shape"
+                    android:background="@drawable/shape5"
                     android:text="Nội bộ"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -201,7 +220,7 @@
                     android:paddingRight="20dp"
                     android:paddingLeft="20dp"
                     android:textColor="@color/white"
-                    android:background="@drawable/shape"
+                    android:background="@drawable/shape5"
                     android:text="Giao lưu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -236,17 +255,46 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <EditText
-                    android:gravity="center"
-                    android:paddingLeft="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:textColor="@color/black"
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:hint="Nhập ngày đặt sân"
-                    android:background="@drawable/shape2"
-                    android:text="@{timeGame.startTime+'-'+timeGame.endTime+`-`+timeGame.cost+` VND`}"
-                    />
+                    android:layout_height="wrap_content"
+                    app:contentPadding="5dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="5dp"
+                    app:cardCornerRadius="10dp"
+                    >
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:paddingTop="5dp"
+                                android:drawablePadding="10dp"
+                                android:drawableStart="@drawable/time_icon"
+                                android:textSize="16dp"
+                                android:layout_weight="1"
+                                android:text="@{timeGame.startTime+ `h`+` - `+timeGame.endTime + `h`}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"></TextView>
+                            <TextView
+                                android:paddingTop="5dp"
+                                android:drawablePadding="10dp"
+                                android:drawableStart="@drawable/money"
+                                android:hint="money"
+                                android:textStyle="bold"
+                                android:textSize="16dp"
+                                android:text="@{ timeGame.cost +` VND`}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"></TextView>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
             </LinearLayout>
             <TextView

@@ -129,7 +129,6 @@ public class ActivityLogin extends AppCompatActivity {
         binding.btnGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loader.setVisibility(View.VISIBLE);
                 signIn();
             }
         });
@@ -198,8 +197,8 @@ public class ActivityLogin extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            loader.setVisibility(View.GONE);
-                            FirebaseUser user = mAuth.getCurrentUser();
+
+                                Toast.makeText(getApplicationContext(),FirebaseAuth.getInstance().getUid(),Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(ActivityLogin.this, ActivityHome.class));
                             finish();
 
@@ -224,8 +223,8 @@ public class ActivityLogin extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.d("facebook","456"+task.getResult().getUser().toString());
-//                            startActivity(new Intent(ActivityLogin.this, ActivityHome.class));
+                            Toast.makeText(getApplicationContext(),FirebaseAuth.getInstance().getUid(),Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(ActivityLogin.this, ActivityHome.class));
                         } else {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(ActivityLogin.this, "Authentication failed.",
@@ -262,8 +261,6 @@ public class ActivityLogin extends AppCompatActivity {
         loadingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         loadingLayoutBinding = LoadingLayoutBinding.inflate(getLayoutInflater());
         loadingDialog.setContentView(loadingLayoutBinding.getRoot());
-
-//        loadingLayoutBinding.title.setText(R.string.updating_information);
         loadingDialog.setCancelable(false);
     }
 

@@ -6,17 +6,16 @@ import androidx.lifecycle.ViewModel;
 import com.example.myclub.Interface.CallBack;
 import com.example.myclub.data.enumeration.LoadingState;
 import com.example.myclub.data.enumeration.Status;
+import com.example.myclub.data.repository.FieldRepository;
 import com.example.myclub.data.repository.MatchRepository;
 import com.example.myclub.model.Match;
 import com.example.myclub.view.match.adapter.RecycleViewAdapterListMatchVertical;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-public class ListMatchByTeamViewModel extends ViewModel {
-    private MatchRepository matchRepository = MatchRepository.getInstance();
+public class ListMatchByFieldViewModel extends ViewModel {
+    private FieldRepository matchRepository = FieldRepository.getInstance();
     private RecycleViewAdapterListMatchVertical adapterListMatchVertical = new RecycleViewAdapterListMatchVertical();
     private MutableLiveData<LoadingState> teamLoadState = new MutableLiveData<>(LoadingState.INIT);
     private MutableLiveData<Status> statusData = new MutableLiveData<>();
@@ -29,7 +28,7 @@ public class ListMatchByTeamViewModel extends ViewModel {
         this.statusData.setValue(statusData);
     }
 
-    public ListMatchByTeamViewModel() {
+    public ListMatchByFieldViewModel() {
 
     }
 
@@ -39,7 +38,7 @@ public class ListMatchByTeamViewModel extends ViewModel {
 
     public void getListMatchByTeam(String idTeam) {
         teamLoadState.setValue(LoadingState.LOADING);
-        matchRepository.loadListMatchByTeam(idTeam,new CallBack<List<Match>, String>() {
+        matchRepository.getListMatch(idTeam,new CallBack<List<Match>, String>() {
             @Override
             public void onSuccess(List<Match> matchList) {
                 teamLoadState.setValue(LoadingState.LOADED);

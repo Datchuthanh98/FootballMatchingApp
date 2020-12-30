@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,16 +16,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.myclub.Interface.CallBack;
 import com.example.myclub.R;
 import com.example.myclub.data.enumeration.Result;
-import com.example.myclub.data.repository.FieldRepository;
-import com.example.myclub.data.repository.TeamRepository;
 import com.example.myclub.databinding.FragmentAddMatchBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
 import com.example.myclub.main.ActivityHome;
@@ -32,10 +29,6 @@ import com.example.myclub.model.Field;
 import com.example.myclub.model.Team;
 import com.example.myclub.model.TimeGame;
 import com.example.myclub.session.SessionBookingField;
-import com.example.myclub.session.SessionUser;
-import com.example.myclub.view.field.adapter.RecycleViewAdapterListTimeVertical;
-import com.example.myclub.view.match.fragment.FragmentListTime;
-import com.example.myclub.view.team.adapter.RecycleViewAdapterListTeamVertical;
 import com.example.myclub.view.team.fragment.FragmentListMyTeam;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -43,10 +36,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class FragmentAddBooking extends Fragment {
@@ -183,8 +174,8 @@ public class FragmentAddBooking extends Fragment {
             @Override
             public void onClick(View v) {
                 data.put("idTeamAway", matchViewModel.getTeamLiveData().getValue().getId());
-                binding.btnLocal.setBackgroundColor(Color.BLACK);
-                binding.btnAway.setBackgroundColor(Color.BLUE);
+                binding.btnLocal.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.shape));
+                binding.btnAway.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.shape5));
             }
         });
 
@@ -192,8 +183,8 @@ public class FragmentAddBooking extends Fragment {
             @Override
             public void onClick(View v) {
                 data.put("idTeamAway", null);
-                binding.btnAway.setBackgroundColor(Color.BLACK);
-                binding.btnLocal.setBackgroundColor(Color.BLUE);
+                binding.btnLocal.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.shape5));
+                binding.btnAway.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.shape));
             }
         });
     }
@@ -203,7 +194,7 @@ public class FragmentAddBooking extends Fragment {
             @Override
             public void onChanged(Team team) {
                 if(team == null){
-                    binding.viewTeam.setVisibility(View.GONE);
+                    binding.cardViewTeam.setVisibility(View.GONE);
                 }else{
                     binding.setTeam(team);
                     if(team.getUrlAvatar() != null) {
@@ -222,7 +213,7 @@ public class FragmentAddBooking extends Fragment {
                             }
                         });
                     }
-                    binding.viewTeam.setVisibility(View.VISIBLE);
+                    binding.cardViewTeam.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -231,7 +222,6 @@ public class FragmentAddBooking extends Fragment {
         matchViewModel.getTimeLiveData().observe(getViewLifecycleOwner(), new Observer<TimeGame>() {
             @Override
             public void onChanged(TimeGame timeGame) {
-                Toast.makeText(getContext(), "ahihi",Toast.LENGTH_SHORT).show();
                 if(timeGame == null){
                     binding.viewTimeGame.setVisibility(View.GONE);
                 }else{
@@ -264,10 +254,13 @@ public class FragmentAddBooking extends Fragment {
         data.put("idTeamHome", matchViewModel.getTeamLiveData().getValue().getId());
         data.put("idField", field.getId());
         data.put("date", timeTimeLong);
-        data.put("idTimeGame", matchViewModel.getTimeLiveData().getValue().getId());
+        data.put("startTime", matchViewModel.getTimeLiveData().getValue().getStartTime());
+        data.put("endTime", matchViewModel.getTimeLiveData().getValue().getEndTime());
+        data.put("cost", matchViewModel.getTimeLiveData().getValue().getCost());
+        data.put("position", matchViewModel.getTimeLiveData().getValue().getPosition());
         data.put("note",binding.txtNote.getText().toString());
         data.put("phone",binding.txtPhone.getText().toString());
-//        data.put("timestamp",Calendar.getInstance().getTime());
+        data.put("time_create",Calendar.getInstance().getTimeInMillis());
         return data;
     }
 

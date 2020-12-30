@@ -176,112 +176,171 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:background="@color/white"
                     app:cardCornerRadius="10dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    app:layout_constraintTop_toTopOf="parent">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity=""
                         android:layout_weight="1"
                         android:orientation="vertical"
-                        android:paddingHorizontal="20dp"
+                        android:paddingHorizontal="10dp"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity=""
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Thông tin liên lạc"
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableStart="@drawable/ic_baseline_phone_24_green"
+                                android:padding="5dp"
+                                android:text="@{team.phone}"
+                                android:textSize="16dp"
+
+
+                                />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableStart="@drawable/email_icon"
+                                android:padding="5dp"
+                                android:text="@{team.email}"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableStart="@drawable/address_icon"
+                                android:padding="5dp"
+                                android:text="@{team.address}"
+                                android:textSize="16dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Lời giới thiệu"
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="5dp"
+                                android:text="@{team.introduce}"
+                                android:textSize="16dp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:paddingTop="10dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Thông tin liên lạc"
-                            android:textSize="20dp"
-                            android:textStyle="bold" />
+                            android:orientation="horizontal">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Danh sách cầu thủ"
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/listPlayerMore"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Xem thêm"
+                                android:textColor="@color/com_facebook_blue"
+                                android:textSize="16dp" />
+                        </LinearLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycleViewListPlayerVertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                        <LinearLayout
+                            android:paddingTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Danh sách trận đấu"
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/matchMore"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Xem thêm"
+                                android:textColor="@color/com_facebook_blue"
+                                android:textSize="16dp" />
+                        </LinearLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycleViewListMatchVertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            />
+
+                        <LinearLayout
+                            android:paddingTop="10dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:drawableStart="@drawable/ic_baseline_phone_24_green"
-                            android:padding="5dp"
-                            android:text="@{team.phone}"
-                            android:textSize="16dp"
+                            android:orientation="horizontal">
 
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Đánh giá về đội bóng"
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
 
+                            <TextView
+                                android:id="@+id/listEvaluateMore"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Xem thêm"
+                                android:textColor="@color/com_facebook_blue"
+                                android:textSize="16dp" />
+                        </LinearLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycleViewListEvaluateVertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableStart="@drawable/email_icon"
-                            android:padding="5dp"
-                            android:text="@{team.email}"
-                            android:textSize="16dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:drawableStart="@drawable/address_icon"
-                            android:padding="5dp"
-                            android:text="@{team.address}"
-                            android:textSize="16dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Lời giới thiệu"
-                            android:textSize="20dp"
-                            android:textStyle="bold" />
-
-                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="5dp"
-                            android:text="@{team.introduce}"
-                            android:textSize="16dp" />
+                            android:layout_height="50dp"></TextView>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Danh sách cầu thủ"
-                            android:textSize="20dp"
-                            android:textStyle="bold" />
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:padding="10dp"
-                            android:id="@+id/recycleViewListPlayerVertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Danh sách trận đấu"
-                            android:textSize="20dp"
-                            android:textStyle="bold" />
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:padding="10dp"
-                            android:id="@+id/recycleViewListMatchVertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Đánh giá về đội bóng"
-                            android:textSize="20dp"
-                            android:textStyle="bold" />
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:padding="10dp"
-                            android:id="@+id/recycleViewListEvaluateVertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
 
                     </LinearLayout>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"></TextView>
-
                 </androidx.cardview.widget.CardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

@@ -18,6 +18,7 @@ import com.example.myclub.databinding.FragmentAddTeamBinding;
 import com.example.myclub.databinding.LoadingLayoutBinding;
 import com.example.myclub.viewModel.ListTeamViewModel;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -76,6 +77,7 @@ public class FragmentAddTeamDialog extends DialogFragment {
         data.put("name", binding.txtName.getText().toString());
         data.put("phone", binding.txtPhone.getText().toString());
         data.put("email", binding.txtEmail.getText().toString());
+        data.put("time_create", Calendar.getInstance().getTimeInMillis());
         return data;
     }
 

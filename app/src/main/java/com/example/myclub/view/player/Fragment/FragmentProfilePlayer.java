@@ -1,5 +1,8 @@
 package com.example.myclub.view.player.Fragment;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -39,7 +43,7 @@ public class FragmentProfilePlayer extends Fragment {
     public FragmentProfilePlayer(Player player) {
         this.player =player;
     }
-
+    public final static int REQUEST_CALL_PHONE = 12422;
     private FragmentProfilePlayerBinding binding;
 
     @Nullable
@@ -109,8 +113,53 @@ public class FragmentProfilePlayer extends Fragment {
                 profilePlayerViewModel.declineJoinTeam(approveJoinTeam());
             }
         });
+        binding.btnPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.CALL_PHONE)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL_PHONE);
+                } else {
+                    doCalling();
+                }
+            }
+        });
+
+
+        binding.btnEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2 = new Intent();
+                intent2.setAction(Intent.ACTION_SENDTO);
+                intent2.putExtra("sms_body", "Chào team ");
+                intent2.setData(Uri.parse("sms:0984060798"));
+                startActivity(intent2);
+            }
+        });
+
     }
 
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CALL_PHONE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(getContext(), "Pemission granted", Toast.LENGTH_LONG);
+                doCalling();
+            } else {
+                Toast.makeText(getContext(), "Pemission denied", Toast.LENGTH_LONG);
+            }
+        }
+    }
+
+    public void doCalling(){
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_CALL);
+        intent.setData(Uri.parse("tel:0943761160"));
+        startActivity(intent);
+    }
     private Map<String, Object> approveJoinTeam() {
         data.put("team", sessionTeam.getTeamLiveData().getValue().getId());
         data.put("player",player.getId());

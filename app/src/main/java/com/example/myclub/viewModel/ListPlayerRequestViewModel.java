@@ -1,13 +1,9 @@
 package com.example.myclub.viewModel;
 
-import android.util.Log;
-
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.myclub.Interface.CallBack;
-import com.example.myclub.data.enumeration.Result;
 import com.example.myclub.data.repository.PlayerRepository;
 import com.example.myclub.model.Player;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterListPlayerRequestVertical;
@@ -16,10 +12,10 @@ import com.example.myclub.view.team.adapter.RecycleViewAdapterListPlayerVertical
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListPlayerViewModel extends ViewModel {
+public class ListPlayerRequestViewModel extends ViewModel {
     private PlayerRepository playerRepository = PlayerRepository.getInstance();
-    private static ListPlayerViewModel instance;
-    private RecycleViewAdapterListPlayerVertical adapterListPlayer = new RecycleViewAdapterListPlayerVertical();
+    private static ListPlayerRequestViewModel instance;
+    private RecycleViewAdapterListPlayerRequestVertical adapterListPlayer = new RecycleViewAdapterListPlayerRequestVertical();
     private MutableLiveData<List<Player>> listPlayerLiveData = new MutableLiveData<>();
     private String resultMessage = null;
 
@@ -30,15 +26,15 @@ public class ListPlayerViewModel extends ViewModel {
 
 
 
-    public static ListPlayerViewModel getInstance() {
+    public static ListPlayerRequestViewModel getInstance() {
         if (instance == null) {
-            instance = new ListPlayerViewModel();
+            instance = new ListPlayerRequestViewModel();
         }
         return instance;
     }
 
     public void getListPlayer(String idTeam) {
-        playerRepository.getListPlayer(idTeam, new CallBack<List<Player>, String>() {
+        playerRepository.getListPlayerRequest(idTeam, new CallBack<List<Player>, String>() {
             @Override
             public void onSuccess(List<Player> listPlayers) {
                 if (listPlayers == null) {
@@ -58,7 +54,7 @@ public class ListPlayerViewModel extends ViewModel {
         });
     }
 
-    public RecycleViewAdapterListPlayerVertical getAdapterListPlayer() {
+    public RecycleViewAdapterListPlayerRequestVertical getAdapterListPlayer() {
         return adapterListPlayer;
     }
 

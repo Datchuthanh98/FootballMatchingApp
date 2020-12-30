@@ -13,50 +13,74 @@
         android:layout_height="match_parent"
         >
 
+        <androidx.appcompat.widget.Toolbar
+            android:background="@drawable/toolbar_color"
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintTop_toTopOf="parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+               >
+                <TextView
+                    android:textAlignment="center"
+                    android:id="@+id/title"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="Danh sách trận đấu"
+                    android:textSize="26dp"
+                    android:textColor="@color/white"
+                    tools:ignore="RtlCompat" />
 
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
         <LinearLayout
             android:background="@drawable/toolbar_color"
             android:padding="10dp"
             android:id="@+id/selectDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
+  app:layout_constraintTop_toBottomOf="@id/toolbar"
             android:orientation="vertical">
             <LinearLayout
-
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:background="@drawable/border_text"
                     android:text="12/12/2020"
-                    android:textColor="@color/white"
+
                     android:id="@+id/dateStart"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="40dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:textSize="20dp"
                     android:textStyle="bold" />
-                \
+
                 <TextView
                     android:textSize="20dp"
-                    android:textColor="@color/white"
-                    android:text=" --"
+                    android:text=" - "
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     ></TextView>
                 <TextView
+                    android:background="@drawable/border_text"
                     android:text="14/12/2020"
-                    android:textColor="@color/white"
                     android:id="@+id/dateEnd"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="40dp"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:textSize="20dp"
                     android:textStyle="bold" />
                 <TextView
+                    android:paddingLeft="10dp"
                     android:drawableEnd="@drawable/seach_icon"
                     android:id="@+id/searchDate"
                     android:layout_width="wrap_content"

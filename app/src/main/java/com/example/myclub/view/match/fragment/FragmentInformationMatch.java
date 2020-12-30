@@ -51,13 +51,43 @@ public class FragmentInformationMatch extends Fragment {
                     int pYear = calendar.get(Calendar.YEAR);
                     int pMonth = calendar.get(Calendar.MONTH);
                     int pDay = calendar.get(Calendar.DAY_OF_MONTH);
-                    String startTime = viewModel.getMatchMutableLiveData().getValue().getIdBooking().getIdTimeGame().getStartTime() + "h";
-                    String endTime = viewModel.getMatchMutableLiveData().getValue().getIdBooking().getIdTimeGame().getEndTime() + "h";
+                    String startTime = viewModel.getMatchMutableLiveData().getValue().getIdBooking().getStartTime() + "h";
+                    String endTime = viewModel.getMatchMutableLiveData().getValue().getIdBooking().getEndTime() + "h";
                     String timeDate = pDay + "/" + (pMonth + 1) + "/" + pYear + "," + startTime + "-" + endTime;
                     binding.txtTime.setText(timeDate);
+
+                    String cutEndTime[] = viewModel.getMatchMutableLiveData().getValue().getIdBooking().getEndTime().split(":",2);
+                    int pHourEnd=Integer.parseInt(cutEndTime[0]);
+                    int mMinuteEnd= Integer.parseInt(cutEndTime[1]);
+
+                    String cutStartTime[] = viewModel.getMatchMutableLiveData().getValue().getIdBooking().getStartTime().split(":",2);
+                    int pHourStart=Integer.parseInt(cutStartTime[0]);
+                    int mMinuteStart= Integer.parseInt(cutStartTime[1]);
+
+                    Calendar calendar2 = Calendar.getInstance();
+                    calendar2.set(pYear,pMonth,pDay,pHourEnd,mMinuteEnd);
+                    long timeGameEnd = calendar2.getTimeInMillis();
+
+                    Calendar calendar3 = Calendar.getInstance();
+                    calendar3.set(pYear,pMonth,pDay,pHourStart,mMinuteStart);
+                    long timeGameStart = calendar3.getTimeInMillis();
+
+                    Calendar calendar4 = Calendar.getInstance();
+                    long timeNow = calendar4.getTimeInMillis();
+
+
+                    if(timeNow < timeGameStart){
+                        binding.status.setText("Sắp diễn ra");
+                    }else if(timeGameStart <= timeNow && timeNow  <= timeGameEnd){
+                        binding.status.setText("Đang diễn ra ");
+                    }else {
+                        binding.status.setText("Đã kết thúc ");
+                    }
                 }
             }
         });
+
+
 
 
 

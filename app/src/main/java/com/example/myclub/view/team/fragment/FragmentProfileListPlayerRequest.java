@@ -14,14 +14,16 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.myclub.R;
 import com.example.myclub.databinding.FragmentListBinding;
 import com.example.myclub.databinding.FragmentListRequestBinding;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterListPlayerRequestVertical;
+import com.example.myclub.viewModel.ListPlayerRequestViewModel;
 import com.example.myclub.viewModel.ListPlayerViewModel;
 
 
 public class FragmentProfileListPlayerRequest extends Fragment {
-    private ListPlayerViewModel listPlayerViewModel = ListPlayerViewModel.getInstance();
+    private ListPlayerRequestViewModel listPlayerViewModel = ListPlayerRequestViewModel.getInstance();
     private FragmentListRequestBinding binding;
     private String idTeam;
 
@@ -32,9 +34,10 @@ public class FragmentProfileListPlayerRequest extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        listPlayerViewModel = new ViewModelProvider(this).get(ListPlayerViewModel.class);
+        listPlayerViewModel = new ViewModelProvider(this).get(ListPlayerRequestViewModel.class);
         binding = FragmentListRequestBinding.inflate(inflater);
         return  binding.getRoot();
+
     }
 
     @Override
@@ -42,11 +45,18 @@ public class FragmentProfileListPlayerRequest extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initComponent();
         observeLiveData(view.getContext());
+        binding.toolbar.setNavigationIcon(R.drawable.ic_baseline_back_white_24);
+        binding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().popBackStack();
+            }
+        });
     }
     private  void initComponent(){
-        listPlayerViewModel.getListPlayerRequest(idTeam);
+        listPlayerViewModel.getListPlayer(idTeam);
         binding.recycleViewListRequestVertical.setLayoutManager(new LinearLayoutManager(getContext()));
-        RecycleViewAdapterListPlayerRequestVertical adapter = listPlayerViewModel.getAdapterListPlayerRequest();
+        RecycleViewAdapterListPlayerRequestVertical adapter = listPlayerViewModel.getAdapterListPlayer();
         adapter.setFm(getParentFragmentManager());
         binding.recycleViewListRequestVertical.setAdapter(adapter);
     }

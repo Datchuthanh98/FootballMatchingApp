@@ -53,8 +53,6 @@
                 android:drawableLeft="@drawable/ic_edit_profile"
                 android:text="Đổi ảnh bìa" />
 
-
-
             <TextView
                 android:id="@+id/btnEditBasic"
                 style="@style/viewParent.headerText.settingsTextIcon"
@@ -62,24 +60,12 @@
                 android:layout_marginTop="10dp"
                 android:text="Đổi thông tin cơ bản" />
             <TextView
-                android:id="@+id/btnEditPlayer"
-                style="@style/viewParent.headerText.settingsTextIcon"
-                android:drawableLeft="@drawable/ic_edit_password"
-                android:text="Đổi thông tin thi đấu" />
-
-
-            <TextView
                 android:id="@+id/btnEditIntroduce"
                 style="@style/viewParent.headerText.settingsTextIcon"
                 android:drawableLeft="@drawable/ic_languages"
                 android:text="Cập nhập lời giới thiệu" />
 
-            <TextView
-                android:id="@+id/changepass"
-                style="@style/viewParent.headerText.settingsTextIcon"
-                android:drawableLeft="@drawable/iconpassword"
-                android:layout_marginTop="10dp"
-                android:text="Đổi mật khẩu" />
+
             <TextView
                 style="@style/viewParent.headerText.settingsMiniTitle"
                 android:text="Quản lý cầu thủ" />
@@ -88,28 +74,11 @@
                 android:id="@+id/btnShow"
 
                 style="@style/viewParent.headerText.settingsTextIcon"
-                android:drawableLeft="@drawable/language"
+
+                android:drawableLeft="@drawable/request"
                 android:text="Duyệt thành viên"
                 />
 
-            <TextView
-                style="@style/viewParent.headerText.settingsMiniTitle"
-                android:text="Hoạt động" />
-
-
-
-            <TextView
-                android:id="@+id/btnLogout"
-                style="@style/viewParent.headerText.settingsTextIcon"
-                android:drawableLeft="@drawable/ic_logout"
-                android:text="Đăng xuât" />
-
-
-            <TextView
-                android:layout_marginTop="100dp"
-                style="@style/viewParent.headerText.settingsMiniTitle"
-                android:text="App ver 2.0 by Dat Chu Thanh"
-                android:textAlignment="center"/>
 
             <FrameLayout
                 android:id="@+id/container"
