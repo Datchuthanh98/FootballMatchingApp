@@ -80,10 +80,10 @@ public class ActivityLogin extends AppCompatActivity {
         initLoadingDialog(ActivityLogin.this);
 
 
-//        if (FirebaseAuth.getInstance().getCurrentUser() != null){
-//            Log.d("facebook","123"+FirebaseAuth.getInstance().getCurrentUser().getEmail());
-////            loginWithEmail();
-//        }
+        if (FirebaseAuth.getInstance().getCurrentUser() != null){
+            Log.d("auto login",FirebaseAuth.getInstance().getCurrentUser().getEmail());
+            loginWithEmail();
+        }
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -110,7 +110,8 @@ public class ActivityLogin extends AppCompatActivity {
         binding.btnPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ActivityLogin.this, PhoneLoginActivity.class));
+                Toast.makeText(getApplicationContext(),"Chức năng đăng nhập qua điện thoại đang bảo trì !",Toast.LENGTH_SHORT).show();
+//                startActivity(new Intent(ActivityLogin.this, PhoneLoginActivity.class));
             }
         });
 
@@ -129,7 +130,8 @@ public class ActivityLogin extends AppCompatActivity {
         binding.btnGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signIn();
+                Toast.makeText(getApplicationContext(),"Chức năng đăng nhập qua gmail đang bảo trì !",Toast.LENGTH_SHORT).show();
+//                signIn();
             }
         });
 
@@ -140,25 +142,26 @@ public class ActivityLogin extends AppCompatActivity {
         binding.btnFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginManager.getInstance().logInWithReadPermissions(ActivityLogin.this, Arrays.asList("email", "public_profile"));
-                LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        handleFacebookAccessToken(loginResult.getAccessToken());
-                    }
-
-                    @Override
-                    public void onCancel() {
-                        Log.d("djvbdfjbv", "facebook:onCancel");
-                        // ...
-                    }
-
-                    @Override
-                    public void onError(FacebookException error) {
-                        Log.d("djvbdfjbv", "facebook:onError", error);
-                        // ...
-                    }
-                });
+                Toast.makeText(getApplicationContext(),"Chức năng đăng nhập qua facebook đang bảo trì !",Toast.LENGTH_SHORT).show();
+//                LoginManager.getInstance().logInWithReadPermissions(ActivityLogin.this, Arrays.asList("email", "public_profile"));
+//                LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+//                    @Override
+//                    public void onSuccess(LoginResult loginResult) {
+//                        handleFacebookAccessToken(loginResult.getAccessToken());
+//                    }
+//
+//                    @Override
+//                    public void onCancel() {
+//                        Log.d("djvbdfjbv", "facebook:onCancel");
+//                        // ...
+//                    }
+//
+//                    @Override
+//                    public void onError(FacebookException error) {
+//                        Log.d("djvbdfjbv", "facebook:onError", error);
+//                        // ...
+//                    }
+//                });
             }
         });
 

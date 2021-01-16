@@ -25,6 +25,7 @@ import com.example.myclub.main.ActivityHome;
 import com.example.myclub.model.Team;
 import com.example.myclub.session.SessionUser;
 import com.example.myclub.view.match.adapter.RecycleViewAdapterListMatchVertical;
+import com.example.myclub.view.team.adapter.RecycleViewAdapterLisEvaluateHorizontal;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterLisEvaluateVertical;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterListPlayerHorizontal;
 import com.example.myclub.viewModel.ProfileOtherTeamViewModel;
@@ -198,7 +199,7 @@ public class FragmentProfileMainTeamOther extends Fragment {
         binding.recycleViewListMatchVertical.setAdapter(adapterListMatch);
         binding.recycleViewListMatchVertical.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
 
-        RecycleViewAdapterLisEvaluateVertical adapterListEvaluate = viewModel.getAdapterListEvaluate();
+        RecycleViewAdapterLisEvaluateHorizontal adapterListEvaluate = viewModel.getAdapterListEvaluate();
         adapterListEvaluate.setFm(getParentFragmentManager());
         binding.recycleViewListEvaluateVertical.setAdapter(adapterListEvaluate);
         binding.recycleViewListEvaluateVertical.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));

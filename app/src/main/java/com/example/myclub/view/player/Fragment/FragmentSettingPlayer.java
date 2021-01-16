@@ -106,6 +106,13 @@ public class FragmentSettingPlayer extends Fragment {
             }
         });
 
+        binding.changepass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BottomSheetDialogFragment dialog = new FragmentPassword();
+                dialog.show(getParentFragmentManager(), null);
+            }
+        });
 
 
         binding.btnEditIntroduce.setOnClickListener(new View.OnClickListener() {

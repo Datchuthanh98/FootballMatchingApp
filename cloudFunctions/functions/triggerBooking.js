@@ -69,7 +69,7 @@ exports.triggerAcceptBooking = functions.firestore.document('Booking/{recordId}'
 
     let messageToOthers;
     //send Accept Booking
-    if (bookingAfter.approve !== bookingBefore.approve) {
+    if (bookingAfter.approve === true && bookingBefore.approve === null) {
         messageToOthers = {
             data: {
                 messageType: 'Accept Booking',
@@ -77,7 +77,7 @@ exports.triggerAcceptBooking = functions.firestore.document('Booking/{recordId}'
                 fieldName: fieldRecord.data().name,
                 startTime: bookingBefore.startTime,
                 endTime: bookingBefore.endTime,
-                dateTime : bookingBefore.date, 
+                dateTime : ""+bookingBefore.date, 
             },
             tokens: teamMemberRegistrationTokens
         }
@@ -93,7 +93,7 @@ exports.triggerAcceptBooking = functions.firestore.document('Booking/{recordId}'
       
 
     if (!playersAway.empty) {
-        for (i = 0; i < listPlayerRecordID.docs.length; i++) {
+        for (i = 0; i < playersAway.docs.length; i++) {
             listPlayerPromises.push(db.collection("Player").doc(playersAway.docs[i].data().player).get())
         }
     }
@@ -114,7 +114,7 @@ exports.triggerAcceptBooking = functions.firestore.document('Booking/{recordId}'
                 fieldName: fieldRecord.data().name,
                 startTime:  bookingBefore.startTime,
                 endTime:  bookingBefore.endTime,
-                dateTime : bookingBefore.date, 
+                dateTime : ""+bookingBefore.date, 
             },
             tokens: teamMemberRegistrationTokens
         }

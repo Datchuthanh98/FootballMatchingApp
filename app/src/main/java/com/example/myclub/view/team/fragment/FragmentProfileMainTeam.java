@@ -20,6 +20,7 @@ import com.example.myclub.databinding.FragmentProfileMyTeamBinding;
 import com.example.myclub.main.ActivityHome;
 import com.example.myclub.view.match.adapter.RecycleViewAdapterListMatchVertical;
 import com.example.myclub.session.SessionTeam;
+import com.example.myclub.view.team.adapter.RecycleViewAdapterLisEvaluateHorizontal;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterLisEvaluateVertical;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterListPlayerHorizontal;
 import com.squareup.picasso.Picasso;
@@ -120,7 +121,7 @@ public class FragmentProfileMainTeam extends Fragment {
         binding.recycleViewListMatchVertical.setAdapter(adapterListMatch);
         binding.recycleViewListMatchVertical.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
 
-        RecycleViewAdapterLisEvaluateVertical adapterListEvaluate = SessionTeam.getInstance().getAdapterListEvaluate();
+        RecycleViewAdapterLisEvaluateHorizontal adapterListEvaluate = SessionTeam.getInstance().getAdapterListEvaluate();
         adapterListEvaluate.setFm(getParentFragmentManager());
         binding.recycleViewListEvaluateVertical.setAdapter(adapterListEvaluate);
         binding.recycleViewListEvaluateVertical.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));

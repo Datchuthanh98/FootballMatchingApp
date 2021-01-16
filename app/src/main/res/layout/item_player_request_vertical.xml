@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="player"
+            type="com.example.myclub.model.Player" />
+    </data>
+<androidx.cardview.widget.CardView
+    android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:contentPadding="10dp"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="10dp"
+   >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:src="@drawable/avatar_player_default"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:id="@+id/avatarPlayer"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+
+            />
+        <TextView
+            android:drawableStart="@drawable/name_icon"
+            android:drawablePadding="5dp"
+            android:hint="name player"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/namePlayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{player.name}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/avatarPlayer"
+            app:layout_constraintBottom_toTopOf="@+id/position"
+            />
+        <TextView
+            android:drawableStart="@drawable/position"
+            android:drawablePadding="5dp"
+            android:hint="position"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{player.position}"
+            app:layout_constraintTop_toBottomOf="@+id/namePlayer"
+            app:layout_constraintLeft_toRightOf="@id/avatarPlayer"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+        <ImageView
+            android:paddingRight="20dp"
+            android:id="@+id/btnYes"
+            android:src="@drawable/yes"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/btnNo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="10"
+            android:textSize="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </ImageView>
+
+            <ImageView
+                android:paddingRight="20dp"
+                 android:id="@+id/btnNo"
+                android:src="@drawable/no"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/btnSee"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="10"
+                android:textSize="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </ImageView>
+        <ImageView
+            android:id="@+id/btnSee"
+            android:src="@drawable/see_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="10"
+            android:textSize="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </ImageView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
+</layout>

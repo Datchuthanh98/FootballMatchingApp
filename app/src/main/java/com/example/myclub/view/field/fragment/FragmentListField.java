@@ -86,5 +86,7 @@ public class FragmentListField extends Fragment {
                 }
             }
         });
+
+        binding.btnCreateTeam.setVisibility(View.GONE);
     }
 }

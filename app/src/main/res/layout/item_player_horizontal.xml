@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:drawableStart="@drawable/name_icon"
+
                 android:drawablePadding="5dp"
                 android:hint="name player"
                 android:text="@{player.name}"
@@ -51,8 +51,6 @@
                 android:id="@+id/position"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:drawableStart="@drawable/position"
                 android:drawablePadding="5dp"
                 android:hint="position"
                 android:text="@{player.position}"

@@ -31,7 +31,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:text="Danh sách trận đấu"
-                    android:textSize="26dp"
+                    android:textSize="24dp"
                     android:textColor="@color/white"
                     tools:ignore="RtlCompat" />
 
@@ -54,7 +54,6 @@
                 <TextView
                     android:background="@drawable/border_text"
                     android:text="12/12/2020"
-
                     android:id="@+id/dateStart"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
@@ -99,9 +98,10 @@
             app:layout_constraintTop_toBottomOf="@id/selectDate"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:id="@+id/recycleViewListVertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -113,7 +113,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/selectDate">
 
             <ProgressBar
                 android:layout_width="wrap_content"
@@ -136,9 +136,11 @@
             app:layout_constraintTop_toBottomOf="@+id/selectDate">
 
             <TextView
+                android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Chưa có trận đấu nào trong ngày này"
+                android:textSize="18dp"
+                android:text="Chưa có trận đấu nào trong khoảng thời gian này !"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"

@@ -15,6 +15,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.myclub.R;
+import com.example.myclub.data.enumeration.LoadingState;
+import com.example.myclub.data.enumeration.Status;
 import com.example.myclub.databinding.FragmentListBinding;
 import com.example.myclub.databinding.FragmentListRequestBinding;
 import com.example.myclub.view.team.adapter.RecycleViewAdapterListPlayerRequestVertical;
@@ -23,7 +25,7 @@ import com.example.myclub.viewModel.ListPlayerViewModel;
 
 
 public class FragmentProfileListPlayerRequest extends Fragment {
-    private ListPlayerRequestViewModel listPlayerViewModel = ListPlayerRequestViewModel.getInstance();
+    private ListPlayerRequestViewModel listPlayerViewModel;
     private FragmentListRequestBinding binding;
     private String idTeam;
 
@@ -35,6 +37,7 @@ public class FragmentProfileListPlayerRequest extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         listPlayerViewModel = new ViewModelProvider(this).get(ListPlayerRequestViewModel.class);
+        listPlayerViewModel.setTeam(idTeam);
         binding = FragmentListRequestBinding.inflate(inflater);
         return  binding.getRoot();
 
@@ -59,8 +62,37 @@ public class FragmentProfileListPlayerRequest extends Fragment {
         RecycleViewAdapterListPlayerRequestVertical adapter = listPlayerViewModel.getAdapterListPlayer();
         adapter.setFm(getParentFragmentManager());
         binding.recycleViewListRequestVertical.setAdapter(adapter);
+        adapter.setViewModel(listPlayerViewModel);
+
+
+
+
     }
 
     private void observeLiveData(final Context context) {
+        listPlayerViewModel.getTeamLoadState().observe(getViewLifecycleOwner(), new Observer<LoadingState>() {
+            @Override
+            public void onChanged(LoadingState loadingState) {
+                if (loadingState == null) return;
+                if (loadingState == LoadingState.INIT) {
+                    binding.loadingLayout.setVisibility(View.VISIBLE);
+                } else if (loadingState == LoadingState.LOADING) {
+                    binding.loadingLayout.setVisibility(View.VISIBLE);
+                } else if (loadingState == LoadingState.LOADED) {
+                    binding.loadingLayout.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        listPlayerViewModel.getStatusData().observe(getViewLifecycleOwner(), new Observer<Status>() {
+            @Override
+            public void onChanged(Status status) {
+                if(status == Status.NO_DATA){
+                    binding.viewNoData.setVisibility(View.VISIBLE);
+                }else if(status == status.EXIST_DATA){
+                    binding.viewNoData.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 }
